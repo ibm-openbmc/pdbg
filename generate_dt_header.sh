@@ -1,8 +1,8 @@
 #!/bin/sh
 
 if [ $# -ne 1 ] ; then
-	echo "Usage: $0 <file.dts>"
-	exit 1
+    echo "Usage: $0 <file.dts>"
+    exit 1
 fi
 
 SYMBOL=$(basename "$1" | sed 's/dts/dtb/' | tr '.-' '_')

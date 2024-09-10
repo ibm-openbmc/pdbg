@@ -6,11 +6,11 @@ test_group "target selection tests"
 
 arch=$(arch 2>/dev/null)
 
-do_skip ()
+do_skip()
 {
-	if [ "$arch" != "x86_64" ] ; then
-		test_skip
-	fi
+    if [ "$arch" != "x86_64" ] ; then
+        test_skip
+    fi
 }
 
 test_result 1 <<EOF

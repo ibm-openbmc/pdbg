@@ -12,40 +12,40 @@ PDBG_ARM_BUILD=
 PDBG_PATH=/tmp/pdbg
 PDBG=${PDBG_PATH}/pdbg
 
-load_config ()
+function load_config()
 {
-	if [ ! -f "$BMC_TEST" ] ; then
-		echo "Missing file $BMC_TEST, skipping tests"
-		return 77
-	fi
+    if [ ! -f "$BMC_TEST" ] ; then
+        echo "Missing file $BMC_TEST, skipping tests"
+        return 77
+    fi
 
-	fail=0
-	. "$BMC_TEST"
+    fail=0
+    . "$BMC_TEST"
 
-	for var in "BMC_HOST" "BMC_USER" "BMC_PASS" "PDBG_ARM_BUILD"; do
-		eval value="\$$var"
-		if [ -z "$value" ] ; then
-			echo "$var not defined in $BMC_TEST"
-			fail=1
-		fi
-	done
+    for var in "BMC_HOST" "BMC_USER" "BMC_PASS" "PDBG_ARM_BUILD"; do
+        eval value="\$$var"
+        if [ -z "$value" ] ; then
+            echo "$var not defined in $BMC_TEST"
+            fail=1
+        fi
+    done
 
-	return $fail
+    return $fail
 }
 
-copy_pdbg ()
+function copy_pdbg()
 {
-	sshpass -p "$BMC_PASS" \
-		rsync -Pav "${PDBG_ARM_BUILD}/.libs/"* \
-			${BMC_USER}@${BMC_HOST}:${PDBG_PATH}
+    sshpass -p "$BMC_PASS" \
+        rsync -Pav "${PDBG_ARM_BUILD}/.libs/"* \
+        ${BMC_USER}@${BMC_HOST}:${PDBG_PATH}
 }
 
-run_over_ssh ()
+function run_over_ssh()
 {
-	sshpass -p "$BMC_PASS" \
-		ssh ${BMC_USER}@${BMC_HOST} \
-		LD_LIBRARY_PATH="${PDBG_PATH}" \
-		"$@"
+    sshpass -p "$BMC_PASS" \
+        ssh ${BMC_USER}@${BMC_HOST} \
+        LD_LIBRARY_PATH="${PDBG_PATH}" \
+        "$@"
 }
 
 test_setup load_config
@@ -55,10 +55,10 @@ test_group "BMC HW tests"
 
 hw_state=0
 
-do_skip ()
+function do_skip()
 {
     if [ $hw_state -ne 1 ] ; then
-	test_skip
+        test_skip
     fi
 }
 
@@ -68,20 +68,20 @@ output=$(run_over_ssh obmcutil state | grep CurrentHostState)
 rc=$?
 if [ $rc -ne 0 ] || \
     [ "$output" = "CurrentHostState    : xyz.openbmc_project.State.Host.HostState.Running" ] ; then
-	echo "yes"
-	hw_state=1
+    echo "yes"
+    hw_state=1
 else
-	echo "no"
-	echo "$output"
+    echo "no"
+    echo "$output"
 fi
 
 test_wrapper run_over_ssh
 
-result_filter ()
+function result_filter()
 {
-	sed -E -e 's#0x[[:xdigit:]]{16}#HEX16#g' \
-	    -E -e 's#0x[[:xdigit:]]{8}#HEX8#g' \
-	    -E -e 's#/.*proc0/pib#PIB0PATH#'
+    sed -E -e 's#0x[[:xdigit:]]{16}#HEX16#g' \
+        -E -e 's#0x[[:xdigit:]]{8}#HEX8#g' \
+        -E -e 's#/.*proc0/pib#PIB0PATH#'
 }
 
 test_result 0 <<EOF
@@ -98,9 +98,9 @@ EOF
 do_skip
 test_run $PDBG -p0 getscom 0xf000f
 
-result_filter ()
+function result_filter()
 {
-	result_filter_default
+    result_filter_default
 }
 
 test_result 0 <<EOF
