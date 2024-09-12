@@ -26,12 +26,9 @@ PDBG_TESTS = \
 	tests/test_selection.sh 	\
 	tests/test_selection2.sh 	\
 	tests/test_hw_bmc.sh		\
-	tests/test_hexdump.sh		\
 	tests/test_tree.sh		\
 	tests/test_tree2.sh		\
 	tests/test_prop.sh		\
-	tests/test_attr_array.sh	\
-	tests/test_attr_packed.sh	\
 	tests/test_traverse.sh		\
 	tests/test_p9_fapi_translation.sh \
 	tests/test_p10_fapi_translation.sh

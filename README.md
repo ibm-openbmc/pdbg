@@ -1,12 +1,11 @@
 # PDBG
 
-pdbg is a simple application to allow debugging of the host POWER
-processors from the BMC. It works in a similar way to JTAG programmers
-for embedded system development in that it allows you to access GPRs,
-SPRs and system memory.
+pdbg is a simple application to allow debugging of the host POWER processors
+from the BMC. It works in a similar way to JTAG programmers for embedded system
+development in that it allows you to access GPRs, SPRs and system memory.
 
-A remote gdb sever is under development to allow integration with
-standard debugging tools.
+A remote gdb sever is under development to allow integration with standard
+debugging tools.
 
 ## Building
 
@@ -17,11 +16,12 @@ top level directory. Static linking is supported and can be performed by adding
 
 ### Cross compiling for BMC (ARM)
 
-First, work out if your BMC is using the hard or soft float ABI. If the
-file /lib/ld-linux.so.3 exists, soft-float. If /lib/ld-linux-armhf.so.3
-exists, hard-float.
+First, work out if your BMC is using the hard or soft float ABI. If the file
+/lib/ld-linux.so.3 exists, soft-float. If /lib/ld-linux-armhf.so.3 exists,
+hard-float.
 
 To build for soft-float:
+
 ```
 apt-get install gcc-arm-linux-gnueabi
 ./bootstrap.sh
@@ -31,6 +31,7 @@ rsync pdbg root@bmc:/usr/local/bin
 ```
 
 For hard-float:
+
 ```
 apt-get install gcc-arm-linux-gnueabihf
 ./bootstrap.sh
@@ -48,8 +49,8 @@ changed. `make generated` to update such generated files.
 
 ## Testing
 
-There is a test suite to perform some basic testing. The tests on the host
-are mostly unit tests that exercise the device tree based targetting code.
+There is a test suite to perform some basic testing. The tests on the host are
+mostly unit tests that exercise the device tree based targetting code.
 
 ```
 make check
@@ -119,63 +120,63 @@ mode to allow access to the relevant GPIOs:
 On POWER9 when using the fsi backend it is also a good idea to put the BMC into
 debug mode to prevent conflicts with the OpenFSI driver. On the BMC run:
 
-`systemctl start fsi-disable.service && systemctl stop
-host-failure-reboots@0.service`
+`systemctl start fsi-disable.service && systemctl stop host-failure-reboots@0.service`
 
 Usage is straight forward. Note that if the binary is not statically linked all
-commands need to be prefixed with LD\_LIBRARY\_PATH=<path to libpdbg> in
-addition to the arguments for selecting a backend.
+commands need to be prefixed with LD_LIBRARY_PATH=<path to libpdbg> in addition
+to the arguments for selecting a backend.
 
 ### Target Selection
 
-pdbg has commands that operate on specific hardware unit(s) inside the
-POWER processor.  To select appropriate hardware unit (commonly referred
-as **target**), pdbg provides two different mechanisms.
+pdbg has commands that operate on specific hardware unit(s) inside the POWER
+processor. To select appropriate hardware unit (commonly referred as
+**target**), pdbg provides two different mechanisms.
 
 #### Select processor(s) / Core(s) / Thread(s) using -p/-c/-t/-a/-l
 
-Many commands typically operate on hardware thread(s) or CPU(s)
-as identified by Linux.
+Many commands typically operate on hardware thread(s) or CPU(s) as identified by
+Linux.
 
- - all threads (`-a`)
- - core 0 of processor 0 (`-p0 -c0`)
- - all threads on processor 0  (`-p0 -a`)
- - all threads on core 1 of processor 0 (`-p0 -c1 -a`)
- - thread 2 on core 1 of processor 0 (`-p0 -c1 -t2`)
- - thread 0 on all cores of processor 0 (`-p0 -t0 -a`)
- - threads 1,2,3,4 on cores 1,3,5 of processor 1 (`-p1 -c1,3,5 -t1-4`)
- - CPUs 15 and 17 as identified by Linux (`-l15,17`)
+- all threads (`-a`)
+- core 0 of processor 0 (`-p0 -c0`)
+- all threads on processor 0 (`-p0 -a`)
+- all threads on core 1 of processor 0 (`-p0 -c1 -a`)
+- thread 2 on core 1 of processor 0 (`-p0 -c1 -t2`)
+- thread 0 on all cores of processor 0 (`-p0 -t0 -a`)
+- threads 1,2,3,4 on cores 1,3,5 of processor 1 (`-p1 -c1,3,5 -t1-4`)
+- CPUs 15 and 17 as identified by Linux (`-l15,17`)
 
 Note: `-l` option is only available when running `pdbg` on the host.
 
 #### Select targets based on path using -P
 
-To select any target in a device tree, it can be specified using `-P`.
-The -P option takes path specification as an argument.  This path specification
-is constructed using the *class* names of targets present in a device tree.
+To select any target in a device tree, it can be specified using `-P`. The -P
+option takes path specification as an argument. This path specification is
+constructed using the _class_ names of targets present in a device tree.
 
 Some of the targets currently available for selection are:
 
- - `pib`
- - `core`
- - `thread`
- - `adu`
- - `fsi`
- - `chiplet`
+- `pib`
+- `core`
+- `thread`
+- `adu`
+- `fsi`
+- `chiplet`
 
-Path specification can be either an individual target or a *path* constructed
+Path specification can be either an individual target or a _path_ constructed
 using more than one targets.
 
- - all threads (`-P thread`)
- - core 0 of processor 0 (`-P pib0/core0`)
- - all threads on processor 0 (`-P pib0/thread`)
- - all threads on core 1 of processor 0 (`-P pib0/core1/thread`)
- - thread 2 on core 1 of processor 0 (`-P pib0/core1/thread2`)
- - thread 0 on all cores of processor 0 (`-P pib0/thread0`)
- - threads 1,2,3,4 on cores 1,3,5 of processor 1 (`-P pib1/core[1,3,5]/thread[1-4]`)
- - chiplet at address 21000000 (-P `chiplet@21000000`)
- - all adus (`-P adu`)
- - First FSI (`-P fsi0`)
+- all threads (`-P thread`)
+- core 0 of processor 0 (`-P pib0/core0`)
+- all threads on processor 0 (`-P pib0/thread`)
+- all threads on core 1 of processor 0 (`-P pib0/core1/thread`)
+- thread 2 on core 1 of processor 0 (`-P pib0/core1/thread2`)
+- thread 0 on all cores of processor 0 (`-P pib0/thread0`)
+- threads 1,2,3,4 on cores 1,3,5 of processor 1
+  (`-P pib1/core[1,3,5]/thread[1-4]`)
+- chiplet at address 21000000 (-P `chiplet@21000000`)
+- all adus (`-P adu`)
+- First FSI (`-P fsi0`)
 
 ## Examples
 
@@ -225,7 +226,9 @@ Usage: ./pdbg [options] command ...
         threadstatus
         probe
 ```
+
 ### Probe chip/processor/thread numbers
+
 ```
 $ ./pdbg -a probe
 proc0: Processor Module
@@ -364,8 +367,8 @@ hierarchy of the selected targets will be shown above. If none are shown
 try adding '-a' to select all targets.
 ```
 
-Core-IDs are core/chip numbers which should be passed as arguments to `-c`
-when performing operations such as getgpr that operate on particular cores.
+Core-IDs are core/chip numbers which should be passed as arguments to `-c` when
+performing operations such as getgpr that operate on particular cores.
 Processor-IDs should be passed as arguments to `-p` to operate on different
 processor chips. Specifying no targets is an error and will result in the
 following error message:
@@ -379,6 +382,7 @@ If the above error occurs even though targets were specified it means the
 specified targets were not found when probing the system.
 
 ### Read SCOM register
+
 ```
 $ ./pdbg -P pib getscom 0xf000f
 p0: 0x00000000000f000f = 0x222d104900008040 (/proc0/pib)
@@ -386,9 +390,11 @@ p1: 0x00000000000f000f = 0x222d104900008040 (/proc1/pib)
 ```
 
 ### Write SCOM register on secondary processor
+
 `$ ./pdbg -P pib1 putscom 0x8013c02 0x0`
 
 ### Get thread status
+
 ```
 $ ./pdbg -a threadstatus
 
@@ -414,8 +420,10 @@ c16: A A A A
 ```
 
 ### Stop thread execution on thread 0-4 of processor 0 core/chip 22
+
 Reading thread register values requires all threads on a given core to be in the
 quiesced state.
+
 ```
 $ ./pdbg -p0 -c22 -t0 -t1 -t2 -t3 stop
 $ ./pdbg -p0 -c22 -t0 -t1 -t2 -t3 threadstatus
@@ -425,18 +433,21 @@ c22: Q Q Q Q
 ```
 
 ### Read GPR on thread 0 of processor 0 core/chip 22
+
 ```
 $ ./pdbg -p0 -c22 -t0 getgpr 2
 p0:c22:t0:gpr02: 0xc000000000f09900
 ```
 
 ### Read SPR 8 (LR) on thread 0 of processor 0 core/chip 22
+
 ```
 $ ./pdbg -p0 -c22 -t0 getspr 8
 p0:c22:t0:spr008: 0xc0000000008a97f0
 ```
 
 ### Restart thread 0-4 execution on processor 0 core/chip 22
+
 ```
 ./pdbg -p0 -c22 -t0 -t1 -t2 -t3 start
 ./pdbg -p0 -c22 -t0 -t1 -t2 -t3 threadstatus
@@ -446,12 +457,14 @@ c22: A A A A
 ```
 
 ### Write to memory through processor 1
+
 ```
 $ echo hello | sudo ./pdbg -p 1 putmem 0x250000001
 Wrote 6 bytes starting at 0x0000000250000001
 ```
 
 ### Read 6 bytes from memory through processor 1
+
 ```
 $ sudo ./pdbg -p 1 getmem 0x250000001 6 | hexdump -C
 0x0000000250000000:    68 65 6c 6c 6f 0a
@@ -462,12 +475,14 @@ $ sudo ./pdbg -p 1 getmem 0x250000001 6 --raw | hexdump -C
 ```
 
 ### Write to cache-inhibited memory through processor 1
+
 ```
 $ echo hello | sudo ./pdbg -p 1 putmem --ci 0x3fe88202
 Wrote 6 bytes starting at 0x000000003fe88202
 ```
 
 ### Read from cache-inhibited memory through processor 1
+
 ```
 $ sudo ./pdbg -p 1 getmem --ci 0x3fe88202 6 --raw | hexdump -C
 00000000  68 65 6c 6c 6f 0a                                 |hello.|
@@ -475,6 +490,7 @@ $ sudo ./pdbg -p 1 getmem --ci 0x3fe88202 6 --raw | hexdump -C
 ```
 
 ### Read 4 bytes from the hardware RNG
+
 ```
 $ lsprop /proc/device-tree/hwrng@3ffff40000000/
 ibm,chip-id      00000000
@@ -503,102 +519,106 @@ Exploitation of HTM is limited to POWER8 Core from the powerpc host.
 
 #### Prerequisites
 
-Core HTM on POWER8 needs to run SMT1 and no power save, so you need to
-run this first:
+Core HTM on POWER8 needs to run SMT1 and no power save, so you need to run this
+first:
+
 ```
 ppc64_cpu --smt=1
 for i in /sys/devices/system/cpu/cpu*/cpuidle/state*/disable;do echo 1 > $i;done
 ```
+
 Also, using HTM requires a kernel built with both `CONFIG_PPC_MEMTRACE=y`
 (v4.14) and `CONFIG_SCOM_DEBUGFS=y`. debugfs should be mounted at
 `/sys/kernel/debug`. Ubuntu 18.04 has this by default.
 
 #### How to run HTM
 
-pdbg provides a `htm` command with a variety of sub-commands. The most
-useful command is `record` which will start the trace, wait for buffer
-to fill (~1 sec), stop and then dump the trace to a file (~5 sec). eg.
+pdbg provides a `htm` command with a variety of sub-commands. The most useful
+command is `record` which will start the trace, wait for buffer to fill (~1
+sec), stop and then dump the trace to a file (~5 sec). eg.
+
 ```
 pdbg -l 0 htm core record
 ```
-pdbg -l allows users to specify CPUs using the same addressing as
-scheme as taskset -c. This can be useful for tracing workloads. eg.
+
+pdbg -l allows users to specify CPUs using the same addressing as scheme as
+taskset -c. This can be useful for tracing workloads. eg.
+
 ```
 taskset -c 0 myworkload
 sleep 1
 pdbg -l 0 htm core record
 ```
+
 There are also low level htm commands which can also be used:
- - `start` will configure the hardware and start tracing in wrapping mode.
- - `stop` will still stop the trace and de-configure the hardware.
- - `dump` will dump the trace to a file.
+
+- `start` will configure the hardware and start tracing in wrapping mode.
+- `stop` will still stop the trace and de-configure the hardware.
+- `dump` will dump the trace to a file.
 
 ### GDBSERVER
+
 At the moment gdbserver is only supported on P8 and P9 and P10.
 
 Memory access can only be performed on kernel memory.
 
 To run a gdbserver on a machine from a BMC running OpenBMC:
 
-* Read NOTES and set up the BMC and host as recommended.
+- Read NOTES and set up the BMC and host as recommended.
 
-* (Optional) Stop the threads of the core(s) you want to look at. Ideally
-  all threads in the machine should be debugged:
+- (Optional) Stop the threads of the core(s) you want to look at. Ideally all
+  threads in the machine should be debugged:
 
 $ ./pdbg -a stop
 
-* Run gdbserver on the target threads, accessible through port 44
+- Run gdbserver on the target threads, accessible through port 44
 
 $ ./pdbg -a gdbserver 44
 
 The thread-id tid is set to the PIR of the corresponding thread, the
-hard_smp_processor_id. Be warned, "info threads" or other gdb operations
-that iterate over all threads may be very slow when debugging a lot
-of threads, especially over slow remote links.
+hard_smp_processor_id. Be warned, "info threads" or other gdb operations that
+iterate over all threads may be very slow when debugging a lot of threads,
+especially over slow remote links.
 
-On your local machine:
-$ gdb
-(gdb) target remote palm5-bmc:44
+On your local machine: $ gdb (gdb) target remote palm5-bmc:44
 
-Debugging info:
-(gdb) set debug remote 10
+Debugging info: (gdb) set debug remote 10
 
-Long-running operations or high latency links:
-The gdb client timeout defaults to 2 seconds after which it re-transmits
-commands. The gdb server does not deal with this robustly today and this
-can cause hangs and other unexpected results. If gdb client stops
-responding, behaves strangely or complains about bad or unexpected remote
-packets, try increasing the timeout. E.g.,
-(gdb) set remotetimeout 60
+Long-running operations or high latency links: The gdb client timeout defaults
+to 2 seconds after which it re-transmits commands. The gdb server does not deal
+with this robustly today and this can cause hangs and other unexpected results.
+If gdb client stops responding, behaves strangely or complains about bad or
+unexpected remote packets, try increasing the timeout. E.g., (gdb) set
+remotetimeout 60
 
 Notes:
+
 1. DON'T RUN PDBG OVER FSI WHILE HOSTBOOT IS RUNNING. Weird things seem to
-happen.
+   happen.
 2. If you want to view the kernel call trace then run gdb on the vmlinux that
-the host is running (the kernel needs to be compiled with debug symbols).
+   the host is running (the kernel needs to be compiled with debug symbols).
 3. The kernel HARDLOCKUP watchdog can interact badly with GDBSERVER (and all
-pdbg direct controls for that matter). Disabling it before debugging is a
-good idea.
+   pdbg direct controls for that matter). Disabling it before debugging is a
+   good idea.
 4. Idle states have often had problems with pdbg direct controls. If things are
-misbehaving, booting Linux with powersave=off is the first thing to try.
+   misbehaving, booting Linux with powersave=off is the first thing to try.
 5. attn instructions seem to cause host hangs on POWER9. gdb breakpoints should
-not be used.
-6. attn instructions can cause the service processor to begin error handling.
-   If breakpoints are to be used, the attn handler service on the BMC should
-   be stopped first (don't forget to start it again when done).
+   not be used.
+6. attn instructions can cause the service processor to begin error handling. If
+   breakpoints are to be used, the attn handler service on the BMC should be
+   stopped first (don't forget to start it again when done).
 
    systemctl stop attn_handler.service
-
 
 ## Submitting patches
 
 Development and patch review happens on the mailing list at:
 
- pdbg@lists.ozlabs.org
+pdbg@lists.ozlabs.org
 
 Patches are tracked through patchwork:
 
- https://patchwork.ozlabs.org/project/pdbg/list
+https://patchwork.ozlabs.org/project/pdbg/list
 
 Pull requests via Github are also acceptable if you are not familiar with email
 based patch submission.
