@@ -60,9 +60,9 @@ trees is also simple enough to embed in other projects.
 
 ## Node representation
 
-The [libpdbg API](@ref libpdbg.h) provides functions for building up a complete device-tree
-representation of a POWER system based on the current system state along with functions
-for traversing the tree.
+The [libpdbg API](@ref libpdbg.h) provides functions for building up a complete
+device-tree representation of a POWER system based on the current system state
+along with functions for traversing the tree.
 
 Each node is represented in a program by a @ref pdbg_target. This is used with
 most API functions to specify the target of a particular command. At a minimum
@@ -168,9 +168,10 @@ allow application specific types to be specified.
 
 # Frontends
 
-For programmatic access it is preferable to use the [libpdbg API](@ref libpdbg.h)
-directly. For command line usage there are two primary frontends available. Both
-frontends will work on the platforms specified in @ref hardware-access.
+For programmatic access it is preferable to use the [libpdbg API](@ref
+libpdbg.h) directly. For command line usage there are two primary frontends
+available. Both frontends will work on the platforms specified in @ref
+hardware-access.
 
 ### pdbg
 
