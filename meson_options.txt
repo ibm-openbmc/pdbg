@@ -1,0 +1,2 @@
+option('build-libfdt', type: 'boolean', value: true, description: 'Build libfdt library')
+option('gdbserver', type: 'boolean', value: true, description: 'Enable GDB server support')
