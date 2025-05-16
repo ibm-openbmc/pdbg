@@ -108,6 +108,7 @@ struct pib {
 	int (*thread_stop_all)(struct pib *);
 	int (*thread_step_all)(struct pib *, int);
 	int (*thread_sreset_all)(struct pib *);
+	int (*get_fd)();
 	void *priv;
 	int fd;
 };

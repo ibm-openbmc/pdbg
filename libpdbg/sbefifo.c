@@ -21,6 +21,7 @@
 #include <fcntl.h>
 
 #include <libsbefifo/libsbefifo.h>
+#include <libsbefifo/sbefifo_private.h>
 
 #include "hwunit.h"
 #include "debug.h"
@@ -829,6 +830,13 @@ static struct sbefifo_context *sbefifo_op_get_context(struct sbefifo *sbefifo)
 	return sbefifo->sf_ctx;
 }
 
+static int sbefifo_pib_get_fd(struct pib* pib)
+{
+	struct sbefifo *sbefifo = pib_to_sbefifo(&pib->target);
+	struct sbefifo_context *sctx = sbefifo->get_sbefifo_context(sbefifo);
+	return sctx->fd;
+}
+
 static int sbefifo_probe(struct pdbg_target *target)
 {
 	struct sbefifo *sf = target_to_sbefifo(target);
@@ -931,6 +939,7 @@ static struct pib sbefifo_pib = {
 	.thread_stop_all = sbefifo_pib_thread_stop,
 	.thread_step_all = sbefifo_pib_thread_step,
 	.thread_sreset_all = sbefifo_pib_thread_sreset,
+    .get_fd = sbefifo_pib_get_fd,
 	.fd = -1,
 };
 DECLARE_HW_UNIT(sbefifo_pib);
