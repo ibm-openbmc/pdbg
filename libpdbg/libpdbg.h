@@ -1437,6 +1437,7 @@ int ocmb_getscom(struct pdbg_target *target, uint64_t addr, uint64_t *val);
  */
 int ocmb_putscom(struct pdbg_target *target, uint64_t addr, uint64_t val);
 
+int pdbg_get_target_fd(struct pdbg_target *target);
 /**
  * @brief Type for specifying a progress callback for long running
  * operations

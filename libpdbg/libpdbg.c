@@ -3,7 +3,7 @@
 
 #include "target.h"
 #include "libpdbg.h"
-
+#include "hwunit.h"
 static pdbg_progress_tick_t progress_tick;
 static bool pdbg_short_context = false;
 
@@ -358,4 +358,45 @@ bool pdbg_context_short(void)
 bool pdbg_context_is_short(void)
 {
 	return pdbg_short_context;
+}
+
+struct pdbg_target *pdbg_get_backend_target(struct pdbg_target* target, const char* class_name)
+{
+    struct pdbg_target* backend_target = NULL;
+
+    /* We assume each processor chip contains one and only one pib */
+    pdbg_for_each_target(class_name, target, backend_target)
+    {
+        break;
+    }
+
+    if (!backend_target)
+    {
+        /* If the pib target is not a child target, look for the parent pib target
+        But the translation does not happen here. So better to */
+        backend_target = target_parent(class_name, target, false);
+
+        if (!backend_target)
+        {
+            pdbg_log(PDBG_ERROR, "unable to get %s target for %s\n",
+                class_name, pdbg_target_path(target));
+        }
+        return NULL;
+    }
+    return backend_target;
+}
+
+int pdbg_get_target_fd(struct pdbg_target *target)
+{
+    struct pdbg_target *pib_target = pdbg_get_backend_target(target, "pib");
+    if(!pib_target)
+    {
+        return -1;
+    }
+    struct pib *pib = target_to_pib(pib_target);
+    if(!pib)
+    {
+        return -1;
+    }
+    return pib->get_fd();
 }
