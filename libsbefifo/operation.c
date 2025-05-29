@@ -27,18 +27,42 @@
 
 static const uint16_t SBEFIFO_MAX_FFDC_SIZE = 0x8000;
 
+static const uint32_t ffdcDataRaw0[] = {
+    0xFBAD0038, 0x0000A801, 0x003d7eb6, 0x00000000, 0x7A951049,
+    0xFF000000, 0x00000004, 0x00041038, 0x00020000, 0x5342455F, 0x54524143,
+    0x45000000, 0x00000000, 0x0000300F, 0x38131000, 0xFE2329AF, 0x23C34600,
+    0x00000000, 0xFFFFFFFF, 0xEF73FA8F, 0x00000018, 0x00015FD8, 0x00000000,
+    0x00000000, 0x2C8D0101, 0x9D5C3E06, 0x5FD60000, 0x9D5C4311, 0xA6390006,
+    0x9F4D53A9, 0x0000DA7A, 0x00000000, 0xD0A40102, 0x9F4D561E, 0x00000000,
+    0x00000001, 0xC49C0102, 0x9F4D58DA, 0x91A00006, 0x9F4D5AF1, 0xC9200000,
+    0x9F4D6021, 0x00000001, 0x00000000, 0xEB800102, 0x9F4D61C6, 0x000000A2,
+    0x00000001, 0x1F770102, 0x9F62C136, 0x000000A2, 0x00000001, 0xF0F10102,
+    0x9F62C392, 0x00000003, 0xDEADDEAD, 0xC0DEA801, 0x00000000, 0x00000003
+};
+
 static int sbefifo_read(struct sbefifo_context *sctx, void *buf, size_t *buflen)
 {
-	ssize_t n;
+    assert(buf != NULL && buflen != NULL && *buflen > 0);
 
-	assert(*buflen > 0);
+    // Use stat as a fake trigger for testing mode
+    struct stat dummy;
+    if (stat("/tmp/ffdc", &dummy) == 0)
+    {
+        size_t raw_size = sizeof(ffdcDataRaw0); // in bytes
+        if (*buflen < raw_size)
+            return EMSGSIZE;
 
-	n = read(sctx->fd, buf, *buflen);
-	if (n < 0)
-		return errno;
+        memcpy(buf, ffdcDataRaw0, raw_size);
+        *buflen = raw_size;
+        return 0;
+    }
+    // Fallback to real read if not in test mode
+    ssize_t n = read(sctx->fd, buf, *buflen);
+    if (n < 0)
+        return errno;
 
-	*buflen = n;
-	return 0;
+    *buflen = n;
+    return 0;
 }
 
 static int sbefifo_write(struct sbefifo_context *sctx, void *buf, size_t buflen)
