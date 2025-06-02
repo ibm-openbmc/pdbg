@@ -29,16 +29,15 @@ static const uint16_t SBEFIFO_MAX_FFDC_SIZE = 0x8000;
 
 static int sbefifo_read(struct sbefifo_context *sctx, void *buf, size_t *buflen)
 {
-	ssize_t n;
+    assert(buf != NULL && buflen != NULL && *buflen > 0);
 
-	assert(*buflen > 0);
+    // Fallback to real read if not in test mode
+    ssize_t n = read(sctx->fd, buf, *buflen);
+    if (n < 0)
+        return errno;
 
-	n = read(sctx->fd, buf, *buflen);
-	if (n < 0)
-		return errno;
-
-	*buflen = n;
-	return 0;
+    *buflen = n;
+    return 0;
 }
 
 static int sbefifo_write(struct sbefifo_context *sctx, void *buf, size_t buflen)
