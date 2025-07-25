@@ -11,7 +11,7 @@ class PredicateBase
   public:
     virtual ~PredicateBase() = default;
 
-    virtual bool operator()(const TargetPtr& i_pTarget) const = 0;
+    virtual bool operator()(ConstTargetPtr& i_pTarget) const = 0;
 
   protected:
     PredicateBase() = default;

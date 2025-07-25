@@ -17,7 +17,7 @@ template <const ATTRIBUTE_ID A> class PredicateAttrVal : public PredicateBase
 
     ~PredicateAttrVal() override = default;
 
-    bool operator()(const TargetPtr& target) const override
+    bool operator()(ConstTargetPtr& target) const override
     {
         typename AttributeTraits<A>::Type actual;
         return target->tryGetAttr<A>(actual) && (actual == _value);

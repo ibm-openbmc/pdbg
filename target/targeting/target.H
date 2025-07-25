@@ -16,11 +16,20 @@ extern "C"
 }
 #include <cstring>
 #include <iostream>
+#include <vector>
 namespace TARGETING
 {
 
-class Target;
-using TargetPtr = std::unique_ptr<Target>;
+// Owning pointers
+using TargetUniquePtr = std::unique_ptr<Target>;
+using TargetUniquePtrList = std::vector<TargetUniquePtr>;
+
+// Non-owning pointers
+using TargetPtr = Target*;
+using ConstTargetPtr = const Target*;
+using TargetPtrList = std::vector<TargetPtr>;
+using ConstTargetPtrList = std::vector<ConstTargetPtr>;
+
 class TargetDevtreeMap;
 class Target
 {

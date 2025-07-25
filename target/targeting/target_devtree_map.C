@@ -11,8 +11,8 @@ TargetDevtreeMap::TargetDevtreeMap(const void* fdt) : _fdt(fdt)
     indexAllNodes();
 }
 
-TargetPtr TargetDevtreeMap::getParentOf(const TargetPtr& child,
-                                        const AssociationType type) const
+ConstTargetPtr TargetDevtreeMap::getParentOf(ConstTargetPtr& child,
+                                             const AssociationType type)
 {
     if (!child)
     {
@@ -54,58 +54,60 @@ TargetPtr TargetDevtreeMap::getParentOf(const TargetPtr& child,
 
     EntityPath parentPath = childPath.copyRemoveLast();
 
-    auto parentIt = pathMap.find(parentPath);
-    if (parentIt == pathMap.end())
+    auto it = pathMap.find(parentPath);
+    if (it == pathMap.end())
     {
         return nullptr;
     }
 
-    return std::unique_ptr<Target>(new Target(_fdt, parentIt->second));
+    return getOrCreateTarget(parentPath, it->second);
 }
 
-TargetPtr TargetDevtreeMap::toTarget(const EntityPath& i_entityPath) const
+ConstTargetPtr TargetDevtreeMap::toTarget(const EntityPath& i_entityPath)
 {
     auto it = _phyPathToNode.find(i_entityPath);
     if (it == _phyPathToNode.end())
     {
-        std::cerr << "Error: invalid entitypath \n";
+        std::cerr << "Invalid entity path\n";
         return nullptr;
     }
 
-    return std::unique_ptr<Target>(new Target(_fdt, it->second));
+    return getOrCreateTarget(i_entityPath, it->second);
 }
 
-TARGETING::generator<TargetPtr> TargetDevtreeMap::getAssociated(
-    const Target* source, AssociationType type, RecursionLevel recursionLevel,
-    const PredicateBase* predicate) const
+ConstTargetPtrList TargetDevtreeMap::getAssociated(
+    const ConstTargetPtr source, AssociationType type,
+    RecursionLevel recursionLevel, const PredicateBase* predicate)
 {
     using enum AssociationType;
     using enum RecursionLevel;
 
+    ConstTargetPtrList result;
+
     if (!source)
     {
-        std::cout << "source pointer is not set " << std::endl;
-        co_return;
+        std::cerr << "source pointer is not set\n";
+        return result;
     }
+
     const std::map<EntityPath, int>* pathMap = nullptr;
     EntityPath sourcePath;
-    // Select the right path and map
+
     switch (type)
     {
         case childByPhysical:
         case parentByPhysical:
             if (!source->tryGetAttr<ATTR_PHYS_PATH>(sourcePath))
             {
-                co_return;
+                return result;
             }
             pathMap = &_phyPathToNode;
             break;
-
         case childByAffinity:
         case parentByAffinity:
             if (!source->tryGetAttr<ATTR_AFFINITY_PATH>(sourcePath))
             {
-                co_return;
+                return result;
             }
             pathMap = &_affinityPathToNode;
             break;
@@ -113,8 +115,9 @@ TARGETING::generator<TargetPtr> TargetDevtreeMap::getAssociated(
 
     if (sourcePath.getSize() == 0 || !pathMap)
     {
-        co_return;
+        return result;
     }
+
     if (type == childByPhysical || type == childByAffinity)
     {
         for (const auto& [path, offset] : *pathMap)
@@ -133,10 +136,10 @@ TARGETING::generator<TargetPtr> TargetDevtreeMap::getAssociated(
 
             if (match)
             {
-                auto tgt = std::unique_ptr<Target>(new Target(_fdt, offset));
-                if (!predicate || (*predicate)(tgt))
+                auto tgt = getOrCreateTarget(path, offset);
+                if (tgt && (!predicate || (*predicate)(tgt)))
                 {
-                    co_yield std::move(tgt);
+                    result.push_back(tgt);
                 }
             }
         }
@@ -148,12 +151,12 @@ TARGETING::generator<TargetPtr> TargetDevtreeMap::getAssociated(
         {
             if (const auto it = pathMap->find(current); it != pathMap->end())
             {
-                auto tgt =
-                    std::unique_ptr<Target>(new Target(_fdt, it->second));
-                if (!predicate || (*predicate)(tgt))
+                auto tgt = getOrCreateTarget(current, it->second);
+                if (tgt && (!predicate || (*predicate)(tgt)))
                 {
-                    co_yield std::move(tgt);
+                    result.push_back(tgt);
                 }
+
                 if (recursionLevel == immediate)
                 {
                     break;
@@ -162,6 +165,8 @@ TARGETING::generator<TargetPtr> TargetDevtreeMap::getAssociated(
             current = current.copyRemoveLast();
         }
     }
+
+    return result;
 }
 
 void TargetDevtreeMap::indexAllNodes()
@@ -211,13 +216,31 @@ EntityPath TargetDevtreeMap::parseEntityPathProperty(int offset,
     return EntityPath::fromBinary(data);
 }
 
-TargetPtr TargetDevtreeMap::getTopLevelTarget() const noexcept
+ConstTargetPtr TargetDevtreeMap::getTopLevelTarget()
 {
     if (_rootOffset < 0)
     {
-        std::cerr << "Error: offset value of root node is not set \n";
+        std::cerr << "Root offset not set\n";
         return nullptr;
     }
-    return std::unique_ptr<Target>(new Target(_fdt, _rootOffset));
+
+    EntityPath rootPath =
+        parseEntityPathProperty(_rootOffset, ATTR_PHYS_PATH_PROP);
+    return getOrCreateTarget(rootPath, _rootOffset);
+}
+
+ConstTargetPtr
+    TargetDevtreeMap::getOrCreateTarget(const EntityPath& path, int offset)
+{
+    auto it = _accessedTargets.find(path);
+    if (it != _accessedTargets.end())
+    {
+        return it->second.get();
+    }
+
+    auto target = std::unique_ptr<Target>(new Target(_fdt, offset));
+    TargetPtr rawPtr = target.get();
+    _accessedTargets.emplace(path, std::move(target));
+    return rawPtr;
 }
 } // namespace TARGETING

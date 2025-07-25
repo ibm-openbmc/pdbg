@@ -35,7 +35,7 @@ PredicatePostfixExpr& PredicatePostfixExpr::Not()
 }
 
 bool PredicatePostfixExpr::evalStackItem(uintptr_t& item,
-                                         const TargetPtr& target) const
+                                         ConstTargetPtr& target) const
 {
     if (item > 1)
     {
@@ -51,7 +51,7 @@ bool PredicatePostfixExpr::evalStackItem(uintptr_t& item,
     }
 }
 
-bool PredicatePostfixExpr::operator()(const TargetPtr& target) const
+bool PredicatePostfixExpr::operator()(ConstTargetPtr& target) const
 {
     assert(target != nullptr);
     std::vector<uintptr_t> stack;

@@ -36,7 +36,7 @@ int main()
         {
             PredicateAttr<ATTR_PHYS_DEV_PATH> pred;
             for (auto&& tgt :
-                 ts.getAssociated(top.get(), AssociationType::childByPhysical,
+                 ts.getAssociated(top, AssociationType::childByPhysical,
                                   RecursionLevel::all, &pred))
             {
                 std::string path;
@@ -52,7 +52,7 @@ int main()
         {
             PredicateAttr<ATTR_PHYS_DEV_PATH> pred;
             for (auto&& tgt :
-                 ts.getAssociated(top.get(), AssociationType::childByAffinity,
+                 ts.getAssociated(top, AssociationType::childByAffinity,
                                   RecursionLevel::all, &pred))
             {
                 std::string path;
@@ -71,16 +71,16 @@ int main()
                 .And();
             auto top = ts.getTopLevelTarget();
             for (auto&& parent :
-                 ts.getAssociated(top.get(), AssociationType::childByPhysical,
+                 ts.getAssociated(top, AssociationType::childByPhysical,
                                   RecursionLevel::all, &procAndDevPath))
             {
                 std::string parentPath;
                 parent->tryGetAttr<ATTR_PHYS_DEV_PATH>(parentPath);
                 std::cout << "PROC: " << parentPath << "\n";
 
-                for (auto&& child : ts.getAssociated(
-                         parent.get(), AssociationType::childByPhysical,
-                         RecursionLevel::immediate))
+                for (auto&& child :
+                     ts.getAssociated(parent, AssociationType::childByPhysical,
+                                      RecursionLevel::immediate))
                 {
                     std::string childPath;
                     child->tryGetAttr<ATTR_PHYS_DEV_PATH>(childPath);

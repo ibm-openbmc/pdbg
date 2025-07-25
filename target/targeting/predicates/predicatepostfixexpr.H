@@ -20,7 +20,7 @@ class PredicatePostfixExpr : public PredicateBase
     PredicatePostfixExpr& Or();
     PredicatePostfixExpr& Not();
 
-    bool operator()(const TargetPtr& target) const override;
+    bool operator()(ConstTargetPtr& target) const override;
 
     // Disable copy
     PredicatePostfixExpr(const PredicatePostfixExpr&) = delete;
@@ -44,7 +44,7 @@ class PredicatePostfixExpr : public PredicateBase
     };
     std::vector<Operation> _ops;
 
-    bool evalStackItem(uintptr_t& item, const TargetPtr& target) const;
+    bool evalStackItem(uintptr_t& item, ConstTargetPtr& target) const;
 };
 
 } // namespace TARGETING

@@ -20,17 +20,17 @@ class TargetServiceTest : public ::testing::Test
         TargetService::instance().init("../target/test/targeting_test.dtb");
     }
 
-    TargetPtr getFirstTargetMatchingType(TYPE type)
+    ConstTargetPtr getFirstTargetMatchingType(TYPE type)
     {
         auto top = TargetService::instance().getTopLevelTarget();
         for (auto&& tgt : TargetService::instance().getAssociated(
-                 top.get(), AssociationType::childByPhysical, all))
+                 top, AssociationType::childByPhysical, all))
         {
             AttributeTraits<ATTR_TYPE>::Type rawVal = 0;
             if (tgt->tryGetAttr<ATTR_TYPE>(rawVal) &&
                 static_cast<TYPE>(rawVal) == type)
             {
-                return std::move(tgt);
+                return tgt;
             }
         }
         return nullptr;
@@ -90,7 +90,7 @@ TEST_F(TargetServiceTest, TestGetAssociatedChildrenImmediate)
 
     int count = 0;
     for (auto&& child : TargetService::instance().getAssociated(
-             proc.get(), AssociationType::childByPhysical,
+             proc, AssociationType::childByPhysical,
              RecursionLevel::immediate))
     {
         ++count;
@@ -114,7 +114,7 @@ TEST_F(TargetServiceTest, TestGetAssociatedParentsAffinityAll)
     std::vector<AttributeTraits<ATTR_TYPE>::Type> actual;
 
     for (auto&& parent : TargetService::instance().getAssociated(
-             ocmb.get(), AssociationType::parentByAffinity,
+             ocmb, AssociationType::parentByAffinity,
              RecursionLevel::all))
     {
         AttributeTraits<ATTR_TYPE>::Type t;
@@ -149,7 +149,7 @@ TEST_F(TargetServiceTest, TestPredicateAttrValProcType)
 
     auto top = TargetService::instance().getTopLevelTarget();
     for (auto&& tgt : TargetService::instance().getAssociated(
-             top.get(), AssociationType::childByPhysical, RecursionLevel::all,
+             top, AssociationType::childByPhysical, RecursionLevel::all,
              &pred))
     {
         AttributeTraits<ATTR_TYPE>::Type t;
@@ -173,7 +173,7 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrVal_AND)
     int count = 0;
     auto top = TargetService::instance().getTopLevelTarget();
     for (auto&& tgt : TargetService::instance().getAssociated(
-             top.get(), AssociationType::childByPhysical, RecursionLevel::all,
+             top, AssociationType::childByPhysical, RecursionLevel::all,
              &expr))
     {
         AttributeTraits<ATTR_TYPE>::Type type;
@@ -200,7 +200,7 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrMask_OR)
     std::vector<AttributeTraits<ATTR_TYPE>::Type> matchedTypes;
     auto top = TargetService::instance().getTopLevelTarget();
     for (auto&& tgt : TargetService::instance().getAssociated(
-             top.get(), AssociationType::childByPhysical, RecursionLevel::all,
+             top, AssociationType::childByPhysical, RecursionLevel::all,
              &expr))
     {
         AttributeTraits<ATTR_TYPE>::Type t;
@@ -225,7 +225,7 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_Negation)
     int count = 0;
     auto top = TargetService::instance().getTopLevelTarget();
     for (auto&& tgt : TargetService::instance().getAssociated(
-             top.get(), AssociationType::childByPhysical, RecursionLevel::all,
+             top, AssociationType::childByPhysical, RecursionLevel::all,
              &expr))
     {
         AttributeTraits<ATTR_TYPE>::Type t;

@@ -2,7 +2,6 @@
 
 #include <association.H>
 #include <dtree_loader.H>
-#include <generator.H>
 #include <predicatebase.H>
 #include <target.H>
 #include <target_devtree_map.H>
@@ -25,17 +24,18 @@ class TargetService
         return _loader ? _loader->fdt() : nullptr;
     }
 
-    TARGETING::generator<TargetPtr> getAssociated(
-        const Target* source, const AssociationType type = childByAffinity,
+    ConstTargetPtrList getAssociated(
+        ConstTargetPtr source, const AssociationType type = childByAffinity,
         const RecursionLevel recursionLevel = immediate,
         const PredicateBase* predicate = nullptr) const;
 
-    TargetPtr getParentOf(const TargetPtr& child,
-                          const AssociationType type = parentByAffinity) const;
+    ConstTargetPtr
+        getParentOf(ConstTargetPtr& child,
+                    const AssociationType type = parentByAffinity) const;
 
-    TargetPtr toTarget(const EntityPath& i_entityPath) const;
+    ConstTargetPtr toTarget(const EntityPath& i_entityPath) const;
 
-    TargetPtr getTopLevelTarget() const noexcept;
+    ConstTargetPtr getTopLevelTarget() const;
 
   private:
     TargetService() = default;
@@ -52,7 +52,6 @@ class TargetService
     int _rootOffset = -1;
     std::unique_ptr<DeviceTreeLoader> _loader;
     std::unique_ptr<TargetDevtreeMap> _targetMap;
-
     bool _initialized{false};
 };
 } // namespace TARGETING

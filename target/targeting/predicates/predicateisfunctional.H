@@ -13,7 +13,7 @@ class PredicateIsFunctional : public PredicateBase
     PredicateIsFunctional() = default;
     ~PredicateIsFunctional() override = default;
 
-    bool operator()(const TargetPtr& target) const override
+    bool operator()(ConstTargetPtr& target) const override
     {
         return target && target->getAttr<ATTR_HWAS_STATE>().functional;
     }
