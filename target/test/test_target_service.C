@@ -20,7 +20,7 @@ class TargetServiceTest : public ::testing::Test
         TargetService::instance().init("../target/test/targeting_test.dtb");
     }
 
-    ConstTargetPtr getFirstTargetMatchingType(TYPE type)
+    TargetPtr getFirstTargetMatchingType(TYPE type)
     {
         auto top = TargetService::instance().getTopLevelTarget();
         for (auto&& tgt : TargetService::instance().getAssociated(
@@ -56,7 +56,7 @@ TEST_F(TargetServiceTest, TestTopLevelTarget)
 //////////////TEST getParentOf method//////////
 TEST_F(TargetServiceTest, TestGetParentOfOcmbImmediatePhysical)
 {
-    auto ocmb = getFirstTargetMatchingType(TYPE_OCMB_CHIP);
+    ConstTargetPtr ocmb = getFirstTargetMatchingType(TYPE_OCMB_CHIP);
     ASSERT_NE(ocmb, nullptr);
 
     auto parent = TargetService::instance().getParentOf(
@@ -70,7 +70,7 @@ TEST_F(TargetServiceTest, TestGetParentOfOcmbImmediatePhysical)
 
 TEST_F(TargetServiceTest, TestGetParentOfOcmbImmediateAffinity)
 {
-    auto ocmb = getFirstTargetMatchingType(TYPE_OCMB_CHIP);
+    ConstTargetPtr ocmb = getFirstTargetMatchingType(TYPE_OCMB_CHIP);
     ASSERT_NE(ocmb, nullptr);
 
     auto parent = TargetService::instance().getParentOf(
@@ -85,13 +85,12 @@ TEST_F(TargetServiceTest, TestGetParentOfOcmbImmediateAffinity)
 //////////////TEST getAssociated method//////////
 TEST_F(TargetServiceTest, TestGetAssociatedChildrenImmediate)
 {
-    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    ConstTargetPtr proc = getFirstTargetMatchingType(TYPE_PROC);
     ASSERT_NE(proc, nullptr);
 
     int count = 0;
     for (auto&& child : TargetService::instance().getAssociated(
-             proc, AssociationType::childByPhysical,
-             RecursionLevel::immediate))
+             proc, AssociationType::childByPhysical, RecursionLevel::immediate))
     {
         ++count;
         EXPECT_NE(child, nullptr);
@@ -114,8 +113,7 @@ TEST_F(TargetServiceTest, TestGetAssociatedParentsAffinityAll)
     std::vector<AttributeTraits<ATTR_TYPE>::Type> actual;
 
     for (auto&& parent : TargetService::instance().getAssociated(
-             ocmb, AssociationType::parentByAffinity,
-             RecursionLevel::all))
+             ocmb, AssociationType::parentByAffinity, RecursionLevel::all))
     {
         AttributeTraits<ATTR_TYPE>::Type t;
         EXPECT_TRUE(parent->tryGetAttr<ATTR_TYPE>(t));
@@ -138,7 +136,7 @@ TEST_F(TargetServiceTest, TestRoundTripToTarget)
     auto roundtrip = TargetService::instance().toTarget(path);
     ASSERT_NE(roundtrip, nullptr);
 
-    EXPECT_EQ(roundtrip->_offset, ocmb->_offset);
+    EXPECT_EQ(roundtrip->getOffset(), ocmb->getOffset());
 }
 
 ///////////////PREDICATES//////////////////////////////
@@ -149,8 +147,7 @@ TEST_F(TargetServiceTest, TestPredicateAttrValProcType)
 
     auto top = TargetService::instance().getTopLevelTarget();
     for (auto&& tgt : TargetService::instance().getAssociated(
-             top, AssociationType::childByPhysical, RecursionLevel::all,
-             &pred))
+             top, AssociationType::childByPhysical, RecursionLevel::all, &pred))
     {
         AttributeTraits<ATTR_TYPE>::Type t;
         EXPECT_TRUE(tgt->tryGetAttr<ATTR_TYPE>(t));
@@ -173,8 +170,7 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrVal_AND)
     int count = 0;
     auto top = TargetService::instance().getTopLevelTarget();
     for (auto&& tgt : TargetService::instance().getAssociated(
-             top, AssociationType::childByPhysical, RecursionLevel::all,
-             &expr))
+             top, AssociationType::childByPhysical, RecursionLevel::all, &expr))
     {
         AttributeTraits<ATTR_TYPE>::Type type;
         AttributeTraits<ATTR_CLASS>::Type cls;
@@ -200,8 +196,7 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrMask_OR)
     std::vector<AttributeTraits<ATTR_TYPE>::Type> matchedTypes;
     auto top = TargetService::instance().getTopLevelTarget();
     for (auto&& tgt : TargetService::instance().getAssociated(
-             top, AssociationType::childByPhysical, RecursionLevel::all,
-             &expr))
+             top, AssociationType::childByPhysical, RecursionLevel::all, &expr))
     {
         AttributeTraits<ATTR_TYPE>::Type t;
         EXPECT_TRUE(tgt->tryGetAttr<ATTR_TYPE>(t));
@@ -225,8 +220,7 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_Negation)
     int count = 0;
     auto top = TargetService::instance().getTopLevelTarget();
     for (auto&& tgt : TargetService::instance().getAssociated(
-             top, AssociationType::childByPhysical, RecursionLevel::all,
-             &expr))
+             top, AssociationType::childByPhysical, RecursionLevel::all, &expr))
     {
         AttributeTraits<ATTR_TYPE>::Type t;
         EXPECT_TRUE(tgt->tryGetAttr<ATTR_TYPE>(t));
@@ -235,4 +229,91 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_Negation)
     }
 
     EXPECT_GT(count, 0); // Should exclude proc0/1/2
+}
+
+TEST_F(TargetServiceTest, GetTopLevelTarget_IsCached)
+{
+    using namespace TARGETING;
+
+    // First call: should construct and cache the top-level target
+    auto first = TargetService::instance().getTopLevelTarget();
+    ASSERT_NE(first, nullptr)
+        << "Expected valid top-level target on first call";
+
+    // Second call: should return same pointer from the cache
+    auto second = TargetService::instance().getTopLevelTarget();
+    ASSERT_EQ(first, second) << "Expected same target returned (cached)";
+}
+
+TEST_F(TargetServiceTest, TestGetAttrThrowsOnMissing)
+{
+    auto top = TargetService::instance().getTopLevelTarget();
+    ASSERT_NE(top, nullptr);
+
+    try
+    {
+        // LOCATION_CODE is not present for system target
+        [[maybe_unused]] auto val = top->getAttrAsArray<ATTR_LOCATION_CODE>();
+        FAIL() << "Expected exception for missing attribute";
+    }
+    catch (const std::runtime_error& e)
+    {
+        SUCCEED();
+    }
+}
+
+TEST_F(TargetServiceTest, TestSetAttrThrowsOnMissing)
+{
+    auto top = TargetService::instance().getTopLevelTarget();
+    ASSERT_NE(top, nullptr);
+
+    try
+    {
+        // LOCATION_CODE is not present for system target
+        std::array<char, 64> locCode{};
+        std::strncpy(locCode.data(), "asdfaf", locCode.size());
+        top->setAttr<ATTR_LOCATION_CODE>(locCode);
+        FAIL() << "Expected exception for missing attribute";
+    }
+    catch (const std::runtime_error& e)
+    {
+        SUCCEED();
+    }
+}
+
+TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_Type)
+{
+    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    ASSERT_NE(proc, nullptr);
+
+    // Test getAttr<>
+    auto type = proc->getAttr<ATTR_TYPE>();
+    EXPECT_EQ(type, TYPE_PROC);
+
+    // Test trySetAttr<> (roundtrip)
+    EXPECT_TRUE(proc->trySetAttr<ATTR_TYPE>(TYPE_PROC));
+    uint8_t verify = 0;
+    EXPECT_TRUE(proc->tryGetAttr<ATTR_TYPE>(verify));
+    EXPECT_EQ(verify, TYPE_PROC);
+}
+
+TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_LOCATION_CODE)
+{
+    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    ASSERT_NE(proc, nullptr);
+
+    // Save original
+    auto original = proc->getAttrAsArray<ATTR_LOCATION_CODE>();
+
+    // Write back a new value
+    std::array<char, 64> locCode{};
+    std::strncpy(locCode.data(), "asdfaf", locCode.size());
+    EXPECT_TRUE(proc->trySetAttr<ATTR_LOCATION_CODE>(locCode));
+
+    // Verify change
+    auto newVal = proc->getAttrAsArray<ATTR_LOCATION_CODE>();
+    EXPECT_EQ(newVal, locCode);
+
+    // Restore
+    EXPECT_TRUE(proc->trySetAttr<ATTR_LOCATION_CODE>(original));
 }

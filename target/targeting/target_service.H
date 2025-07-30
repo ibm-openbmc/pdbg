@@ -24,18 +24,17 @@ class TargetService
         return _loader ? _loader->fdt() : nullptr;
     }
 
-    ConstTargetPtrList getAssociated(
-        ConstTargetPtr source, const AssociationType type = childByAffinity,
-        const RecursionLevel recursionLevel = immediate,
-        const PredicateBase* predicate = nullptr) const;
+    TargetPtrList getAssociated(ConstTargetPtr source,
+                                const AssociationType type = childByAffinity,
+                                const RecursionLevel recursionLevel = immediate,
+                                const PredicateBase* predicate = nullptr) const;
 
-    ConstTargetPtr
-        getParentOf(ConstTargetPtr& child,
-                    const AssociationType type = parentByAffinity) const;
+    TargetPtr getParentOf(ConstTargetPtr child,
+                          const AssociationType type = parentByAffinity) const;
 
-    ConstTargetPtr toTarget(const EntityPath& i_entityPath) const;
+    TargetPtr toTarget(const EntityPath& i_entityPath) const;
 
-    ConstTargetPtr getTopLevelTarget() const;
+    TargetPtr getTopLevelTarget() const;
 
   private:
     TargetService() = default;

@@ -36,20 +36,20 @@ void TargetService::init(const std::string& dtbPath)
     _initialized = true;
 }
 
-ConstTargetPtrList TargetService::getAssociated(
+TargetPtrList TargetService::getAssociated(
     ConstTargetPtr source, AssociationType type, RecursionLevel recursionLevel,
     const PredicateBase* predicate) const
 {
     return _targetMap->getAssociated(source, type, recursionLevel, predicate);
 }
 
-ConstTargetPtr TargetService::getParentOf(ConstTargetPtr& child,
-                                          AssociationType type) const
+TargetPtr TargetService::getParentOf(ConstTargetPtr child,
+                                     AssociationType type) const
 {
     return _targetMap->getParentOf(child, type);
 }
 
-ConstTargetPtr TargetService::toTarget(const EntityPath& entityPath) const
+TargetPtr TargetService::toTarget(const EntityPath& entityPath) const
 {
     if (!_targetMap)
     {
@@ -59,7 +59,7 @@ ConstTargetPtr TargetService::toTarget(const EntityPath& entityPath) const
     return _targetMap->toTarget(entityPath);
 }
 
-ConstTargetPtr TargetService::getTopLevelTarget() const
+TargetPtr TargetService::getTopLevelTarget() const
 {
     if (!_targetMap)
     {

@@ -96,16 +96,16 @@ int main()
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
             EntityPath path =
                 EntityPath::fromBinary(std::span<const uint8_t>{bin});
-            auto ocmbTarget = ts.toTarget(path);
+            ConstTargetPtr ocmbTarget = ts.toTarget(path);
             std::string ocmb;
             ocmbTarget->tryGetAttr<ATTR_PHYS_DEV_PATH>(ocmb);
             std::cout << " entitypath to ocmb physical path " << ocmb << "\n";
-            auto parentp =
+            TargetPtr parentp =
                 ts.getParentOf(ocmbTarget, AssociationType::parentByPhysical);
             parentp->tryGetAttr<ATTR_PHYS_DEV_PATH>(ocmb);
             std::cout << " parent of ocmb parent affinity path " << ocmb
                       << "\n";
-            auto parenta =
+            TargetPtr parenta =
                 ts.getParentOf(ocmbTarget, AssociationType::parentByAffinity);
             parenta->tryGetAttr<ATTR_PHYS_DEV_PATH>(ocmb);
             std::cout << " parent of ocmb parent physical path " << ocmb

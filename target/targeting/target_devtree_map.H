@@ -22,28 +22,28 @@ class TargetDevtreeMap
     ~TargetDevtreeMap() = default;
 
   private:
-    explicit TargetDevtreeMap(const void* fdt);
+    explicit TargetDevtreeMap(void* fdt);
 
-    ConstTargetPtr getParentOf(ConstTargetPtr& child,
-                               const AssociationType type);
+    TargetPtr getParentOf(ConstTargetPtr child, const AssociationType type);
 
-    ConstTargetPtr toTarget(const EntityPath& entityPath);
+    TargetPtr toTarget(const EntityPath& entityPath);
 
-    ConstTargetPtrList getAssociated(
-        ConstTargetPtr source, const AssociationType type = childByAffinity,
-        const RecursionLevel recursionLevel = immediate,
-        const PredicateBase* predicate = nullptr);
-    ConstTargetPtr getTopLevelTarget();
+    TargetPtrList getAssociated(ConstTargetPtr source,
+                                const AssociationType type = childByAffinity,
+                                const RecursionLevel recursionLevel = immediate,
+                                const PredicateBase* predicate = nullptr);
+
+    TargetPtr getTopLevelTarget();
 
   private:
     void indexAllNodes();
 
     EntityPath parseEntityPathProperty(int offset, const char* propName) const;
 
-    ConstTargetPtr getOrCreateTarget(const EntityPath& path, int offset);
+    TargetPtr getOrCreateTarget(const EntityPath& path, int offset);
 
   private:
-    const void* _fdt;
+    void* _fdt;
     int _rootOffset = -1;
     std::map<EntityPath, int> _phyPathToNode;
     std::map<EntityPath, int> _affinityPathToNode;

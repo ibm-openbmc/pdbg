@@ -1,39 +1,61 @@
-#include "target.H"
+#include <target.H>
 
-namespace TARGETING::internal
+#include <cstring>
+#include <stdexcept>
+
+namespace TARGETING
 {
-
-template <>
-bool tryGetAttrHelper<std::string>(const void* fdt, int offset,
-                                   const std::string& propName,
-                                   std::string& outVal)
+Target::Target(void* fdt, int offset) : _fdt(fdt), _offset(offset)
+{
+    // TODO check if tryGetAttr(ATT_ACCESS_TYPE)
+    //  baed on access type create HWACCESS pointer
+}
+int Target::getOffset() const noexcept
+{
+    return _offset;
+}
+std::optional<std::span<const uint8_t>> Target::fdtGetProperty(
+    const void* fdt, int offset, const std::string& name) const
 {
     int len = 0;
-    const char* prop = static_cast<const char*>(
-        fdt_getprop(fdt, offset, propName.c_str(), &len));
-
+    const uint8_t* prop = static_cast<const uint8_t*>(
+        fdt_getprop(fdt, offset, name.c_str(), &len));
     if (!prop || len <= 0)
-        return false;
-
-    outVal.assign(prop, len);
-    return true;
+    {
+        return std::nullopt;
+    }
+    return std::span<const uint8_t>(prop, len);
 }
 
-template <>
-bool tryGetAttrHelper<EntityPath>(const void* fdt, int offset,
-                                  const std::string& propName,
-                                  EntityPath& outVal)
+void Target::fdtSetProperty(void* fdt, int offset, const std::string& name,
+                            const std::span<const uint8_t>& data) const
 {
-    int len = 0;
-    const uint8_t* prop = reinterpret_cast<const uint8_t*>(
-        fdt_getprop(fdt, offset, propName.c_str(), &len));
-
-    if (!prop || len <= 0)
-        return false;
-
-    std::span<const uint8_t> data(prop, static_cast<size_t>(len));
-    outVal = EntityPath::fromBinary(data);
-    return outVal.getSize() > 0;
+    int rc = fdt_setprop(fdt, offset, name.c_str(), data.data(), data.size());
+    if (rc < 0)
+    {
+        throw std::runtime_error("fdtSetProperty failed for " + name);
+    }
 }
 
-} // namespace TARGETING::internal
+void Target::fdtSetStringProperty(void* fdt, int offset,
+                                  const std::string& name,
+                                  const std::string& value) const
+{
+    int rc = fdt_setprop(fdt, offset, name.c_str(), value.c_str(),
+                         value.length() + 1);
+    if (rc < 0)
+    {
+        throw std::runtime_error("fdtSetStringProperty failed for " + name);
+    }
+}
+
+void Target::fdtSetRawProperty(void* fdt, int offset, const std::string& name,
+                               const void* data, size_t size) const
+{
+    int rc = fdt_setprop(fdt, offset, name.c_str(), data, size);
+    if (rc < 0)
+    {
+        throw std::runtime_error("fdtSetRawProperty failed for " + name);
+    }
+}
+} // namespace TARGETING

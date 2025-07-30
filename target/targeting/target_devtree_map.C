@@ -6,13 +6,13 @@ namespace TARGETING
 constexpr const char* ATTR_PHYS_PATH_PROP = "ATTR_PHYS_PATH";
 constexpr const char* ATTR_AFFINITY_PATH_PROP = "ATTR_AFFINITY_PATH";
 
-TargetDevtreeMap::TargetDevtreeMap(const void* fdt) : _fdt(fdt)
+TargetDevtreeMap::TargetDevtreeMap(void* fdt) : _fdt(fdt)
 {
     indexAllNodes();
 }
 
-ConstTargetPtr TargetDevtreeMap::getParentOf(ConstTargetPtr& child,
-                                             const AssociationType type)
+TargetPtr TargetDevtreeMap::getParentOf(ConstTargetPtr child,
+                                        const AssociationType type)
 {
     if (!child)
     {
@@ -63,7 +63,7 @@ ConstTargetPtr TargetDevtreeMap::getParentOf(ConstTargetPtr& child,
     return getOrCreateTarget(parentPath, it->second);
 }
 
-ConstTargetPtr TargetDevtreeMap::toTarget(const EntityPath& i_entityPath)
+TargetPtr TargetDevtreeMap::toTarget(const EntityPath& i_entityPath)
 {
     auto it = _phyPathToNode.find(i_entityPath);
     if (it == _phyPathToNode.end())
@@ -75,14 +75,14 @@ ConstTargetPtr TargetDevtreeMap::toTarget(const EntityPath& i_entityPath)
     return getOrCreateTarget(i_entityPath, it->second);
 }
 
-ConstTargetPtrList TargetDevtreeMap::getAssociated(
+TargetPtrList TargetDevtreeMap::getAssociated(
     const ConstTargetPtr source, AssociationType type,
     RecursionLevel recursionLevel, const PredicateBase* predicate)
 {
     using enum AssociationType;
     using enum RecursionLevel;
 
-    ConstTargetPtrList result;
+    TargetPtrList result;
 
     if (!source)
     {
@@ -137,7 +137,8 @@ ConstTargetPtrList TargetDevtreeMap::getAssociated(
             if (match)
             {
                 auto tgt = getOrCreateTarget(path, offset);
-                if (tgt && (!predicate || (*predicate)(tgt)))
+                if (tgt && (!predicate ||
+                            (*predicate)(const_cast<ConstTargetPtr&>(tgt))))
                 {
                     result.push_back(tgt);
                 }
@@ -152,7 +153,8 @@ ConstTargetPtrList TargetDevtreeMap::getAssociated(
             if (const auto it = pathMap->find(current); it != pathMap->end())
             {
                 auto tgt = getOrCreateTarget(current, it->second);
-                if (tgt && (!predicate || (*predicate)(tgt)))
+                if (tgt && (!predicate ||
+                            (*predicate)(const_cast<ConstTargetPtr&>(tgt))))
                 {
                     result.push_back(tgt);
                 }
@@ -216,7 +218,7 @@ EntityPath TargetDevtreeMap::parseEntityPathProperty(int offset,
     return EntityPath::fromBinary(data);
 }
 
-ConstTargetPtr TargetDevtreeMap::getTopLevelTarget()
+TargetPtr TargetDevtreeMap::getTopLevelTarget()
 {
     if (_rootOffset < 0)
     {
@@ -229,7 +231,7 @@ ConstTargetPtr TargetDevtreeMap::getTopLevelTarget()
     return getOrCreateTarget(rootPath, _rootOffset);
 }
 
-ConstTargetPtr
+TargetPtr
     TargetDevtreeMap::getOrCreateTarget(const EntityPath& path, int offset)
 {
     auto it = _accessedTargets.find(path);
