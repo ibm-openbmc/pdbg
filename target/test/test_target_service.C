@@ -317,3 +317,38 @@ TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_LOCATION_CODE)
     // Restore
     EXPECT_TRUE(proc->trySetAttr<ATTR_LOCATION_CODE>(original));
 }
+
+class MockTarget : public TARGETING::Target
+{
+  public:
+    mutable bool fdtCalled = false;
+
+    // Now allowed, since Target declared us as friend
+    MockTarget(void* fdt, int offset) : Target(fdt, offset) {}
+
+  protected:
+    std::optional<std::span<const uint8_t>>
+        fdtGetProperty(const void*, int, const std::string&) const override
+    {
+        fdtCalled = true;
+        return std::nullopt;
+    }
+};
+
+TEST_F(TargetServiceTest, getAttrPrefersOptionalOverFdt)
+{
+    PredicateAttrVal<ATTR_TYPE> pred(TYPE_PROC);
+    auto top = TargetService::instance().getTopLevelTarget();
+    for (auto&& tgt : TargetService::instance().getAssociated(
+             top, AssociationType::childByPhysical, RecursionLevel::all, &pred))
+    {
+        // Use same offset and fdt from real target
+        MockTarget t(TargetService::instance().getFDT(), tgt->getOffset());
+
+        [[maybe_unused]] auto result =
+            tgt->getAttr<TARGETING::ATTR_HWACCESS_METHOD>();
+
+        // Confirm FDT path wasn't touched
+        EXPECT_FALSE(t.fdtCalled);
+    }
+}

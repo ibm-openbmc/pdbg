@@ -26,6 +26,8 @@ enum ATTRIBUTE_ID
     ATTR_POSITION,
     ATTR_AFFINITY_PATH,
     ATTR_CLASS,
+    ATTR_HWACCESS_METHOD,
+    ATTR_ACCESS_TYPE
 };
 
 /**
@@ -144,6 +146,13 @@ enum CLASS
     CLASS_MAX = 0x0000000C,
     CLASS_INVALID = 0xFFFFFFFF,
 };
+
+enum ACCESS_TYPE
+{
+    SBEFIFO_ACCESS = 1,
+    DIRECT_ACCESS = 2
+};
+
 /**
  *  @brief Enumeration indicating the target's engine type
  */
@@ -192,6 +201,10 @@ template <ATTRIBUTE_ID A> std::optional<std::string> tryGetAttrName()
             return "ATTR_POSITION";
         case ATTR_CLASS:
             return "ATTR_CLASS";
+        case ATTR_ACCESS_TYPE:
+            return "ATTR_ACCESS_TYPE";
+        case ATTR_HWACCESS_METHOD:
+            return "ATTR_HWACCESS_METHOD";
         default:
             return std::nullopt;
     }

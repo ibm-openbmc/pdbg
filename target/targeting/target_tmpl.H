@@ -49,6 +49,11 @@ template <ATTRIBUTE_ID A> consteval bool isCharArrayAttr()
 template <const ATTRIBUTE_ID A>
 typename AttributeTraits<A>::Type Target::getAttr() const
 {
+    if (hasOptionalAttr(A))
+    {
+        return getOptionalAttr<typename AttributeTraits<A>::Type>(A);
+    }
+
     typename AttributeTraits<A>::Type value{};
     if (!tryGetAttrImpl<A>(value))
     {
@@ -60,6 +65,11 @@ typename AttributeTraits<A>::Type Target::getAttr() const
 template <const ATTRIBUTE_ID A>
 typename AttributeTraits<A>::TypeStdArr Target::getAttrAsArray() const
 {
+    if (hasOptionalAttr(A))
+    {
+        return getOptionalAttr<typename AttributeTraits<A>::TypeStdArr>(A);
+    }
+
     typename AttributeTraits<A>::TypeStdArr value{};
     if (!tryGetAttrImpl<A>(value))
     {
@@ -71,6 +81,11 @@ typename AttributeTraits<A>::TypeStdArr Target::getAttrAsArray() const
 template <const ATTRIBUTE_ID A>
 bool Target::tryGetAttr(typename AttributeTraits<A>::Type& o_attrValue) const
 {
+    if (hasOptionalAttr(A))
+    {
+        o_attrValue = getOptionalAttr<typename AttributeTraits<A>::Type>(A);
+        return true;
+    }
     return tryGetAttrImpl<A>(o_attrValue);
 }
 
@@ -78,32 +93,57 @@ template <const ATTRIBUTE_ID A>
 bool Target::tryGetAttr(
     typename AttributeTraits<A>::TypeStdArr& o_attrValue) const
 {
+    if (hasOptionalAttr(A))
+    {
+        o_attrValue = getOptionalAttr<typename AttributeTraits<A>::TypeStdArr>(A);
+        return true;
+    }
     return tryGetAttrImpl<A>(o_attrValue);
 }
 
 template <const ATTRIBUTE_ID A>
-void Target::setAttr(const typename AttributeTraits<A>::Type& i_attrValue)
+void Target::setAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
-    setAttrImpl<A>(i_attrValue);
+    if (hasOptionalAttr(A))
+    {
+        setOptionalAttr(A, attrValue);
+        return;
+    }
+    setAttrImpl<A>(attrValue);
 }
 
 template <const ATTRIBUTE_ID A>
-void Target::setAttr(const typename AttributeTraits<A>::TypeStdArr& i_attrValue)
+void Target::setAttr(const typename AttributeTraits<A>::TypeStdArr& attrValue)
 {
-    setAttrImpl<A>(i_attrValue);
+    if (hasOptionalAttr(A))
+    {
+        setOptionalAttr(A, attrValue);
+        return;
+    }
+    setAttrImpl<A>(attrValue);
 }
 
 template <const ATTRIBUTE_ID A>
-bool Target::trySetAttr(const typename AttributeTraits<A>::Type& i_attrValue)
+bool Target::trySetAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
-    return trySetAttrImpl<A>(i_attrValue);
+    if (hasOptionalAttr(A))
+    {
+        setOptionalAttr(A, attrValue);
+        return true;
+    }
+    return trySetAttrImpl<A>(attrValue);
 }
 
 template <const ATTRIBUTE_ID A>
 bool Target::trySetAttr(
-    const typename AttributeTraits<A>::TypeStdArr& i_attrValue)
+    const typename AttributeTraits<A>::TypeStdArr& attrValue)
 {
-    return trySetAttrImpl<A>(i_attrValue);
+    if (hasOptionalAttr(A))
+    {
+        setOptionalAttr(A, attrValue);
+        return true;
+    }
+    return trySetAttrImpl<A>(attrValue);
 }
 
 // ----------------------------------------
@@ -161,7 +201,7 @@ bool Target::tryGetAttrImpl(T& o_attrValue) const
 }
 
 template <ATTRIBUTE_ID A, typename T>
-void Target::setAttrImpl(const T& i_attrValue)
+void Target::setAttrImpl(const T& attrValue)
 {
     if (auto nameOpt = tryGetAttrName<A>())
     {
@@ -169,37 +209,37 @@ void Target::setAttrImpl(const T& i_attrValue)
 
         if constexpr (isStringAttr<A>())
         {
-            fdtSetStringProperty(_fdt, _offset, propName, i_attrValue);
+            fdtSetStringProperty(_fdt, _offset, propName, attrValue);
         }
         else if constexpr (isEntityPathAttr<A>())
         {
-            fdtSetProperty(_fdt, _offset, propName, i_attrValue.toBinary());
+            fdtSetProperty(_fdt, _offset, propName, attrValue.toBinary());
         }
         else if constexpr (isStdArrayAttr<A>())
         {
-            const char* cstr = i_attrValue.data();
-            size_t len = strnlen(cstr, i_attrValue.size());
+            const char* cstr = attrValue.data();
+            size_t len = strnlen(cstr, attrValue.size());
             fdtSetRawProperty(_fdt, _offset, propName, cstr, len + 1);
         }
         else if constexpr (isCharArrayAttr<A>())
         {
-            const char* cstr = reinterpret_cast<const char*>(&i_attrValue);
+            const char* cstr = reinterpret_cast<const char*>(&attrValue);
             size_t len = strnlen(cstr, sizeof(T));
             fdtSetRawProperty(_fdt, _offset, propName, cstr, len + 1);
         }
         else
         {
-            fdtSetRawProperty(_fdt, _offset, propName, &i_attrValue, sizeof(T));
+            fdtSetRawProperty(_fdt, _offset, propName, &attrValue, sizeof(T));
         }
     }
 }
 
 template <ATTRIBUTE_ID A, typename T>
-bool Target::trySetAttrImpl(const T& i_attrValue)
+bool Target::trySetAttrImpl(const T& attrValue)
 {
     try
     {
-        setAttrImpl<A>(i_attrValue);
+        setAttrImpl<A>(attrValue);
         return true;
     }
     catch (...)

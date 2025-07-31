@@ -29,6 +29,8 @@
             ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-0";
             ATTR_TYPE = [ 05 ];
             ATTR_CLASS = [ 03 ];
+            ATTR_ACCESS_TYPE = [ 01 ];
+            ATTR_HWACCESS_METHOD = [ 00 00 00 00 ];
 
             mc0 {
                 compatible = "ibm,power10-mc";
@@ -102,6 +104,8 @@
             ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-1";
             ATTR_TYPE = [ 05 ];
             ATTR_CLASS = [ 03 ];
+            ATTR_ACCESS_TYPE = [ 01 ];
+            ATTR_HWACCESS_METHOD = [ 00 00 00 00 ];
 
             mc0 {
                 compatible = "ibm,power10-mc";

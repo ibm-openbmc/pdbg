@@ -266,6 +266,7 @@ template <> class AttributeTraits<ATTR_CLASS>
     static constexpr uint32_t CLASS_INVALID = 0x7F;
 #endif
 };
+
 template <> class AttributeTraits<ATTR_PHYS_BIN_PATH>
 {
   public:
@@ -308,6 +309,41 @@ template <> class AttributeTraits<ATTR_AFFINITY_PATH>
 #if __cplusplus >= 201103L
 #endif
 };
+
+template <> class AttributeTraits<ATTR_HWACCESS_METHOD>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t ATTR_HWACCESS_METHOD = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_ACCESS_TYPE>
+{
+  public:
+    enum
+    {
+        readable,
+        hasStringConversion,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t ACCESS_TYPE_INVALID = 0x7F;
+#endif
+};
+
 // Type aliases and/or sizes for ATTR_TYPE attribute
 typedef TYPE TYPE_ATTR;
 typedef TYPE ATTR_TYPE_type;
