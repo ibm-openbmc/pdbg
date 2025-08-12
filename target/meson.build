@@ -1,6 +1,7 @@
 # Include libfdt
 subdir('libfdt')
 subdir('targeting')
+subdir('hwaccess')
 subdir('targetsvc')
 subdir('test')
 
