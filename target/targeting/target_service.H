@@ -43,14 +43,8 @@ class TargetService
     TargetService(const TargetService&) = delete;
     TargetService& operator=(const TargetService&) = delete;
 
-    bool isInitialized() const noexcept
-    {
-        return _initialized;
-    }
-
     int _rootOffset = -1;
     std::unique_ptr<DeviceTreeLoader> _loader;
     std::unique_ptr<TargetDevtreeMap> _targetMap;
-    bool _initialized{false};
 };
 } // namespace TARGETING

@@ -18,7 +18,7 @@ TargetService& TargetService::instance()
 
 void TargetService::init(const std::string& dtbPath)
 {
-    if (_initialized)
+    if (_targetMap)
     {
         return;
     }
@@ -33,7 +33,6 @@ void TargetService::init(const std::string& dtbPath)
 
     _targetMap =
         std::unique_ptr<TargetDevtreeMap>(new TargetDevtreeMap(_loader->fdt()));
-    _initialized = true;
 }
 
 TargetPtrList TargetService::getAssociated(

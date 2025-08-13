@@ -32,9 +32,7 @@ EntityPath EntityPath::copyRemoveLast() const
 EntityPath& EntityPath::addLast(TYPE type, uint8_t instance)
 {
     assert(getSize() < MAX_PATH_ELEMENTS);
-    PathElement pe;
-    pe.setType(type);
-    pe.instance = instance;
+    PathElement pe(type, instance);
     _elements[getSize()] = pe;
     setSize(getSize() + 1);
     return *this;
@@ -166,8 +164,8 @@ EntityPath EntityPath::fromBinary(std::span<const uint8_t> data)
         return path;
 
     uint8_t header = data[0];
-    uint8_t pathType = (header >> 4) & 0x0F;
-    uint8_t elementCount = header & 0x0F;
+    uint8_t pathType = (header >> 4) & LOWER_NIBBLE_MASK;
+    uint8_t elementCount = header & LOWER_NIBBLE_MASK;
 
     std::size_t expectedSize = 1 + 2 * elementCount;
     if (data.size() < expectedSize)

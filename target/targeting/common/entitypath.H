@@ -13,6 +13,8 @@ namespace TARGETING
 {
 
 class Target;
+static constexpr uint8_t LOWER_NIBBLE_MASK = 0x0F;
+static constexpr uint8_t UPPER_NIBBLE_MASK = 0xF0;
 
 class EntityPath
 {
@@ -32,7 +34,10 @@ class EntityPath
     {
         uint8_t type8{};
         uint8_t instance{};
-
+        PathElement() {};
+        PathElement(TYPE t, uint8_t inst) :
+            type8(static_cast<uint8_t>(t)), instance(inst)
+        {}
         TYPE type() const
         {
             return static_cast<TYPE>(type8);
@@ -65,20 +70,20 @@ class EntityPath
 
     uint16_t getSize() const
     {
-        uint8_t size = _header & 0x0F;
+        uint16_t size = static_cast<uint16_t>(_header & 0x0F);
         return size;
     }
 
     // Set size (lower nibble)
     void setSize(uint8_t size)
     {
-        _header = (_header & 0xF0) | (size & 0x0F);
+        _header = (_header & UPPER_NIBBLE_MASK) | (size & LOWER_NIBBLE_MASK);
     }
 
     // Get path type (upper nibble)
     PathType type() const
     {
-        uint8_t raw = (_header >> 4) & 0x0F;
+        uint8_t raw = (_header >> 4) & LOWER_NIBBLE_MASK;
 
         switch (static_cast<PathType>(raw))
         {
@@ -97,7 +102,8 @@ class EntityPath
     // Set path type (upper nibble)
     void setType(PathType type)
     {
-        _header = (_header & 0x0F) | ((static_cast<uint8_t>(type) & 0x0F) << 4);
+        _header = (_header & LOWER_NIBBLE_MASK) |
+                  ((static_cast<uint8_t>(type) & LOWER_NIBBLE_MASK) << 4);
     }
 
     std::string pathTypeAsString() const;

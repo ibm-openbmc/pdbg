@@ -95,7 +95,8 @@ bool Target::tryGetAttr(
 {
     if (hasOptionalAttr(A))
     {
-        o_attrValue = getOptionalAttr<typename AttributeTraits<A>::TypeStdArr>(A);
+        o_attrValue =
+            getOptionalAttr<typename AttributeTraits<A>::TypeStdArr>(A);
         return true;
     }
     return tryGetAttrImpl<A>(o_attrValue);

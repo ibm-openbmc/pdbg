@@ -28,7 +28,6 @@
 
 namespace TARGETING
 {
-#define PACKED __attribute__((packed))
 /**
  *  @brief Structure which defines a they IPL types Applicable for System
  *	target only.

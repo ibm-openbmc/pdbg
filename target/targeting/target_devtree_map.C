@@ -76,8 +76,8 @@ TargetPtr TargetDevtreeMap::toTarget(const EntityPath& i_entityPath)
 }
 
 TargetPtrList TargetDevtreeMap::getAssociated(
-    const ConstTargetPtr source, AssociationType type,
-    RecursionLevel recursionLevel, const PredicateBase* predicate)
+    ConstTargetPtr source, AssociationType type, RecursionLevel recursionLevel,
+    const PredicateBase* predicate)
 {
     using enum AssociationType;
     using enum RecursionLevel;
