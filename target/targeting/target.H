@@ -3,7 +3,10 @@
 #include <attributeenums.H>
 #include <attributetraits.H>
 #include <entitypath.H>
+extern "C"
+{
 #include <libfdt.h>
+}
 
 #include <cstring>
 #include <map>
@@ -31,10 +34,11 @@ using ConstTargetPtrList = std::vector<ConstTargetPtr>;
 class TargetDevtreeMap;
 
 // optional attributes
-using AttributeValue = std::variant<
-    uint8_t, uint32_t, uint16_t, std::string, std::array<char, 64>, EntityPath
-    // Add more types as you specialize more traits
-    >;
+using AttributeValue =
+    std::variant<uint8_t, uint32_t, uint16_t, std::string, std::array<char, 64>,
+                 EntityPath, HW_ACCESS_METHOD, TYPE, CLASS
+                 // Add more types as you specialize more traits
+                 >;
 
 class Target
 {
@@ -140,6 +144,8 @@ class Target
 
     template <ATTRIBUTE_ID A, typename T>
     bool trySetAttrImpl(const T& attrValue);
+
+    template <ATTRIBUTE_ID A> std::optional<std::string> tryGetAttrName() const;
 };
 } // namespace TARGETING
 

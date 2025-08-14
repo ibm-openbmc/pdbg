@@ -26,7 +26,7 @@ class TargetServiceTest : public ::testing::Test
         for (auto&& tgt : TargetService::instance().getAssociated(
                  top, AssociationType::childByPhysical, all))
         {
-            AttributeTraits<ATTR_TYPE>::Type rawVal = 0;
+            AttributeTraits<ATTR_TYPE>::Type rawVal = TYPE_INVALID;
             if (tgt->tryGetAttr<ATTR_TYPE>(rawVal) &&
                 static_cast<TYPE>(rawVal) == type)
             {
@@ -48,9 +48,10 @@ TEST_F(TargetServiceTest, TestTopLevelTarget)
     auto top = TargetService::instance().getTopLevelTarget();
     ASSERT_NE(top, nullptr);
 
-    AttributeTraits<ATTR_FAPI_NAME>::Type name;
+    ATTR_FAPI_NAME_typeStdArr name;
     EXPECT_TRUE(top->tryGetAttr<ATTR_FAPI_NAME>(name));
-    EXPECT_TRUE(name.starts_with("k0"));
+    std::string strName{name.data()};
+    EXPECT_TRUE(strName.starts_with("k0"));
 }
 
 //////////////TEST getParentOf method//////////
@@ -63,7 +64,7 @@ TEST_F(TargetServiceTest, TestGetParentOfOcmbImmediatePhysical)
         ocmb, AssociationType::parentByPhysical);
     ASSERT_NE(parent, nullptr);
 
-    AttributeTraits<ATTR_TYPE>::Type rawVal = 0;
+    AttributeTraits<ATTR_TYPE>::Type rawVal = TYPE_INVALID;
     EXPECT_TRUE(parent->tryGetAttr<ATTR_TYPE>(rawVal));
     EXPECT_EQ(static_cast<TYPE>(rawVal), TYPE_NODE);
 }
@@ -77,7 +78,7 @@ TEST_F(TargetServiceTest, TestGetParentOfOcmbImmediateAffinity)
         ocmb, AssociationType::parentByAffinity);
     ASSERT_NE(parent, nullptr);
 
-    AttributeTraits<ATTR_TYPE>::Type rawVal = 0;
+    AttributeTraits<ATTR_TYPE>::Type rawVal = TYPE_INVALID;
     EXPECT_TRUE(parent->tryGetAttr<ATTR_TYPE>(rawVal));
     EXPECT_EQ(static_cast<TYPE>(rawVal), TYPE_OMI);
 }
@@ -95,7 +96,7 @@ TEST_F(TargetServiceTest, TestGetAssociatedChildrenImmediate)
         ++count;
         EXPECT_NE(child, nullptr);
 
-        AttributeTraits<ATTR_TYPE>::Type t;
+        AttributeTraits<ATTR_TYPE>::Type t = TYPE_INVALID;
         EXPECT_TRUE(child->tryGetAttr<ATTR_TYPE>(t));
         EXPECT_EQ(t, TYPE_MC); // Direct child of PROC is MC
     }
@@ -115,7 +116,7 @@ TEST_F(TargetServiceTest, TestGetAssociatedParentsAffinityAll)
     for (auto&& parent : TargetService::instance().getAssociated(
              ocmb, AssociationType::parentByAffinity, RecursionLevel::all))
     {
-        AttributeTraits<ATTR_TYPE>::Type t;
+        AttributeTraits<ATTR_TYPE>::Type t = TYPE_INVALID;
         EXPECT_TRUE(parent->tryGetAttr<ATTR_TYPE>(t));
         actual.push_back(t);
     }
@@ -149,7 +150,7 @@ TEST_F(TargetServiceTest, TestPredicateAttrValProcType)
     for (auto&& tgt : TargetService::instance().getAssociated(
              top, AssociationType::childByPhysical, RecursionLevel::all, &pred))
     {
-        AttributeTraits<ATTR_TYPE>::Type t;
+        AttributeTraits<ATTR_TYPE>::Type t = TYPE_INVALID;
         EXPECT_TRUE(tgt->tryGetAttr<ATTR_TYPE>(t));
         EXPECT_EQ(t, TYPE_PROC);
         ++count;
@@ -172,8 +173,8 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrVal_AND)
     for (auto&& tgt : TargetService::instance().getAssociated(
              top, AssociationType::childByPhysical, RecursionLevel::all, &expr))
     {
-        AttributeTraits<ATTR_TYPE>::Type type;
-        AttributeTraits<ATTR_CLASS>::Type cls;
+        AttributeTraits<ATTR_TYPE>::Type type = TYPE_INVALID;
+        AttributeTraits<ATTR_CLASS>::Type cls = CLASS_INVALID;
         EXPECT_TRUE(tgt->tryGetAttr<ATTR_TYPE>(type));
         EXPECT_TRUE(tgt->tryGetAttr<ATTR_CLASS>(cls));
         EXPECT_EQ(type, TYPE_PROC);
@@ -198,7 +199,7 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrMask_OR)
     for (auto&& tgt : TargetService::instance().getAssociated(
              top, AssociationType::childByPhysical, RecursionLevel::all, &expr))
     {
-        AttributeTraits<ATTR_TYPE>::Type t;
+        AttributeTraits<ATTR_TYPE>::Type t = TYPE_INVALID;
         EXPECT_TRUE(tgt->tryGetAttr<ATTR_TYPE>(t));
         matchedTypes.push_back(t);
         EXPECT_TRUE(t == TYPE_PROC || t == TYPE_MC);
@@ -222,7 +223,7 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_Negation)
     for (auto&& tgt : TargetService::instance().getAssociated(
              top, AssociationType::childByPhysical, RecursionLevel::all, &expr))
     {
-        AttributeTraits<ATTR_TYPE>::Type t;
+        AttributeTraits<ATTR_TYPE>::Type t = TYPE_INVALID;
         EXPECT_TRUE(tgt->tryGetAttr<ATTR_TYPE>(t));
         EXPECT_NE(t, TYPE_PROC);
         ++count;
@@ -292,7 +293,7 @@ TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_Type)
 
     // Test trySetAttr<> (roundtrip)
     EXPECT_TRUE(proc->trySetAttr<ATTR_TYPE>(TYPE_PROC));
-    uint8_t verify = 0;
+    AttributeTraits<ATTR_TYPE>::Type verify = TYPE_INVALID;
     EXPECT_TRUE(proc->tryGetAttr<ATTR_TYPE>(verify));
     EXPECT_EQ(verify, TYPE_PROC);
 }
@@ -346,7 +347,7 @@ TEST_F(TargetServiceTest, getAttrPrefersOptionalOverFdt)
         MockTarget t(TargetService::instance().getFDT(), tgt->getOffset());
 
         [[maybe_unused]] auto result =
-            tgt->getAttr<TARGETING::ATTR_HWACCESS_METHOD>();
+            tgt->getAttr<TARGETING::ATTR_HW_ACCESS_PTR>();
 
         // Confirm FDT path wasn't touched
         EXPECT_FALSE(t.fdtCalled);

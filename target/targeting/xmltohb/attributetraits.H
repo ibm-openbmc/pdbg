@@ -1,4 +1,7 @@
-#pragma once
+
+#ifndef TARG_ATTRIBUTETRAITS_H
+#define TARG_ATTRIBUTETRAITS_H
+
 /**
  *  @file attributetraits.H
  *
@@ -21,8 +24,8 @@
 #include <array>
 #endif
 
-#include <attributestructs.H>
-#include <entitypath.H>
+#include <targeting/common/entitypath.H>
+#include <targeting/xmltohb/attributestructs.H>
 namespace TARGETING
 {
 
@@ -55,7 +58,7 @@ template <const ATTRIBUTE_ID A> class AttributeTraits
     typedef void* Type;
 };
 
-template <> class AttributeTraits<ATTR_FAPI_NAME>
+template <> class AttributeTraits<ATTR_SYS0_REFCLOCK_RCVR_TERM>
 {
   public:
     enum
@@ -65,30 +68,61 @@ template <> class AttributeTraits<ATTR_FAPI_NAME>
         notFspMutex,
         fspAccessible
     };
-    typedef std::string Type;
+    typedef uint8_t Type;
 #if __cplusplus >= 201103L
-    typedef std::array<char, 64> TypeStdArr;
+    static constexpr uint8_t SYS0_REFCLOCK_RCVR_TERM_INVALID = 0xFF;
 #endif
 };
 
-template <> class AttributeTraits<ATTR_CHIP_ID>
+template <> class AttributeTraits<ATTR_SYS1_REFCLOCK_RCVR_TERM>
 {
   public:
     enum
     {
-        writeable,
         readable,
         notHbMutex,
         notFspMutex,
         fspAccessible
     };
-    typedef uint32_t Type;
+    typedef uint8_t Type;
 #if __cplusplus >= 201103L
-    static constexpr uint32_t CHIP_ID_INVALID = 0xFFFFFFFF;
+    static constexpr uint8_t SYS1_REFCLOCK_RCVR_TERM_INVALID = 0xFF;
 #endif
 };
 
-template <> class AttributeTraits<ATTR_CLOCKSTOP_ON_XSTOP>
+template <> class AttributeTraits<ATTR_PCI0_REFCLOCK_RCVR_TERM>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PCI0_REFCLOCK_RCVR_TERM_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PCI1_REFCLOCK_RCVR_TERM>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PCI1_REFCLOCK_RCVR_TERM_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_SYS_CLK_NE_TERMINATION_SITE>
 {
   public:
     enum
@@ -101,11 +135,27 @@ template <> class AttributeTraits<ATTR_CLOCKSTOP_ON_XSTOP>
     };
     typedef uint8_t Type;
 #if __cplusplus >= 201103L
-    static constexpr uint8_t CLOCKSTOP_ON_XSTOP_INVALID = 0xFF;
+    static constexpr uint8_t SYS_CLK_NE_TERMINATION_SITE_INVALID = 0xFF;
 #endif
 };
 
-template <> class AttributeTraits<ATTR_EC>
+template <> class AttributeTraits<ATTR_SYS_CLK_NE_TERMINATION_STRENGTH>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t SYS_CLK_NE_TERMINATION_STRENGTH_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CP_REFCLOCK_SELECT>
 {
   public:
     enum
@@ -118,27 +168,11 @@ template <> class AttributeTraits<ATTR_EC>
     };
     typedef uint8_t Type;
 #if __cplusplus >= 201103L
-    static constexpr uint8_t EC_INVALID = 0xFF;
+    static constexpr uint8_t CP_REFCLOCK_SELECT_INVALID = 0xFF;
 #endif
 };
 
-template <> class AttributeTraits<ATTR_HWAS_STATE>
-{
-  public:
-    enum
-    {
-        writeable,
-        readable,
-        notHbMutex,
-        notFspMutex,
-        fspAccessible
-    };
-    typedef HwasState Type;
-#if __cplusplus >= 201103L
-#endif
-};
-
-template <> class AttributeTraits<ATTR_LOCATION_CODE>
+template <> class AttributeTraits<ATTR_CLOCK_MUX0A_RCS_PLL_INPUT>
 {
   public:
     enum
@@ -148,18 +182,33 @@ template <> class AttributeTraits<ATTR_LOCATION_CODE>
         notFspMutex,
         fspAccessible
     };
-    typedef char Type[64];
+    typedef uint8_t Type;
 #if __cplusplus >= 201103L
-    typedef std::array<char, 64> TypeStdArr;
+    static constexpr uint8_t CLOCK_MUX0A_RCS_PLL_INPUT_INVALID = 0xFF;
 #endif
 };
 
-template <> class AttributeTraits<ATTR_NAME>
+template <> class AttributeTraits<ATTR_CLOCK_MUX0B_RCS_PLL_INPUT>
 {
   public:
     enum
     {
-        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX0B_RCS_PLL_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX0C_RCS_PLL_INPUT>
+{
+  public:
+    enum
+    {
         readable,
         notHbMutex,
         notFspMutex,
@@ -167,11 +216,171 @@ template <> class AttributeTraits<ATTR_NAME>
     };
     typedef uint8_t Type;
 #if __cplusplus >= 201103L
-    static constexpr uint8_t NAME_INVALID = 0xFF;
+    static constexpr uint8_t CLOCK_MUX0C_RCS_PLL_INPUT_INVALID = 0xFF;
 #endif
 };
 
-template <> class AttributeTraits<ATTR_PHYS_DEV_PATH>
+template <> class AttributeTraits<ATTR_CLOCK_MUX0D_RCS_PLL_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX0D_RCS_PLL_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX1_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX1_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX2A_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX2A_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX2B_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX2B_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX3_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX3_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX10_PAU_DPLL_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX10_PAU_DPLL_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX11_NEST_DPLL_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX11_NEST_DPLL_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX12_OMI_LCPLL_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX12_OMI_LCPLL_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX13_OPT_133_SOURCE_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX13_OPT_133_SOURCE_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX14_OPT_156_SOURCE_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX14_OPT_156_SOURCE_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX_IOHS_LCPLL_INPUT>
 {
   public:
     enum
@@ -179,28 +388,117 @@ template <> class AttributeTraits<ATTR_PHYS_DEV_PATH>
         writeable,
         readable,
         notHbMutex,
-        notFspMutex
-    };
-    typedef std::string Type;
-};
-
-template <> class AttributeTraits<ATTR_POSITION>
-{
-  public:
-    enum
-    {
-        readable,
-        notHbMutex,
         notFspMutex,
         fspAccessible
     };
-    typedef uint32_t Type;
+    typedef uint8_t Type[8];
 #if __cplusplus >= 201103L
-    static constexpr uint32_t POSITION_INVALID = 0xFFFFFFFF;
+    static constexpr uint8_t CLOCK_MUX_IOHS_LCPLL_INPUT_INVALID = 0xFF;
+    typedef std::array<uint8_t, 8> TypeStdArr;
 #endif
 };
 
-template <> class AttributeTraits<ATTR_POS>
+template <> class AttributeTraits<ATTR_CLOCK_MUX23_PCI_INPUT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX23_PCI_INPUT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_MUX_PCI_LCPLL_INPUT>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type[2];
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_MUX_PCI_LCPLL_INPUT_INVALID = 0xFF;
+    typedef std::array<uint8_t, 2> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCK_PLL_MUX_TOD>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCK_PLL_MUX_TOD_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_HW543822_WAR_MODE>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t HW543822_WAR_MODE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_FREQ_CORE_BOOT_MHZ>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t FREQ_CORE_BOOT_MHZ_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_FREQ_MC_MHZ>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t FREQ_MC_MHZ_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_FREQ_IOHS_MHZ>
 {
   public:
     enum
@@ -212,7 +510,40 @@ template <> class AttributeTraits<ATTR_POS>
     };
     typedef uint32_t Type;
 #if __cplusplus >= 201103L
-    static constexpr uint32_t POS_INVALID = 0xFFFFFFFF;
+    static constexpr uint32_t FREQ_IOHS_MHZ_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_FREQ_PAU_MHZ>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t FREQ_PAU_MHZ_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_FREQ_PCIE_MHZ>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t FREQ_PCIE_MHZ_INVALID = 0xFFFFFFFF;
 #endif
 };
 
@@ -233,41 +564,7 @@ template <> class AttributeTraits<ATTR_SPI_BUS_DIV_REF>
 #endif
 };
 
-template <> class AttributeTraits<ATTR_TYPE>
-{
-  public:
-    enum
-    {
-        readable,
-        hasStringConversion,
-        notHbMutex,
-        notFspMutex,
-        fspAccessible
-    };
-    typedef uint8_t Type;
-#if __cplusplus >= 201103L
-    static constexpr uint32_t TYPE_INVALID = 0x7F;
-#endif
-};
-
-template <> class AttributeTraits<ATTR_CLASS>
-{
-  public:
-    enum
-    {
-        readable,
-        hasStringConversion,
-        notHbMutex,
-        notFspMutex,
-        fspAccessible
-    };
-    typedef uint8_t Type;
-#if __cplusplus >= 201103L
-    static constexpr uint32_t CLASS_INVALID = 0x7F;
-#endif
-};
-
-template <> class AttributeTraits<ATTR_PHYS_BIN_PATH>
+template <> class AttributeTraits<ATTR_TPM_SPI_BUS_DIV>
 {
   public:
     enum
@@ -275,13 +572,84 @@ template <> class AttributeTraits<ATTR_PHYS_BIN_PATH>
         writeable,
         readable,
         notHbMutex,
-        notFspMutex
+        notFspMutex,
+        fspAccessible
     };
-    typedef EntityPath Type;
+    typedef uint16_t Type;
 #if __cplusplus >= 201103L
+    static constexpr uint16_t TPM_SPI_BUS_DIV_INVALID = 0xFFFF;
 #endif
 };
-template <> class AttributeTraits<ATTR_PHYS_PATH>
+
+template <> class AttributeTraits<ATTR_SYSTEM_IPL_PHASE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t SYSTEM_IPL_PHASE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CONTAINED_IPL_TYPE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CONTAINED_IPL_TYPE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CONTAINED_LOAD_PATH>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CONTAINED_LOAD_PATH_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_DISABLE_HBBL_VECTORS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t DISABLE_HBBL_VECTORS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_BACKUP_SEEPROM_SELECT>
 {
   public:
     enum
@@ -291,10 +659,640 @@ template <> class AttributeTraits<ATTR_PHYS_PATH>
         notFspMutex,
         fspAccessible
     };
-    typedef EntityPath Type;
+    typedef uint8_t Type;
 #if __cplusplus >= 201103L
+    static constexpr uint8_t BACKUP_SEEPROM_SELECT_INVALID = 0xFF;
 #endif
 };
+
+template <> class AttributeTraits<ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t BACKUP_MEASUREMENT_SEEPROM_SELECT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_BOOT_FLAGS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t BOOT_FLAGS_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_ALLOW_ATTR_OVERRIDES>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t ALLOW_ATTR_OVERRIDES_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_NO_XSCOM_ENFORCEMENT>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t NO_XSCOM_ENFORCEMENT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_SBE_SELECT_EX_POLICY>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t SBE_SELECT_EX_POLICY_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_MASTER_CORE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t MASTER_CORE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CHIP_CONTAINED_ACTIVE_CORES_VEC>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t CHIP_CONTAINED_ACTIVE_CORES_VEC_INVALID =
+        0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CHIP_CONTAINED_BACKING_CACHES_VEC>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t CHIP_CONTAINED_BACKING_CACHES_VEC_INVALID =
+        0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CORE_LPAR_MODE_POLICY>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CORE_LPAR_MODE_POLICY_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CORE_LPAR_MODE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CORE_LPAR_MODE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PROC_FABRIC_BROADCAST_MODE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PROC_FABRIC_BROADCAST_MODE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PROC_FABRIC_TOPOLOGY_MODE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PROC_FABRIC_TOPOLOGY_MODE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PROC_FABRIC_TOPOLOGY_ID>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PROC_FABRIC_TOPOLOGY_ID_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PROC_FABRIC_EFF_TOPOLOGY_ID>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PROC_FABRIC_EFF_TOPOLOGY_ID_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_IOHS_CONFIG_MODE>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t IOHS_CONFIG_MODE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_ECO_MODE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t ECO_MODE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PROC_SBE_MASTER_CHIP>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PROC_SBE_MASTER_CHIP_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_NDL_MESHCTRL_SETUP>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t NDL_MESHCTRL_SETUP_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_MC_PLL_BUCKET>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type[4];
+#if __cplusplus >= 201103L
+    static constexpr uint8_t MC_PLL_BUCKET_INVALID = 0xFF;
+    typedef std::array<uint8_t, 4> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_IOHS_PLL_BUCKET>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type[8];
+#if __cplusplus >= 201103L
+    static constexpr uint8_t IOHS_PLL_BUCKET_INVALID = 0xFF;
+    typedef std::array<uint8_t, 8> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PCI_PLL_BUCKET>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PCI_PLL_BUCKET_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CP_PLLTODFLT_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CP_PLLTODFLT_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CP_PLLNESTFLT_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CP_PLLNESTFLT_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CP_PLLIOFLT_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CP_PLLIOFLT_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CP_PLLIOSSFLT_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CP_PLLIOSSFLT_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PAU_DPLL_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PAU_DPLL_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_NEST_DPLL_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t NEST_DPLL_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_IO_TANK_PLL_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t IO_TANK_PLL_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_SKEWADJ_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t SKEWADJ_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_DCADJ_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t DCADJ_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLOCKSTOP_ON_XSTOP>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CLOCKSTOP_ON_XSTOP_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_BOOT_PAU_DPLL_BYPASS>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t BOOT_PAU_DPLL_BYPASS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_RUNN_MODE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t RUNN_MODE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_SMF_CONFIG>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t SMF_CONFIG_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_AVSBUS_BUSNUM>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type[4];
+#if __cplusplus >= 201103L
+    static constexpr uint8_t AVSBUS_BUSNUM_INVALID = 0xFF;
+    typedef std::array<uint8_t, 4> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_AVSBUS_RAIL>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type[4];
+#if __cplusplus >= 201103L
+    static constexpr uint8_t AVSBUS_RAIL_INVALID = 0xFF;
+    typedef std::array<uint8_t, 4> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_FAPI_POS>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t FAPI_POS_INVALID = 0xFFFFFFFF;
+#endif
+};
+
 template <> class AttributeTraits<ATTR_AFFINITY_PATH>
 {
   public:
@@ -310,7 +1308,23 @@ template <> class AttributeTraits<ATTR_AFFINITY_PATH>
 #endif
 };
 
-template <> class AttributeTraits<ATTR_HWACCESS_METHOD>
+template <> class AttributeTraits<ATTR_CHIPLET_ID>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CHIPLET_ID_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CHIP_ID>
 {
   public:
     enum
@@ -323,11 +1337,27 @@ template <> class AttributeTraits<ATTR_HWACCESS_METHOD>
     };
     typedef uint32_t Type;
 #if __cplusplus >= 201103L
-    static constexpr uint32_t ATTR_HWACCESS_METHOD = 0xFFFFFFFF;
+    static constexpr uint32_t CHIP_ID_INVALID = 0xFFFFFFFF;
 #endif
 };
 
-template <> class AttributeTraits<ATTR_ACCESS_TYPE>
+template <> class AttributeTraits<ATTR_CHIP_UNIT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t CHIP_UNIT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_CLASS>
 {
   public:
     enum
@@ -338,22 +1368,1487 @@ template <> class AttributeTraits<ATTR_ACCESS_TYPE>
         notFspMutex,
         fspAccessible
     };
-    typedef uint8_t Type;
+    typedef CLASS Type;
 #if __cplusplus >= 201103L
-    static constexpr uint32_t ACCESS_TYPE_INVALID = 0x7F;
+    static constexpr uint32_t CLASS_INVALID = 0xFFFFFFFF;
 #endif
 };
 
-// Type aliases and/or sizes for ATTR_TYPE attribute
-typedef TYPE TYPE_ATTR;
-typedef TYPE ATTR_TYPE_type;
+template <> class AttributeTraits<ATTR_EC>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t EC_INVALID = 0xFF;
+#endif
+};
 
-// Type aliases and/or sizes for ATTR_ENGINE_TYPE attribute
-typedef ENGINE_TYPE ENGINE_TYPE_ATTR;
-typedef ENGINE_TYPE ATTR_ENGINE_TYPE_type;
+template <> class AttributeTraits<ATTR_FAPI_NAME>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef char Type[64];
+#if __cplusplus >= 201103L
+    typedef std::array<char, 64> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_FUSED_CORE_OPTION>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t FUSED_CORE_OPTION_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_HWAS_STATE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef HwasState Type;
+#if __cplusplus >= 201103L
+#endif
+};
+
+template <> class AttributeTraits<ATTR_ISTEP_MODE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t ISTEP_MODE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_LOCATION_CODE>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef char Type[64];
+#if __cplusplus >= 201103L
+    typedef std::array<char, 64> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_MRU_ID>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t MRU_ID_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PHYS_PATH>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef EntityPath Type;
+#if __cplusplus >= 201103L
+#endif
+};
+
+template <> class AttributeTraits<ATTR_POSITION>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint16_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint16_t POSITION_INVALID = 0xFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PROC_MASTER_TYPE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        hasStringConversion,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PROC_MASTER_TYPE_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_REL_POS>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t REL_POS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_SECURE_VERSION_NUM>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t SECURE_VERSION_NUM_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_TYPE>
+{
+  public:
+    enum
+    {
+        readable,
+        hasStringConversion,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef TYPE Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t TYPE_INVALID = 0x7F;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_DISABLE_SECURITY>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t DISABLE_SECURITY_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_EQ_GARD>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t EQ_GARD_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PHYS_DEV_PATH>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef char Type[64];
+#if __cplusplus >= 201103L
+    typedef std::array<char, 64> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_PHYS_BIN_PATH>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type[21];
+#if __cplusplus >= 201103L
+    static constexpr uint8_t PHYS_BIN_PATH_INVALID = 0xFF;
+    typedef std::array<uint8_t, 21> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_FSI_DEVICE_PATH>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef char Type[64];
+#if __cplusplus >= 201103L
+    typedef std::array<char, 64> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_FSI_PORT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t FSI_PORT_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_DIRECT_ACCESS_DEVICE_PATH>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef char Type[64];
+#if __cplusplus >= 201103L
+    typedef std::array<char, 64> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_SBEFIFO_DEVICE_PATH>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef char Type[64];
+#if __cplusplus >= 201103L
+    typedef std::array<char, 64> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_SYS_CLOCK_DECONFIG_STATE>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef SYS_CLOCK_DECONFIG_STATE Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t SYS_CLOCK_DECONFIG_STATE_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_I2C_ADDRESS>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t I2C_ADDRESS_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_I2C_PORT>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint8_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint8_t I2C_PORT_INVALID = 0xFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_I2C_PARENT_PHYS_PATH>
+{
+  public:
+    enum
+    {
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef char Type[64];
+#if __cplusplus >= 201103L
+    typedef std::array<char, 64> TypeStdArr;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_HW_ACCESS_METHOD>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef HW_ACCESS_METHOD Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t HW_ACCESS_METHOD_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template <> class AttributeTraits<ATTR_HW_ACCESS_PTR>
+{
+  public:
+    enum
+    {
+        writeable,
+        readable,
+        notHbMutex,
+        notFspMutex,
+        fspAccessible
+    };
+    typedef uint32_t Type;
+#if __cplusplus >= 201103L
+    static constexpr uint32_t HW_ACCESS_PTR_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+/**
+ *  @brief Mapping of alias type name to underlying type
+ */
+// Type aliases and/or sizes for ATTR_SYS0_REFCLOCK_RCVR_TERM attribute
+typedef uint8_t SYS0_REFCLOCK_RCVR_TERM_ATTR;
+typedef uint8_t ATTR_SYS0_REFCLOCK_RCVR_TERM_type;
+
+// Type aliases and/or sizes for ATTR_SYS1_REFCLOCK_RCVR_TERM attribute
+typedef uint8_t SYS1_REFCLOCK_RCVR_TERM_ATTR;
+typedef uint8_t ATTR_SYS1_REFCLOCK_RCVR_TERM_type;
+
+// Type aliases and/or sizes for ATTR_PCI0_REFCLOCK_RCVR_TERM attribute
+typedef uint8_t PCI0_REFCLOCK_RCVR_TERM_ATTR;
+typedef uint8_t ATTR_PCI0_REFCLOCK_RCVR_TERM_type;
+
+// Type aliases and/or sizes for ATTR_PCI1_REFCLOCK_RCVR_TERM attribute
+typedef uint8_t PCI1_REFCLOCK_RCVR_TERM_ATTR;
+typedef uint8_t ATTR_PCI1_REFCLOCK_RCVR_TERM_type;
+
+// Type aliases and/or sizes for ATTR_SYS_CLK_NE_TERMINATION_SITE attribute
+typedef uint8_t SYS_CLK_NE_TERMINATION_SITE_ATTR;
+typedef uint8_t ATTR_SYS_CLK_NE_TERMINATION_SITE_type;
+
+// Type aliases and/or sizes for ATTR_SYS_CLK_NE_TERMINATION_STRENGTH attribute
+typedef uint8_t SYS_CLK_NE_TERMINATION_STRENGTH_ATTR;
+typedef uint8_t ATTR_SYS_CLK_NE_TERMINATION_STRENGTH_type;
+
+// Type aliases and/or sizes for ATTR_CP_REFCLOCK_SELECT attribute
+typedef uint8_t CP_REFCLOCK_SELECT_ATTR;
+typedef uint8_t ATTR_CP_REFCLOCK_SELECT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX0A_RCS_PLL_INPUT attribute
+typedef uint8_t CLOCK_MUX0A_RCS_PLL_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX0A_RCS_PLL_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX0B_RCS_PLL_INPUT attribute
+typedef uint8_t CLOCK_MUX0B_RCS_PLL_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX0B_RCS_PLL_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX0C_RCS_PLL_INPUT attribute
+typedef uint8_t CLOCK_MUX0C_RCS_PLL_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX0C_RCS_PLL_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX0D_RCS_PLL_INPUT attribute
+typedef uint8_t CLOCK_MUX0D_RCS_PLL_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX0D_RCS_PLL_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX1_INPUT attribute
+typedef uint8_t CLOCK_MUX1_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX1_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX2A_INPUT attribute
+typedef uint8_t CLOCK_MUX2A_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX2A_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX2B_INPUT attribute
+typedef uint8_t CLOCK_MUX2B_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX2B_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX3_INPUT attribute
+typedef uint8_t CLOCK_MUX3_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX3_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX10_PAU_DPLL_INPUT attribute
+typedef uint8_t CLOCK_MUX10_PAU_DPLL_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX10_PAU_DPLL_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX11_NEST_DPLL_INPUT attribute
+typedef uint8_t CLOCK_MUX11_NEST_DPLL_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX11_NEST_DPLL_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX12_OMI_LCPLL_INPUT attribute
+typedef uint8_t CLOCK_MUX12_OMI_LCPLL_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX12_OMI_LCPLL_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX13_OPT_133_SOURCE_INPUT attribute
+typedef uint8_t CLOCK_MUX13_OPT_133_SOURCE_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX13_OPT_133_SOURCE_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX14_OPT_156_SOURCE_INPUT attribute
+typedef uint8_t CLOCK_MUX14_OPT_156_SOURCE_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX14_OPT_156_SOURCE_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX_IOHS_LCPLL_INPUT attribute
+typedef uint8_t CLOCK_MUX_IOHS_LCPLL_INPUT_ATTR[8];
+typedef uint8_t ATTR_CLOCK_MUX_IOHS_LCPLL_INPUT_type[8];
+#if __cplusplus >= 201103L
+typedef std::array<uint8_t, 8> ATTR_CLOCK_MUX_IOHS_LCPLL_INPUT_typeStdArr;
+#endif
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX23_PCI_INPUT attribute
+typedef uint8_t CLOCK_MUX23_PCI_INPUT_ATTR;
+typedef uint8_t ATTR_CLOCK_MUX23_PCI_INPUT_type;
+
+// Type aliases and/or sizes for ATTR_CLOCK_MUX_PCI_LCPLL_INPUT attribute
+typedef uint8_t CLOCK_MUX_PCI_LCPLL_INPUT_ATTR[2];
+typedef uint8_t ATTR_CLOCK_MUX_PCI_LCPLL_INPUT_type[2];
+#if __cplusplus >= 201103L
+typedef std::array<uint8_t, 2> ATTR_CLOCK_MUX_PCI_LCPLL_INPUT_typeStdArr;
+#endif
+
+// Type aliases and/or sizes for ATTR_CLOCK_PLL_MUX_TOD attribute
+typedef uint8_t CLOCK_PLL_MUX_TOD_ATTR;
+typedef uint8_t ATTR_CLOCK_PLL_MUX_TOD_type;
+
+// Type aliases and/or sizes for ATTR_HW543822_WAR_MODE attribute
+typedef uint8_t HW543822_WAR_MODE_ATTR;
+typedef uint8_t ATTR_HW543822_WAR_MODE_type;
+
+// Type aliases and/or sizes for ATTR_FREQ_CORE_BOOT_MHZ attribute
+typedef uint32_t FREQ_CORE_BOOT_MHZ_ATTR;
+typedef uint32_t ATTR_FREQ_CORE_BOOT_MHZ_type;
+
+// Type aliases and/or sizes for ATTR_FREQ_MC_MHZ attribute
+typedef uint32_t FREQ_MC_MHZ_ATTR;
+typedef uint32_t ATTR_FREQ_MC_MHZ_type;
+
+// Type aliases and/or sizes for ATTR_FREQ_IOHS_MHZ attribute
+typedef uint32_t FREQ_IOHS_MHZ_ATTR;
+typedef uint32_t ATTR_FREQ_IOHS_MHZ_type;
+
+// Type aliases and/or sizes for ATTR_FREQ_PAU_MHZ attribute
+typedef uint32_t FREQ_PAU_MHZ_ATTR;
+typedef uint32_t ATTR_FREQ_PAU_MHZ_type;
+
+// Type aliases and/or sizes for ATTR_FREQ_PCIE_MHZ attribute
+typedef uint32_t FREQ_PCIE_MHZ_ATTR;
+typedef uint32_t ATTR_FREQ_PCIE_MHZ_type;
+
+// Type aliases and/or sizes for ATTR_SPI_BUS_DIV_REF attribute
+typedef uint16_t SPI_BUS_DIV_REF_ATTR;
+typedef uint16_t ATTR_SPI_BUS_DIV_REF_type;
+
+// Type aliases and/or sizes for ATTR_TPM_SPI_BUS_DIV attribute
+typedef uint16_t TPM_SPI_BUS_DIV_ATTR;
+typedef uint16_t ATTR_TPM_SPI_BUS_DIV_type;
+
+// Type aliases and/or sizes for ATTR_SYSTEM_IPL_PHASE attribute
+typedef uint8_t SYSTEM_IPL_PHASE_ATTR;
+typedef uint8_t ATTR_SYSTEM_IPL_PHASE_type;
+
+// Type aliases and/or sizes for ATTR_CONTAINED_IPL_TYPE attribute
+typedef uint8_t CONTAINED_IPL_TYPE_ATTR;
+typedef uint8_t ATTR_CONTAINED_IPL_TYPE_type;
+
+// Type aliases and/or sizes for ATTR_CONTAINED_LOAD_PATH attribute
+typedef uint8_t CONTAINED_LOAD_PATH_ATTR;
+typedef uint8_t ATTR_CONTAINED_LOAD_PATH_type;
+
+// Type aliases and/or sizes for ATTR_DISABLE_HBBL_VECTORS attribute
+typedef uint8_t DISABLE_HBBL_VECTORS_ATTR;
+typedef uint8_t ATTR_DISABLE_HBBL_VECTORS_type;
+
+// Type aliases and/or sizes for ATTR_BACKUP_SEEPROM_SELECT attribute
+typedef uint8_t BACKUP_SEEPROM_SELECT_ATTR;
+typedef uint8_t ATTR_BACKUP_SEEPROM_SELECT_type;
+
+// Type aliases and/or sizes for ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT
+// attribute
+typedef uint8_t BACKUP_MEASUREMENT_SEEPROM_SELECT_ATTR;
+typedef uint8_t ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT_type;
+
+// Type aliases and/or sizes for ATTR_BOOT_FLAGS attribute
+typedef uint32_t BOOT_FLAGS_ATTR;
+typedef uint32_t ATTR_BOOT_FLAGS_type;
+
+// Type aliases and/or sizes for ATTR_ALLOW_ATTR_OVERRIDES attribute
+typedef uint8_t ALLOW_ATTR_OVERRIDES_ATTR;
+typedef uint8_t ATTR_ALLOW_ATTR_OVERRIDES_type;
+
+// Type aliases and/or sizes for ATTR_NO_XSCOM_ENFORCEMENT attribute
+typedef uint8_t NO_XSCOM_ENFORCEMENT_ATTR;
+typedef uint8_t ATTR_NO_XSCOM_ENFORCEMENT_type;
+
+// Type aliases and/or sizes for ATTR_SBE_SELECT_EX_POLICY attribute
+typedef uint8_t SBE_SELECT_EX_POLICY_ATTR;
+typedef uint8_t ATTR_SBE_SELECT_EX_POLICY_type;
+
+// Type aliases and/or sizes for ATTR_MASTER_CORE attribute
+typedef uint8_t MASTER_CORE_ATTR;
+typedef uint8_t ATTR_MASTER_CORE_type;
+
+// Type aliases and/or sizes for ATTR_CHIP_CONTAINED_ACTIVE_CORES_VEC attribute
+typedef uint32_t CHIP_CONTAINED_ACTIVE_CORES_VEC_ATTR;
+typedef uint32_t ATTR_CHIP_CONTAINED_ACTIVE_CORES_VEC_type;
+
+// Type aliases and/or sizes for ATTR_CHIP_CONTAINED_BACKING_CACHES_VEC
+// attribute
+typedef uint32_t CHIP_CONTAINED_BACKING_CACHES_VEC_ATTR;
+typedef uint32_t ATTR_CHIP_CONTAINED_BACKING_CACHES_VEC_type;
+
+// Type aliases and/or sizes for ATTR_CORE_LPAR_MODE_POLICY attribute
+typedef uint8_t CORE_LPAR_MODE_POLICY_ATTR;
+typedef uint8_t ATTR_CORE_LPAR_MODE_POLICY_type;
+
+// Type aliases and/or sizes for ATTR_CORE_LPAR_MODE attribute
+typedef uint8_t CORE_LPAR_MODE_ATTR;
+typedef uint8_t ATTR_CORE_LPAR_MODE_type;
+
+// Type aliases and/or sizes for ATTR_PROC_FABRIC_BROADCAST_MODE attribute
+typedef uint8_t PROC_FABRIC_BROADCAST_MODE_ATTR;
+typedef uint8_t ATTR_PROC_FABRIC_BROADCAST_MODE_type;
+
+// Type aliases and/or sizes for ATTR_PROC_FABRIC_TOPOLOGY_MODE attribute
+typedef uint8_t PROC_FABRIC_TOPOLOGY_MODE_ATTR;
+typedef uint8_t ATTR_PROC_FABRIC_TOPOLOGY_MODE_type;
+
+// Type aliases and/or sizes for ATTR_PROC_FABRIC_TOPOLOGY_ID attribute
+typedef uint8_t PROC_FABRIC_TOPOLOGY_ID_ATTR;
+typedef uint8_t ATTR_PROC_FABRIC_TOPOLOGY_ID_type;
+
+// Type aliases and/or sizes for ATTR_PROC_FABRIC_EFF_TOPOLOGY_ID attribute
+typedef uint8_t PROC_FABRIC_EFF_TOPOLOGY_ID_ATTR;
+typedef uint8_t ATTR_PROC_FABRIC_EFF_TOPOLOGY_ID_type;
+
+// Type aliases and/or sizes for ATTR_IOHS_CONFIG_MODE attribute
+typedef uint8_t IOHS_CONFIG_MODE_ATTR;
+typedef uint8_t ATTR_IOHS_CONFIG_MODE_type;
+
+// Type aliases and/or sizes for ATTR_ECO_MODE attribute
+typedef uint8_t ECO_MODE_ATTR;
+typedef uint8_t ATTR_ECO_MODE_type;
+
+// Type aliases and/or sizes for ATTR_PROC_SBE_MASTER_CHIP attribute
+typedef uint8_t PROC_SBE_MASTER_CHIP_ATTR;
+typedef uint8_t ATTR_PROC_SBE_MASTER_CHIP_type;
+
+// Type aliases and/or sizes for ATTR_NDL_MESHCTRL_SETUP attribute
+typedef uint8_t NDL_MESHCTRL_SETUP_ATTR;
+typedef uint8_t ATTR_NDL_MESHCTRL_SETUP_type;
+
+// Type aliases and/or sizes for ATTR_MC_PLL_BUCKET attribute
+typedef uint8_t MC_PLL_BUCKET_ATTR[4];
+typedef uint8_t ATTR_MC_PLL_BUCKET_type[4];
+#if __cplusplus >= 201103L
+typedef std::array<uint8_t, 4> ATTR_MC_PLL_BUCKET_typeStdArr;
+#endif
+
+// Type aliases and/or sizes for ATTR_IOHS_PLL_BUCKET attribute
+typedef uint8_t IOHS_PLL_BUCKET_ATTR[8];
+typedef uint8_t ATTR_IOHS_PLL_BUCKET_type[8];
+#if __cplusplus >= 201103L
+typedef std::array<uint8_t, 8> ATTR_IOHS_PLL_BUCKET_typeStdArr;
+#endif
+
+// Type aliases and/or sizes for ATTR_PCI_PLL_BUCKET attribute
+typedef uint8_t PCI_PLL_BUCKET_ATTR;
+typedef uint8_t ATTR_PCI_PLL_BUCKET_type;
+
+// Type aliases and/or sizes for ATTR_CP_PLLTODFLT_BYPASS attribute
+typedef uint8_t CP_PLLTODFLT_BYPASS_ATTR;
+typedef uint8_t ATTR_CP_PLLTODFLT_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_CP_PLLNESTFLT_BYPASS attribute
+typedef uint8_t CP_PLLNESTFLT_BYPASS_ATTR;
+typedef uint8_t ATTR_CP_PLLNESTFLT_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_CP_PLLIOFLT_BYPASS attribute
+typedef uint8_t CP_PLLIOFLT_BYPASS_ATTR;
+typedef uint8_t ATTR_CP_PLLIOFLT_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_CP_PLLIOSSFLT_BYPASS attribute
+typedef uint8_t CP_PLLIOSSFLT_BYPASS_ATTR;
+typedef uint8_t ATTR_CP_PLLIOSSFLT_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_PAU_DPLL_BYPASS attribute
+typedef uint8_t PAU_DPLL_BYPASS_ATTR;
+typedef uint8_t ATTR_PAU_DPLL_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_NEST_DPLL_BYPASS attribute
+typedef uint8_t NEST_DPLL_BYPASS_ATTR;
+typedef uint8_t ATTR_NEST_DPLL_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_IO_TANK_PLL_BYPASS attribute
+typedef uint8_t IO_TANK_PLL_BYPASS_ATTR;
+typedef uint8_t ATTR_IO_TANK_PLL_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_SKEWADJ_BYPASS attribute
+typedef uint8_t SKEWADJ_BYPASS_ATTR;
+typedef uint8_t ATTR_SKEWADJ_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_DCADJ_BYPASS attribute
+typedef uint8_t DCADJ_BYPASS_ATTR;
+typedef uint8_t ATTR_DCADJ_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_CLOCKSTOP_ON_XSTOP attribute
+typedef uint8_t CLOCKSTOP_ON_XSTOP_ATTR;
+typedef uint8_t ATTR_CLOCKSTOP_ON_XSTOP_type;
+
+// Type aliases and/or sizes for ATTR_BOOT_PAU_DPLL_BYPASS attribute
+typedef uint8_t BOOT_PAU_DPLL_BYPASS_ATTR;
+typedef uint8_t ATTR_BOOT_PAU_DPLL_BYPASS_type;
+
+// Type aliases and/or sizes for ATTR_RUNN_MODE attribute
+typedef uint8_t RUNN_MODE_ATTR;
+typedef uint8_t ATTR_RUNN_MODE_type;
+
+// Type aliases and/or sizes for ATTR_SMF_CONFIG attribute
+typedef uint8_t SMF_CONFIG_ATTR;
+typedef uint8_t ATTR_SMF_CONFIG_type;
+
+// Type aliases and/or sizes for ATTR_AVSBUS_BUSNUM attribute
+typedef uint8_t AVSBUS_BUSNUM_ATTR[4];
+typedef uint8_t ATTR_AVSBUS_BUSNUM_type[4];
+#if __cplusplus >= 201103L
+typedef std::array<uint8_t, 4> ATTR_AVSBUS_BUSNUM_typeStdArr;
+#endif
+
+// Type aliases and/or sizes for ATTR_AVSBUS_RAIL attribute
+typedef uint8_t AVSBUS_RAIL_ATTR[4];
+typedef uint8_t ATTR_AVSBUS_RAIL_type[4];
+#if __cplusplus >= 201103L
+typedef std::array<uint8_t, 4> ATTR_AVSBUS_RAIL_typeStdArr;
+#endif
+
+// Type aliases and/or sizes for ATTR_FAPI_POS attribute
+typedef uint32_t FAPI_POS_ATTR;
+typedef uint32_t ATTR_FAPI_POS_type;
+
+// Type aliases and/or sizes for ATTR_AFFINITY_PATH attribute
+typedef EntityPath AFFINITY_PATH_ATTR;
+typedef EntityPath ATTR_AFFINITY_PATH_type;
+
+// Type aliases and/or sizes for ATTR_CHIPLET_ID attribute
+typedef uint8_t CHIPLET_ID_ATTR;
+typedef uint8_t ATTR_CHIPLET_ID_type;
+
+// Type aliases and/or sizes for ATTR_CHIP_ID attribute
+typedef uint32_t CHIP_ID_ATTR;
+typedef uint32_t ATTR_CHIP_ID_type;
+
+// Type aliases and/or sizes for ATTR_CHIP_UNIT attribute
+typedef uint8_t CHIP_UNIT_ATTR;
+typedef uint8_t ATTR_CHIP_UNIT_type;
 
 // Type aliases and/or sizes for ATTR_CLASS attribute
 typedef CLASS CLASS_ATTR;
 typedef CLASS ATTR_CLASS_type;
 
+// Type aliases and/or sizes for ATTR_EC attribute
+typedef uint8_t EC_ATTR;
+typedef uint8_t ATTR_EC_type;
+
+// Type aliases and/or sizes for ATTR_FAPI_NAME attribute
+typedef char FAPI_NAME_ATTR[64];
+typedef char ATTR_FAPI_NAME_type[64];
+#if __cplusplus >= 201103L
+typedef std::array<char, 64> ATTR_FAPI_NAME_typeStdArr;
+#endif
+const size_t ATTR_FAPI_NAME_max_chars = 63;
+
+// Type aliases and/or sizes for ATTR_FUSED_CORE_OPTION attribute
+typedef uint8_t FUSED_CORE_OPTION_ATTR;
+typedef uint8_t ATTR_FUSED_CORE_OPTION_type;
+
+// Type aliases and/or sizes for ATTR_HWAS_STATE attribute
+typedef HwasState HWAS_STATE_ATTR;
+typedef HwasState ATTR_HWAS_STATE_type;
+
+// Type aliases and/or sizes for ATTR_ISTEP_MODE attribute
+typedef uint8_t ISTEP_MODE_ATTR;
+typedef uint8_t ATTR_ISTEP_MODE_type;
+
+// Type aliases and/or sizes for ATTR_LOCATION_CODE attribute
+typedef char LOCATION_CODE_ATTR[64];
+typedef char ATTR_LOCATION_CODE_type[64];
+#if __cplusplus >= 201103L
+typedef std::array<char, 64> ATTR_LOCATION_CODE_typeStdArr;
+#endif
+const size_t ATTR_LOCATION_CODE_max_chars = 63;
+
+// Type aliases and/or sizes for ATTR_MRU_ID attribute
+typedef uint32_t MRU_ID_ATTR;
+typedef uint32_t ATTR_MRU_ID_type;
+
+// Type aliases and/or sizes for ATTR_PHYS_PATH attribute
+typedef EntityPath PHYS_PATH_ATTR;
+typedef EntityPath ATTR_PHYS_PATH_type;
+
+// Type aliases and/or sizes for ATTR_POSITION attribute
+typedef uint16_t POSITION_ATTR;
+typedef uint16_t ATTR_POSITION_type;
+
+// Type aliases and/or sizes for ATTR_PROC_MASTER_TYPE attribute
+typedef uint8_t PROC_MASTER_TYPE_ATTR;
+typedef uint8_t ATTR_PROC_MASTER_TYPE_type;
+
+// Type aliases and/or sizes for ATTR_REL_POS attribute
+typedef uint8_t REL_POS_ATTR;
+typedef uint8_t ATTR_REL_POS_type;
+
+// Type aliases and/or sizes for ATTR_SECURE_VERSION_NUM attribute
+typedef uint8_t SECURE_VERSION_NUM_ATTR;
+typedef uint8_t ATTR_SECURE_VERSION_NUM_type;
+
+// Type aliases and/or sizes for ATTR_TYPE attribute
+typedef TYPE TYPE_ATTR;
+typedef TYPE ATTR_TYPE_type;
+
+// Type aliases and/or sizes for ATTR_DISABLE_SECURITY attribute
+typedef uint8_t DISABLE_SECURITY_ATTR;
+typedef uint8_t ATTR_DISABLE_SECURITY_type;
+
+// Type aliases and/or sizes for ATTR_EQ_GARD attribute
+typedef uint8_t EQ_GARD_ATTR;
+typedef uint8_t ATTR_EQ_GARD_type;
+
+// Type aliases and/or sizes for ATTR_PHYS_DEV_PATH attribute
+typedef char PHYS_DEV_PATH_ATTR[64];
+typedef char ATTR_PHYS_DEV_PATH_type[64];
+#if __cplusplus >= 201103L
+typedef std::array<char, 64> ATTR_PHYS_DEV_PATH_typeStdArr;
+#endif
+const size_t ATTR_PHYS_DEV_PATH_max_chars = 63;
+
+// Type aliases and/or sizes for ATTR_PHYS_BIN_PATH attribute
+typedef uint8_t PHYS_BIN_PATH_ATTR[21];
+typedef uint8_t ATTR_PHYS_BIN_PATH_type[21];
+#if __cplusplus >= 201103L
+typedef std::array<uint8_t, 21> ATTR_PHYS_BIN_PATH_typeStdArr;
+#endif
+
+// Type aliases and/or sizes for ATTR_FSI_DEVICE_PATH attribute
+typedef char FSI_DEVICE_PATH_ATTR[64];
+typedef char ATTR_FSI_DEVICE_PATH_type[64];
+#if __cplusplus >= 201103L
+typedef std::array<char, 64> ATTR_FSI_DEVICE_PATH_typeStdArr;
+#endif
+const size_t ATTR_FSI_DEVICE_PATH_max_chars = 63;
+
+// Type aliases and/or sizes for ATTR_FSI_PORT attribute
+typedef uint32_t FSI_PORT_ATTR;
+typedef uint32_t ATTR_FSI_PORT_type;
+
+// Type aliases and/or sizes for ATTR_DIRECT_ACCESS_DEVICE_PATH attribute
+typedef char DIRECT_ACCESS_DEVICE_PATH_ATTR[64];
+typedef char ATTR_DIRECT_ACCESS_DEVICE_PATH_type[64];
+#if __cplusplus >= 201103L
+typedef std::array<char, 64> ATTR_DIRECT_ACCESS_DEVICE_PATH_typeStdArr;
+#endif
+const size_t ATTR_DIRECT_ACCESS_DEVICE_PATH_max_chars = 63;
+
+// Type aliases and/or sizes for ATTR_SBEFIFO_DEVICE_PATH attribute
+typedef char SBEFIFO_DEVICE_PATH_ATTR[64];
+typedef char ATTR_SBEFIFO_DEVICE_PATH_type[64];
+#if __cplusplus >= 201103L
+typedef std::array<char, 64> ATTR_SBEFIFO_DEVICE_PATH_typeStdArr;
+#endif
+const size_t ATTR_SBEFIFO_DEVICE_PATH_max_chars = 63;
+
+// Type aliases and/or sizes for ATTR_SYS_CLOCK_DECONFIG_STATE attribute
+typedef SYS_CLOCK_DECONFIG_STATE SYS_CLOCK_DECONFIG_STATE_ATTR;
+typedef SYS_CLOCK_DECONFIG_STATE ATTR_SYS_CLOCK_DECONFIG_STATE_type;
+
+// Type aliases and/or sizes for ATTR_I2C_ADDRESS attribute
+typedef uint8_t I2C_ADDRESS_ATTR;
+typedef uint8_t ATTR_I2C_ADDRESS_type;
+
+// Type aliases and/or sizes for ATTR_I2C_PORT attribute
+typedef uint8_t I2C_PORT_ATTR;
+typedef uint8_t ATTR_I2C_PORT_type;
+
+// Type aliases and/or sizes for ATTR_I2C_PARENT_PHYS_PATH attribute
+typedef char I2C_PARENT_PHYS_PATH_ATTR[64];
+typedef char ATTR_I2C_PARENT_PHYS_PATH_type[64];
+#if __cplusplus >= 201103L
+typedef std::array<char, 64> ATTR_I2C_PARENT_PHYS_PATH_typeStdArr;
+#endif
+const size_t ATTR_I2C_PARENT_PHYS_PATH_max_chars = 63;
+
+// Type aliases and/or sizes for ATTR_HW_ACCESS_METHOD attribute
+typedef HW_ACCESS_METHOD HW_ACCESS_METHOD_ATTR;
+typedef HW_ACCESS_METHOD ATTR_HW_ACCESS_METHOD_type;
+
+// Type aliases and/or sizes for ATTR_HW_ACCESS_PTR attribute
+typedef uint32_t HW_ACCESS_PTR_ATTR;
+typedef uint32_t ATTR_HW_ACCESS_PTR_type;
+
+/**
+ *  @brief Function to return size of specified attribute
+ *
+ *  @param[in] i_attrId Attribute ID for attribute to look up size
+ *  @return uint32_t Size of the attribute
+ *
+ *  @retval Size of the attribute if succeeded
+ *  @retval 0 if failed
+ *
+ */
+inline uint32_t attrSizeLookup(ATTRIBUTE_ID i_attrId)
+{
+    uint32_t l_attrSize = 0;
+
+    switch (i_attrId)
+    {
+        // Get size for ATTR_SYS0_REFCLOCK_RCVR_TERM attribute
+        case ATTR_SYS0_REFCLOCK_RCVR_TERM:
+            l_attrSize = sizeof(ATTR_SYS0_REFCLOCK_RCVR_TERM_type);
+            break;
+
+        // Get size for ATTR_SYS1_REFCLOCK_RCVR_TERM attribute
+        case ATTR_SYS1_REFCLOCK_RCVR_TERM:
+            l_attrSize = sizeof(ATTR_SYS1_REFCLOCK_RCVR_TERM_type);
+            break;
+
+        // Get size for ATTR_PCI0_REFCLOCK_RCVR_TERM attribute
+        case ATTR_PCI0_REFCLOCK_RCVR_TERM:
+            l_attrSize = sizeof(ATTR_PCI0_REFCLOCK_RCVR_TERM_type);
+            break;
+
+        // Get size for ATTR_PCI1_REFCLOCK_RCVR_TERM attribute
+        case ATTR_PCI1_REFCLOCK_RCVR_TERM:
+            l_attrSize = sizeof(ATTR_PCI1_REFCLOCK_RCVR_TERM_type);
+            break;
+
+        // Get size for ATTR_SYS_CLK_NE_TERMINATION_SITE attribute
+        case ATTR_SYS_CLK_NE_TERMINATION_SITE:
+            l_attrSize = sizeof(ATTR_SYS_CLK_NE_TERMINATION_SITE_type);
+            break;
+
+        // Get size for ATTR_SYS_CLK_NE_TERMINATION_STRENGTH attribute
+        case ATTR_SYS_CLK_NE_TERMINATION_STRENGTH:
+            l_attrSize = sizeof(ATTR_SYS_CLK_NE_TERMINATION_STRENGTH_type);
+            break;
+
+        // Get size for ATTR_CP_REFCLOCK_SELECT attribute
+        case ATTR_CP_REFCLOCK_SELECT:
+            l_attrSize = sizeof(ATTR_CP_REFCLOCK_SELECT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX0A_RCS_PLL_INPUT attribute
+        case ATTR_CLOCK_MUX0A_RCS_PLL_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX0A_RCS_PLL_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX0B_RCS_PLL_INPUT attribute
+        case ATTR_CLOCK_MUX0B_RCS_PLL_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX0B_RCS_PLL_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX0C_RCS_PLL_INPUT attribute
+        case ATTR_CLOCK_MUX0C_RCS_PLL_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX0C_RCS_PLL_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX0D_RCS_PLL_INPUT attribute
+        case ATTR_CLOCK_MUX0D_RCS_PLL_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX0D_RCS_PLL_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX1_INPUT attribute
+        case ATTR_CLOCK_MUX1_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX1_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX2A_INPUT attribute
+        case ATTR_CLOCK_MUX2A_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX2A_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX2B_INPUT attribute
+        case ATTR_CLOCK_MUX2B_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX2B_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX3_INPUT attribute
+        case ATTR_CLOCK_MUX3_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX3_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX10_PAU_DPLL_INPUT attribute
+        case ATTR_CLOCK_MUX10_PAU_DPLL_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX10_PAU_DPLL_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX11_NEST_DPLL_INPUT attribute
+        case ATTR_CLOCK_MUX11_NEST_DPLL_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX11_NEST_DPLL_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX12_OMI_LCPLL_INPUT attribute
+        case ATTR_CLOCK_MUX12_OMI_LCPLL_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX12_OMI_LCPLL_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX13_OPT_133_SOURCE_INPUT attribute
+        case ATTR_CLOCK_MUX13_OPT_133_SOURCE_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX13_OPT_133_SOURCE_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX14_OPT_156_SOURCE_INPUT attribute
+        case ATTR_CLOCK_MUX14_OPT_156_SOURCE_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX14_OPT_156_SOURCE_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX_IOHS_LCPLL_INPUT attribute
+        case ATTR_CLOCK_MUX_IOHS_LCPLL_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX_IOHS_LCPLL_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX23_PCI_INPUT attribute
+        case ATTR_CLOCK_MUX23_PCI_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX23_PCI_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_MUX_PCI_LCPLL_INPUT attribute
+        case ATTR_CLOCK_MUX_PCI_LCPLL_INPUT:
+            l_attrSize = sizeof(ATTR_CLOCK_MUX_PCI_LCPLL_INPUT_type);
+            break;
+
+        // Get size for ATTR_CLOCK_PLL_MUX_TOD attribute
+        case ATTR_CLOCK_PLL_MUX_TOD:
+            l_attrSize = sizeof(ATTR_CLOCK_PLL_MUX_TOD_type);
+            break;
+
+        // Get size for ATTR_HW543822_WAR_MODE attribute
+        case ATTR_HW543822_WAR_MODE:
+            l_attrSize = sizeof(ATTR_HW543822_WAR_MODE_type);
+            break;
+
+        // Get size for ATTR_FREQ_CORE_BOOT_MHZ attribute
+        case ATTR_FREQ_CORE_BOOT_MHZ:
+            l_attrSize = sizeof(ATTR_FREQ_CORE_BOOT_MHZ_type);
+            break;
+
+        // Get size for ATTR_FREQ_MC_MHZ attribute
+        case ATTR_FREQ_MC_MHZ:
+            l_attrSize = sizeof(ATTR_FREQ_MC_MHZ_type);
+            break;
+
+        // Get size for ATTR_FREQ_IOHS_MHZ attribute
+        case ATTR_FREQ_IOHS_MHZ:
+            l_attrSize = sizeof(ATTR_FREQ_IOHS_MHZ_type);
+            break;
+
+        // Get size for ATTR_FREQ_PAU_MHZ attribute
+        case ATTR_FREQ_PAU_MHZ:
+            l_attrSize = sizeof(ATTR_FREQ_PAU_MHZ_type);
+            break;
+
+        // Get size for ATTR_FREQ_PCIE_MHZ attribute
+        case ATTR_FREQ_PCIE_MHZ:
+            l_attrSize = sizeof(ATTR_FREQ_PCIE_MHZ_type);
+            break;
+
+        // Get size for ATTR_SPI_BUS_DIV_REF attribute
+        case ATTR_SPI_BUS_DIV_REF:
+            l_attrSize = sizeof(ATTR_SPI_BUS_DIV_REF_type);
+            break;
+
+        // Get size for ATTR_TPM_SPI_BUS_DIV attribute
+        case ATTR_TPM_SPI_BUS_DIV:
+            l_attrSize = sizeof(ATTR_TPM_SPI_BUS_DIV_type);
+            break;
+
+        // Get size for ATTR_SYSTEM_IPL_PHASE attribute
+        case ATTR_SYSTEM_IPL_PHASE:
+            l_attrSize = sizeof(ATTR_SYSTEM_IPL_PHASE_type);
+            break;
+
+        // Get size for ATTR_CONTAINED_IPL_TYPE attribute
+        case ATTR_CONTAINED_IPL_TYPE:
+            l_attrSize = sizeof(ATTR_CONTAINED_IPL_TYPE_type);
+            break;
+
+        // Get size for ATTR_CONTAINED_LOAD_PATH attribute
+        case ATTR_CONTAINED_LOAD_PATH:
+            l_attrSize = sizeof(ATTR_CONTAINED_LOAD_PATH_type);
+            break;
+
+        // Get size for ATTR_DISABLE_HBBL_VECTORS attribute
+        case ATTR_DISABLE_HBBL_VECTORS:
+            l_attrSize = sizeof(ATTR_DISABLE_HBBL_VECTORS_type);
+            break;
+
+        // Get size for ATTR_BACKUP_SEEPROM_SELECT attribute
+        case ATTR_BACKUP_SEEPROM_SELECT:
+            l_attrSize = sizeof(ATTR_BACKUP_SEEPROM_SELECT_type);
+            break;
+
+        // Get size for ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT attribute
+        case ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT:
+            l_attrSize = sizeof(ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT_type);
+            break;
+
+        // Get size for ATTR_BOOT_FLAGS attribute
+        case ATTR_BOOT_FLAGS:
+            l_attrSize = sizeof(ATTR_BOOT_FLAGS_type);
+            break;
+
+        // Get size for ATTR_ALLOW_ATTR_OVERRIDES attribute
+        case ATTR_ALLOW_ATTR_OVERRIDES:
+            l_attrSize = sizeof(ATTR_ALLOW_ATTR_OVERRIDES_type);
+            break;
+
+        // Get size for ATTR_NO_XSCOM_ENFORCEMENT attribute
+        case ATTR_NO_XSCOM_ENFORCEMENT:
+            l_attrSize = sizeof(ATTR_NO_XSCOM_ENFORCEMENT_type);
+            break;
+
+        // Get size for ATTR_SBE_SELECT_EX_POLICY attribute
+        case ATTR_SBE_SELECT_EX_POLICY:
+            l_attrSize = sizeof(ATTR_SBE_SELECT_EX_POLICY_type);
+            break;
+
+        // Get size for ATTR_MASTER_CORE attribute
+        case ATTR_MASTER_CORE:
+            l_attrSize = sizeof(ATTR_MASTER_CORE_type);
+            break;
+
+        // Get size for ATTR_CHIP_CONTAINED_ACTIVE_CORES_VEC attribute
+        case ATTR_CHIP_CONTAINED_ACTIVE_CORES_VEC:
+            l_attrSize = sizeof(ATTR_CHIP_CONTAINED_ACTIVE_CORES_VEC_type);
+            break;
+
+        // Get size for ATTR_CHIP_CONTAINED_BACKING_CACHES_VEC attribute
+        case ATTR_CHIP_CONTAINED_BACKING_CACHES_VEC:
+            l_attrSize = sizeof(ATTR_CHIP_CONTAINED_BACKING_CACHES_VEC_type);
+            break;
+
+        // Get size for ATTR_CORE_LPAR_MODE_POLICY attribute
+        case ATTR_CORE_LPAR_MODE_POLICY:
+            l_attrSize = sizeof(ATTR_CORE_LPAR_MODE_POLICY_type);
+            break;
+
+        // Get size for ATTR_CORE_LPAR_MODE attribute
+        case ATTR_CORE_LPAR_MODE:
+            l_attrSize = sizeof(ATTR_CORE_LPAR_MODE_type);
+            break;
+
+        // Get size for ATTR_PROC_FABRIC_BROADCAST_MODE attribute
+        case ATTR_PROC_FABRIC_BROADCAST_MODE:
+            l_attrSize = sizeof(ATTR_PROC_FABRIC_BROADCAST_MODE_type);
+            break;
+
+        // Get size for ATTR_PROC_FABRIC_TOPOLOGY_MODE attribute
+        case ATTR_PROC_FABRIC_TOPOLOGY_MODE:
+            l_attrSize = sizeof(ATTR_PROC_FABRIC_TOPOLOGY_MODE_type);
+            break;
+
+        // Get size for ATTR_PROC_FABRIC_TOPOLOGY_ID attribute
+        case ATTR_PROC_FABRIC_TOPOLOGY_ID:
+            l_attrSize = sizeof(ATTR_PROC_FABRIC_TOPOLOGY_ID_type);
+            break;
+
+        // Get size for ATTR_PROC_FABRIC_EFF_TOPOLOGY_ID attribute
+        case ATTR_PROC_FABRIC_EFF_TOPOLOGY_ID:
+            l_attrSize = sizeof(ATTR_PROC_FABRIC_EFF_TOPOLOGY_ID_type);
+            break;
+
+        // Get size for ATTR_IOHS_CONFIG_MODE attribute
+        case ATTR_IOHS_CONFIG_MODE:
+            l_attrSize = sizeof(ATTR_IOHS_CONFIG_MODE_type);
+            break;
+
+        // Get size for ATTR_ECO_MODE attribute
+        case ATTR_ECO_MODE:
+            l_attrSize = sizeof(ATTR_ECO_MODE_type);
+            break;
+
+        // Get size for ATTR_PROC_SBE_MASTER_CHIP attribute
+        case ATTR_PROC_SBE_MASTER_CHIP:
+            l_attrSize = sizeof(ATTR_PROC_SBE_MASTER_CHIP_type);
+            break;
+
+        // Get size for ATTR_NDL_MESHCTRL_SETUP attribute
+        case ATTR_NDL_MESHCTRL_SETUP:
+            l_attrSize = sizeof(ATTR_NDL_MESHCTRL_SETUP_type);
+            break;
+
+        // Get size for ATTR_MC_PLL_BUCKET attribute
+        case ATTR_MC_PLL_BUCKET:
+            l_attrSize = sizeof(ATTR_MC_PLL_BUCKET_type);
+            break;
+
+        // Get size for ATTR_IOHS_PLL_BUCKET attribute
+        case ATTR_IOHS_PLL_BUCKET:
+            l_attrSize = sizeof(ATTR_IOHS_PLL_BUCKET_type);
+            break;
+
+        // Get size for ATTR_PCI_PLL_BUCKET attribute
+        case ATTR_PCI_PLL_BUCKET:
+            l_attrSize = sizeof(ATTR_PCI_PLL_BUCKET_type);
+            break;
+
+        // Get size for ATTR_CP_PLLTODFLT_BYPASS attribute
+        case ATTR_CP_PLLTODFLT_BYPASS:
+            l_attrSize = sizeof(ATTR_CP_PLLTODFLT_BYPASS_type);
+            break;
+
+        // Get size for ATTR_CP_PLLNESTFLT_BYPASS attribute
+        case ATTR_CP_PLLNESTFLT_BYPASS:
+            l_attrSize = sizeof(ATTR_CP_PLLNESTFLT_BYPASS_type);
+            break;
+
+        // Get size for ATTR_CP_PLLIOFLT_BYPASS attribute
+        case ATTR_CP_PLLIOFLT_BYPASS:
+            l_attrSize = sizeof(ATTR_CP_PLLIOFLT_BYPASS_type);
+            break;
+
+        // Get size for ATTR_CP_PLLIOSSFLT_BYPASS attribute
+        case ATTR_CP_PLLIOSSFLT_BYPASS:
+            l_attrSize = sizeof(ATTR_CP_PLLIOSSFLT_BYPASS_type);
+            break;
+
+        // Get size for ATTR_PAU_DPLL_BYPASS attribute
+        case ATTR_PAU_DPLL_BYPASS:
+            l_attrSize = sizeof(ATTR_PAU_DPLL_BYPASS_type);
+            break;
+
+        // Get size for ATTR_NEST_DPLL_BYPASS attribute
+        case ATTR_NEST_DPLL_BYPASS:
+            l_attrSize = sizeof(ATTR_NEST_DPLL_BYPASS_type);
+            break;
+
+        // Get size for ATTR_IO_TANK_PLL_BYPASS attribute
+        case ATTR_IO_TANK_PLL_BYPASS:
+            l_attrSize = sizeof(ATTR_IO_TANK_PLL_BYPASS_type);
+            break;
+
+        // Get size for ATTR_SKEWADJ_BYPASS attribute
+        case ATTR_SKEWADJ_BYPASS:
+            l_attrSize = sizeof(ATTR_SKEWADJ_BYPASS_type);
+            break;
+
+        // Get size for ATTR_DCADJ_BYPASS attribute
+        case ATTR_DCADJ_BYPASS:
+            l_attrSize = sizeof(ATTR_DCADJ_BYPASS_type);
+            break;
+
+        // Get size for ATTR_CLOCKSTOP_ON_XSTOP attribute
+        case ATTR_CLOCKSTOP_ON_XSTOP:
+            l_attrSize = sizeof(ATTR_CLOCKSTOP_ON_XSTOP_type);
+            break;
+
+        // Get size for ATTR_BOOT_PAU_DPLL_BYPASS attribute
+        case ATTR_BOOT_PAU_DPLL_BYPASS:
+            l_attrSize = sizeof(ATTR_BOOT_PAU_DPLL_BYPASS_type);
+            break;
+
+        // Get size for ATTR_RUNN_MODE attribute
+        case ATTR_RUNN_MODE:
+            l_attrSize = sizeof(ATTR_RUNN_MODE_type);
+            break;
+
+        // Get size for ATTR_SMF_CONFIG attribute
+        case ATTR_SMF_CONFIG:
+            l_attrSize = sizeof(ATTR_SMF_CONFIG_type);
+            break;
+
+        // Get size for ATTR_AVSBUS_BUSNUM attribute
+        case ATTR_AVSBUS_BUSNUM:
+            l_attrSize = sizeof(ATTR_AVSBUS_BUSNUM_type);
+            break;
+
+        // Get size for ATTR_AVSBUS_RAIL attribute
+        case ATTR_AVSBUS_RAIL:
+            l_attrSize = sizeof(ATTR_AVSBUS_RAIL_type);
+            break;
+
+        // Get size for ATTR_FAPI_POS attribute
+        case ATTR_FAPI_POS:
+            l_attrSize = sizeof(ATTR_FAPI_POS_type);
+            break;
+
+        // Get size for ATTR_AFFINITY_PATH attribute
+        case ATTR_AFFINITY_PATH:
+            l_attrSize = sizeof(ATTR_AFFINITY_PATH_type);
+            break;
+
+        // Get size for ATTR_CHIPLET_ID attribute
+        case ATTR_CHIPLET_ID:
+            l_attrSize = sizeof(ATTR_CHIPLET_ID_type);
+            break;
+
+        // Get size for ATTR_CHIP_ID attribute
+        case ATTR_CHIP_ID:
+            l_attrSize = sizeof(ATTR_CHIP_ID_type);
+            break;
+
+        // Get size for ATTR_CHIP_UNIT attribute
+        case ATTR_CHIP_UNIT:
+            l_attrSize = sizeof(ATTR_CHIP_UNIT_type);
+            break;
+
+        // Get size for ATTR_CLASS attribute
+        case ATTR_CLASS:
+            l_attrSize = sizeof(ATTR_CLASS_type);
+            break;
+
+        // Get size for ATTR_EC attribute
+        case ATTR_EC:
+            l_attrSize = sizeof(ATTR_EC_type);
+            break;
+
+        // Get size for ATTR_FAPI_NAME attribute
+        case ATTR_FAPI_NAME:
+            l_attrSize = sizeof(ATTR_FAPI_NAME_type);
+            break;
+
+        // Get size for ATTR_FUSED_CORE_OPTION attribute
+        case ATTR_FUSED_CORE_OPTION:
+            l_attrSize = sizeof(ATTR_FUSED_CORE_OPTION_type);
+            break;
+
+        // Get size for ATTR_HWAS_STATE attribute
+        case ATTR_HWAS_STATE:
+            l_attrSize = sizeof(ATTR_HWAS_STATE_type);
+            break;
+
+        // Get size for ATTR_ISTEP_MODE attribute
+        case ATTR_ISTEP_MODE:
+            l_attrSize = sizeof(ATTR_ISTEP_MODE_type);
+            break;
+
+        // Get size for ATTR_LOCATION_CODE attribute
+        case ATTR_LOCATION_CODE:
+            l_attrSize = sizeof(ATTR_LOCATION_CODE_type);
+            break;
+
+        // Get size for ATTR_MRU_ID attribute
+        case ATTR_MRU_ID:
+            l_attrSize = sizeof(ATTR_MRU_ID_type);
+            break;
+
+        // Get size for ATTR_PHYS_PATH attribute
+        case ATTR_PHYS_PATH:
+            l_attrSize = sizeof(ATTR_PHYS_PATH_type);
+            break;
+
+        // Get size for ATTR_POSITION attribute
+        case ATTR_POSITION:
+            l_attrSize = sizeof(ATTR_POSITION_type);
+            break;
+
+        // Get size for ATTR_PROC_MASTER_TYPE attribute
+        case ATTR_PROC_MASTER_TYPE:
+            l_attrSize = sizeof(ATTR_PROC_MASTER_TYPE_type);
+            break;
+
+        // Get size for ATTR_REL_POS attribute
+        case ATTR_REL_POS:
+            l_attrSize = sizeof(ATTR_REL_POS_type);
+            break;
+
+        // Get size for ATTR_SECURE_VERSION_NUM attribute
+        case ATTR_SECURE_VERSION_NUM:
+            l_attrSize = sizeof(ATTR_SECURE_VERSION_NUM_type);
+            break;
+
+        // Get size for ATTR_TYPE attribute
+        case ATTR_TYPE:
+            l_attrSize = sizeof(ATTR_TYPE_type);
+            break;
+
+        // Get size for ATTR_DISABLE_SECURITY attribute
+        case ATTR_DISABLE_SECURITY:
+            l_attrSize = sizeof(ATTR_DISABLE_SECURITY_type);
+            break;
+
+        // Get size for ATTR_EQ_GARD attribute
+        case ATTR_EQ_GARD:
+            l_attrSize = sizeof(ATTR_EQ_GARD_type);
+            break;
+
+        // Get size for ATTR_PHYS_DEV_PATH attribute
+        case ATTR_PHYS_DEV_PATH:
+            l_attrSize = sizeof(ATTR_PHYS_DEV_PATH_type);
+            break;
+
+        // Get size for ATTR_PHYS_BIN_PATH attribute
+        case ATTR_PHYS_BIN_PATH:
+            l_attrSize = sizeof(ATTR_PHYS_BIN_PATH_type);
+            break;
+
+        // Get size for ATTR_FSI_DEVICE_PATH attribute
+        case ATTR_FSI_DEVICE_PATH:
+            l_attrSize = sizeof(ATTR_FSI_DEVICE_PATH_type);
+            break;
+
+        // Get size for ATTR_FSI_PORT attribute
+        case ATTR_FSI_PORT:
+            l_attrSize = sizeof(ATTR_FSI_PORT_type);
+            break;
+
+        // Get size for ATTR_DIRECT_ACCESS_DEVICE_PATH attribute
+        case ATTR_DIRECT_ACCESS_DEVICE_PATH:
+            l_attrSize = sizeof(ATTR_DIRECT_ACCESS_DEVICE_PATH_type);
+            break;
+
+        // Get size for ATTR_SBEFIFO_DEVICE_PATH attribute
+        case ATTR_SBEFIFO_DEVICE_PATH:
+            l_attrSize = sizeof(ATTR_SBEFIFO_DEVICE_PATH_type);
+            break;
+
+        // Get size for ATTR_SYS_CLOCK_DECONFIG_STATE attribute
+        case ATTR_SYS_CLOCK_DECONFIG_STATE:
+            l_attrSize = sizeof(ATTR_SYS_CLOCK_DECONFIG_STATE_type);
+            break;
+
+        // Get size for ATTR_I2C_ADDRESS attribute
+        case ATTR_I2C_ADDRESS:
+            l_attrSize = sizeof(ATTR_I2C_ADDRESS_type);
+            break;
+
+        // Get size for ATTR_I2C_PORT attribute
+        case ATTR_I2C_PORT:
+            l_attrSize = sizeof(ATTR_I2C_PORT_type);
+            break;
+
+        // Get size for ATTR_I2C_PARENT_PHYS_PATH attribute
+        case ATTR_I2C_PARENT_PHYS_PATH:
+            l_attrSize = sizeof(ATTR_I2C_PARENT_PHYS_PATH_type);
+            break;
+
+        // Get size for ATTR_HW_ACCESS_METHOD attribute
+        case ATTR_HW_ACCESS_METHOD:
+            l_attrSize = sizeof(ATTR_HW_ACCESS_METHOD_type);
+            break;
+
+        // Get size for ATTR_HW_ACCESS_PTR attribute
+        case ATTR_HW_ACCESS_PTR:
+            l_attrSize = sizeof(ATTR_HW_ACCESS_PTR_type);
+            break;
+
+        default:
+            break;
+    }
+
+    return l_attrSize;
+}
+
 } // End namespace TARGETING
+
+#endif // TARG_ATTRIBUTETRAITS_H

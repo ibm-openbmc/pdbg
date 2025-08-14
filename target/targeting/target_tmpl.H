@@ -4,13 +4,14 @@
 #include <attributetraits.H>
 #include <entitypath.H>
 #include <libfdt.h>
+#include <targAttrIdToName.H>
 
 #include <cstring>
+#include <iomanip>
 #include <span>
 #include <stdexcept>
 #include <string>
 #include <type_traits>
-
 namespace TARGETING
 {
 
@@ -150,7 +151,6 @@ bool Target::trySetAttr(
 // ----------------------------------------
 // Internal Template Logic
 // ----------------------------------------
-
 template <ATTRIBUTE_ID A, typename T>
 bool Target::tryGetAttrImpl(T& o_attrValue) const
 {
@@ -162,39 +162,53 @@ bool Target::tryGetAttrImpl(T& o_attrValue) const
             return false;
 
         auto span = propData.value();
+        using TraitType = typename AttributeTraits<A>::Type;
 
+        // Handle string attributes
         if constexpr (isStringAttr<A>())
         {
             o_attrValue.assign(reinterpret_cast<const char*>(span.data()),
                                span.size());
             return true;
         }
+
+        // Handle entity path attributes
         else if constexpr (isEntityPathAttr<A>())
         {
             o_attrValue = EntityPath::fromBinary(span);
             return o_attrValue.getSize() > 0;
         }
+
+        // Handle fixed-size std::array attributes
         else if constexpr (isStdArrayAttr<A>())
         {
-            if (span.size() > sizeof(T))
+            if (span.size() > sizeof(TraitType))
                 return false;
-            std::memset(o_attrValue.data(), 0, sizeof(T));
+            std::memset(o_attrValue.data(), 0, sizeof(TraitType));
             std::memcpy(o_attrValue.data(), span.data(), span.size());
             return true;
         }
+
+        // Handle fixed-size char array attributes
         else if constexpr (isCharArrayAttr<A>())
         {
-            if (span.size() > sizeof(T))
+            if (span.size() > sizeof(TraitType))
                 return false;
-            std::memset(&o_attrValue, 0, sizeof(T));
+            std::memset(&o_attrValue, 0, sizeof(TraitType));
             std::memcpy(&o_attrValue, span.data(), span.size());
             return true;
         }
+
+        // Handle scalar / POD attributes
         else
         {
-            if (span.size() != sizeof(T))
+            if (span.size() > sizeof(TraitType))
+            {
                 return false;
-            std::memcpy(&o_attrValue, span.data(), sizeof(T));
+            }
+            TraitType temp{};
+            std::memcpy(&temp, span.data(), span.size());
+            o_attrValue = static_cast<T>(temp);
             return true;
         }
     }
@@ -249,4 +263,22 @@ bool Target::trySetAttrImpl(const T& attrValue)
     }
 }
 
+template <ATTRIBUTE_ID A>
+std::optional<std::string> Target::tryGetAttrName() const
+{
+    constexpr uint32_t i_attrId = static_cast<uint32_t>(A);
+
+    if (auto it = g_rwAttrIdToNameMap.find(i_attrId);
+        it != g_rwAttrIdToNameMap.end())
+    {
+        return std::string(it->second);
+    }
+    if (auto it = g_nonRwAttrIdToNameMap.find(i_attrId);
+        it != g_nonRwAttrIdToNameMap.end())
+    {
+        return std::string(it->second);
+    }
+
+    return std::nullopt;
+}
 } // namespace TARGETING

@@ -9,6 +9,7 @@ targeting_lib_sources = files(
   'targeting/common/entitypath.C',
   'targeting/target_devtree_map.C',
   'targeting/predicates/predicatepostfixexpr.C',
+  'targeting/xmltohb/targAttrIdToName.C',
 )
 
 targeting_inc = include_directories(
