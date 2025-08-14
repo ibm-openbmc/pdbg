@@ -271,9 +271,7 @@ TEST_F(TargetServiceTest, TestSetAttrThrowsOnMissing)
     try
     {
         // LOCATION_CODE is not present for system target
-        std::array<char, 64> locCode{};
-        std::strncpy(locCode.data(), "asdfaf", locCode.size());
-        top->setAttr<ATTR_LOCATION_CODE>(locCode);
+        top->setAttr<ATTR_SYS_CLK_NE_TERMINATION_SITE>(0x1);
         FAIL() << "Expected exception for missing attribute";
     }
     catch (const std::runtime_error& e)
@@ -282,41 +280,25 @@ TEST_F(TargetServiceTest, TestSetAttrThrowsOnMissing)
     }
 }
 
-TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_Type)
-{
-    auto proc = getFirstTargetMatchingType(TYPE_PROC);
-    ASSERT_NE(proc, nullptr);
-
-    // Test getAttr<>
-    auto type = proc->getAttr<ATTR_TYPE>();
-    EXPECT_EQ(type, TYPE_PROC);
-
-    // Test trySetAttr<> (roundtrip)
-    EXPECT_TRUE(proc->trySetAttr<ATTR_TYPE>(TYPE_PROC));
-    AttributeTraits<ATTR_TYPE>::Type verify = TYPE_INVALID;
-    EXPECT_TRUE(proc->tryGetAttr<ATTR_TYPE>(verify));
-    EXPECT_EQ(verify, TYPE_PROC);
-}
-
-TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_LOCATION_CODE)
+TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_HW_ACCESS_METHOD)
 {
     auto proc = getFirstTargetMatchingType(TYPE_PROC);
     ASSERT_NE(proc, nullptr);
 
     // Save original
-    auto original = proc->getAttrAsArray<ATTR_LOCATION_CODE>();
+    auto original = proc->getAttr<ATTR_HW_ACCESS_METHOD>();
 
     // Write back a new value
-    std::array<char, 64> locCode{};
-    std::strncpy(locCode.data(), "asdfaf", locCode.size());
-    EXPECT_TRUE(proc->trySetAttr<ATTR_LOCATION_CODE>(locCode));
+    AttributeTraits<ATTR_HW_ACCESS_METHOD>::Type method =
+        HW_ACCESS_METHOD_SBEFIFO;
+    EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_METHOD>(method));
 
     // Verify change
-    auto newVal = proc->getAttrAsArray<ATTR_LOCATION_CODE>();
-    EXPECT_EQ(newVal, locCode);
+    auto newVal = proc->getAttr<ATTR_HW_ACCESS_METHOD>();
+    EXPECT_EQ(newVal, method);
 
     // Restore
-    EXPECT_TRUE(proc->trySetAttr<ATTR_LOCATION_CODE>(original));
+    EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_METHOD>(original));
 }
 
 class MockTarget : public TARGETING::Target
@@ -352,4 +334,21 @@ TEST_F(TargetServiceTest, getAttrPrefersOptionalOverFdt)
         // Confirm FDT path wasn't touched
         EXPECT_FALSE(t.fdtCalled);
     }
+}
+
+TEST_F(TargetServiceTest, CanReadReadableAttr)
+{
+    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    ASSERT_NE(proc, nullptr);
+    typename AttributeTraits<ATTR_TYPE>::Type val{};
+    EXPECT_TRUE(proc->tryGetAttr<ATTR_TYPE>(val)); // should compile & run
+}
+
+TEST_F(TargetServiceTest, CanWriteWritableAttr)
+{
+    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    ASSERT_NE(proc, nullptr);
+    AttributeTraits<ATTR_HW_ACCESS_METHOD>::Type method =
+        HW_ACCESS_METHOD_SBEFIFO;
+    EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_METHOD>(method));
 }

@@ -27,7 +27,7 @@
             ATTR_TYPE = [ 05 ];
             ATTR_CLASS = [ 03 ];
             ATTR_ACCESS_TYPE = [ 01 ];
-            ATTR_HWACCESS_METHOD = [ 00 00 00 00 ];
+            ATTR_HW_ACCESS_METHOD = [ 00 00 00 00 ];
             ATTR_HW_ACCESS_PTR = [ 00 00 00 00 ];
 
             mc0 {
@@ -97,7 +97,7 @@
             ATTR_TYPE = [ 05 ];
             ATTR_CLASS = [ 03 ];
             ATTR_ACCESS_TYPE = [ 01 ];
-            ATTR_HWACCESS_METHOD = [ 00 00 00 00 ];
+            ATTR_HW_ACCESS_METHOD = [ 00 00 00 00 ];
             ATTR_HW_ACCESS_PTR = [ 00 00 00 00 ];
 
             mc0 {
