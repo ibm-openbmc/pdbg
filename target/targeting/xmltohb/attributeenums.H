@@ -35,113 +35,116 @@ namespace TARGETING
  */
 enum ATTRIBUTE_ID
 {
-    ATTR_NA = 0,
-    ATTR_SYS0_REFCLOCK_RCVR_TERM = 0x4b2ea2d,
-    ATTR_SYS1_REFCLOCK_RCVR_TERM = 0x7172b53,
-    ATTR_PCI0_REFCLOCK_RCVR_TERM = 0x4da870d,
-    ATTR_PCI1_REFCLOCK_RCVR_TERM = 0x0602310,
-    ATTR_SYS_CLK_NE_TERMINATION_SITE = 0x8467756,
-    ATTR_SYS_CLK_NE_TERMINATION_STRENGTH = 0x68de0ff,
-    ATTR_CP_REFCLOCK_SELECT = 0x8e2c3d7,
-    ATTR_CLOCK_MUX0A_RCS_PLL_INPUT = 0x18658a8,
-    ATTR_CLOCK_MUX0B_RCS_PLL_INPUT = 0x55f05dc,
-    ATTR_CLOCK_MUX0C_RCS_PLL_INPUT = 0xd94832a,
-    ATTR_CLOCK_MUX0D_RCS_PLL_INPUT = 0x597acd8,
-    ATTR_CLOCK_MUX1_INPUT = 0xf1dc314,
-    ATTR_CLOCK_MUX2A_INPUT = 0x69014fc,
-    ATTR_CLOCK_MUX2B_INPUT = 0x4313fe7,
-    ATTR_CLOCK_MUX3_INPUT = 0x010fb1f,
-    ATTR_CLOCK_MUX10_PAU_DPLL_INPUT = 0xa45db0f,
-    ATTR_CLOCK_MUX11_NEST_DPLL_INPUT = 0xac2958b,
-    ATTR_CLOCK_MUX12_OMI_LCPLL_INPUT = 0x06065ab,
-    ATTR_CLOCK_MUX13_OPT_133_SOURCE_INPUT = 0x133d3ca,
-    ATTR_CLOCK_MUX14_OPT_156_SOURCE_INPUT = 0xed6a4b4,
-    ATTR_CLOCK_MUX_IOHS_LCPLL_INPUT = 0x4b21c2c,
-    ATTR_CLOCK_MUX23_PCI_INPUT = 0xf1e3ebe,
-    ATTR_CLOCK_MUX_PCI_LCPLL_INPUT = 0x280b074,
-    ATTR_CLOCK_PLL_MUX_TOD = 0xc13aa28,
-    ATTR_HW543822_WAR_MODE = 0xb6ad76f,
-    ATTR_FREQ_CORE_BOOT_MHZ = 0x68dd522,
-    ATTR_FREQ_MC_MHZ = 0x02db547,
-    ATTR_FREQ_IOHS_MHZ = 0xdafb56e,
-    ATTR_FREQ_PAU_MHZ = 0x6f2adc3,
-    ATTR_FREQ_PCIE_MHZ = 0x82f58e6,
-    ATTR_SPI_BUS_DIV_REF = 0x3df05de,
-    ATTR_TPM_SPI_BUS_DIV = 0x9d0a4a8,
-    ATTR_SYSTEM_IPL_PHASE = 0x6a47337,
-    ATTR_CONTAINED_IPL_TYPE = 0x46189b8,
-    ATTR_CONTAINED_LOAD_PATH = 0x32f9c30,
-    ATTR_DISABLE_HBBL_VECTORS = 0xb1c3653,
-    ATTR_BACKUP_SEEPROM_SELECT = 0xb812834,
-    ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT = 0xad366df,
-    ATTR_BOOT_FLAGS = 0xc774921,
-    ATTR_ALLOW_ATTR_OVERRIDES = 0xf13ce5f,
-    ATTR_NO_XSCOM_ENFORCEMENT = 0x2eda5ab,
-    ATTR_SBE_SELECT_EX_POLICY = 0x96ed273,
-    ATTR_MASTER_CORE = 0xcd97b51,
-    ATTR_CHIP_CONTAINED_ACTIVE_CORES_VEC = 0x852b409,
-    ATTR_CHIP_CONTAINED_BACKING_CACHES_VEC = 0xf466e86,
-    ATTR_CORE_LPAR_MODE_POLICY = 0x3da9467,
-    ATTR_CORE_LPAR_MODE = 0xd990683,
-    ATTR_PROC_FABRIC_BROADCAST_MODE = 0xa5a748f,
-    ATTR_PROC_FABRIC_TOPOLOGY_MODE = 0x0432b91,
-    ATTR_PROC_FABRIC_TOPOLOGY_ID = 0xf24fe73,
-    ATTR_PROC_FABRIC_EFF_TOPOLOGY_ID = 0x482b817,
-    ATTR_IOHS_CONFIG_MODE = 0x4950959,
-    ATTR_ECO_MODE = 0x4916096,
-    ATTR_PROC_SBE_MASTER_CHIP = 0x4c42b9b,
-    ATTR_NDL_MESHCTRL_SETUP = 0x8ad2e2a,
-    ATTR_MC_PLL_BUCKET = 0xb43f2fe,
-    ATTR_IOHS_PLL_BUCKET = 0xad86cfa,
-    ATTR_PCI_PLL_BUCKET = 0x102dda7,
-    ATTR_CP_PLLTODFLT_BYPASS = 0x5ab3bbc,
-    ATTR_CP_PLLNESTFLT_BYPASS = 0x73da768,
-    ATTR_CP_PLLIOFLT_BYPASS = 0xce4b78c,
-    ATTR_CP_PLLIOSSFLT_BYPASS = 0x7d95979,
-    ATTR_PAU_DPLL_BYPASS = 0x8f2bd1d,
-    ATTR_NEST_DPLL_BYPASS = 0x2d603ab,
-    ATTR_IO_TANK_PLL_BYPASS = 0xcf1e319,
-    ATTR_SKEWADJ_BYPASS = 0x91dcae8,
-    ATTR_DCADJ_BYPASS = 0xc9cddc6,
-    ATTR_CLOCKSTOP_ON_XSTOP = 0xa26f1f9,
-    ATTR_BOOT_PAU_DPLL_BYPASS = 0x36f90c5,
-    ATTR_RUNN_MODE = 0x71527f3,
-    ATTR_SMF_CONFIG = 0x0056bc3,
-    ATTR_AVSBUS_BUSNUM = 0x2914dff,
-    ATTR_AVSBUS_RAIL = 0xcc8bf2b,
-    ATTR_FAPI_POS = 0x80817dc,
-    ATTR_AFFINITY_PATH = 0xb5afcd7,
-    ATTR_CHIPLET_ID = 0x2e5f49c,
-    ATTR_CHIP_ID = 0x6d3696b,
-    ATTR_CHIP_UNIT = 0x9615865,
-    ATTR_CLASS = 0xc18e8f1,
-    ATTR_EC = 0x3fd6b69,
-    ATTR_FAPI_NAME = 0x9dc28f2,
-    ATTR_FUSED_CORE_OPTION = 0x9f670db,
-    ATTR_HWAS_STATE = 0x16fbd51,
-    ATTR_ISTEP_MODE = 0x54d128f,
-    ATTR_LOCATION_CODE = 0xdeda910,
-    ATTR_MRU_ID = 0x639dd88,
-    ATTR_PHYS_PATH = 0xf7abb7c,
-    ATTR_POSITION = 0x90b4ba7,
-    ATTR_PROC_MASTER_TYPE = 0x68e1db7,
-    ATTR_REL_POS = 0x30c46b3,
-    ATTR_SECURE_VERSION_NUM = 0x85a4a4b,
-    ATTR_TYPE = 0x9484951,
-    ATTR_DISABLE_SECURITY = 0x945a086,
-    ATTR_EQ_GARD = 0xb6c105c,
-    ATTR_PHYS_DEV_PATH = 0x3399013,
-    ATTR_PHYS_BIN_PATH = 0x9db6a76,
-    ATTR_FSI_DEVICE_PATH = 0xa356132,
-    ATTR_FSI_PORT = 0xf10849b,
-    ATTR_DIRECT_ACCESS_DEVICE_PATH = 0x33dfc41,
-    ATTR_SBEFIFO_DEVICE_PATH = 0xde7c365,
-    ATTR_SYS_CLOCK_DECONFIG_STATE = 0xbc9b354,
-    ATTR_I2C_ADDRESS = 0x8269cf5,
-    ATTR_I2C_PORT = 0x61ff7e3,
-    ATTR_I2C_PARENT_PHYS_PATH = 0xbad9735,
-    ATTR_HW_ACCESS_METHOD = 0xe4c8394,
-    ATTR_HW_ACCESS_PTR = 0xb34dd4a,
+    ATTR_NA                                                        = 0,
+    ATTR_SYS0_REFCLOCK_RCVR_TERM                                   = 0x4b2ea2d,
+    ATTR_SYS1_REFCLOCK_RCVR_TERM                                   = 0x7172b53,
+    ATTR_PCI0_REFCLOCK_RCVR_TERM                                   = 0x4da870d,
+    ATTR_PCI1_REFCLOCK_RCVR_TERM                                   = 0x0602310,
+    ATTR_SYS_CLK_NE_TERMINATION_SITE                               = 0x8467756,
+    ATTR_SYS_CLK_NE_TERMINATION_STRENGTH                           = 0x68de0ff,
+    ATTR_CP_REFCLOCK_SELECT                                        = 0x8e2c3d7,
+    ATTR_CLOCK_MUX0A_RCS_PLL_INPUT                                 = 0x18658a8,
+    ATTR_CLOCK_MUX0B_RCS_PLL_INPUT                                 = 0x55f05dc,
+    ATTR_CLOCK_MUX0C_RCS_PLL_INPUT                                 = 0xd94832a,
+    ATTR_CLOCK_MUX0D_RCS_PLL_INPUT                                 = 0x597acd8,
+    ATTR_CLOCK_MUX1_INPUT                                          = 0xf1dc314,
+    ATTR_CLOCK_MUX2A_INPUT                                         = 0x69014fc,
+    ATTR_CLOCK_MUX2B_INPUT                                         = 0x4313fe7,
+    ATTR_CLOCK_MUX3_INPUT                                          = 0x010fb1f,
+    ATTR_CLOCK_MUX10_PAU_DPLL_INPUT                                = 0xa45db0f,
+    ATTR_CLOCK_MUX11_NEST_DPLL_INPUT                               = 0xac2958b,
+    ATTR_CLOCK_MUX12_OMI_LCPLL_INPUT                               = 0x06065ab,
+    ATTR_CLOCK_MUX13_OPT_133_SOURCE_INPUT                          = 0x133d3ca,
+    ATTR_CLOCK_MUX14_OPT_156_SOURCE_INPUT                          = 0xed6a4b4,
+    ATTR_CLOCK_MUX_IOHS_LCPLL_INPUT                                = 0x4b21c2c,
+    ATTR_CLOCK_MUX23_PCI_INPUT                                     = 0xf1e3ebe,
+    ATTR_CLOCK_MUX_PCI_LCPLL_INPUT                                 = 0x280b074,
+    ATTR_CLOCK_PLL_MUX_TOD                                         = 0xc13aa28,
+    ATTR_HW543822_WAR_MODE                                         = 0xb6ad76f,
+    ATTR_FREQ_CORE_BOOT_MHZ                                        = 0x68dd522,
+    ATTR_FREQ_MC_MHZ                                               = 0x02db547,
+    ATTR_FREQ_IOHS_MHZ                                             = 0xdafb56e,
+    ATTR_FREQ_PAU_MHZ                                              = 0x6f2adc3,
+    ATTR_FREQ_PCIE_MHZ                                             = 0x82f58e6,
+    ATTR_SPI_BUS_DIV_REF                                           = 0x3df05de,
+    ATTR_TPM_SPI_BUS_DIV                                           = 0x9d0a4a8,
+    ATTR_SYSTEM_IPL_PHASE                                          = 0x6a47337,
+    ATTR_CONTAINED_IPL_TYPE                                        = 0x46189b8,
+    ATTR_CONTAINED_LOAD_PATH                                       = 0x32f9c30,
+    ATTR_DISABLE_HBBL_VECTORS                                      = 0xb1c3653,
+    ATTR_BACKUP_SEEPROM_SELECT                                     = 0xb812834,
+    ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT                         = 0xad366df,
+    ATTR_BOOT_FLAGS                                                = 0xc774921,
+    ATTR_ALLOW_ATTR_OVERRIDES                                      = 0xf13ce5f,
+    ATTR_NO_XSCOM_ENFORCEMENT                                      = 0x2eda5ab,
+    ATTR_SECURITY_MODE                                             = 0x0d575b3,
+    ATTR_SBE_SELECT_EX_POLICY                                      = 0x96ed273,
+    ATTR_MASTER_CORE                                               = 0xcd97b51,
+    ATTR_CHIP_CONTAINED_ACTIVE_CORES_VEC                           = 0x852b409,
+    ATTR_CHIP_CONTAINED_BACKING_CACHES_VEC                         = 0xf466e86,
+    ATTR_FUSED_CORE_MODE                                           = 0x6097b37,
+    ATTR_CORE_LPAR_MODE_POLICY                                     = 0x3da9467,
+    ATTR_CORE_LPAR_MODE                                            = 0xd990683,
+    ATTR_PROC_FABRIC_BROADCAST_MODE                                = 0xa5a748f,
+    ATTR_PROC_FABRIC_TOPOLOGY_MODE                                 = 0x0432b91,
+    ATTR_PROC_FABRIC_TOPOLOGY_ID                                   = 0xf24fe73,
+    ATTR_PROC_FABRIC_EFF_TOPOLOGY_ID                               = 0x482b817,
+    ATTR_IOHS_CONFIG_MODE                                          = 0x4950959,
+    ATTR_ECO_MODE                                                  = 0x4916096,
+    ATTR_PROC_SBE_MASTER_CHIP                                      = 0x4c42b9b,
+    ATTR_NDL_MESHCTRL_SETUP                                        = 0x8ad2e2a,
+    ATTR_MC_PLL_BUCKET                                             = 0xb43f2fe,
+    ATTR_IOHS_PLL_BUCKET                                           = 0xad86cfa,
+    ATTR_PCI_PLL_BUCKET                                            = 0x102dda7,
+    ATTR_CP_PLLTODFLT_BYPASS                                       = 0x5ab3bbc,
+    ATTR_CP_PLLNESTFLT_BYPASS                                      = 0x73da768,
+    ATTR_CP_PLLIOFLT_BYPASS                                        = 0xce4b78c,
+    ATTR_CP_PLLIOSSFLT_BYPASS                                      = 0x7d95979,
+    ATTR_PAU_DPLL_BYPASS                                           = 0x8f2bd1d,
+    ATTR_NEST_DPLL_BYPASS                                          = 0x2d603ab,
+    ATTR_IO_TANK_PLL_BYPASS                                        = 0xcf1e319,
+    ATTR_SKEWADJ_BYPASS                                            = 0x91dcae8,
+    ATTR_DCADJ_BYPASS                                              = 0xc9cddc6,
+    ATTR_CLOCKSTOP_ON_XSTOP                                        = 0xa26f1f9,
+    ATTR_BOOT_PAU_DPLL_BYPASS                                      = 0x36f90c5,
+    ATTR_RUNN_MODE                                                 = 0x71527f3,
+    ATTR_SMF_CONFIG                                                = 0x0056bc3,
+    ATTR_AVSBUS_BUSNUM                                             = 0x2914dff,
+    ATTR_AVSBUS_RAIL                                               = 0xcc8bf2b,
+    ATTR_POS                                                       = 0x1903f54,
+    ATTR_FAPI_POS                                                  = 0x80817dc,
+    ATTR_AFFINITY_PATH                                             = 0xb5afcd7,
+    ATTR_CHIPLET_ID                                                = 0x2e5f49c,
+    ATTR_CHIP_ID                                                   = 0x6d3696b,
+    ATTR_CHIP_UNIT                                                 = 0x9615865,
+    ATTR_CLASS                                                     = 0xc18e8f1,
+    ATTR_EC                                                        = 0x3fd6b69,
+    ATTR_FAPI_NAME                                                 = 0x9dc28f2,
+    ATTR_FUSED_CORE_OPTION                                         = 0x9f670db,
+    ATTR_HWAS_STATE                                                = 0x16fbd51,
+    ATTR_ISTEP_MODE                                                = 0x54d128f,
+    ATTR_LOCATION_CODE                                             = 0xdeda910,
+    ATTR_MRU_ID                                                    = 0x639dd88,
+    ATTR_PHYS_PATH                                                 = 0xf7abb7c,
+    ATTR_POSITION                                                  = 0x90b4ba7,
+    ATTR_PROC_MASTER_TYPE                                          = 0x68e1db7,
+    ATTR_REL_POS                                                   = 0x30c46b3,
+    ATTR_SECURE_VERSION_NUM                                        = 0x85a4a4b,
+    ATTR_TYPE                                                      = 0x9484951,
+    ATTR_DISABLE_SECURITY                                          = 0x945a086,
+    ATTR_EQ_GARD                                                   = 0xb6c105c,
+    ATTR_PHYS_DEV_PATH                                             = 0x3399013,
+    ATTR_PHYS_BIN_PATH                                             = 0x9db6a76,
+    ATTR_FSI_DEVICE_PATH                                           = 0xa356132,
+    ATTR_FSI_PORT                                                  = 0xf10849b,
+    ATTR_DIRECT_ACCESS_DEVICE_PATH                                 = 0x33dfc41,
+    ATTR_SBEFIFO_DEVICE_PATH                                       = 0xde7c365,
+    ATTR_SYS_CLOCK_DECONFIG_STATE                                  = 0xbc9b354,
+    ATTR_I2C_ADDRESS                                               = 0x8269cf5,
+    ATTR_I2C_PORT                                                  = 0x61ff7e3,
+    ATTR_I2C_PARENT_PHYS_PATH                                      = 0xbad9735,
+    ATTR_HW_ACCESS_METHOD                                          = 0xe4c8394,
+    ATTR_HW_ACCESS_PTR                                             = 0xb34dd4a,
 };
 
 /**
@@ -150,10 +153,10 @@ enum ATTRIBUTE_ID
  */
 enum SYS0_REFCLOCK_RCVR_TERM
 {
-    SYS0_REFCLOCK_RCVR_TERM_NONE = 0x00000003,
-    SYS0_REFCLOCK_RCVR_TERM_FIFTY_OHM = 0x00000002,
-    SYS0_REFCLOCK_RCVR_TERM_ONE_HUNDRED_OHM = 0x00000000,
-    SYS0_REFCLOCK_RCVR_TERM_INVALID = 0x000000FF,
+    SYS0_REFCLOCK_RCVR_TERM_NONE                                = 0x00000003,
+    SYS0_REFCLOCK_RCVR_TERM_FIFTY_OHM                           = 0x00000002,
+    SYS0_REFCLOCK_RCVR_TERM_ONE_HUNDRED_OHM                     = 0x00000000,
+    SYS0_REFCLOCK_RCVR_TERM_INVALID                             = 0x000000FF,
 };
 
 /**
@@ -162,10 +165,10 @@ enum SYS0_REFCLOCK_RCVR_TERM
  */
 enum SYS1_REFCLOCK_RCVR_TERM
 {
-    SYS1_REFCLOCK_RCVR_TERM_NONE = 0x00000003,
-    SYS1_REFCLOCK_RCVR_TERM_FIFTY_OHM = 0x00000002,
-    SYS1_REFCLOCK_RCVR_TERM_ONE_HUNDRED_OHM = 0x00000000,
-    SYS1_REFCLOCK_RCVR_TERM_INVALID = 0x000000FF,
+    SYS1_REFCLOCK_RCVR_TERM_NONE                                = 0x00000003,
+    SYS1_REFCLOCK_RCVR_TERM_FIFTY_OHM                           = 0x00000002,
+    SYS1_REFCLOCK_RCVR_TERM_ONE_HUNDRED_OHM                     = 0x00000000,
+    SYS1_REFCLOCK_RCVR_TERM_INVALID                             = 0x000000FF,
 };
 
 /**
@@ -174,10 +177,10 @@ enum SYS1_REFCLOCK_RCVR_TERM
  */
 enum PCI0_REFCLOCK_RCVR_TERM
 {
-    PCI0_REFCLOCK_RCVR_TERM_NONE = 0x00000003,
-    PCI0_REFCLOCK_RCVR_TERM_FIFTY_OHM = 0x00000002,
-    PCI0_REFCLOCK_RCVR_TERM_ONE_HUNDRED_OHM = 0x00000000,
-    PCI0_REFCLOCK_RCVR_TERM_INVALID = 0x000000FF,
+    PCI0_REFCLOCK_RCVR_TERM_NONE                                = 0x00000003,
+    PCI0_REFCLOCK_RCVR_TERM_FIFTY_OHM                           = 0x00000002,
+    PCI0_REFCLOCK_RCVR_TERM_ONE_HUNDRED_OHM                     = 0x00000000,
+    PCI0_REFCLOCK_RCVR_TERM_INVALID                             = 0x000000FF,
 };
 
 /**
@@ -186,10 +189,10 @@ enum PCI0_REFCLOCK_RCVR_TERM
  */
 enum PCI1_REFCLOCK_RCVR_TERM
 {
-    PCI1_REFCLOCK_RCVR_TERM_NONE = 0x00000003,
-    PCI1_REFCLOCK_RCVR_TERM_FIFTY_OHM = 0x00000002,
-    PCI1_REFCLOCK_RCVR_TERM_ONE_HUNDRED_OHM = 0x00000000,
-    PCI1_REFCLOCK_RCVR_TERM_INVALID = 0x000000FF,
+    PCI1_REFCLOCK_RCVR_TERM_NONE                                = 0x00000003,
+    PCI1_REFCLOCK_RCVR_TERM_FIFTY_OHM                           = 0x00000002,
+    PCI1_REFCLOCK_RCVR_TERM_ONE_HUNDRED_OHM                     = 0x00000000,
+    PCI1_REFCLOCK_RCVR_TERM_INVALID                             = 0x000000FF,
 };
 
 /**
@@ -198,9 +201,9 @@ enum PCI1_REFCLOCK_RCVR_TERM
  */
 enum SYS_CLK_NE_TERMINATION_SITE
 {
-    SYS_CLK_NE_TERMINATION_SITE_PLANAR = 0x00000000,
-    SYS_CLK_NE_TERMINATION_SITE_PROC = 0x00000001,
-    SYS_CLK_NE_TERMINATION_SITE_INVALID = 0x000000FF,
+    SYS_CLK_NE_TERMINATION_SITE_PLANAR                          = 0x00000000,
+    SYS_CLK_NE_TERMINATION_SITE_PROC                            = 0x00000001,
+    SYS_CLK_NE_TERMINATION_SITE_INVALID                         = 0x000000FF,
 };
 
 /**
@@ -211,14 +214,14 @@ enum SYS_CLK_NE_TERMINATION_SITE
  */
 enum SYS_CLK_NE_TERMINATION_STRENGTH
 {
-    SYS_CLK_NE_TERMINATION_STRENGTH_20MA = 0x00000000,
-    SYS_CLK_NE_TERMINATION_STRENGTH_OP_40MA = 0x00000080,
-    SYS_CLK_NE_TERMINATION_STRENGTH_PCI0A_40MA = 0x00000040,
-    SYS_CLK_NE_TERMINATION_STRENGTH_PCI0B_40MA = 0x00000020,
-    SYS_CLK_NE_TERMINATION_STRENGTH_PCI0C_40MA = 0x00000010,
-    SYS_CLK_NE_TERMINATION_STRENGTH_PCI1A_40MA = 0x00000008,
-    SYS_CLK_NE_TERMINATION_STRENGTH_PCI1BC_40MA = 0x00000004,
-    SYS_CLK_NE_TERMINATION_STRENGTH_INVALID = 0x000000FF,
+    SYS_CLK_NE_TERMINATION_STRENGTH_20MA                        = 0x00000000,
+    SYS_CLK_NE_TERMINATION_STRENGTH_OP_40MA                     = 0x00000080,
+    SYS_CLK_NE_TERMINATION_STRENGTH_PCI0A_40MA                  = 0x00000040,
+    SYS_CLK_NE_TERMINATION_STRENGTH_PCI0B_40MA                  = 0x00000020,
+    SYS_CLK_NE_TERMINATION_STRENGTH_PCI0C_40MA                  = 0x00000010,
+    SYS_CLK_NE_TERMINATION_STRENGTH_PCI1A_40MA                  = 0x00000008,
+    SYS_CLK_NE_TERMINATION_STRENGTH_PCI1BC_40MA                 = 0x00000004,
+    SYS_CLK_NE_TERMINATION_STRENGTH_INVALID                     = 0x000000FF,
 };
 
 /**
@@ -230,13 +233,13 @@ enum SYS_CLK_NE_TERMINATION_STRENGTH
  */
 enum CP_REFCLOCK_SELECT
 {
-    CP_REFCLOCK_SELECT_OSC0 = 0x00000000,
-    CP_REFCLOCK_SELECT_OSC1 = 0x00000001,
-    CP_REFCLOCK_SELECT_BOTH_OSC0 = 0x00000002,
-    CP_REFCLOCK_SELECT_BOTH_OSC1 = 0x00000003,
-    CP_REFCLOCK_SELECT_BOTH_OSC0_NORED = 0x00000004,
-    CP_REFCLOCK_SELECT_BOTH_OSC1_NORED = 0x00000005,
-    CP_REFCLOCK_SELECT_INVALID = 0x000000FF,
+    CP_REFCLOCK_SELECT_OSC0                                     = 0x00000000,
+    CP_REFCLOCK_SELECT_OSC1                                     = 0x00000001,
+    CP_REFCLOCK_SELECT_BOTH_OSC0                                = 0x00000002,
+    CP_REFCLOCK_SELECT_BOTH_OSC1                                = 0x00000003,
+    CP_REFCLOCK_SELECT_BOTH_OSC0_NORED                          = 0x00000004,
+    CP_REFCLOCK_SELECT_BOTH_OSC1_NORED                          = 0x00000005,
+    CP_REFCLOCK_SELECT_INVALID                                  = 0x000000FF,
 };
 
 /**
@@ -244,10 +247,10 @@ enum CP_REFCLOCK_SELECT
  */
 enum CLOCK_MUX0A_RCS_PLL_INPUT
 {
-    CLOCK_MUX0A_RCS_PLL_INPUT_SYS_REFCLOCK0 = 0x00000000,
-    CLOCK_MUX0A_RCS_PLL_INPUT_RCS_ASYNC_OUT = 0x00000002,
-    CLOCK_MUX0A_RCS_PLL_INPUT_RCS_SYNC_OUT = 0x00000001,
-    CLOCK_MUX0A_RCS_PLL_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX0A_RCS_PLL_INPUT_SYS_REFCLOCK0                     = 0x00000000,
+    CLOCK_MUX0A_RCS_PLL_INPUT_RCS_ASYNC_OUT                     = 0x00000002,
+    CLOCK_MUX0A_RCS_PLL_INPUT_RCS_SYNC_OUT                      = 0x00000001,
+    CLOCK_MUX0A_RCS_PLL_INPUT_INVALID                           = 0x000000FF,
 };
 
 /**
@@ -255,10 +258,10 @@ enum CLOCK_MUX0A_RCS_PLL_INPUT
  */
 enum CLOCK_MUX0B_RCS_PLL_INPUT
 {
-    CLOCK_MUX0B_RCS_PLL_INPUT_SYS_REFCLOCK0 = 0x00000000,
-    CLOCK_MUX0B_RCS_PLL_INPUT_RCS_ASYNC_OUT = 0x00000002,
-    CLOCK_MUX0B_RCS_PLL_INPUT_RCS_SYNC_OUT = 0x00000001,
-    CLOCK_MUX0B_RCS_PLL_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX0B_RCS_PLL_INPUT_SYS_REFCLOCK0                     = 0x00000000,
+    CLOCK_MUX0B_RCS_PLL_INPUT_RCS_ASYNC_OUT                     = 0x00000002,
+    CLOCK_MUX0B_RCS_PLL_INPUT_RCS_SYNC_OUT                      = 0x00000001,
+    CLOCK_MUX0B_RCS_PLL_INPUT_INVALID                           = 0x000000FF,
 };
 
 /**
@@ -266,10 +269,10 @@ enum CLOCK_MUX0B_RCS_PLL_INPUT
  */
 enum CLOCK_MUX0C_RCS_PLL_INPUT
 {
-    CLOCK_MUX0C_RCS_PLL_INPUT_SYS_REFCLOCK0 = 0x00000000,
-    CLOCK_MUX0C_RCS_PLL_INPUT_RCS_ASYNC_OUT = 0x00000002,
-    CLOCK_MUX0C_RCS_PLL_INPUT_RCS_SYNC_OUT = 0x00000001,
-    CLOCK_MUX0C_RCS_PLL_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX0C_RCS_PLL_INPUT_SYS_REFCLOCK0                     = 0x00000000,
+    CLOCK_MUX0C_RCS_PLL_INPUT_RCS_ASYNC_OUT                     = 0x00000002,
+    CLOCK_MUX0C_RCS_PLL_INPUT_RCS_SYNC_OUT                      = 0x00000001,
+    CLOCK_MUX0C_RCS_PLL_INPUT_INVALID                           = 0x000000FF,
 };
 
 /**
@@ -277,10 +280,10 @@ enum CLOCK_MUX0C_RCS_PLL_INPUT
  */
 enum CLOCK_MUX0D_RCS_PLL_INPUT
 {
-    CLOCK_MUX0D_RCS_PLL_INPUT_SYS_REFCLOCK0 = 0x00000000,
-    CLOCK_MUX0D_RCS_PLL_INPUT_RCS_ASYNC_OUT = 0x00000002,
-    CLOCK_MUX0D_RCS_PLL_INPUT_RCS_SYNC_OUT = 0x00000001,
-    CLOCK_MUX0D_RCS_PLL_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX0D_RCS_PLL_INPUT_SYS_REFCLOCK0                     = 0x00000000,
+    CLOCK_MUX0D_RCS_PLL_INPUT_RCS_ASYNC_OUT                     = 0x00000002,
+    CLOCK_MUX0D_RCS_PLL_INPUT_RCS_SYNC_OUT                      = 0x00000001,
+    CLOCK_MUX0D_RCS_PLL_INPUT_INVALID                           = 0x000000FF,
 };
 
 /**
@@ -288,9 +291,9 @@ enum CLOCK_MUX0D_RCS_PLL_INPUT
  */
 enum CLOCK_MUX1_INPUT
 {
-    CLOCK_MUX1_INPUT_MUX10 = 0x00000000,
-    CLOCK_MUX1_INPUT_TCK = 0x00000001,
-    CLOCK_MUX1_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX1_INPUT_MUX10                                      = 0x00000000,
+    CLOCK_MUX1_INPUT_TCK                                        = 0x00000001,
+    CLOCK_MUX1_INPUT_INVALID                                    = 0x000000FF,
 };
 
 /**
@@ -298,9 +301,9 @@ enum CLOCK_MUX1_INPUT
  */
 enum CLOCK_MUX2A_INPUT
 {
-    CLOCK_MUX2A_INPUT_PAU_DPLL = 0x00000000,
-    CLOCK_MUX2A_INPUT_MUX1 = 0x00000001,
-    CLOCK_MUX2A_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX2A_INPUT_PAU_DPLL                                  = 0x00000000,
+    CLOCK_MUX2A_INPUT_MUX1                                      = 0x00000001,
+    CLOCK_MUX2A_INPUT_INVALID                                   = 0x000000FF,
 };
 
 /**
@@ -308,9 +311,9 @@ enum CLOCK_MUX2A_INPUT
  */
 enum CLOCK_MUX2B_INPUT
 {
-    CLOCK_MUX2B_INPUT_PAU_DPLL = 0x00000000,
-    CLOCK_MUX2B_INPUT_MUX1 = 0x00000001,
-    CLOCK_MUX2B_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX2B_INPUT_PAU_DPLL                                  = 0x00000000,
+    CLOCK_MUX2B_INPUT_MUX1                                      = 0x00000001,
+    CLOCK_MUX2B_INPUT_INVALID                                   = 0x000000FF,
 };
 
 /**
@@ -318,9 +321,9 @@ enum CLOCK_MUX2B_INPUT
  */
 enum CLOCK_MUX3_INPUT
 {
-    CLOCK_MUX3_INPUT_NEST_DPLL = 0x00000000,
-    CLOCK_MUX3_INPUT_MUX2B = 0x00000001,
-    CLOCK_MUX3_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX3_INPUT_NEST_DPLL                                  = 0x00000000,
+    CLOCK_MUX3_INPUT_MUX2B                                      = 0x00000001,
+    CLOCK_MUX3_INPUT_INVALID                                    = 0x000000FF,
 };
 
 /**
@@ -328,9 +331,9 @@ enum CLOCK_MUX3_INPUT
  */
 enum CLOCK_MUX10_PAU_DPLL_INPUT
 {
-    CLOCK_MUX10_PAU_DPLL_INPUT_PLLIOSSFLT = 0x00000000,
-    CLOCK_MUX10_PAU_DPLL_INPUT_PLLIOFLT = 0x00000001,
-    CLOCK_MUX10_PAU_DPLL_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX10_PAU_DPLL_INPUT_PLLIOSSFLT                       = 0x00000000,
+    CLOCK_MUX10_PAU_DPLL_INPUT_PLLIOFLT                         = 0x00000001,
+    CLOCK_MUX10_PAU_DPLL_INPUT_INVALID                          = 0x000000FF,
 };
 
 /**
@@ -338,9 +341,9 @@ enum CLOCK_MUX10_PAU_DPLL_INPUT
  */
 enum CLOCK_MUX11_NEST_DPLL_INPUT
 {
-    CLOCK_MUX11_NEST_DPLL_INPUT_PLLIOSSFLT = 0x00000000,
-    CLOCK_MUX11_NEST_DPLL_INPUT_PLLIOFLT = 0x00000001,
-    CLOCK_MUX11_NEST_DPLL_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX11_NEST_DPLL_INPUT_PLLIOSSFLT                      = 0x00000000,
+    CLOCK_MUX11_NEST_DPLL_INPUT_PLLIOFLT                        = 0x00000001,
+    CLOCK_MUX11_NEST_DPLL_INPUT_INVALID                         = 0x000000FF,
 };
 
 /**
@@ -348,10 +351,10 @@ enum CLOCK_MUX11_NEST_DPLL_INPUT
  */
 enum CLOCK_MUX12_OMI_LCPLL_INPUT
 {
-    CLOCK_MUX12_OMI_LCPLL_INPUT_PLLTODFLT = 0x00000000,
-    CLOCK_MUX12_OMI_LCPLL_INPUT_PLLNESTFLT = 0x00000002,
-    CLOCK_MUX12_OMI_LCPLL_INPUT_PLLIOFLT = 0x00000001,
-    CLOCK_MUX12_OMI_LCPLL_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX12_OMI_LCPLL_INPUT_PLLTODFLT                       = 0x00000000,
+    CLOCK_MUX12_OMI_LCPLL_INPUT_PLLNESTFLT                      = 0x00000002,
+    CLOCK_MUX12_OMI_LCPLL_INPUT_PLLIOFLT                        = 0x00000001,
+    CLOCK_MUX12_OMI_LCPLL_INPUT_INVALID                         = 0x000000FF,
 };
 
 /**
@@ -359,10 +362,10 @@ enum CLOCK_MUX12_OMI_LCPLL_INPUT
  */
 enum CLOCK_MUX13_OPT_133_SOURCE_INPUT
 {
-    CLOCK_MUX13_OPT_133_SOURCE_INPUT_PLLTODFLT = 0x00000000,
-    CLOCK_MUX13_OPT_133_SOURCE_INPUT_PLLNESTFLT = 0x00000002,
-    CLOCK_MUX13_OPT_133_SOURCE_INPUT_PLLIOFLT = 0x00000001,
-    CLOCK_MUX13_OPT_133_SOURCE_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX13_OPT_133_SOURCE_INPUT_PLLTODFLT                  = 0x00000000,
+    CLOCK_MUX13_OPT_133_SOURCE_INPUT_PLLNESTFLT                 = 0x00000002,
+    CLOCK_MUX13_OPT_133_SOURCE_INPUT_PLLIOFLT                   = 0x00000001,
+    CLOCK_MUX13_OPT_133_SOURCE_INPUT_INVALID                    = 0x000000FF,
 };
 
 /**
@@ -370,9 +373,9 @@ enum CLOCK_MUX13_OPT_133_SOURCE_INPUT
  */
 enum CLOCK_MUX14_OPT_156_SOURCE_INPUT
 {
-    CLOCK_MUX14_OPT_156_SOURCE_INPUT_PLLNESTFLT = 0x00000000,
-    CLOCK_MUX14_OPT_156_SOURCE_INPUT_PLLIOFLT = 0x00000001,
-    CLOCK_MUX14_OPT_156_SOURCE_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX14_OPT_156_SOURCE_INPUT_PLLNESTFLT                 = 0x00000000,
+    CLOCK_MUX14_OPT_156_SOURCE_INPUT_PLLIOFLT                   = 0x00000001,
+    CLOCK_MUX14_OPT_156_SOURCE_INPUT_INVALID                    = 0x000000FF,
 };
 
 /**
@@ -382,10 +385,10 @@ enum CLOCK_MUX14_OPT_156_SOURCE_INPUT
  */
 enum CLOCK_MUX_IOHS_LCPLL_INPUT
 {
-    CLOCK_MUX_IOHS_LCPLL_INPUT_PLLTODFLT = 0x00000000,
-    CLOCK_MUX_IOHS_LCPLL_INPUT_MUX14 = 0x00000002,
-    CLOCK_MUX_IOHS_LCPLL_INPUT_MUX13 = 0x00000001,
-    CLOCK_MUX_IOHS_LCPLL_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX_IOHS_LCPLL_INPUT_PLLTODFLT                        = 0x00000000,
+    CLOCK_MUX_IOHS_LCPLL_INPUT_MUX14                            = 0x00000002,
+    CLOCK_MUX_IOHS_LCPLL_INPUT_MUX13                            = 0x00000001,
+    CLOCK_MUX_IOHS_LCPLL_INPUT_INVALID                          = 0x000000FF,
 };
 
 /**
@@ -393,10 +396,10 @@ enum CLOCK_MUX_IOHS_LCPLL_INPUT
  */
 enum CLOCK_MUX23_PCI_INPUT
 {
-    CLOCK_MUX23_PCI_INPUT_PLLTODFLT = 0x00000000,
-    CLOCK_MUX23_PCI_INPUT_PLLIOSSFLT = 0x00000002,
-    CLOCK_MUX23_PCI_INPUT_MUX0D = 0x00000001,
-    CLOCK_MUX23_PCI_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX23_PCI_INPUT_PLLTODFLT                             = 0x00000000,
+    CLOCK_MUX23_PCI_INPUT_PLLIOSSFLT                            = 0x00000002,
+    CLOCK_MUX23_PCI_INPUT_MUX0D                                 = 0x00000001,
+    CLOCK_MUX23_PCI_INPUT_INVALID                               = 0x000000FF,
 };
 
 /**
@@ -404,10 +407,10 @@ enum CLOCK_MUX23_PCI_INPUT
  */
 enum CLOCK_MUX_PCI_LCPLL_INPUT
 {
-    CLOCK_MUX_PCI_LCPLL_INPUT_MUX23 = 0x00000000,
-    CLOCK_MUX_PCI_LCPLL_INPUT_PCI_REFCLOCK0 = 0x00000002,
-    CLOCK_MUX_PCI_LCPLL_INPUT_PCI_REFCLOCK1 = 0x00000001,
-    CLOCK_MUX_PCI_LCPLL_INPUT_INVALID = 0x000000FF,
+    CLOCK_MUX_PCI_LCPLL_INPUT_MUX23                             = 0x00000000,
+    CLOCK_MUX_PCI_LCPLL_INPUT_PCI_REFCLOCK0                     = 0x00000002,
+    CLOCK_MUX_PCI_LCPLL_INPUT_PCI_REFCLOCK1                     = 0x00000001,
+    CLOCK_MUX_PCI_LCPLL_INPUT_INVALID                           = 0x000000FF,
 };
 
 /**
@@ -416,9 +419,9 @@ enum CLOCK_MUX_PCI_LCPLL_INPUT
  */
 enum CLOCK_PLL_MUX_TOD
 {
-    CLOCK_PLL_MUX_TOD_LPC_REFCLOCK = 0x00000000,
-    CLOCK_PLL_MUX_TOD_PLLTODFLT = 0x00000001,
-    CLOCK_PLL_MUX_TOD_INVALID = 0x000000FF,
+    CLOCK_PLL_MUX_TOD_LPC_REFCLOCK                              = 0x00000000,
+    CLOCK_PLL_MUX_TOD_PLLTODFLT                                 = 0x00000001,
+    CLOCK_PLL_MUX_TOD_INVALID                                   = 0x000000FF,
 };
 
 /**
@@ -426,11 +429,11 @@ enum CLOCK_PLL_MUX_TOD
  */
 enum HW543822_WAR_MODE
 {
-    HW543822_WAR_MODE_FORCE_HUNDRED_OHM_DIFF = 0x00000000,
-    HW543822_WAR_MODE_FORCE_NO_TERM = 0x00000001,
-    HW543822_WAR_MODE_FORCE_FIFTY_OHM_SE = 0x00000002,
-    HW543822_WAR_MODE_NONE = 0x00000003,
-    HW543822_WAR_MODE_INVALID = 0x000000FF,
+    HW543822_WAR_MODE_FORCE_HUNDRED_OHM_DIFF                    = 0x00000000,
+    HW543822_WAR_MODE_FORCE_NO_TERM                             = 0x00000001,
+    HW543822_WAR_MODE_FORCE_FIFTY_OHM_SE                        = 0x00000002,
+    HW543822_WAR_MODE_NONE                                      = 0x00000003,
+    HW543822_WAR_MODE_INVALID                                   = 0x000000FF,
 };
 
 /**
@@ -440,9 +443,9 @@ enum HW543822_WAR_MODE
  */
 enum PROC_FORCE_MC_PLL_BANDSEL
 {
-    PROC_FORCE_MC_PLL_BANDSEL_FALSE = 0x00000000,
-    PROC_FORCE_MC_PLL_BANDSEL_TRUE = 0x00000001,
-    PROC_FORCE_MC_PLL_BANDSEL_INVALID = 0xFFFFFFFF,
+    PROC_FORCE_MC_PLL_BANDSEL_FALSE                             = 0x00000000,
+    PROC_FORCE_MC_PLL_BANDSEL_TRUE                              = 0x00000001,
+    PROC_FORCE_MC_PLL_BANDSEL_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -454,12 +457,12 @@ enum PROC_FORCE_MC_PLL_BANDSEL
  */
 enum FREQ_MC_MHZ
 {
-    FREQ_MC_MHZ_1333 = 0x00000535,
-    FREQ_MC_MHZ_1466 = 0x000005BA,
-    FREQ_MC_MHZ_1600 = 0x00000640,
-    FREQ_MC_MHZ_2000 = 0x000007D0,
-    FREQ_MC_MHZ_2400 = 0x00000960,
-    FREQ_MC_MHZ_INVALID = 0xFFFFFFFF,
+    FREQ_MC_MHZ_1333                                            = 0x00000535,
+    FREQ_MC_MHZ_1466                                            = 0x000005BA,
+    FREQ_MC_MHZ_1600                                            = 0x00000640,
+    FREQ_MC_MHZ_2000                                            = 0x000007D0,
+    FREQ_MC_MHZ_2400                                            = 0x00000960,
+    FREQ_MC_MHZ_INVALID                                         = 0xFFFFFFFF,
 };
 
 /**
@@ -467,12 +470,12 @@ enum FREQ_MC_MHZ
  */
 enum FREQ_OMI_MHZ
 {
-    FREQ_OMI_MHZ_21330 = 0x00005352,
-    FREQ_OMI_MHZ_23460 = 0x00005BA4,
-    FREQ_OMI_MHZ_25600 = 0x00006400,
-    FREQ_OMI_MHZ_32000 = 0x00007D00,
-    FREQ_OMI_MHZ_38400 = 0x00009600,
-    FREQ_OMI_MHZ_INVALID = 0xFFFFFFFF,
+    FREQ_OMI_MHZ_21330                                          = 0x00005352,
+    FREQ_OMI_MHZ_23460                                          = 0x00005BA4,
+    FREQ_OMI_MHZ_25600                                          = 0x00006400,
+    FREQ_OMI_MHZ_32000                                          = 0x00007D00,
+    FREQ_OMI_MHZ_38400                                          = 0x00009600,
+    FREQ_OMI_MHZ_INVALID                                        = 0xFFFFFFFF,
 };
 
 /**
@@ -481,13 +484,13 @@ enum FREQ_OMI_MHZ
  */
 enum FREQ_IOHS_MHZ
 {
-    FREQ_IOHS_MHZ_1611 = 0x0000064B,
-    FREQ_IOHS_MHZ_1992 = 0x000007C8,
-    FREQ_IOHS_MHZ_2000 = 0x000007D0,
-    FREQ_IOHS_MHZ_2031 = 0x000007EF,
-    FREQ_IOHS_MHZ_2067 = 0x00000813,
-    FREQ_IOHS_MHZ_2109 = 0x0000083D,
-    FREQ_IOHS_MHZ_INVALID = 0xFFFFFFFF,
+    FREQ_IOHS_MHZ_1611                                          = 0x0000064B,
+    FREQ_IOHS_MHZ_1992                                          = 0x000007C8,
+    FREQ_IOHS_MHZ_2000                                          = 0x000007D0,
+    FREQ_IOHS_MHZ_2031                                          = 0x000007EF,
+    FREQ_IOHS_MHZ_2067                                          = 0x00000813,
+    FREQ_IOHS_MHZ_2109                                          = 0x0000083D,
+    FREQ_IOHS_MHZ_INVALID                                       = 0xFFFFFFFF,
 };
 
 /**
@@ -496,13 +499,13 @@ enum FREQ_IOHS_MHZ
  */
 enum FREQ_IOHS_LINK_MHZ
 {
-    FREQ_IOHS_LINK_MHZ_25781 = 0x000064B5,
-    FREQ_IOHS_LINK_MHZ_31875 = 0x00007C83,
-    FREQ_IOHS_LINK_MHZ_32000 = 0x00007D00,
-    FREQ_IOHS_LINK_MHZ_32500 = 0x00007EF4,
-    FREQ_IOHS_LINK_MHZ_33067 = 0x0000812B,
-    FREQ_IOHS_LINK_MHZ_33750 = 0x000083D6,
-    FREQ_IOHS_LINK_MHZ_INVALID = 0xFFFFFFFF,
+    FREQ_IOHS_LINK_MHZ_25781                                    = 0x000064B5,
+    FREQ_IOHS_LINK_MHZ_31875                                    = 0x00007C83,
+    FREQ_IOHS_LINK_MHZ_32000                                    = 0x00007D00,
+    FREQ_IOHS_LINK_MHZ_32500                                    = 0x00007EF4,
+    FREQ_IOHS_LINK_MHZ_33067                                    = 0x0000812B,
+    FREQ_IOHS_LINK_MHZ_33750                                    = 0x000083D6,
+    FREQ_IOHS_LINK_MHZ_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -513,13 +516,13 @@ enum FREQ_IOHS_LINK_MHZ
  */
 enum FREQ_PROC_IOHS_MHZ
 {
-    FREQ_PROC_IOHS_MHZ_1611 = 0x0000064B,
-    FREQ_PROC_IOHS_MHZ_1992 = 0x000007C8,
-    FREQ_PROC_IOHS_MHZ_2000 = 0x000007D0,
-    FREQ_PROC_IOHS_MHZ_2031 = 0x000007EF,
-    FREQ_PROC_IOHS_MHZ_2067 = 0x00000813,
-    FREQ_PROC_IOHS_MHZ_2109 = 0x0000083D,
-    FREQ_PROC_IOHS_MHZ_INVALID = 0xFFFFFFFF,
+    FREQ_PROC_IOHS_MHZ_1611                                     = 0x0000064B,
+    FREQ_PROC_IOHS_MHZ_1992                                     = 0x000007C8,
+    FREQ_PROC_IOHS_MHZ_2000                                     = 0x000007D0,
+    FREQ_PROC_IOHS_MHZ_2031                                     = 0x000007EF,
+    FREQ_PROC_IOHS_MHZ_2067                                     = 0x00000813,
+    FREQ_PROC_IOHS_MHZ_2109                                     = 0x0000083D,
+    FREQ_PROC_IOHS_MHZ_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -528,8 +531,8 @@ enum FREQ_PROC_IOHS_MHZ
  */
 enum FREQ_PCIE_MHZ
 {
-    FREQ_PCIE_MHZ_2000 = 0x000007D0,
-    FREQ_PCIE_MHZ_INVALID = 0xFFFFFFFF,
+    FREQ_PCIE_MHZ_2000                                          = 0x000007D0,
+    FREQ_PCIE_MHZ_INVALID                                       = 0xFFFFFFFF,
 };
 
 /**
@@ -542,10 +545,10 @@ enum FREQ_PCIE_MHZ
  */
 enum REQUIRED_SYNCH_MODE
 {
-    REQUIRED_SYNCH_MODE_UNDETERMINED = 0x00000000,
-    REQUIRED_SYNCH_MODE_ALWAYS = 0x00000001,
-    REQUIRED_SYNCH_MODE_NEVER = 0x00000002,
-    REQUIRED_SYNCH_MODE_INVALID = 0xFFFFFFFF,
+    REQUIRED_SYNCH_MODE_UNDETERMINED                            = 0x00000000,
+    REQUIRED_SYNCH_MODE_ALWAYS                                  = 0x00000001,
+    REQUIRED_SYNCH_MODE_NEVER                                   = 0x00000002,
+    REQUIRED_SYNCH_MODE_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -553,10 +556,10 @@ enum REQUIRED_SYNCH_MODE
  */
 enum SYSTEM_IPL_PHASE
 {
-    SYSTEM_IPL_PHASE_HB_IPL = 0x00000001,
-    SYSTEM_IPL_PHASE_HB_RUNTIME = 0x00000002,
-    SYSTEM_IPL_PHASE_CONTAINED_IPL = 0x00000004,
-    SYSTEM_IPL_PHASE_INVALID = 0x000000FF,
+    SYSTEM_IPL_PHASE_HB_IPL                                     = 0x00000001,
+    SYSTEM_IPL_PHASE_HB_RUNTIME                                 = 0x00000002,
+    SYSTEM_IPL_PHASE_CONTAINED_IPL                              = 0x00000004,
+    SYSTEM_IPL_PHASE_INVALID                                    = 0x000000FF,
 };
 
 /**
@@ -565,9 +568,9 @@ enum SYSTEM_IPL_PHASE
  */
 enum PROC_CHIP_IPL_PHASE
 {
-    PROC_CHIP_IPL_PHASE_PRE_CONTAINED_IPL = 0x00000001,
-    PROC_CHIP_IPL_PHASE_CONTAINED_IPL = 0x00000002,
-    PROC_CHIP_IPL_PHASE_INVALID = 0xFFFFFFFF,
+    PROC_CHIP_IPL_PHASE_PRE_CONTAINED_IPL                       = 0x00000001,
+    PROC_CHIP_IPL_PHASE_CONTAINED_IPL                           = 0x00000002,
+    PROC_CHIP_IPL_PHASE_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -576,10 +579,10 @@ enum PROC_CHIP_IPL_PHASE
  */
 enum CONTAINED_IPL_TYPE
 {
-    CONTAINED_IPL_TYPE_NONE = 0x00000000,
-    CONTAINED_IPL_TYPE_CACHE = 0x00000001,
-    CONTAINED_IPL_TYPE_CHIP = 0x00000002,
-    CONTAINED_IPL_TYPE_INVALID = 0x000000FF,
+    CONTAINED_IPL_TYPE_NONE                                     = 0x00000000,
+    CONTAINED_IPL_TYPE_CACHE                                    = 0x00000001,
+    CONTAINED_IPL_TYPE_CHIP                                     = 0x00000002,
+    CONTAINED_IPL_TYPE_INVALID                                  = 0x000000FF,
 };
 
 /**
@@ -587,9 +590,9 @@ enum CONTAINED_IPL_TYPE
  */
 enum CONTAINED_LOAD_PATH
 {
-    CONTAINED_LOAD_PATH_PBA = 0x00000000,
-    CONTAINED_LOAD_PATH_L2SQ = 0x00000001,
-    CONTAINED_LOAD_PATH_INVALID = 0x000000FF,
+    CONTAINED_LOAD_PATH_PBA                                     = 0x00000000,
+    CONTAINED_LOAD_PATH_L2SQ                                    = 0x00000001,
+    CONTAINED_LOAD_PATH_INVALID                                 = 0x000000FF,
 };
 
 /**
@@ -597,9 +600,9 @@ enum CONTAINED_LOAD_PATH
  */
 enum IS_MPIPL
 {
-    IS_MPIPL_FALSE = 0x00000000,
-    IS_MPIPL_TRUE = 0x00000001,
-    IS_MPIPL_INVALID = 0xFFFFFFFF,
+    IS_MPIPL_FALSE                                              = 0x00000000,
+    IS_MPIPL_TRUE                                               = 0x00000001,
+    IS_MPIPL_INVALID                                            = 0xFFFFFFFF,
 };
 
 /**
@@ -609,9 +612,9 @@ enum IS_MPIPL
  */
 enum ISTEP_MODE
 {
-    ISTEP_MODE_FALSE = 0x00000000,
-    ISTEP_MODE_TRUE = 0x00000001,
-    ISTEP_MODE_INVALID = 0x000000FF,
+    ISTEP_MODE_FALSE                                            = 0x00000000,
+    ISTEP_MODE_TRUE                                             = 0x00000001,
+    ISTEP_MODE_INVALID                                          = 0x000000FF,
 };
 
 /**
@@ -619,9 +622,9 @@ enum ISTEP_MODE
  */
 enum SBE_RUNTIME_MODE
 {
-    SBE_RUNTIME_MODE_FALSE = 0x00000000,
-    SBE_RUNTIME_MODE_TRUE = 0x00000001,
-    SBE_RUNTIME_MODE_INVALID = 0xFFFFFFFF,
+    SBE_RUNTIME_MODE_FALSE                                      = 0x00000000,
+    SBE_RUNTIME_MODE_TRUE                                       = 0x00000001,
+    SBE_RUNTIME_MODE_INVALID                                    = 0xFFFFFFFF,
 };
 
 /**
@@ -629,9 +632,9 @@ enum SBE_RUNTIME_MODE
  */
 enum IS_SP_MODE
 {
-    IS_SP_MODE_FSP_LESS = 0x00000000,
-    IS_SP_MODE_FSP = 0x00000001,
-    IS_SP_MODE_INVALID = 0xFFFFFFFF,
+    IS_SP_MODE_FSP_LESS                                         = 0x00000000,
+    IS_SP_MODE_FSP                                              = 0x00000001,
+    IS_SP_MODE_INVALID                                          = 0xFFFFFFFF,
 };
 
 /**
@@ -640,9 +643,9 @@ enum IS_SP_MODE
  */
 enum DISABLE_HBBL_VECTORS
 {
-    DISABLE_HBBL_VECTORS_FALSE = 0x00000000,
-    DISABLE_HBBL_VECTORS_TRUE = 0x00000001,
-    DISABLE_HBBL_VECTORS_INVALID = 0x000000FF,
+    DISABLE_HBBL_VECTORS_FALSE                                  = 0x00000000,
+    DISABLE_HBBL_VECTORS_TRUE                                   = 0x00000001,
+    DISABLE_HBBL_VECTORS_INVALID                                = 0x000000FF,
 };
 
 /**
@@ -650,9 +653,9 @@ enum DISABLE_HBBL_VECTORS
  */
 enum BACKUP_SEEPROM_SELECT
 {
-    BACKUP_SEEPROM_SELECT_PRIMARY = 0x00000000,
-    BACKUP_SEEPROM_SELECT_SECONDARY = 0x00000001,
-    BACKUP_SEEPROM_SELECT_INVALID = 0x000000FF,
+    BACKUP_SEEPROM_SELECT_PRIMARY                               = 0x00000000,
+    BACKUP_SEEPROM_SELECT_SECONDARY                             = 0x00000001,
+    BACKUP_SEEPROM_SELECT_INVALID                               = 0x000000FF,
 };
 
 /**
@@ -660,9 +663,9 @@ enum BACKUP_SEEPROM_SELECT
  */
 enum BACKUP_MEASUREMENT_SEEPROM_SELECT
 {
-    BACKUP_MEASUREMENT_SEEPROM_SELECT_PRIMARY = 0x00000000,
-    BACKUP_MEASUREMENT_SEEPROM_SELECT_SECONDARY = 0x00000001,
-    BACKUP_MEASUREMENT_SEEPROM_SELECT_INVALID = 0x000000FF,
+    BACKUP_MEASUREMENT_SEEPROM_SELECT_PRIMARY                   = 0x00000000,
+    BACKUP_MEASUREMENT_SEEPROM_SELECT_SECONDARY                 = 0x00000001,
+    BACKUP_MEASUREMENT_SEEPROM_SELECT_INVALID                   = 0x000000FF,
 };
 
 /**
@@ -670,9 +673,9 @@ enum BACKUP_MEASUREMENT_SEEPROM_SELECT
  */
 enum SECURITY_ENABLE
 {
-    SECURITY_ENABLE_ENABLE = 0x00000001,
-    SECURITY_ENABLE_DISABLE = 0x00000000,
-    SECURITY_ENABLE_INVALID = 0xFFFFFFFF,
+    SECURITY_ENABLE_ENABLE                                      = 0x00000001,
+    SECURITY_ENABLE_DISABLE                                     = 0x00000000,
+    SECURITY_ENABLE_INVALID                                     = 0xFFFFFFFF,
 };
 
 /**
@@ -696,12 +699,12 @@ enum SECURITY_ENABLE
  */
 enum SBE_SELECT_EX_POLICY
 {
-    SBE_SELECT_EX_POLICY_HB_DEFAULT = 0x00000000,
-    SBE_SELECT_EX_POLICY_CRONUS_MAX_ACTIVE = 0x00000001,
-    SBE_SELECT_EX_POLICY_HB_MAX_FOOTPRINT = 0x00000002,
-    SBE_SELECT_EX_POLICY_HB_MAX_THREADS = 0x00000004,
-    SBE_SELECT_EX_POLICY_HB_MAX_FOOTPRINT_MAX_THREADS = 0x00000006,
-    SBE_SELECT_EX_POLICY_INVALID = 0x000000FF,
+    SBE_SELECT_EX_POLICY_HB_DEFAULT                             = 0x00000000,
+    SBE_SELECT_EX_POLICY_CRONUS_MAX_ACTIVE                      = 0x00000001,
+    SBE_SELECT_EX_POLICY_HB_MAX_FOOTPRINT                       = 0x00000002,
+    SBE_SELECT_EX_POLICY_HB_MAX_THREADS                         = 0x00000004,
+    SBE_SELECT_EX_POLICY_HB_MAX_FOOTPRINT_MAX_THREADS           = 0x00000006,
+    SBE_SELECT_EX_POLICY_INVALID                                = 0x000000FF,
 };
 
 /**
@@ -712,9 +715,9 @@ enum SBE_SELECT_EX_POLICY
  */
 enum FUSED_CORE_MODE
 {
-    FUSED_CORE_MODE_CORE_UNFUSED = 0x00000000,
-    FUSED_CORE_MODE_CORE_FUSED = 0x00000001,
-    FUSED_CORE_MODE_INVALID = 0xFFFFFFFF,
+    FUSED_CORE_MODE_CORE_UNFUSED                                = 0x00000000,
+    FUSED_CORE_MODE_CORE_FUSED                                  = 0x00000001,
+    FUSED_CORE_MODE_INVALID                                     = 0x000000FF,
 };
 
 /**
@@ -722,10 +725,10 @@ enum FUSED_CORE_MODE
  */
 enum CORE_LPAR_MODE_POLICY
 {
-    CORE_LPAR_MODE_POLICY_FOLLOW_FUSED_STATE = 0x00000000,
-    CORE_LPAR_MODE_POLICY_LPAR_PER_CORE = 0x00000001,
-    CORE_LPAR_MODE_POLICY_LPAR_PER_THREAD = 0x00000002,
-    CORE_LPAR_MODE_POLICY_INVALID = 0x000000FF,
+    CORE_LPAR_MODE_POLICY_FOLLOW_FUSED_STATE                    = 0x00000000,
+    CORE_LPAR_MODE_POLICY_LPAR_PER_CORE                         = 0x00000001,
+    CORE_LPAR_MODE_POLICY_LPAR_PER_THREAD                       = 0x00000002,
+    CORE_LPAR_MODE_POLICY_INVALID                               = 0x000000FF,
 };
 
 /**
@@ -733,9 +736,9 @@ enum CORE_LPAR_MODE_POLICY
  */
 enum CORE_LPAR_MODE
 {
-    CORE_LPAR_MODE_LPAR_PER_THREAD = 0x00000000,
-    CORE_LPAR_MODE_LPAR_PER_CORE = 0x00000001,
-    CORE_LPAR_MODE_INVALID = 0x000000FF,
+    CORE_LPAR_MODE_LPAR_PER_THREAD                              = 0x00000000,
+    CORE_LPAR_MODE_LPAR_PER_CORE                                = 0x00000001,
+    CORE_LPAR_MODE_INVALID                                      = 0x000000FF,
 };
 
 /**
@@ -744,9 +747,9 @@ enum CORE_LPAR_MODE
  */
 enum ZERO_CORE_CHIP
 {
-    ZERO_CORE_CHIP_FALSE = 0x00000000,
-    ZERO_CORE_CHIP_TRUE = 0x00000001,
-    ZERO_CORE_CHIP_INVALID = 0xFFFFFFFF,
+    ZERO_CORE_CHIP_FALSE                                        = 0x00000000,
+    ZERO_CORE_CHIP_TRUE                                         = 0x00000001,
+    ZERO_CORE_CHIP_INVALID                                      = 0xFFFFFFFF,
 };
 
 /**
@@ -756,7 +759,7 @@ enum ZERO_CORE_CHIP
  */
 enum PROC_FABRIC_TOPOLOGY_ID_TABLE
 {
-    PROC_FABRIC_TOPOLOGY_ID_TABLE_INVALID = 0x000000FF,
+    PROC_FABRIC_TOPOLOGY_ID_TABLE_INVALID                       = 0x000000FF,
 };
 
 /**
@@ -764,9 +767,9 @@ enum PROC_FABRIC_TOPOLOGY_ID_TABLE
  */
 enum PROC_FABRIC_SL_DOMAIN
 {
-    PROC_FABRIC_SL_DOMAIN_HEMISPHERE = 0x00000000,
-    PROC_FABRIC_SL_DOMAIN_CHIP = 0x00000001,
-    PROC_FABRIC_SL_DOMAIN_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_SL_DOMAIN_HEMISPHERE                            = 0x00000000,
+    PROC_FABRIC_SL_DOMAIN_CHIP                                  = 0x00000001,
+    PROC_FABRIC_SL_DOMAIN_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -775,11 +778,11 @@ enum PROC_FABRIC_SL_DOMAIN
  */
 enum PROC_FABRIC_BROADCAST_MODE
 {
-    PROC_FABRIC_BROADCAST_MODE_1HOP_CHIP_IS_GROUP = 0x00000000,
-    PROC_FABRIC_BROADCAST_MODE_1HOP_CHIP_IS_NODE = 0x00000001,
-    PROC_FABRIC_BROADCAST_MODE_RESERVED = 0x00000002,
-    PROC_FABRIC_BROADCAST_MODE_2HOP_CHIP_IS_NODE = 0x00000003,
-    PROC_FABRIC_BROADCAST_MODE_INVALID = 0x000000FF,
+    PROC_FABRIC_BROADCAST_MODE_1HOP_CHIP_IS_GROUP               = 0x00000000,
+    PROC_FABRIC_BROADCAST_MODE_1HOP_CHIP_IS_NODE                = 0x00000001,
+    PROC_FABRIC_BROADCAST_MODE_RESERVED                         = 0x00000002,
+    PROC_FABRIC_BROADCAST_MODE_2HOP_CHIP_IS_NODE                = 0x00000003,
+    PROC_FABRIC_BROADCAST_MODE_INVALID                          = 0x000000FF,
 };
 
 /**
@@ -789,9 +792,9 @@ enum PROC_FABRIC_BROADCAST_MODE
  */
 enum PROC_FABRIC_TOPOLOGY_MODE
 {
-    PROC_FABRIC_TOPOLOGY_MODE_MODE0 = 0x00000000,
-    PROC_FABRIC_TOPOLOGY_MODE_MODE1 = 0x00000001,
-    PROC_FABRIC_TOPOLOGY_MODE_INVALID = 0x000000FF,
+    PROC_FABRIC_TOPOLOGY_MODE_MODE0                             = 0x00000000,
+    PROC_FABRIC_TOPOLOGY_MODE_MODE1                             = 0x00000001,
+    PROC_FABRIC_TOPOLOGY_MODE_INVALID                           = 0x000000FF,
 };
 
 /**
@@ -800,9 +803,9 @@ enum PROC_FABRIC_TOPOLOGY_MODE
  */
 enum PROC_FABRIC_SYSTEM_MASTER_CHIP
 {
-    PROC_FABRIC_SYSTEM_MASTER_CHIP_FALSE = 0x00000000,
-    PROC_FABRIC_SYSTEM_MASTER_CHIP_TRUE = 0x00000001,
-    PROC_FABRIC_SYSTEM_MASTER_CHIP_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_SYSTEM_MASTER_CHIP_FALSE                        = 0x00000000,
+    PROC_FABRIC_SYSTEM_MASTER_CHIP_TRUE                         = 0x00000001,
+    PROC_FABRIC_SYSTEM_MASTER_CHIP_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -811,9 +814,9 @@ enum PROC_FABRIC_SYSTEM_MASTER_CHIP
  */
 enum PROC_FABRIC_GROUP_MASTER_CHIP
 {
-    PROC_FABRIC_GROUP_MASTER_CHIP_FALSE = 0x00000000,
-    PROC_FABRIC_GROUP_MASTER_CHIP_TRUE = 0x00000001,
-    PROC_FABRIC_GROUP_MASTER_CHIP_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_GROUP_MASTER_CHIP_FALSE                         = 0x00000000,
+    PROC_FABRIC_GROUP_MASTER_CHIP_TRUE                          = 0x00000001,
+    PROC_FABRIC_GROUP_MASTER_CHIP_INVALID                       = 0xFFFFFFFF,
 };
 
 /**
@@ -824,11 +827,11 @@ enum PROC_FABRIC_GROUP_MASTER_CHIP
  */
 enum IOHS_CONFIG_MODE
 {
-    IOHS_CONFIG_MODE_SMPX = 0x00000000,
-    IOHS_CONFIG_MODE_SMPA = 0x00000001,
-    IOHS_CONFIG_MODE_OCAPI = 0x00000002,
-    IOHS_CONFIG_MODE_UNUSED = 0x00000003,
-    IOHS_CONFIG_MODE_INVALID = 0x000000FF,
+    IOHS_CONFIG_MODE_SMPX                                       = 0x00000000,
+    IOHS_CONFIG_MODE_SMPA                                       = 0x00000001,
+    IOHS_CONFIG_MODE_OCAPI                                      = 0x00000002,
+    IOHS_CONFIG_MODE_UNUSED                                     = 0x00000003,
+    IOHS_CONFIG_MODE_INVALID                                    = 0x000000FF,
 };
 
 /**
@@ -837,9 +840,9 @@ enum IOHS_CONFIG_MODE
  */
 enum PROC_FABRIC_IOHS_BUS_WIDTH
 {
-    PROC_FABRIC_IOHS_BUS_WIDTH_1_BYTE = 0x00000001,
-    PROC_FABRIC_IOHS_BUS_WIDTH_2_BYTE = 0x00000002,
-    PROC_FABRIC_IOHS_BUS_WIDTH_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_IOHS_BUS_WIDTH_1_BYTE                           = 0x00000001,
+    PROC_FABRIC_IOHS_BUS_WIDTH_2_BYTE                           = 0x00000002,
+    PROC_FABRIC_IOHS_BUS_WIDTH_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -849,9 +852,9 @@ enum PROC_FABRIC_IOHS_BUS_WIDTH
  */
 enum IOHS_DRAWER_INTERCONNECT
 {
-    IOHS_DRAWER_INTERCONNECT_FALSE = 0x00000000,
-    IOHS_DRAWER_INTERCONNECT_TRUE = 0x00000001,
-    IOHS_DRAWER_INTERCONNECT_INVALID = 0xFFFFFFFF,
+    IOHS_DRAWER_INTERCONNECT_FALSE                              = 0x00000000,
+    IOHS_DRAWER_INTERCONNECT_TRUE                               = 0x00000001,
+    IOHS_DRAWER_INTERCONNECT_INVALID                            = 0xFFFFFFFF,
 };
 
 /**
@@ -862,9 +865,9 @@ enum IOHS_DRAWER_INTERCONNECT
  */
 enum IOHS_SMP9_INTERCONNECT
 {
-    IOHS_SMP9_INTERCONNECT_FALSE = 0x00000000,
-    IOHS_SMP9_INTERCONNECT_TRUE = 0x00000001,
-    IOHS_SMP9_INTERCONNECT_INVALID = 0xFFFFFFFF,
+    IOHS_SMP9_INTERCONNECT_FALSE                                = 0x00000000,
+    IOHS_SMP9_INTERCONNECT_TRUE                                 = 0x00000001,
+    IOHS_SMP9_INTERCONNECT_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -873,9 +876,9 @@ enum IOHS_SMP9_INTERCONNECT
  */
 enum IOHS_FABRIC_TOD_CROSS_CONFIG
 {
-    IOHS_FABRIC_TOD_CROSS_CONFIG_OFF = 0x00000000,
-    IOHS_FABRIC_TOD_CROSS_CONFIG_ON = 0x00000001,
-    IOHS_FABRIC_TOD_CROSS_CONFIG_INVALID = 0xFFFFFFFF,
+    IOHS_FABRIC_TOD_CROSS_CONFIG_OFF                            = 0x00000000,
+    IOHS_FABRIC_TOD_CROSS_CONFIG_ON                             = 0x00000001,
+    IOHS_FABRIC_TOD_CROSS_CONFIG_INVALID                        = 0xFFFFFFFF,
 };
 
 /**
@@ -884,9 +887,9 @@ enum IOHS_FABRIC_TOD_CROSS_CONFIG
  */
 enum PROC_FABRIC_LINK_ACTIVE
 {
-    PROC_FABRIC_LINK_ACTIVE_FALSE = 0x00000000,
-    PROC_FABRIC_LINK_ACTIVE_TRUE = 0x00000001,
-    PROC_FABRIC_LINK_ACTIVE_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_LINK_ACTIVE_FALSE                               = 0x00000000,
+    PROC_FABRIC_LINK_ACTIVE_TRUE                                = 0x00000001,
+    PROC_FABRIC_LINK_ACTIVE_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -894,11 +897,11 @@ enum PROC_FABRIC_LINK_ACTIVE
  */
 enum IOHS_LINK_TRAIN
 {
-    IOHS_LINK_TRAIN_BOTH = 0x00000000,
-    IOHS_LINK_TRAIN_EVEN_ONLY = 0x00000001,
-    IOHS_LINK_TRAIN_ODD_ONLY = 0x00000002,
-    IOHS_LINK_TRAIN_NONE = 0x00000003,
-    IOHS_LINK_TRAIN_INVALID = 0xFFFFFFFF,
+    IOHS_LINK_TRAIN_BOTH                                        = 0x00000000,
+    IOHS_LINK_TRAIN_EVEN_ONLY                                   = 0x00000001,
+    IOHS_LINK_TRAIN_ODD_ONLY                                    = 0x00000002,
+    IOHS_LINK_TRAIN_NONE                                        = 0x00000003,
+    IOHS_LINK_TRAIN_INVALID                                     = 0xFFFFFFFF,
 };
 
 /**
@@ -907,9 +910,9 @@ enum IOHS_LINK_TRAIN
  */
 enum IOHS_LINK_SPLIT
 {
-    IOHS_LINK_SPLIT_FALSE = 0x00000000,
-    IOHS_LINK_SPLIT_TRUE = 0x00000001,
-    IOHS_LINK_SPLIT_INVALID = 0xFFFFFFFF,
+    IOHS_LINK_SPLIT_FALSE                                       = 0x00000000,
+    IOHS_LINK_SPLIT_TRUE                                        = 0x00000001,
+    IOHS_LINK_SPLIT_INVALID                                     = 0xFFFFFFFF,
 };
 
 /**
@@ -917,10 +920,10 @@ enum IOHS_LINK_SPLIT
  */
 enum LINK_SPEED
 {
-    LINK_SPEED_25G = 0x00000019,
-    LINK_SPEED_32G = 0x00000020,
-    LINK_SPEED_50G = 0x00000032,
-    LINK_SPEED_INVALID = 0xFFFFFFFF,
+    LINK_SPEED_25G                                              = 0x00000019,
+    LINK_SPEED_32G                                              = 0x00000020,
+    LINK_SPEED_50G                                              = 0x00000032,
+    LINK_SPEED_INVALID                                          = 0xFFFFFFFF,
 };
 
 /**
@@ -929,11 +932,11 @@ enum LINK_SPEED
  */
 enum PROC_FABRIC_X_ATTACHED_CHIP_CNFG
 {
-    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_FALSE = 0x00000000,
-    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_TRUE = 0x00000001,
-    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_EVEN_ONLY = 0x00000002,
-    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_ODD_ONLY = 0x00000003,
-    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_FALSE                      = 0x00000000,
+    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_TRUE                       = 0x00000001,
+    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_EVEN_ONLY                  = 0x00000002,
+    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_ODD_ONLY                   = 0x00000003,
+    PROC_FABRIC_X_ATTACHED_CHIP_CNFG_INVALID                    = 0xFFFFFFFF,
 };
 
 /**
@@ -942,11 +945,11 @@ enum PROC_FABRIC_X_ATTACHED_CHIP_CNFG
  */
 enum PROC_FABRIC_A_ATTACHED_CHIP_CNFG
 {
-    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_FALSE = 0x00000000,
-    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_TRUE = 0x00000001,
-    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_EVEN_ONLY = 0x00000002,
-    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_ODD_ONLY = 0x00000003,
-    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_FALSE                      = 0x00000000,
+    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_TRUE                       = 0x00000001,
+    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_EVEN_ONLY                  = 0x00000002,
+    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_ODD_ONLY                   = 0x00000003,
+    PROC_FABRIC_A_ATTACHED_CHIP_CNFG_INVALID                    = 0xFFFFFFFF,
 };
 
 /**
@@ -955,9 +958,9 @@ enum PROC_FABRIC_A_ATTACHED_CHIP_CNFG
  */
 enum PROC_FABRIC_X_AGGREGATE
 {
-    PROC_FABRIC_X_AGGREGATE_OFF = 0x00000000,
-    PROC_FABRIC_X_AGGREGATE_ON = 0x00000001,
-    PROC_FABRIC_X_AGGREGATE_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_X_AGGREGATE_OFF                                 = 0x00000000,
+    PROC_FABRIC_X_AGGREGATE_ON                                  = 0x00000001,
+    PROC_FABRIC_X_AGGREGATE_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -967,9 +970,9 @@ enum PROC_FABRIC_X_AGGREGATE
  */
 enum PROC_FABRIC_X_ADDR_DIS
 {
-    PROC_FABRIC_X_ADDR_DIS_OFF = 0x00000000,
-    PROC_FABRIC_X_ADDR_DIS_ON = 0x00000001,
-    PROC_FABRIC_X_ADDR_DIS_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_X_ADDR_DIS_OFF                                  = 0x00000000,
+    PROC_FABRIC_X_ADDR_DIS_ON                                   = 0x00000001,
+    PROC_FABRIC_X_ADDR_DIS_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -978,9 +981,9 @@ enum PROC_FABRIC_X_ADDR_DIS
  */
 enum PROC_FABRIC_A_AGGREGATE
 {
-    PROC_FABRIC_A_AGGREGATE_OFF = 0x00000000,
-    PROC_FABRIC_A_AGGREGATE_ON = 0x00000001,
-    PROC_FABRIC_A_AGGREGATE_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_A_AGGREGATE_OFF                                 = 0x00000000,
+    PROC_FABRIC_A_AGGREGATE_ON                                  = 0x00000001,
+    PROC_FABRIC_A_AGGREGATE_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -990,9 +993,9 @@ enum PROC_FABRIC_A_AGGREGATE
  */
 enum PROC_FABRIC_A_ADDR_DIS
 {
-    PROC_FABRIC_A_ADDR_DIS_OFF = 0x00000000,
-    PROC_FABRIC_A_ADDR_DIS_ON = 0x00000001,
-    PROC_FABRIC_A_ADDR_DIS_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_A_ADDR_DIS_OFF                                  = 0x00000000,
+    PROC_FABRIC_A_ADDR_DIS_ON                                   = 0x00000001,
+    PROC_FABRIC_A_ADDR_DIS_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1000,9 +1003,9 @@ enum PROC_FABRIC_A_ADDR_DIS
  */
 enum PROC_FABRIC_A_INDIRECT
 {
-    PROC_FABRIC_A_INDIRECT_OFF = 0x00000000,
-    PROC_FABRIC_A_INDIRECT_ON = 0x00000001,
-    PROC_FABRIC_A_INDIRECT_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_A_INDIRECT_OFF                                  = 0x00000000,
+    PROC_FABRIC_A_INDIRECT_ON                                   = 0x00000001,
+    PROC_FABRIC_A_INDIRECT_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1010,9 +1013,9 @@ enum PROC_FABRIC_A_INDIRECT
  */
 enum PROC_FABRIC_R_INDIRECT_EN
 {
-    PROC_FABRIC_R_INDIRECT_EN_OFF = 0x00000000,
-    PROC_FABRIC_R_INDIRECT_EN_ON = 0x00000001,
-    PROC_FABRIC_R_INDIRECT_EN_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_R_INDIRECT_EN_OFF                               = 0x00000000,
+    PROC_FABRIC_R_INDIRECT_EN_ON                                = 0x00000001,
+    PROC_FABRIC_R_INDIRECT_EN_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -1024,7 +1027,7 @@ enum PROC_FABRIC_R_INDIRECT_EN
  */
 enum PROC_FABRIC_LINK_TOPOLOGY_ID_TABLE
 {
-    PROC_FABRIC_LINK_TOPOLOGY_ID_TABLE_INVALID = 0x000000FF,
+    PROC_FABRIC_LINK_TOPOLOGY_ID_TABLE_INVALID                  = 0x000000FF,
 };
 
 /**
@@ -1033,9 +1036,9 @@ enum PROC_FABRIC_LINK_TOPOLOGY_ID_TABLE
  */
 enum PROC_FABRIC_ASYNC_MODE
 {
-    PROC_FABRIC_ASYNC_MODE_PERF_MODE = 0x00000000,
-    PROC_FABRIC_ASYNC_MODE_SAFE_MODE = 0x00000001,
-    PROC_FABRIC_ASYNC_MODE_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_ASYNC_MODE_PERF_MODE                            = 0x00000000,
+    PROC_FABRIC_ASYNC_MODE_SAFE_MODE                            = 0x00000001,
+    PROC_FABRIC_ASYNC_MODE_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1047,12 +1050,12 @@ enum PROC_FABRIC_ASYNC_MODE
  */
 enum PROC_FABRIC_DLR_PSAVE_MODE
 {
-    PROC_FABRIC_DLR_PSAVE_MODE_DISABLED = 0x00000000,
-    PROC_FABRIC_DLR_PSAVE_MODE_QUARTER = 0x00000002,
-    PROC_FABRIC_DLR_PSAVE_MODE_HALF = 0x00000004,
-    PROC_FABRIC_DLR_PSAVE_MODE_FULL_QUARTER = 0x0000000A,
-    PROC_FABRIC_DLR_PSAVE_MODE_FULL_HALF = 0x0000000C,
-    PROC_FABRIC_DLR_PSAVE_MODE_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_DLR_PSAVE_MODE_DISABLED                         = 0x00000000,
+    PROC_FABRIC_DLR_PSAVE_MODE_QUARTER                          = 0x00000002,
+    PROC_FABRIC_DLR_PSAVE_MODE_HALF                             = 0x00000004,
+    PROC_FABRIC_DLR_PSAVE_MODE_FULL_QUARTER                     = 0x0000000A,
+    PROC_FABRIC_DLR_PSAVE_MODE_FULL_HALF                        = 0x0000000C,
+    PROC_FABRIC_DLR_PSAVE_MODE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -1061,16 +1064,16 @@ enum PROC_FABRIC_DLR_PSAVE_MODE
  */
 enum PROC_FABRIC_CORE_FREQ_RATIO
 {
-    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_16_16 = 0x00000000,
-    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_15_16 = 0x00000001,
-    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_14_16 = 0x00000002,
-    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_13_16 = 0x00000003,
-    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_12_16 = 0x00000004,
-    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_11_16 = 0x00000005,
-    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_10_16 = 0x00000006,
-    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_09_16 = 0x00000007,
-    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_08_16 = 0x00000008,
-    PROC_FABRIC_CORE_FREQ_RATIO_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_16_16                     = 0x00000000,
+    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_15_16                     = 0x00000001,
+    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_14_16                     = 0x00000002,
+    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_13_16                     = 0x00000003,
+    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_12_16                     = 0x00000004,
+    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_11_16                     = 0x00000005,
+    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_10_16                     = 0x00000006,
+    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_09_16                     = 0x00000007,
+    PROC_FABRIC_CORE_FREQ_RATIO_RATIO_08_16                     = 0x00000008,
+    PROC_FABRIC_CORE_FREQ_RATIO_INVALID                         = 0xFFFFFFFF,
 };
 
 /**
@@ -1078,9 +1081,9 @@ enum PROC_FABRIC_CORE_FREQ_RATIO
  */
 enum MRW_L2_INCREASE_JITTER
 {
-    MRW_L2_INCREASE_JITTER_FALSE = 0x00000000,
-    MRW_L2_INCREASE_JITTER_TRUE = 0x00000001,
-    MRW_L2_INCREASE_JITTER_INVALID = 0xFFFFFFFF,
+    MRW_L2_INCREASE_JITTER_FALSE                                = 0x00000000,
+    MRW_L2_INCREASE_JITTER_TRUE                                 = 0x00000001,
+    MRW_L2_INCREASE_JITTER_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1089,9 +1092,9 @@ enum MRW_L2_INCREASE_JITTER
  */
 enum MRW_P1PF_MIN_CONFIDENCE_3
 {
-    MRW_P1PF_MIN_CONFIDENCE_3_FALSE = 0x00000000,
-    MRW_P1PF_MIN_CONFIDENCE_3_TRUE = 0x00000001,
-    MRW_P1PF_MIN_CONFIDENCE_3_INVALID = 0xFFFFFFFF,
+    MRW_P1PF_MIN_CONFIDENCE_3_FALSE                             = 0x00000000,
+    MRW_P1PF_MIN_CONFIDENCE_3_TRUE                              = 0x00000001,
+    MRW_P1PF_MIN_CONFIDENCE_3_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -1100,9 +1103,9 @@ enum MRW_P1PF_MIN_CONFIDENCE_3
  */
 enum MRW_CONVERT_DCBZ_TO_RWITM
 {
-    MRW_CONVERT_DCBZ_TO_RWITM_FALSE = 0x00000000,
-    MRW_CONVERT_DCBZ_TO_RWITM_TRUE = 0x00000001,
-    MRW_CONVERT_DCBZ_TO_RWITM_INVALID = 0xFFFFFFFF,
+    MRW_CONVERT_DCBZ_TO_RWITM_FALSE                             = 0x00000000,
+    MRW_CONVERT_DCBZ_TO_RWITM_TRUE                              = 0x00000001,
+    MRW_CONVERT_DCBZ_TO_RWITM_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -1111,9 +1114,9 @@ enum MRW_CONVERT_DCBZ_TO_RWITM
  */
 enum PROC_FAVOR_AGGRESSIVE_PREFETCH
 {
-    PROC_FAVOR_AGGRESSIVE_PREFETCH_FALSE = 0x00000000,
-    PROC_FAVOR_AGGRESSIVE_PREFETCH_TRUE = 0x00000001,
-    PROC_FAVOR_AGGRESSIVE_PREFETCH_INVALID = 0xFFFFFFFF,
+    PROC_FAVOR_AGGRESSIVE_PREFETCH_FALSE                        = 0x00000000,
+    PROC_FAVOR_AGGRESSIVE_PREFETCH_TRUE                         = 0x00000001,
+    PROC_FAVOR_AGGRESSIVE_PREFETCH_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -1121,9 +1124,9 @@ enum PROC_FAVOR_AGGRESSIVE_PREFETCH
  */
 enum PROC_LCO_MODE_DISABLE
 {
-    PROC_LCO_MODE_DISABLE_FALSE = 0x00000000,
-    PROC_LCO_MODE_DISABLE_TRUE = 0x00000001,
-    PROC_LCO_MODE_DISABLE_INVALID = 0xFFFFFFFF,
+    PROC_LCO_MODE_DISABLE_FALSE                                 = 0x00000000,
+    PROC_LCO_MODE_DISABLE_TRUE                                  = 0x00000001,
+    PROC_LCO_MODE_DISABLE_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -1138,10 +1141,10 @@ enum PROC_LCO_MODE_DISABLE
  */
 enum PROC_LCO_MODE_SETUP
 {
-    PROC_LCO_MODE_SETUP_ADAPTIVE = 0x00000000,
-    PROC_LCO_MODE_SETUP_ALL = 0x00000001,
-    PROC_LCO_MODE_SETUP_ECO_ONLY = 0x00000002,
-    PROC_LCO_MODE_SETUP_INVALID = 0xFFFFFFFF,
+    PROC_LCO_MODE_SETUP_ADAPTIVE                                = 0x00000000,
+    PROC_LCO_MODE_SETUP_ALL                                     = 0x00000001,
+    PROC_LCO_MODE_SETUP_ECO_ONLY                                = 0x00000002,
+    PROC_LCO_MODE_SETUP_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -1149,10 +1152,10 @@ enum PROC_LCO_MODE_SETUP
  */
 enum PROC_LCO_TARGETS_COUNT
 {
-    PROC_LCO_TARGETS_COUNT_CHIP = 0x00000000,
-    PROC_LCO_TARGETS_COUNT_WEST = 0x00000001,
-    PROC_LCO_TARGETS_COUNT_EAST = 0x00000002,
-    PROC_LCO_TARGETS_COUNT_INVALID = 0xFFFFFFFF,
+    PROC_LCO_TARGETS_COUNT_CHIP                                 = 0x00000000,
+    PROC_LCO_TARGETS_COUNT_WEST                                 = 0x00000001,
+    PROC_LCO_TARGETS_COUNT_EAST                                 = 0x00000002,
+    PROC_LCO_TARGETS_COUNT_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1161,10 +1164,10 @@ enum PROC_LCO_TARGETS_COUNT
  */
 enum PROC_LCO_TARGETS_VECTOR
 {
-    PROC_LCO_TARGETS_VECTOR_CHIP = 0x00000000,
-    PROC_LCO_TARGETS_VECTOR_WEST = 0x00000001,
-    PROC_LCO_TARGETS_VECTOR_EAST = 0x00000002,
-    PROC_LCO_TARGETS_VECTOR_INVALID = 0xFFFFFFFF,
+    PROC_LCO_TARGETS_VECTOR_CHIP                                = 0x00000000,
+    PROC_LCO_TARGETS_VECTOR_WEST                                = 0x00000001,
+    PROC_LCO_TARGETS_VECTOR_EAST                                = 0x00000002,
+    PROC_LCO_TARGETS_VECTOR_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -1172,11 +1175,11 @@ enum PROC_LCO_TARGETS_VECTOR
  */
 enum PROC_LCO_TARGETS_MIN
 {
-    PROC_LCO_TARGETS_MIN_CHIP = 0x00000000,
-    PROC_LCO_TARGETS_MIN_WEST = 0x00000001,
-    PROC_LCO_TARGETS_MIN_EAST = 0x00000002,
-    PROC_LCO_TARGETS_MIN_NUM_DOMAINS = 0x00000003,
-    PROC_LCO_TARGETS_MIN_INVALID = 0xFFFFFFFF,
+    PROC_LCO_TARGETS_MIN_CHIP                                   = 0x00000000,
+    PROC_LCO_TARGETS_MIN_WEST                                   = 0x00000001,
+    PROC_LCO_TARGETS_MIN_EAST                                   = 0x00000002,
+    PROC_LCO_TARGETS_MIN_NUM_DOMAINS                            = 0x00000003,
+    PROC_LCO_TARGETS_MIN_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -1186,7 +1189,7 @@ enum PROC_LCO_TARGETS_MIN
  */
 enum IOHS_PHY_TO_PAU_MAPPING
 {
-    IOHS_PHY_TO_PAU_MAPPING_INVALID = 0x000000FF,
+    IOHS_PHY_TO_PAU_MAPPING_INVALID                             = 0x000000FF,
 };
 
 /**
@@ -1194,9 +1197,9 @@ enum IOHS_PHY_TO_PAU_MAPPING
  */
 enum PROC_L2_HASH_DISABLE
 {
-    PROC_L2_HASH_DISABLE_OFF = 0x00000000,
-    PROC_L2_HASH_DISABLE_ON = 0x00000001,
-    PROC_L2_HASH_DISABLE_INVALID = 0xFFFFFFFF,
+    PROC_L2_HASH_DISABLE_OFF                                    = 0x00000000,
+    PROC_L2_HASH_DISABLE_ON                                     = 0x00000001,
+    PROC_L2_HASH_DISABLE_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -1204,9 +1207,9 @@ enum PROC_L2_HASH_DISABLE
  */
 enum PROC_L3_HASH_DISABLE
 {
-    PROC_L3_HASH_DISABLE_OFF = 0x00000000,
-    PROC_L3_HASH_DISABLE_ON = 0x00000001,
-    PROC_L3_HASH_DISABLE_INVALID = 0xFFFFFFFF,
+    PROC_L3_HASH_DISABLE_OFF                                    = 0x00000000,
+    PROC_L3_HASH_DISABLE_ON                                     = 0x00000001,
+    PROC_L3_HASH_DISABLE_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -1215,16 +1218,16 @@ enum PROC_L3_HASH_DISABLE
  */
 enum PROC_SBE_MCS_SETUP_REG_STATES
 {
-    PROC_SBE_MCS_SETUP_REG_STATES_MCFGP0 = 0x00000000,
-    PROC_SBE_MCS_SETUP_REG_STATES_MCMODE0 = 0x00000001,
-    PROC_SBE_MCS_SETUP_REG_STATES_MCMODE1 = 0x00000002,
-    PROC_SBE_MCS_SETUP_REG_STATES_MCMODE2 = 0x00000003,
-    PROC_SBE_MCS_SETUP_REG_STATES_MCPERF1 = 0x00000004,
-    PROC_SBE_MCS_SETUP_REG_STATES_MCFIRMASK = 0x00000005,
-    PROC_SBE_MCS_SETUP_REG_STATES_MCFIRACT0 = 0x00000006,
-    PROC_SBE_MCS_SETUP_REG_STATES_MCFIRACT1 = 0x00000007,
-    PROC_SBE_MCS_SETUP_REG_STATES_MCTO = 0x00000008,
-    PROC_SBE_MCS_SETUP_REG_STATES_INVALID = 0xFFFFFFFF,
+    PROC_SBE_MCS_SETUP_REG_STATES_MCFGP0                        = 0x00000000,
+    PROC_SBE_MCS_SETUP_REG_STATES_MCMODE0                       = 0x00000001,
+    PROC_SBE_MCS_SETUP_REG_STATES_MCMODE1                       = 0x00000002,
+    PROC_SBE_MCS_SETUP_REG_STATES_MCMODE2                       = 0x00000003,
+    PROC_SBE_MCS_SETUP_REG_STATES_MCPERF1                       = 0x00000004,
+    PROC_SBE_MCS_SETUP_REG_STATES_MCFIRMASK                     = 0x00000005,
+    PROC_SBE_MCS_SETUP_REG_STATES_MCFIRACT0                     = 0x00000006,
+    PROC_SBE_MCS_SETUP_REG_STATES_MCFIRACT1                     = 0x00000007,
+    PROC_SBE_MCS_SETUP_REG_STATES_MCTO                          = 0x00000008,
+    PROC_SBE_MCS_SETUP_REG_STATES_INVALID                       = 0xFFFFFFFF,
 };
 
 /**
@@ -1233,10 +1236,10 @@ enum PROC_SBE_MCS_SETUP_REG_STATES
  */
 enum PROC_MEMORY_ENCRYPTION_ENABLED
 {
-    PROC_MEMORY_ENCRYPTION_ENABLED_DISABLED = 0x00000000,
-    PROC_MEMORY_ENCRYPTION_ENABLED_XTS = 0x00000001,
-    PROC_MEMORY_ENCRYPTION_ENABLED_CTR = 0x00000002,
-    PROC_MEMORY_ENCRYPTION_ENABLED_INVALID = 0xFFFFFFFF,
+    PROC_MEMORY_ENCRYPTION_ENABLED_DISABLED                     = 0x00000000,
+    PROC_MEMORY_ENCRYPTION_ENABLED_XTS                          = 0x00000001,
+    PROC_MEMORY_ENCRYPTION_ENABLED_CTR                          = 0x00000002,
+    PROC_MEMORY_ENCRYPTION_ENABLED_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -1244,11 +1247,11 @@ enum PROC_MEMORY_ENCRYPTION_ENABLED
  */
 enum HW543384_WAR_MODE
 {
-    HW543384_WAR_MODE_NONE = 0x00000000,
-    HW543384_WAR_MODE_TIE_NEST_TO_PAU = 0x00000001,
-    HW543384_WAR_MODE_FBC_FLOW_CONTROL = 0x00000002,
-    HW543384_WAR_MODE_BOTH = 0x00000003,
-    HW543384_WAR_MODE_INVALID = 0xFFFFFFFF,
+    HW543384_WAR_MODE_NONE                                      = 0x00000000,
+    HW543384_WAR_MODE_TIE_NEST_TO_PAU                           = 0x00000001,
+    HW543384_WAR_MODE_FBC_FLOW_CONTROL                          = 0x00000002,
+    HW543384_WAR_MODE_BOTH                                      = 0x00000003,
+    HW543384_WAR_MODE_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -1259,9 +1262,9 @@ enum HW543384_WAR_MODE
  */
 enum ECO_MODE
 {
-    ECO_MODE_DISABLED = 0x00000000,
-    ECO_MODE_ENABLED = 0x00000001,
-    ECO_MODE_INVALID = 0x000000FF,
+    ECO_MODE_DISABLED                                           = 0x00000000,
+    ECO_MODE_ENABLED                                            = 0x00000001,
+    ECO_MODE_INVALID                                            = 0x000000FF,
 };
 
 /**
@@ -1270,9 +1273,9 @@ enum ECO_MODE
  */
 enum PROC_SBE_MASTER_CHIP
 {
-    PROC_SBE_MASTER_CHIP_FALSE = 0x00000000,
-    PROC_SBE_MASTER_CHIP_TRUE = 0x00000001,
-    PROC_SBE_MASTER_CHIP_INVALID = 0x000000FF,
+    PROC_SBE_MASTER_CHIP_FALSE                                  = 0x00000000,
+    PROC_SBE_MASTER_CHIP_TRUE                                   = 0x00000001,
+    PROC_SBE_MASTER_CHIP_INVALID                                = 0x000000FF,
 };
 
 /**
@@ -1281,9 +1284,9 @@ enum PROC_SBE_MASTER_CHIP
  */
 enum CP_PLLTODFLT_BYPASS
 {
-    CP_PLLTODFLT_BYPASS_BYPASS = 0x00000001,
-    CP_PLLTODFLT_BYPASS_NO_BYPASS = 0x00000000,
-    CP_PLLTODFLT_BYPASS_INVALID = 0x000000FF,
+    CP_PLLTODFLT_BYPASS_BYPASS                                  = 0x00000001,
+    CP_PLLTODFLT_BYPASS_NO_BYPASS                               = 0x00000000,
+    CP_PLLTODFLT_BYPASS_INVALID                                 = 0x000000FF,
 };
 
 /**
@@ -1292,9 +1295,9 @@ enum CP_PLLTODFLT_BYPASS
  */
 enum CP_PLLNESTFLT_BYPASS
 {
-    CP_PLLNESTFLT_BYPASS_BYPASS = 0x00000001,
-    CP_PLLNESTFLT_BYPASS_NO_BYPASS = 0x00000000,
-    CP_PLLNESTFLT_BYPASS_INVALID = 0x000000FF,
+    CP_PLLNESTFLT_BYPASS_BYPASS                                 = 0x00000001,
+    CP_PLLNESTFLT_BYPASS_NO_BYPASS                              = 0x00000000,
+    CP_PLLNESTFLT_BYPASS_INVALID                                = 0x000000FF,
 };
 
 /**
@@ -1303,9 +1306,9 @@ enum CP_PLLNESTFLT_BYPASS
  */
 enum CP_PLLIOFLT_BYPASS
 {
-    CP_PLLIOFLT_BYPASS_BYPASS = 0x00000001,
-    CP_PLLIOFLT_BYPASS_NO_BYPASS = 0x00000000,
-    CP_PLLIOFLT_BYPASS_INVALID = 0x000000FF,
+    CP_PLLIOFLT_BYPASS_BYPASS                                   = 0x00000001,
+    CP_PLLIOFLT_BYPASS_NO_BYPASS                                = 0x00000000,
+    CP_PLLIOFLT_BYPASS_INVALID                                  = 0x000000FF,
 };
 
 /**
@@ -1314,9 +1317,9 @@ enum CP_PLLIOFLT_BYPASS
  */
 enum CP_PLLIOSSFLT_BYPASS
 {
-    CP_PLLIOSSFLT_BYPASS_BYPASS = 0x00000001,
-    CP_PLLIOSSFLT_BYPASS_NO_BYPASS = 0x00000000,
-    CP_PLLIOSSFLT_BYPASS_INVALID = 0x000000FF,
+    CP_PLLIOSSFLT_BYPASS_BYPASS                                 = 0x00000001,
+    CP_PLLIOSSFLT_BYPASS_NO_BYPASS                              = 0x00000000,
+    CP_PLLIOSSFLT_BYPASS_INVALID                                = 0x000000FF,
 };
 
 /**
@@ -1324,9 +1327,9 @@ enum CP_PLLIOSSFLT_BYPASS
  */
 enum PAU_DPLL_BYPASS
 {
-    PAU_DPLL_BYPASS_BYPASS = 0x00000001,
-    PAU_DPLL_BYPASS_NO_BYPASS = 0x00000000,
-    PAU_DPLL_BYPASS_INVALID = 0x000000FF,
+    PAU_DPLL_BYPASS_BYPASS                                      = 0x00000001,
+    PAU_DPLL_BYPASS_NO_BYPASS                                   = 0x00000000,
+    PAU_DPLL_BYPASS_INVALID                                     = 0x000000FF,
 };
 
 /**
@@ -1334,9 +1337,9 @@ enum PAU_DPLL_BYPASS
  */
 enum NEST_DPLL_BYPASS
 {
-    NEST_DPLL_BYPASS_BYPASS = 0x00000001,
-    NEST_DPLL_BYPASS_NO_BYPASS = 0x00000000,
-    NEST_DPLL_BYPASS_INVALID = 0x000000FF,
+    NEST_DPLL_BYPASS_BYPASS                                     = 0x00000001,
+    NEST_DPLL_BYPASS_NO_BYPASS                                  = 0x00000000,
+    NEST_DPLL_BYPASS_INVALID                                    = 0x000000FF,
 };
 
 /**
@@ -1344,9 +1347,9 @@ enum NEST_DPLL_BYPASS
  */
 enum IO_TANK_PLL_BYPASS
 {
-    IO_TANK_PLL_BYPASS_BYPASS = 0x00000001,
-    IO_TANK_PLL_BYPASS_NO_BYPASS = 0x00000000,
-    IO_TANK_PLL_BYPASS_INVALID = 0x000000FF,
+    IO_TANK_PLL_BYPASS_BYPASS                                   = 0x00000001,
+    IO_TANK_PLL_BYPASS_NO_BYPASS                                = 0x00000000,
+    IO_TANK_PLL_BYPASS_INVALID                                  = 0x000000FF,
 };
 
 /**
@@ -1354,9 +1357,9 @@ enum IO_TANK_PLL_BYPASS
  */
 enum SKEWADJ_BYPASS
 {
-    SKEWADJ_BYPASS_BYPASS = 0x00000001,
-    SKEWADJ_BYPASS_NO_BYPASS = 0x00000000,
-    SKEWADJ_BYPASS_INVALID = 0x000000FF,
+    SKEWADJ_BYPASS_BYPASS                                       = 0x00000001,
+    SKEWADJ_BYPASS_NO_BYPASS                                    = 0x00000000,
+    SKEWADJ_BYPASS_INVALID                                      = 0x000000FF,
 };
 
 /**
@@ -1364,9 +1367,9 @@ enum SKEWADJ_BYPASS
  */
 enum DCADJ_BYPASS
 {
-    DCADJ_BYPASS_BYPASS = 0x00000001,
-    DCADJ_BYPASS_NO_BYPASS = 0x00000000,
-    DCADJ_BYPASS_INVALID = 0x000000FF,
+    DCADJ_BYPASS_BYPASS                                         = 0x00000001,
+    DCADJ_BYPASS_NO_BYPASS                                      = 0x00000000,
+    DCADJ_BYPASS_INVALID                                        = 0x000000FF,
 };
 
 /**
@@ -1374,9 +1377,9 @@ enum DCADJ_BYPASS
  */
 enum LPC_CONSOLE_CNFG
 {
-    LPC_CONSOLE_CNFG_ENABLE = 0x00000001,
-    LPC_CONSOLE_CNFG_DISABLE = 0x00000000,
-    LPC_CONSOLE_CNFG_INVALID = 0xFFFFFFFF,
+    LPC_CONSOLE_CNFG_ENABLE                                     = 0x00000001,
+    LPC_CONSOLE_CNFG_DISABLE                                    = 0x00000000,
+    LPC_CONSOLE_CNFG_INVALID                                    = 0xFFFFFFFF,
 };
 
 /**
@@ -1392,11 +1395,11 @@ enum LPC_CONSOLE_CNFG
  */
 enum CLOCKSTOP_ON_XSTOP
 {
-    CLOCKSTOP_ON_XSTOP_DISABLED = 0x00000000,
-    CLOCKSTOP_ON_XSTOP_STOP_ON_XSTOP = 0x0000007B,
-    CLOCKSTOP_ON_XSTOP_STOP_ON_XSTOP_AND_SPATTN = 0x0000005B,
-    CLOCKSTOP_ON_XSTOP_STOP_ON_STAGED_XSTOP = 0x000000FD,
-    CLOCKSTOP_ON_XSTOP_INVALID = 0x000000FF,
+    CLOCKSTOP_ON_XSTOP_DISABLED                                 = 0x00000000,
+    CLOCKSTOP_ON_XSTOP_STOP_ON_XSTOP                            = 0x0000007B,
+    CLOCKSTOP_ON_XSTOP_STOP_ON_XSTOP_AND_SPATTN                 = 0x0000005B,
+    CLOCKSTOP_ON_XSTOP_STOP_ON_STAGED_XSTOP                     = 0x000000FD,
+    CLOCKSTOP_ON_XSTOP_INVALID                                  = 0x000000FF,
 };
 
 /**
@@ -1404,9 +1407,9 @@ enum CLOCKSTOP_ON_XSTOP
  */
 enum XSTOP_ON_SPATTN
 {
-    XSTOP_ON_SPATTN_DISABLED = 0x00000000,
-    XSTOP_ON_SPATTN_ENABLED = 0x00000001,
-    XSTOP_ON_SPATTN_INVALID = 0xFFFFFFFF,
+    XSTOP_ON_SPATTN_DISABLED                                    = 0x00000000,
+    XSTOP_ON_SPATTN_ENABLED                                     = 0x00000001,
+    XSTOP_ON_SPATTN_INVALID                                     = 0xFFFFFFFF,
 };
 
 /**
@@ -1414,9 +1417,9 @@ enum XSTOP_ON_SPATTN
  */
 enum BOOT_PAU_DPLL_BYPASS
 {
-    BOOT_PAU_DPLL_BYPASS_BYPASS = 0x00000001,
-    BOOT_PAU_DPLL_BYPASS_NO_BYPASS = 0x00000000,
-    BOOT_PAU_DPLL_BYPASS_INVALID = 0x000000FF,
+    BOOT_PAU_DPLL_BYPASS_BYPASS                                 = 0x00000001,
+    BOOT_PAU_DPLL_BYPASS_NO_BYPASS                              = 0x00000000,
+    BOOT_PAU_DPLL_BYPASS_INVALID                                = 0x000000FF,
 };
 
 /**
@@ -1426,9 +1429,9 @@ enum BOOT_PAU_DPLL_BYPASS
  */
 enum RUNN_MODE
 {
-    RUNN_MODE_OFF = 0x00000000,
-    RUNN_MODE_ON = 0x00000001,
-    RUNN_MODE_INVALID = 0x000000FF,
+    RUNN_MODE_OFF                                               = 0x00000000,
+    RUNN_MODE_ON                                                = 0x00000001,
+    RUNN_MODE_INVALID                                           = 0x000000FF,
 };
 
 /**
@@ -1438,11 +1441,11 @@ enum RUNN_MODE
  */
 enum RUNN_SRESET_THREADS_BVEC
 {
-    RUNN_SRESET_THREADS_BVEC_T0 = 0x00000080,
-    RUNN_SRESET_THREADS_BVEC_T1 = 0x00000040,
-    RUNN_SRESET_THREADS_BVEC_T2 = 0x00000020,
-    RUNN_SRESET_THREADS_BVEC_T3 = 0x00000010,
-    RUNN_SRESET_THREADS_BVEC_INVALID = 0xFFFFFFFF,
+    RUNN_SRESET_THREADS_BVEC_T0                                 = 0x00000080,
+    RUNN_SRESET_THREADS_BVEC_T1                                 = 0x00000040,
+    RUNN_SRESET_THREADS_BVEC_T2                                 = 0x00000020,
+    RUNN_SRESET_THREADS_BVEC_T3                                 = 0x00000010,
+    RUNN_SRESET_THREADS_BVEC_INVALID                            = 0xFFFFFFFF,
 };
 
 /**
@@ -1453,12 +1456,12 @@ enum RUNN_SRESET_THREADS_BVEC
  */
 enum RUNN_CORE_CYCLE_OFFSET
 {
-    RUNN_CORE_CYCLE_OFFSET_0_CYCLES = 0x00000000,
-    RUNN_CORE_CYCLE_OFFSET_1_CYCLE = 0x00000001,
-    RUNN_CORE_CYCLE_OFFSET_2_CYCLES = 0x00000002,
-    RUNN_CORE_CYCLE_OFFSET_3_CYCLES = 0x00000003,
-    RUNN_CORE_CYCLE_OFFSET_4_CYCLES = 0x00000004,
-    RUNN_CORE_CYCLE_OFFSET_INVALID = 0xFFFFFFFF,
+    RUNN_CORE_CYCLE_OFFSET_0_CYCLES                             = 0x00000000,
+    RUNN_CORE_CYCLE_OFFSET_1_CYCLE                              = 0x00000001,
+    RUNN_CORE_CYCLE_OFFSET_2_CYCLES                             = 0x00000002,
+    RUNN_CORE_CYCLE_OFFSET_3_CYCLES                             = 0x00000003,
+    RUNN_CORE_CYCLE_OFFSET_4_CYCLES                             = 0x00000004,
+    RUNN_CORE_CYCLE_OFFSET_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1470,9 +1473,9 @@ enum RUNN_CORE_CYCLE_OFFSET
  */
 enum RUNN_DO_CONFIG_CHECKS
 {
-    RUNN_DO_CONFIG_CHECKS_OFF = 0x00000000,
-    RUNN_DO_CONFIG_CHECKS_ON = 0x00000001,
-    RUNN_DO_CONFIG_CHECKS_INVALID = 0xFFFFFFFF,
+    RUNN_DO_CONFIG_CHECKS_OFF                                   = 0x00000000,
+    RUNN_DO_CONFIG_CHECKS_ON                                    = 0x00000001,
+    RUNN_DO_CONFIG_CHECKS_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -1482,9 +1485,9 @@ enum RUNN_DO_CONFIG_CHECKS
  */
 enum RUNN_USE_QME_TIMEBASE
 {
-    RUNN_USE_QME_TIMEBASE_OFF = 0x00000000,
-    RUNN_USE_QME_TIMEBASE_ON = 0x00000001,
-    RUNN_USE_QME_TIMEBASE_INVALID = 0xFFFFFFFF,
+    RUNN_USE_QME_TIMEBASE_OFF                                   = 0x00000000,
+    RUNN_USE_QME_TIMEBASE_ON                                    = 0x00000001,
+    RUNN_USE_QME_TIMEBASE_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -1492,9 +1495,9 @@ enum RUNN_USE_QME_TIMEBASE
  */
 enum RUNN_STOP_ON_XSTOP
 {
-    RUNN_STOP_ON_XSTOP_OFF = 0x00000000,
-    RUNN_STOP_ON_XSTOP_ON = 0x00000001,
-    RUNN_STOP_ON_XSTOP_INVALID = 0xFFFFFFFF,
+    RUNN_STOP_ON_XSTOP_OFF                                      = 0x00000000,
+    RUNN_STOP_ON_XSTOP_ON                                       = 0x00000001,
+    RUNN_STOP_ON_XSTOP_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -1508,40 +1511,40 @@ enum RUNN_STOP_ON_XSTOP
  */
 enum RUNN_CORE_SEED_SELECT
 {
-    RUNN_CORE_SEED_SELECT_RANDOM = 0x000000FF,
-    RUNN_CORE_SEED_SELECT_CORE00 = 0x00000000,
-    RUNN_CORE_SEED_SELECT_CORE08 = 0x00000008,
-    RUNN_CORE_SEED_SELECT_CORE16 = 0x00000010,
-    RUNN_CORE_SEED_SELECT_CORE24 = 0x00000018,
-    RUNN_CORE_SEED_SELECT_CORE01 = 0x00000001,
-    RUNN_CORE_SEED_SELECT_CORE09 = 0x00000009,
-    RUNN_CORE_SEED_SELECT_CORE17 = 0x00000011,
-    RUNN_CORE_SEED_SELECT_CORE25 = 0x00000019,
-    RUNN_CORE_SEED_SELECT_CORE02 = 0x00000002,
-    RUNN_CORE_SEED_SELECT_CORE10 = 0x0000000A,
-    RUNN_CORE_SEED_SELECT_CORE18 = 0x00000012,
-    RUNN_CORE_SEED_SELECT_CORE26 = 0x0000001A,
-    RUNN_CORE_SEED_SELECT_CORE03 = 0x00000003,
-    RUNN_CORE_SEED_SELECT_CORE11 = 0x0000000B,
-    RUNN_CORE_SEED_SELECT_CORE19 = 0x00000013,
-    RUNN_CORE_SEED_SELECT_CORE27 = 0x0000001B,
-    RUNN_CORE_SEED_SELECT_CORE04 = 0x00000004,
-    RUNN_CORE_SEED_SELECT_CORE12 = 0x0000000C,
-    RUNN_CORE_SEED_SELECT_CORE20 = 0x00000014,
-    RUNN_CORE_SEED_SELECT_CORE28 = 0x0000001C,
-    RUNN_CORE_SEED_SELECT_CORE05 = 0x00000005,
-    RUNN_CORE_SEED_SELECT_CORE13 = 0x0000000D,
-    RUNN_CORE_SEED_SELECT_CORE21 = 0x00000015,
-    RUNN_CORE_SEED_SELECT_CORE29 = 0x0000001D,
-    RUNN_CORE_SEED_SELECT_CORE06 = 0x00000006,
-    RUNN_CORE_SEED_SELECT_CORE14 = 0x0000000E,
-    RUNN_CORE_SEED_SELECT_CORE22 = 0x00000016,
-    RUNN_CORE_SEED_SELECT_CORE30 = 0x0000001E,
-    RUNN_CORE_SEED_SELECT_CORE07 = 0x00000007,
-    RUNN_CORE_SEED_SELECT_CORE15 = 0x0000000F,
-    RUNN_CORE_SEED_SELECT_CORE23 = 0x00000017,
-    RUNN_CORE_SEED_SELECT_CORE31 = 0x0000001F,
-    RUNN_CORE_SEED_SELECT_INVALID = 0xFFFFFFFF,
+    RUNN_CORE_SEED_SELECT_RANDOM                                = 0x000000FF,
+    RUNN_CORE_SEED_SELECT_CORE00                                = 0x00000000,
+    RUNN_CORE_SEED_SELECT_CORE08                                = 0x00000008,
+    RUNN_CORE_SEED_SELECT_CORE16                                = 0x00000010,
+    RUNN_CORE_SEED_SELECT_CORE24                                = 0x00000018,
+    RUNN_CORE_SEED_SELECT_CORE01                                = 0x00000001,
+    RUNN_CORE_SEED_SELECT_CORE09                                = 0x00000009,
+    RUNN_CORE_SEED_SELECT_CORE17                                = 0x00000011,
+    RUNN_CORE_SEED_SELECT_CORE25                                = 0x00000019,
+    RUNN_CORE_SEED_SELECT_CORE02                                = 0x00000002,
+    RUNN_CORE_SEED_SELECT_CORE10                                = 0x0000000A,
+    RUNN_CORE_SEED_SELECT_CORE18                                = 0x00000012,
+    RUNN_CORE_SEED_SELECT_CORE26                                = 0x0000001A,
+    RUNN_CORE_SEED_SELECT_CORE03                                = 0x00000003,
+    RUNN_CORE_SEED_SELECT_CORE11                                = 0x0000000B,
+    RUNN_CORE_SEED_SELECT_CORE19                                = 0x00000013,
+    RUNN_CORE_SEED_SELECT_CORE27                                = 0x0000001B,
+    RUNN_CORE_SEED_SELECT_CORE04                                = 0x00000004,
+    RUNN_CORE_SEED_SELECT_CORE12                                = 0x0000000C,
+    RUNN_CORE_SEED_SELECT_CORE20                                = 0x00000014,
+    RUNN_CORE_SEED_SELECT_CORE28                                = 0x0000001C,
+    RUNN_CORE_SEED_SELECT_CORE05                                = 0x00000005,
+    RUNN_CORE_SEED_SELECT_CORE13                                = 0x0000000D,
+    RUNN_CORE_SEED_SELECT_CORE21                                = 0x00000015,
+    RUNN_CORE_SEED_SELECT_CORE29                                = 0x0000001D,
+    RUNN_CORE_SEED_SELECT_CORE06                                = 0x00000006,
+    RUNN_CORE_SEED_SELECT_CORE14                                = 0x0000000E,
+    RUNN_CORE_SEED_SELECT_CORE22                                = 0x00000016,
+    RUNN_CORE_SEED_SELECT_CORE30                                = 0x0000001E,
+    RUNN_CORE_SEED_SELECT_CORE07                                = 0x00000007,
+    RUNN_CORE_SEED_SELECT_CORE15                                = 0x0000000F,
+    RUNN_CORE_SEED_SELECT_CORE23                                = 0x00000017,
+    RUNN_CORE_SEED_SELECT_CORE31                                = 0x0000001F,
+    RUNN_CORE_SEED_SELECT_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -1550,9 +1553,9 @@ enum RUNN_CORE_SEED_SELECT
  */
 enum PROC_FSP_BAR_ENABLE
 {
-    PROC_FSP_BAR_ENABLE_DISABLE = 0x00000000,
-    PROC_FSP_BAR_ENABLE_ENABLE = 0x00000001,
-    PROC_FSP_BAR_ENABLE_INVALID = 0xFFFFFFFF,
+    PROC_FSP_BAR_ENABLE_DISABLE                                 = 0x00000000,
+    PROC_FSP_BAR_ENABLE_ENABLE                                  = 0x00000001,
+    PROC_FSP_BAR_ENABLE_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -1561,20 +1564,20 @@ enum PROC_FSP_BAR_ENABLE
  */
 enum PROC_FSP_BAR_SIZE
 {
-    PROC_FSP_BAR_SIZE_4_GB = 0xFFFFF000FFFFFFFFLL,
-    PROC_FSP_BAR_SIZE_2_GB = 0xFFFFF0007FFFFFFFLL,
-    PROC_FSP_BAR_SIZE_1_GB = 0xFFFFF0003FFFFFFFLL,
-    PROC_FSP_BAR_SIZE_512_MB = 0xFFFFF0001FFFFFFFLL,
-    PROC_FSP_BAR_SIZE_256_MB = 0xFFFFF0000FFFFFFFLL,
-    PROC_FSP_BAR_SIZE_128_MB = 0xFFFFF00007FFFFFFLL,
-    PROC_FSP_BAR_SIZE_64_MB = 0xFFFFF00003FFFFFFLL,
-    PROC_FSP_BAR_SIZE_32_MB = 0xFFFFF00001FFFFFFLL,
-    PROC_FSP_BAR_SIZE_16_MB = 0xFFFFF00000FFFFFFLL,
-    PROC_FSP_BAR_SIZE_8_MB = 0xFFFFF000007FFFFFLL,
-    PROC_FSP_BAR_SIZE_4_MB = 0xFFFFF000003FFFFFLL,
-    PROC_FSP_BAR_SIZE_2_MB = 0xFFFFF000001FFFFFLL,
-    PROC_FSP_BAR_SIZE_1_MB = 0xFFFFF000000FFFFFLL,
-    PROC_FSP_BAR_SIZE_INVALID = 0xFFFFFFFF,
+    PROC_FSP_BAR_SIZE_4_GB                                      = 0xFFFFF000FFFFFFFFLL,
+    PROC_FSP_BAR_SIZE_2_GB                                      = 0xFFFFF0007FFFFFFFLL,
+    PROC_FSP_BAR_SIZE_1_GB                                      = 0xFFFFF0003FFFFFFFLL,
+    PROC_FSP_BAR_SIZE_512_MB                                    = 0xFFFFF0001FFFFFFFLL,
+    PROC_FSP_BAR_SIZE_256_MB                                    = 0xFFFFF0000FFFFFFFLL,
+    PROC_FSP_BAR_SIZE_128_MB                                    = 0xFFFFF00007FFFFFFLL,
+    PROC_FSP_BAR_SIZE_64_MB                                     = 0xFFFFF00003FFFFFFLL,
+    PROC_FSP_BAR_SIZE_32_MB                                     = 0xFFFFF00001FFFFFFLL,
+    PROC_FSP_BAR_SIZE_16_MB                                     = 0xFFFFF00000FFFFFFLL,
+    PROC_FSP_BAR_SIZE_8_MB                                      = 0xFFFFF000007FFFFFLL,
+    PROC_FSP_BAR_SIZE_4_MB                                      = 0xFFFFF000003FFFFFLL,
+    PROC_FSP_BAR_SIZE_2_MB                                      = 0xFFFFF000001FFFFFLL,
+    PROC_FSP_BAR_SIZE_1_MB                                      = 0xFFFFF000000FFFFFLL,
+    PROC_FSP_BAR_SIZE_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -1584,12 +1587,12 @@ enum PROC_FSP_BAR_SIZE
  */
 enum PROC_FSP_MMIO_MASK_SIZE
 {
-    PROC_FSP_MMIO_MASK_SIZE_4_GB = 0x0000000F,
-    PROC_FSP_MMIO_MASK_SIZE_2_GB = 0x00000007,
-    PROC_FSP_MMIO_MASK_SIZE_1_GB = 0x00000003,
-    PROC_FSP_MMIO_MASK_SIZE_512_MB = 0x00000001,
-    PROC_FSP_MMIO_MASK_SIZE_256_MB = 0x00000000,
-    PROC_FSP_MMIO_MASK_SIZE_INVALID = 0xFFFFFFFF,
+    PROC_FSP_MMIO_MASK_SIZE_4_GB                                = 0x0000000F,
+    PROC_FSP_MMIO_MASK_SIZE_2_GB                                = 0x00000007,
+    PROC_FSP_MMIO_MASK_SIZE_1_GB                                = 0x00000003,
+    PROC_FSP_MMIO_MASK_SIZE_512_MB                              = 0x00000001,
+    PROC_FSP_MMIO_MASK_SIZE_256_MB                              = 0x00000000,
+    PROC_FSP_MMIO_MASK_SIZE_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -1598,9 +1601,9 @@ enum PROC_FSP_MMIO_MASK_SIZE
  */
 enum PROC_PAU_MMIO_BAR_ENABLE
 {
-    PROC_PAU_MMIO_BAR_ENABLE_DISABLE = 0x00000000,
-    PROC_PAU_MMIO_BAR_ENABLE_ENABLE = 0x00000001,
-    PROC_PAU_MMIO_BAR_ENABLE_INVALID = 0xFFFFFFFF,
+    PROC_PAU_MMIO_BAR_ENABLE_DISABLE                            = 0x00000000,
+    PROC_PAU_MMIO_BAR_ENABLE_ENABLE                             = 0x00000001,
+    PROC_PAU_MMIO_BAR_ENABLE_INVALID                            = 0xFFFFFFFF,
 };
 
 /**
@@ -1609,9 +1612,9 @@ enum PROC_PAU_MMIO_BAR_ENABLE
  */
 enum PROC_PSI_BRIDGE_BAR_ENABLE
 {
-    PROC_PSI_BRIDGE_BAR_ENABLE_DISABLE = 0x00000000,
-    PROC_PSI_BRIDGE_BAR_ENABLE_ENABLE = 0x00000001,
-    PROC_PSI_BRIDGE_BAR_ENABLE_INVALID = 0xFFFFFFFF,
+    PROC_PSI_BRIDGE_BAR_ENABLE_DISABLE                          = 0x00000000,
+    PROC_PSI_BRIDGE_BAR_ENABLE_ENABLE                           = 0x00000001,
+    PROC_PSI_BRIDGE_BAR_ENABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -1620,9 +1623,9 @@ enum PROC_PSI_BRIDGE_BAR_ENABLE
  */
 enum PROC_NX_RNG_BAR_ENABLE
 {
-    PROC_NX_RNG_BAR_ENABLE_DISABLE = 0x00000000,
-    PROC_NX_RNG_BAR_ENABLE_ENABLE = 0x00000001,
-    PROC_NX_RNG_BAR_ENABLE_INVALID = 0xFFFFFFFF,
+    PROC_NX_RNG_BAR_ENABLE_DISABLE                              = 0x00000000,
+    PROC_NX_RNG_BAR_ENABLE_ENABLE                               = 0x00000001,
+    PROC_NX_RNG_BAR_ENABLE_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1632,9 +1635,9 @@ enum PROC_NX_RNG_BAR_ENABLE
  */
 enum PROC_NX_RNG_FAILED_INT_ENABLE
 {
-    PROC_NX_RNG_FAILED_INT_ENABLE_DISABLE = 0x00000000,
-    PROC_NX_RNG_FAILED_INT_ENABLE_ENABLE = 0x00000001,
-    PROC_NX_RNG_FAILED_INT_ENABLE_INVALID = 0xFFFFFFFF,
+    PROC_NX_RNG_FAILED_INT_ENABLE_DISABLE                       = 0x00000000,
+    PROC_NX_RNG_FAILED_INT_ENABLE_ENABLE                        = 0x00000001,
+    PROC_NX_RNG_FAILED_INT_ENABLE_INVALID                       = 0xFFFFFFFF,
 };
 
 /**
@@ -1644,23 +1647,23 @@ enum PROC_NX_RNG_FAILED_INT_ENABLE
  */
 enum PROC_NHTM_BAR_SIZE
 {
-    PROC_NHTM_BAR_SIZE_256_GB = 0x4000000000LL,
-    PROC_NHTM_BAR_SIZE_128_GB = 0x2000000000LL,
-    PROC_NHTM_BAR_SIZE_64_GB = 0x1000000000LL,
-    PROC_NHTM_BAR_SIZE_32_GB = 0x800000000LL,
-    PROC_NHTM_BAR_SIZE_16_GB = 0x400000000LL,
-    PROC_NHTM_BAR_SIZE_8_GB = 0x200000000LL,
-    PROC_NHTM_BAR_SIZE_4_GB = 0x100000000LL,
-    PROC_NHTM_BAR_SIZE_2_GB = 0x80000000,
-    PROC_NHTM_BAR_SIZE_1_GB = 0x40000000,
-    PROC_NHTM_BAR_SIZE_512_MB = 0x20000000,
-    PROC_NHTM_BAR_SIZE_256_MB = 0x10000000,
-    PROC_NHTM_BAR_SIZE_128_MB = 0x08000000,
-    PROC_NHTM_BAR_SIZE_64_MB = 0x04000000,
-    PROC_NHTM_BAR_SIZE_32_MB = 0x02000000,
-    PROC_NHTM_BAR_SIZE_16_MB = 0x01000000,
-    PROC_NHTM_BAR_SIZE_ZERO = 0x00000000,
-    PROC_NHTM_BAR_SIZE_INVALID = 0xFFFFFFFF,
+    PROC_NHTM_BAR_SIZE_256_GB                                   = 0x4000000000LL,
+    PROC_NHTM_BAR_SIZE_128_GB                                   = 0x2000000000LL,
+    PROC_NHTM_BAR_SIZE_64_GB                                    = 0x1000000000LL,
+    PROC_NHTM_BAR_SIZE_32_GB                                    = 0x800000000LL,
+    PROC_NHTM_BAR_SIZE_16_GB                                    = 0x400000000LL,
+    PROC_NHTM_BAR_SIZE_8_GB                                     = 0x200000000LL,
+    PROC_NHTM_BAR_SIZE_4_GB                                     = 0x100000000LL,
+    PROC_NHTM_BAR_SIZE_2_GB                                     = 0x80000000,
+    PROC_NHTM_BAR_SIZE_1_GB                                     = 0x40000000,
+    PROC_NHTM_BAR_SIZE_512_MB                                   = 0x20000000,
+    PROC_NHTM_BAR_SIZE_256_MB                                   = 0x10000000,
+    PROC_NHTM_BAR_SIZE_128_MB                                   = 0x08000000,
+    PROC_NHTM_BAR_SIZE_64_MB                                    = 0x04000000,
+    PROC_NHTM_BAR_SIZE_32_MB                                    = 0x02000000,
+    PROC_NHTM_BAR_SIZE_16_MB                                    = 0x01000000,
+    PROC_NHTM_BAR_SIZE_ZERO                                     = 0x00000000,
+    PROC_NHTM_BAR_SIZE_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -1670,23 +1673,23 @@ enum PROC_NHTM_BAR_SIZE
  */
 enum PROC_CHTM_BAR_SIZES
 {
-    PROC_CHTM_BAR_SIZES_256_GB = 0x4000000000LL,
-    PROC_CHTM_BAR_SIZES_128_GB = 0x2000000000LL,
-    PROC_CHTM_BAR_SIZES_64_GB = 0x1000000000LL,
-    PROC_CHTM_BAR_SIZES_32_GB = 0x800000000LL,
-    PROC_CHTM_BAR_SIZES_16_GB = 0x400000000LL,
-    PROC_CHTM_BAR_SIZES_8_GB = 0x200000000LL,
-    PROC_CHTM_BAR_SIZES_4_GB = 0x100000000LL,
-    PROC_CHTM_BAR_SIZES_2_GB = 0x80000000,
-    PROC_CHTM_BAR_SIZES_1_GB = 0x40000000,
-    PROC_CHTM_BAR_SIZES_512_MB = 0x20000000,
-    PROC_CHTM_BAR_SIZES_256_MB = 0x10000000,
-    PROC_CHTM_BAR_SIZES_128_MB = 0x08000000,
-    PROC_CHTM_BAR_SIZES_64_MB = 0x04000000,
-    PROC_CHTM_BAR_SIZES_32_MB = 0x02000000,
-    PROC_CHTM_BAR_SIZES_16_MB = 0x01000000,
-    PROC_CHTM_BAR_SIZES_ZERO = 0x00000000,
-    PROC_CHTM_BAR_SIZES_INVALID = 0xFFFFFFFF,
+    PROC_CHTM_BAR_SIZES_256_GB                                  = 0x4000000000LL,
+    PROC_CHTM_BAR_SIZES_128_GB                                  = 0x2000000000LL,
+    PROC_CHTM_BAR_SIZES_64_GB                                   = 0x1000000000LL,
+    PROC_CHTM_BAR_SIZES_32_GB                                   = 0x800000000LL,
+    PROC_CHTM_BAR_SIZES_16_GB                                   = 0x400000000LL,
+    PROC_CHTM_BAR_SIZES_8_GB                                    = 0x200000000LL,
+    PROC_CHTM_BAR_SIZES_4_GB                                    = 0x100000000LL,
+    PROC_CHTM_BAR_SIZES_2_GB                                    = 0x80000000,
+    PROC_CHTM_BAR_SIZES_1_GB                                    = 0x40000000,
+    PROC_CHTM_BAR_SIZES_512_MB                                  = 0x20000000,
+    PROC_CHTM_BAR_SIZES_256_MB                                  = 0x10000000,
+    PROC_CHTM_BAR_SIZES_128_MB                                  = 0x08000000,
+    PROC_CHTM_BAR_SIZES_64_MB                                   = 0x04000000,
+    PROC_CHTM_BAR_SIZES_32_MB                                   = 0x02000000,
+    PROC_CHTM_BAR_SIZES_16_MB                                   = 0x01000000,
+    PROC_CHTM_BAR_SIZES_ZERO                                    = 0x00000000,
+    PROC_CHTM_BAR_SIZES_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -1696,19 +1699,19 @@ enum PROC_CHTM_BAR_SIZES
  */
 enum PROC_SMF_BAR_SIZE
 {
-    PROC_SMF_BAR_SIZE_256_GB = 0x4000000000LL,
-    PROC_SMF_BAR_SIZE_128_GB = 0x2000000000LL,
-    PROC_SMF_BAR_SIZE_64_GB = 0x1000000000LL,
-    PROC_SMF_BAR_SIZE_32_GB = 0x800000000LL,
-    PROC_SMF_BAR_SIZE_16_GB = 0x400000000LL,
-    PROC_SMF_BAR_SIZE_8_GB = 0x200000000LL,
-    PROC_SMF_BAR_SIZE_4_GB = 0x100000000LL,
-    PROC_SMF_BAR_SIZE_2_GB = 0x80000000,
-    PROC_SMF_BAR_SIZE_1_GB = 0x40000000,
-    PROC_SMF_BAR_SIZE_512_MB = 0x20000000,
-    PROC_SMF_BAR_SIZE_256_MB = 0x10000000,
-    PROC_SMF_BAR_SIZE_ZERO = 0x00000000,
-    PROC_SMF_BAR_SIZE_INVALID = 0xFFFFFFFF,
+    PROC_SMF_BAR_SIZE_256_GB                                    = 0x4000000000LL,
+    PROC_SMF_BAR_SIZE_128_GB                                    = 0x2000000000LL,
+    PROC_SMF_BAR_SIZE_64_GB                                     = 0x1000000000LL,
+    PROC_SMF_BAR_SIZE_32_GB                                     = 0x800000000LL,
+    PROC_SMF_BAR_SIZE_16_GB                                     = 0x400000000LL,
+    PROC_SMF_BAR_SIZE_8_GB                                      = 0x200000000LL,
+    PROC_SMF_BAR_SIZE_4_GB                                      = 0x100000000LL,
+    PROC_SMF_BAR_SIZE_2_GB                                      = 0x80000000,
+    PROC_SMF_BAR_SIZE_1_GB                                      = 0x40000000,
+    PROC_SMF_BAR_SIZE_512_MB                                    = 0x20000000,
+    PROC_SMF_BAR_SIZE_256_MB                                    = 0x10000000,
+    PROC_SMF_BAR_SIZE_ZERO                                      = 0x00000000,
+    PROC_SMF_BAR_SIZE_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -1717,9 +1720,9 @@ enum PROC_SMF_BAR_SIZE
  */
 enum SMF_CONFIG
 {
-    SMF_CONFIG_DISABLED = 0x00000000,
-    SMF_CONFIG_ENABLED = 0x00000001,
-    SMF_CONFIG_INVALID = 0x000000FF,
+    SMF_CONFIG_DISABLED                                         = 0x00000000,
+    SMF_CONFIG_ENABLED                                          = 0x00000001,
+    SMF_CONFIG_INVALID                                          = 0x000000FF,
 };
 
 /**
@@ -1728,23 +1731,23 @@ enum SMF_CONFIG
  */
 enum PROC_OCC_SANDBOX_SIZE
 {
-    PROC_OCC_SANDBOX_SIZE_256_GB = 0x4000000000LL,
-    PROC_OCC_SANDBOX_SIZE_128_GB = 0x2000000000LL,
-    PROC_OCC_SANDBOX_SIZE_64_GB = 0x1000000000LL,
-    PROC_OCC_SANDBOX_SIZE_32_GB = 0x800000000LL,
-    PROC_OCC_SANDBOX_SIZE_16_GB = 0x400000000LL,
-    PROC_OCC_SANDBOX_SIZE_8_GB = 0x200000000LL,
-    PROC_OCC_SANDBOX_SIZE_4_GB = 0x100000000LL,
-    PROC_OCC_SANDBOX_SIZE_2_GB = 0x80000000,
-    PROC_OCC_SANDBOX_SIZE_1_GB = 0x40000000,
-    PROC_OCC_SANDBOX_SIZE_512_MB = 0x20000000,
-    PROC_OCC_SANDBOX_SIZE_256_MB = 0x10000000,
-    PROC_OCC_SANDBOX_SIZE_128_MB = 0x08000000,
-    PROC_OCC_SANDBOX_SIZE_64_MB = 0x04000000,
-    PROC_OCC_SANDBOX_SIZE_32_MB = 0x02000000,
-    PROC_OCC_SANDBOX_SIZE_16_MB = 0x01000000,
-    PROC_OCC_SANDBOX_SIZE_ZERO = 0x00000000,
-    PROC_OCC_SANDBOX_SIZE_INVALID = 0xFFFFFFFF,
+    PROC_OCC_SANDBOX_SIZE_256_GB                                = 0x4000000000LL,
+    PROC_OCC_SANDBOX_SIZE_128_GB                                = 0x2000000000LL,
+    PROC_OCC_SANDBOX_SIZE_64_GB                                 = 0x1000000000LL,
+    PROC_OCC_SANDBOX_SIZE_32_GB                                 = 0x800000000LL,
+    PROC_OCC_SANDBOX_SIZE_16_GB                                 = 0x400000000LL,
+    PROC_OCC_SANDBOX_SIZE_8_GB                                  = 0x200000000LL,
+    PROC_OCC_SANDBOX_SIZE_4_GB                                  = 0x100000000LL,
+    PROC_OCC_SANDBOX_SIZE_2_GB                                  = 0x80000000,
+    PROC_OCC_SANDBOX_SIZE_1_GB                                  = 0x40000000,
+    PROC_OCC_SANDBOX_SIZE_512_MB                                = 0x20000000,
+    PROC_OCC_SANDBOX_SIZE_256_MB                                = 0x10000000,
+    PROC_OCC_SANDBOX_SIZE_128_MB                                = 0x08000000,
+    PROC_OCC_SANDBOX_SIZE_64_MB                                 = 0x04000000,
+    PROC_OCC_SANDBOX_SIZE_32_MB                                 = 0x02000000,
+    PROC_OCC_SANDBOX_SIZE_16_MB                                 = 0x01000000,
+    PROC_OCC_SANDBOX_SIZE_ZERO                                  = 0x00000000,
+    PROC_OCC_SANDBOX_SIZE_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -1753,9 +1756,9 @@ enum PROC_OCC_SANDBOX_SIZE
  */
 enum PROC_INT_IC_BAR_ENABLE
 {
-    PROC_INT_IC_BAR_ENABLE_DISABLE = 0x00000000,
-    PROC_INT_IC_BAR_ENABLE_ENABLE = 0x00000001,
-    PROC_INT_IC_BAR_ENABLE_INVALID = 0xFFFFFFFF,
+    PROC_INT_IC_BAR_ENABLE_DISABLE                              = 0x00000000,
+    PROC_INT_IC_BAR_ENABLE_ENABLE                               = 0x00000001,
+    PROC_INT_IC_BAR_ENABLE_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1764,9 +1767,9 @@ enum PROC_INT_IC_BAR_ENABLE
  */
 enum PROC_INT_IC_BAR_PAGE_SIZE
 {
-    PROC_INT_IC_BAR_PAGE_SIZE_4K = 0x00000000,
-    PROC_INT_IC_BAR_PAGE_SIZE_64K = 0x00000001,
-    PROC_INT_IC_BAR_PAGE_SIZE_INVALID = 0xFFFFFFFF,
+    PROC_INT_IC_BAR_PAGE_SIZE_4K                                = 0x00000000,
+    PROC_INT_IC_BAR_PAGE_SIZE_64K                               = 0x00000001,
+    PROC_INT_IC_BAR_PAGE_SIZE_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -1775,9 +1778,9 @@ enum PROC_INT_IC_BAR_PAGE_SIZE
  */
 enum PROC_INT_TM_BAR_ENABLE
 {
-    PROC_INT_TM_BAR_ENABLE_DISABLE = 0x00000000,
-    PROC_INT_TM_BAR_ENABLE_ENABLE = 0x00000001,
-    PROC_INT_TM_BAR_ENABLE_INVALID = 0xFFFFFFFF,
+    PROC_INT_TM_BAR_ENABLE_DISABLE                              = 0x00000000,
+    PROC_INT_TM_BAR_ENABLE_ENABLE                               = 0x00000001,
+    PROC_INT_TM_BAR_ENABLE_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1786,9 +1789,9 @@ enum PROC_INT_TM_BAR_ENABLE
  */
 enum PROC_INT_TM_BAR_PAGE_SIZE
 {
-    PROC_INT_TM_BAR_PAGE_SIZE_4K = 0x00000000,
-    PROC_INT_TM_BAR_PAGE_SIZE_64K = 0x00000001,
-    PROC_INT_TM_BAR_PAGE_SIZE_INVALID = 0xFFFFFFFF,
+    PROC_INT_TM_BAR_PAGE_SIZE_4K                                = 0x00000000,
+    PROC_INT_TM_BAR_PAGE_SIZE_64K                               = 0x00000001,
+    PROC_INT_TM_BAR_PAGE_SIZE_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -1797,9 +1800,9 @@ enum PROC_INT_TM_BAR_PAGE_SIZE
  */
 enum PROC_INT_NVPG_BAR_ENABLE
 {
-    PROC_INT_NVPG_BAR_ENABLE_DISABLE = 0x00000000,
-    PROC_INT_NVPG_BAR_ENABLE_ENABLE = 0x00000001,
-    PROC_INT_NVPG_BAR_ENABLE_INVALID = 0xFFFFFFFF,
+    PROC_INT_NVPG_BAR_ENABLE_DISABLE                            = 0x00000000,
+    PROC_INT_NVPG_BAR_ENABLE_ENABLE                             = 0x00000001,
+    PROC_INT_NVPG_BAR_ENABLE_INVALID                            = 0xFFFFFFFF,
 };
 
 /**
@@ -1808,9 +1811,9 @@ enum PROC_INT_NVPG_BAR_ENABLE
  */
 enum PROC_INT_NVPG_BAR_PAGE_SIZE
 {
-    PROC_INT_NVPG_BAR_PAGE_SIZE_4K = 0x00000000,
-    PROC_INT_NVPG_BAR_PAGE_SIZE_64K = 0x00000001,
-    PROC_INT_NVPG_BAR_PAGE_SIZE_INVALID = 0xFFFFFFFF,
+    PROC_INT_NVPG_BAR_PAGE_SIZE_4K                              = 0x00000000,
+    PROC_INT_NVPG_BAR_PAGE_SIZE_64K                             = 0x00000001,
+    PROC_INT_NVPG_BAR_PAGE_SIZE_INVALID                         = 0xFFFFFFFF,
 };
 
 /**
@@ -1819,12 +1822,12 @@ enum PROC_INT_NVPG_BAR_PAGE_SIZE
  */
 enum PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR
 {
-    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_1_SET = 0x00000000,
-    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_2_SET = 0x00000001,
-    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_4_SET = 0x00000002,
-    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_8_SET = 0x00000003,
-    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_16_SET = 0x00000004,
-    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_INVALID = 0xFFFFFFFF,
+    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_1_SET               = 0x00000000,
+    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_2_SET               = 0x00000001,
+    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_4_SET               = 0x00000002,
+    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_8_SET               = 0x00000003,
+    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_16_SET              = 0x00000004,
+    PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR_INVALID             = 0xFFFFFFFF,
 };
 
 /**
@@ -1833,28 +1836,28 @@ enum PROC_INT_NVPG_BAR_SET_DIVISION_SELECTOR
  */
 enum PROC_INT_NVPG_BAR_RANGE
 {
-    PROC_INT_NVPG_BAR_RANGE_16_TB = 0x00000014,
-    PROC_INT_NVPG_BAR_RANGE_8_TB = 0x00000013,
-    PROC_INT_NVPG_BAR_RANGE_4_TB = 0x00000012,
-    PROC_INT_NVPG_BAR_RANGE_2_TB = 0x00000011,
-    PROC_INT_NVPG_BAR_RANGE_1_TB = 0x00000010,
-    PROC_INT_NVPG_BAR_RANGE_512_GB = 0x0000000F,
-    PROC_INT_NVPG_BAR_RANGE_256_GB = 0x0000000E,
-    PROC_INT_NVPG_BAR_RANGE_128_GB = 0x0000000D,
-    PROC_INT_NVPG_BAR_RANGE_64_GB = 0x0000000C,
-    PROC_INT_NVPG_BAR_RANGE_32_GB = 0x0000000B,
-    PROC_INT_NVPG_BAR_RANGE_16_GB = 0x0000000A,
-    PROC_INT_NVPG_BAR_RANGE_8_GB = 0x00000009,
-    PROC_INT_NVPG_BAR_RANGE_4_GB = 0x00000008,
-    PROC_INT_NVPG_BAR_RANGE_2_GB = 0x00000007,
-    PROC_INT_NVPG_BAR_RANGE_1_GB = 0x00000006,
-    PROC_INT_NVPG_BAR_RANGE_512_MB = 0x00000005,
-    PROC_INT_NVPG_BAR_RANGE_256_MB = 0x00000004,
-    PROC_INT_NVPG_BAR_RANGE_128_MB = 0x00000003,
-    PROC_INT_NVPG_BAR_RANGE_64_MB = 0x00000002,
-    PROC_INT_NVPG_BAR_RANGE_32_MB = 0x00000001,
-    PROC_INT_NVPG_BAR_RANGE_16_MB = 0x00000000,
-    PROC_INT_NVPG_BAR_RANGE_INVALID = 0xFFFFFFFF,
+    PROC_INT_NVPG_BAR_RANGE_16_TB                               = 0x00000014,
+    PROC_INT_NVPG_BAR_RANGE_8_TB                                = 0x00000013,
+    PROC_INT_NVPG_BAR_RANGE_4_TB                                = 0x00000012,
+    PROC_INT_NVPG_BAR_RANGE_2_TB                                = 0x00000011,
+    PROC_INT_NVPG_BAR_RANGE_1_TB                                = 0x00000010,
+    PROC_INT_NVPG_BAR_RANGE_512_GB                              = 0x0000000F,
+    PROC_INT_NVPG_BAR_RANGE_256_GB                              = 0x0000000E,
+    PROC_INT_NVPG_BAR_RANGE_128_GB                              = 0x0000000D,
+    PROC_INT_NVPG_BAR_RANGE_64_GB                               = 0x0000000C,
+    PROC_INT_NVPG_BAR_RANGE_32_GB                               = 0x0000000B,
+    PROC_INT_NVPG_BAR_RANGE_16_GB                               = 0x0000000A,
+    PROC_INT_NVPG_BAR_RANGE_8_GB                                = 0x00000009,
+    PROC_INT_NVPG_BAR_RANGE_4_GB                                = 0x00000008,
+    PROC_INT_NVPG_BAR_RANGE_2_GB                                = 0x00000007,
+    PROC_INT_NVPG_BAR_RANGE_1_GB                                = 0x00000006,
+    PROC_INT_NVPG_BAR_RANGE_512_MB                              = 0x00000005,
+    PROC_INT_NVPG_BAR_RANGE_256_MB                              = 0x00000004,
+    PROC_INT_NVPG_BAR_RANGE_128_MB                              = 0x00000003,
+    PROC_INT_NVPG_BAR_RANGE_64_MB                               = 0x00000002,
+    PROC_INT_NVPG_BAR_RANGE_32_MB                               = 0x00000001,
+    PROC_INT_NVPG_BAR_RANGE_16_MB                               = 0x00000000,
+    PROC_INT_NVPG_BAR_RANGE_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -1863,9 +1866,9 @@ enum PROC_INT_NVPG_BAR_RANGE
  */
 enum PROC_INT_NVC_BAR_ENABLE
 {
-    PROC_INT_NVC_BAR_ENABLE_DISABLE = 0x00000000,
-    PROC_INT_NVC_BAR_ENABLE_ENABLE = 0x00000001,
-    PROC_INT_NVC_BAR_ENABLE_INVALID = 0xFFFFFFFF,
+    PROC_INT_NVC_BAR_ENABLE_DISABLE                             = 0x00000000,
+    PROC_INT_NVC_BAR_ENABLE_ENABLE                              = 0x00000001,
+    PROC_INT_NVC_BAR_ENABLE_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -1874,9 +1877,9 @@ enum PROC_INT_NVC_BAR_ENABLE
  */
 enum PROC_INT_NVC_BAR_PAGE_SIZE
 {
-    PROC_INT_NVC_BAR_PAGE_SIZE_4K = 0x00000000,
-    PROC_INT_NVC_BAR_PAGE_SIZE_64K = 0x00000001,
-    PROC_INT_NVC_BAR_PAGE_SIZE_INVALID = 0xFFFFFFFF,
+    PROC_INT_NVC_BAR_PAGE_SIZE_4K                               = 0x00000000,
+    PROC_INT_NVC_BAR_PAGE_SIZE_64K                              = 0x00000001,
+    PROC_INT_NVC_BAR_PAGE_SIZE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -1885,12 +1888,12 @@ enum PROC_INT_NVC_BAR_PAGE_SIZE
  */
 enum PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR
 {
-    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_1_SET = 0x00000000,
-    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_2_SET = 0x00000001,
-    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_4_SET = 0x00000002,
-    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_8_SET = 0x00000003,
-    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_16_SET = 0x00000004,
-    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_INVALID = 0xFFFFFFFF,
+    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_1_SET                = 0x00000000,
+    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_2_SET                = 0x00000001,
+    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_4_SET                = 0x00000002,
+    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_8_SET                = 0x00000003,
+    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_16_SET               = 0x00000004,
+    PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR_INVALID              = 0xFFFFFFFF,
 };
 
 /**
@@ -1899,28 +1902,28 @@ enum PROC_INT_NVC_BAR_SET_DIVISION_SELECTOR
  */
 enum PROC_INT_NVC_BAR_RANGE
 {
-    PROC_INT_NVC_BAR_RANGE_16_TB = 0x00000014,
-    PROC_INT_NVC_BAR_RANGE_8_TB = 0x00000013,
-    PROC_INT_NVC_BAR_RANGE_4_TB = 0x00000012,
-    PROC_INT_NVC_BAR_RANGE_2_TB = 0x00000011,
-    PROC_INT_NVC_BAR_RANGE_1_TB = 0x00000010,
-    PROC_INT_NVC_BAR_RANGE_512_GB = 0x0000000F,
-    PROC_INT_NVC_BAR_RANGE_256_GB = 0x0000000E,
-    PROC_INT_NVC_BAR_RANGE_128_GB = 0x0000000D,
-    PROC_INT_NVC_BAR_RANGE_64_GB = 0x0000000C,
-    PROC_INT_NVC_BAR_RANGE_32_GB = 0x0000000B,
-    PROC_INT_NVC_BAR_RANGE_16_GB = 0x0000000A,
-    PROC_INT_NVC_BAR_RANGE_8_GB = 0x00000009,
-    PROC_INT_NVC_BAR_RANGE_4_GB = 0x00000008,
-    PROC_INT_NVC_BAR_RANGE_2_GB = 0x00000007,
-    PROC_INT_NVC_BAR_RANGE_1_GB = 0x00000006,
-    PROC_INT_NVC_BAR_RANGE_512_MB = 0x00000005,
-    PROC_INT_NVC_BAR_RANGE_256_MB = 0x00000004,
-    PROC_INT_NVC_BAR_RANGE_128_MB = 0x00000003,
-    PROC_INT_NVC_BAR_RANGE_64_MB = 0x00000002,
-    PROC_INT_NVC_BAR_RANGE_32_MB = 0x00000001,
-    PROC_INT_NVC_BAR_RANGE_16_MB = 0x00000000,
-    PROC_INT_NVC_BAR_RANGE_INVALID = 0xFFFFFFFF,
+    PROC_INT_NVC_BAR_RANGE_16_TB                                = 0x00000014,
+    PROC_INT_NVC_BAR_RANGE_8_TB                                 = 0x00000013,
+    PROC_INT_NVC_BAR_RANGE_4_TB                                 = 0x00000012,
+    PROC_INT_NVC_BAR_RANGE_2_TB                                 = 0x00000011,
+    PROC_INT_NVC_BAR_RANGE_1_TB                                 = 0x00000010,
+    PROC_INT_NVC_BAR_RANGE_512_GB                               = 0x0000000F,
+    PROC_INT_NVC_BAR_RANGE_256_GB                               = 0x0000000E,
+    PROC_INT_NVC_BAR_RANGE_128_GB                               = 0x0000000D,
+    PROC_INT_NVC_BAR_RANGE_64_GB                                = 0x0000000C,
+    PROC_INT_NVC_BAR_RANGE_32_GB                                = 0x0000000B,
+    PROC_INT_NVC_BAR_RANGE_16_GB                                = 0x0000000A,
+    PROC_INT_NVC_BAR_RANGE_8_GB                                 = 0x00000009,
+    PROC_INT_NVC_BAR_RANGE_4_GB                                 = 0x00000008,
+    PROC_INT_NVC_BAR_RANGE_2_GB                                 = 0x00000007,
+    PROC_INT_NVC_BAR_RANGE_1_GB                                 = 0x00000006,
+    PROC_INT_NVC_BAR_RANGE_512_MB                               = 0x00000005,
+    PROC_INT_NVC_BAR_RANGE_256_MB                               = 0x00000004,
+    PROC_INT_NVC_BAR_RANGE_128_MB                               = 0x00000003,
+    PROC_INT_NVC_BAR_RANGE_64_MB                                = 0x00000002,
+    PROC_INT_NVC_BAR_RANGE_32_MB                                = 0x00000001,
+    PROC_INT_NVC_BAR_RANGE_16_MB                                = 0x00000000,
+    PROC_INT_NVC_BAR_RANGE_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -1933,21 +1936,21 @@ enum PROC_INT_NVC_BAR_RANGE
  */
 enum DDS_DROOP_EXTREME_OVERRIDE
 {
-    DDS_DROOP_EXTREME_OVERRIDE_OFF = 0x00000000,
-    DDS_DROOP_EXTREME_OVERRIDE_8mV = 0x00000001,
-    DDS_DROOP_EXTREME_OVERRIDE_16mV = 0x00000002,
-    DDS_DROOP_EXTREME_OVERRIDE_24mV = 0x00000003,
-    DDS_DROOP_EXTREME_OVERRIDE_32mV = 0x00000004,
-    DDS_DROOP_EXTREME_OVERRIDE_40mV = 0x00000005,
-    DDS_DROOP_EXTREME_OVERRIDE_48mV = 0x00000006,
-    DDS_DROOP_EXTREME_OVERRIDE_56mV = 0x00000007,
-    DDS_DROOP_EXTREME_OVERRIDE_64mV = 0x00000008,
-    DDS_DROOP_EXTREME_OVERRIDE_72mV = 0x00000009,
-    DDS_DROOP_EXTREME_OVERRIDE_80mV = 0x0000000A,
-    DDS_DROOP_EXTREME_OVERRIDE_88mV = 0x0000000B,
-    DDS_DROOP_EXTREME_OVERRIDE_92mV = 0x0000000C,
-    DDS_DROOP_EXTREME_OVERRIDE_96mV = 0x0000000D,
-    DDS_DROOP_EXTREME_OVERRIDE_INVALID = 0xFFFFFFFF,
+    DDS_DROOP_EXTREME_OVERRIDE_OFF                              = 0x00000000,
+    DDS_DROOP_EXTREME_OVERRIDE_8mV                              = 0x00000001,
+    DDS_DROOP_EXTREME_OVERRIDE_16mV                             = 0x00000002,
+    DDS_DROOP_EXTREME_OVERRIDE_24mV                             = 0x00000003,
+    DDS_DROOP_EXTREME_OVERRIDE_32mV                             = 0x00000004,
+    DDS_DROOP_EXTREME_OVERRIDE_40mV                             = 0x00000005,
+    DDS_DROOP_EXTREME_OVERRIDE_48mV                             = 0x00000006,
+    DDS_DROOP_EXTREME_OVERRIDE_56mV                             = 0x00000007,
+    DDS_DROOP_EXTREME_OVERRIDE_64mV                             = 0x00000008,
+    DDS_DROOP_EXTREME_OVERRIDE_72mV                             = 0x00000009,
+    DDS_DROOP_EXTREME_OVERRIDE_80mV                             = 0x0000000A,
+    DDS_DROOP_EXTREME_OVERRIDE_88mV                             = 0x0000000B,
+    DDS_DROOP_EXTREME_OVERRIDE_92mV                             = 0x0000000C,
+    DDS_DROOP_EXTREME_OVERRIDE_96mV                             = 0x0000000D,
+    DDS_DROOP_EXTREME_OVERRIDE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -1957,10 +1960,10 @@ enum DDS_DROOP_EXTREME_OVERRIDE
  */
 enum DDS_DPLL_SLEW_MODE
 {
-    DDS_DPLL_SLEW_MODE_NONE = 0x00000000,
-    DDS_DPLL_SLEW_MODE_JUMP_PROTECT = 0x00000001,
-    DDS_DPLL_SLEW_MODE_SLEW_MODE = 0x00000002,
-    DDS_DPLL_SLEW_MODE_INVALID = 0xFFFFFFFF,
+    DDS_DPLL_SLEW_MODE_NONE                                     = 0x00000000,
+    DDS_DPLL_SLEW_MODE_JUMP_PROTECT                             = 0x00000001,
+    DDS_DPLL_SLEW_MODE_SLEW_MODE                                = 0x00000002,
+    DDS_DPLL_SLEW_MODE_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -1969,9 +1972,9 @@ enum DDS_DPLL_SLEW_MODE
  */
 enum DDS_TRIP_MODE
 {
-    DDS_TRIP_MODE_CHIP = 0x00000000,
-    DDS_TRIP_MODE_CORE = 0x00000001,
-    DDS_TRIP_MODE_INVALID = 0xFFFFFFFF,
+    DDS_TRIP_MODE_CHIP                                          = 0x00000000,
+    DDS_TRIP_MODE_CORE                                          = 0x00000001,
+    DDS_TRIP_MODE_INVALID                                       = 0xFFFFFFFF,
 };
 
 /**
@@ -1980,15 +1983,15 @@ enum DDS_TRIP_MODE
  */
 enum DDS_TRIP_INTERPOLATION_CONTROL
 {
-    DDS_TRIP_INTERPOLATION_CONTROL_TRIP = 0x00000080,
-    DDS_TRIP_INTERPOLATION_CONTROL_DATA0 = 0x00000040,
-    DDS_TRIP_INTERPOLATION_CONTROL_DATA1 = 0x00000020,
-    DDS_TRIP_INTERPOLATION_CONTROL_DATA2 = 0x00000010,
-    DDS_TRIP_INTERPOLATION_CONTROL_LARGE = 0x00000008,
-    DDS_TRIP_INTERPOLATION_CONTROL_SMALL = 0x00000004,
-    DDS_TRIP_INTERPOLATION_CONTROL_SLOPEA = 0x00000002,
-    DDS_TRIP_INTERPOLATION_CONTROL_SLOPEB = 0x00000001,
-    DDS_TRIP_INTERPOLATION_CONTROL_INVALID = 0xFFFFFFFF,
+    DDS_TRIP_INTERPOLATION_CONTROL_TRIP                         = 0x00000080,
+    DDS_TRIP_INTERPOLATION_CONTROL_DATA0                        = 0x00000040,
+    DDS_TRIP_INTERPOLATION_CONTROL_DATA1                        = 0x00000020,
+    DDS_TRIP_INTERPOLATION_CONTROL_DATA2                        = 0x00000010,
+    DDS_TRIP_INTERPOLATION_CONTROL_LARGE                        = 0x00000008,
+    DDS_TRIP_INTERPOLATION_CONTROL_SMALL                        = 0x00000004,
+    DDS_TRIP_INTERPOLATION_CONTROL_SLOPEA                       = 0x00000002,
+    DDS_TRIP_INTERPOLATION_CONTROL_SLOPEB                       = 0x00000001,
+    DDS_TRIP_INTERPOLATION_CONTROL_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -2001,9 +2004,9 @@ enum DDS_TRIP_INTERPOLATION_CONTROL
  */
 enum PGPE_HCODE_FUNCTION_ENABLE
 {
-    PGPE_HCODE_FUNCTION_ENABLE_OFF = 0x00000000,
-    PGPE_HCODE_FUNCTION_ENABLE_ON = 0x00000001,
-    PGPE_HCODE_FUNCTION_ENABLE_INVALID = 0xFFFFFFFF,
+    PGPE_HCODE_FUNCTION_ENABLE_OFF                              = 0x00000000,
+    PGPE_HCODE_FUNCTION_ENABLE_ON                               = 0x00000001,
+    PGPE_HCODE_FUNCTION_ENABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2012,9 +2015,9 @@ enum PGPE_HCODE_FUNCTION_ENABLE
  */
 enum POUND_W_STATIC_DATA_ENABLE
 {
-    POUND_W_STATIC_DATA_ENABLE_OFF = 0x00000000,
-    POUND_W_STATIC_DATA_ENABLE_ON = 0x00000001,
-    POUND_W_STATIC_DATA_ENABLE_INVALID = 0xFFFFFFFF,
+    POUND_W_STATIC_DATA_ENABLE_OFF                              = 0x00000000,
+    POUND_W_STATIC_DATA_ENABLE_ON                               = 0x00000001,
+    POUND_W_STATIC_DATA_ENABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2023,9 +2026,9 @@ enum POUND_W_STATIC_DATA_ENABLE
  */
 enum POUND_V_STATIC_DATA_ENABLE
 {
-    POUND_V_STATIC_DATA_ENABLE_OFF = 0x00000000,
-    POUND_V_STATIC_DATA_ENABLE_ON = 0x00000001,
-    POUND_V_STATIC_DATA_ENABLE_INVALID = 0xFFFFFFFF,
+    POUND_V_STATIC_DATA_ENABLE_OFF                              = 0x00000000,
+    POUND_V_STATIC_DATA_ENABLE_ON                               = 0x00000001,
+    POUND_V_STATIC_DATA_ENABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2034,9 +2037,9 @@ enum POUND_V_STATIC_DATA_ENABLE
  */
 enum AW_STATIC_DATA_ENABLE
 {
-    AW_STATIC_DATA_ENABLE_OFF = 0x00000000,
-    AW_STATIC_DATA_ENABLE_ON = 0x00000001,
-    AW_STATIC_DATA_ENABLE_INVALID = 0xFFFFFFFF,
+    AW_STATIC_DATA_ENABLE_OFF                                   = 0x00000000,
+    AW_STATIC_DATA_ENABLE_ON                                    = 0x00000001,
+    AW_STATIC_DATA_ENABLE_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -2045,9 +2048,9 @@ enum AW_STATIC_DATA_ENABLE
  */
 enum POUNDV_BUCKET_NUM
 {
-    POUNDV_BUCKET_NUM_BUCKETA = 0x00000001,
-    POUNDV_BUCKET_NUM_BUCKETB = 0x00000002,
-    POUNDV_BUCKET_NUM_INVALID = 0xFFFFFFFF,
+    POUNDV_BUCKET_NUM_BUCKETA                                   = 0x00000001,
+    POUNDV_BUCKET_NUM_BUCKETB                                   = 0x00000002,
+    POUNDV_BUCKET_NUM_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -2057,10 +2060,10 @@ enum POUNDV_BUCKET_NUM
  */
 enum SYS_VRT_STATIC_DATA_ENABLE
 {
-    SYS_VRT_STATIC_DATA_ENABLE_OFF = 0x00000000,
-    SYS_VRT_STATIC_DATA_ENABLE_ON = 0x00000001,
-    SYS_VRT_STATIC_DATA_ENABLE_VDN_STEP_OFF = 0x00000002,
-    SYS_VRT_STATIC_DATA_ENABLE_INVALID = 0xFFFFFFFF,
+    SYS_VRT_STATIC_DATA_ENABLE_OFF                              = 0x00000000,
+    SYS_VRT_STATIC_DATA_ENABLE_ON                               = 0x00000001,
+    SYS_VRT_STATIC_DATA_ENABLE_VDN_STEP_OFF                     = 0x00000002,
+    SYS_VRT_STATIC_DATA_ENABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2074,9 +2077,9 @@ enum SYS_VRT_STATIC_DATA_ENABLE
  */
 enum SYSTEM_POUNDV_VALIDITY_HALT_DISABLE
 {
-    SYSTEM_POUNDV_VALIDITY_HALT_DISABLE_OFF = 0x00000000,
-    SYSTEM_POUNDV_VALIDITY_HALT_DISABLE_ON = 0x00000001,
-    SYSTEM_POUNDV_VALIDITY_HALT_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_POUNDV_VALIDITY_HALT_DISABLE_OFF                     = 0x00000000,
+    SYSTEM_POUNDV_VALIDITY_HALT_DISABLE_ON                      = 0x00000001,
+    SYSTEM_POUNDV_VALIDITY_HALT_DISABLE_INVALID                 = 0xFFFFFFFF,
 };
 
 /**
@@ -2084,10 +2087,10 @@ enum SYSTEM_POUNDV_VALIDITY_HALT_DISABLE
  */
 enum SYSTEM_RING_DBG_MODE
 {
-    SYSTEM_RING_DBG_MODE_SCAN_RING_NO_DEBUG = 0x00000000,
-    SYSTEM_RING_DBG_MODE_SCAN_RING_TRACE_DEBUG = 0x00000001,
-    SYSTEM_RING_DBG_MODE_SCAN_RING_DEEP_DEBUG = 0x00000002,
-    SYSTEM_RING_DBG_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_RING_DBG_MODE_SCAN_RING_NO_DEBUG                     = 0x00000000,
+    SYSTEM_RING_DBG_MODE_SCAN_RING_TRACE_DEBUG                  = 0x00000001,
+    SYSTEM_RING_DBG_MODE_SCAN_RING_DEEP_DEBUG                   = 0x00000002,
+    SYSTEM_RING_DBG_MODE_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -2099,9 +2102,9 @@ enum SYSTEM_RING_DBG_MODE
  */
 enum PM_MALF_ALERT_ENABLE
 {
-    PM_MALF_ALERT_ENABLE_FALSE = 0x00000000,
-    PM_MALF_ALERT_ENABLE_TRUE = 0x00000001,
-    PM_MALF_ALERT_ENABLE_INVALID = 0xFFFFFFFF,
+    PM_MALF_ALERT_ENABLE_FALSE                                  = 0x00000000,
+    PM_MALF_ALERT_ENABLE_TRUE                                   = 0x00000001,
+    PM_MALF_ALERT_ENABLE_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -2112,9 +2115,9 @@ enum PM_MALF_ALERT_ENABLE
  */
 enum PM_HALT_FFDC_ENABLE
 {
-    PM_HALT_FFDC_ENABLE_FALSE = 0x00000000,
-    PM_HALT_FFDC_ENABLE_TRUE = 0x00000001,
-    PM_HALT_FFDC_ENABLE_INVALID = 0xFFFFFFFF,
+    PM_HALT_FFDC_ENABLE_FALSE                                   = 0x00000000,
+    PM_HALT_FFDC_ENABLE_TRUE                                    = 0x00000001,
+    PM_HALT_FFDC_ENABLE_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -2124,9 +2127,9 @@ enum PM_HALT_FFDC_ENABLE
  */
 enum SYSTEM_DDS_DISABLE
 {
-    SYSTEM_DDS_DISABLE_OFF = 0x00000000,
-    SYSTEM_DDS_DISABLE_ON = 0x00000001,
-    SYSTEM_DDS_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_DDS_DISABLE_OFF                                      = 0x00000000,
+    SYSTEM_DDS_DISABLE_ON                                       = 0x00000001,
+    SYSTEM_DDS_DISABLE_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -2135,9 +2138,9 @@ enum SYSTEM_DDS_DISABLE
  */
 enum SYSTEM_DDS_FREQ_ENABLE
 {
-    SYSTEM_DDS_FREQ_ENABLE_OFF = 0x00000000,
-    SYSTEM_DDS_FREQ_ENABLE_ON = 0x00000001,
-    SYSTEM_DDS_FREQ_ENABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_DDS_FREQ_ENABLE_OFF                                  = 0x00000000,
+    SYSTEM_DDS_FREQ_ENABLE_ON                                   = 0x00000001,
+    SYSTEM_DDS_FREQ_ENABLE_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -2147,9 +2150,9 @@ enum SYSTEM_DDS_FREQ_ENABLE
  */
 enum SYSTEM_AUXILLARY_MODE
 {
-    SYSTEM_AUXILLARY_MODE_ON = 0x00000000,
-    SYSTEM_AUXILLARY_MODE_OFF = 0x00000001,
-    SYSTEM_AUXILLARY_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_AUXILLARY_MODE_ON                                    = 0x00000000,
+    SYSTEM_AUXILLARY_MODE_OFF                                   = 0x00000001,
+    SYSTEM_AUXILLARY_MODE_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -2162,10 +2165,10 @@ enum SYSTEM_AUXILLARY_MODE
  */
 enum SYSTEM_PSTATES_MODE
 {
-    SYSTEM_PSTATES_MODE_ON = 0x00000000,
-    SYSTEM_PSTATES_MODE_OFF = 0x00000001,
-    SYSTEM_PSTATES_MODE_AUTO = 0x00000002,
-    SYSTEM_PSTATES_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_PSTATES_MODE_ON                                      = 0x00000000,
+    SYSTEM_PSTATES_MODE_OFF                                     = 0x00000001,
+    SYSTEM_PSTATES_MODE_AUTO                                    = 0x00000002,
+    SYSTEM_PSTATES_MODE_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -2178,9 +2181,9 @@ enum SYSTEM_PSTATES_MODE
  */
 enum SYSTEM_SUSPEND_OCC_MODE
 {
-    SYSTEM_SUSPEND_OCC_MODE_OFF = 0x00000000,
-    SYSTEM_SUSPEND_OCC_MODE_ON = 0x00000001,
-    SYSTEM_SUSPEND_OCC_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_SUSPEND_OCC_MODE_OFF                                 = 0x00000000,
+    SYSTEM_SUSPEND_OCC_MODE_ON                                  = 0x00000001,
+    SYSTEM_SUSPEND_OCC_MODE_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -2190,9 +2193,9 @@ enum SYSTEM_SUSPEND_OCC_MODE
  */
 enum SYSTEM_RESCLK_DISABLE
 {
-    SYSTEM_RESCLK_DISABLE_OFF = 0x00000000,
-    SYSTEM_RESCLK_DISABLE_ON = 0x00000001,
-    SYSTEM_RESCLK_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_RESCLK_DISABLE_OFF                                   = 0x00000000,
+    SYSTEM_RESCLK_DISABLE_ON                                    = 0x00000001,
+    SYSTEM_RESCLK_DISABLE_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -2201,9 +2204,9 @@ enum SYSTEM_RESCLK_DISABLE
  */
 enum SYSTEM_RESCLK_ISTEP4_ENABLE
 {
-    SYSTEM_RESCLK_ISTEP4_ENABLE_OFF = 0x00000000,
-    SYSTEM_RESCLK_ISTEP4_ENABLE_ON = 0x00000001,
-    SYSTEM_RESCLK_ISTEP4_ENABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_RESCLK_ISTEP4_ENABLE_OFF                             = 0x00000000,
+    SYSTEM_RESCLK_ISTEP4_ENABLE_ON                              = 0x00000001,
+    SYSTEM_RESCLK_ISTEP4_ENABLE_INVALID                         = 0xFFFFFFFF,
 };
 
 /**
@@ -2213,9 +2216,9 @@ enum SYSTEM_RESCLK_ISTEP4_ENABLE
  */
 enum SYSTEM_RVRM_DISABLE
 {
-    SYSTEM_RVRM_DISABLE_OFF = 0x00000000,
-    SYSTEM_RVRM_DISABLE_ON = 0x00000001,
-    SYSTEM_RVRM_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_RVRM_DISABLE_OFF                                     = 0x00000000,
+    SYSTEM_RVRM_DISABLE_ON                                      = 0x00000001,
+    SYSTEM_RVRM_DISABLE_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -2229,10 +2232,10 @@ enum SYSTEM_RVRM_DISABLE
  */
 enum SYSTEM_WOF_DISABLE
 {
-    SYSTEM_WOF_DISABLE_OFF = 0x00000000,
-    SYSTEM_WOF_DISABLE_ON = 0x00000001,
-    SYSTEM_WOF_DISABLE_OFF_SKIP_DD = 0x00000002,
-    SYSTEM_WOF_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_WOF_DISABLE_OFF                                      = 0x00000000,
+    SYSTEM_WOF_DISABLE_ON                                       = 0x00000001,
+    SYSTEM_WOF_DISABLE_OFF_SKIP_DD                              = 0x00000002,
+    SYSTEM_WOF_DISABLE_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -2245,9 +2248,9 @@ enum SYSTEM_WOF_DISABLE
  */
 enum SYSTEM_WOV_OVERV_DISABLE
 {
-    SYSTEM_WOV_OVERV_DISABLE_OFF = 0x00000000,
-    SYSTEM_WOV_OVERV_DISABLE_ON = 0x00000001,
-    SYSTEM_WOV_OVERV_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_WOV_OVERV_DISABLE_OFF                                = 0x00000000,
+    SYSTEM_WOV_OVERV_DISABLE_ON                                 = 0x00000001,
+    SYSTEM_WOV_OVERV_DISABLE_INVALID                            = 0xFFFFFFFF,
 };
 
 /**
@@ -2260,9 +2263,9 @@ enum SYSTEM_WOV_OVERV_DISABLE
  */
 enum SYSTEM_WOV_UNDERV_DISABLE
 {
-    SYSTEM_WOV_UNDERV_DISABLE_OFF = 0x00000000,
-    SYSTEM_WOV_UNDERV_DISABLE_ON = 0x00000001,
-    SYSTEM_WOV_UNDERV_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_WOV_UNDERV_DISABLE_OFF                               = 0x00000000,
+    SYSTEM_WOV_UNDERV_DISABLE_ON                                = 0x00000001,
+    SYSTEM_WOV_UNDERV_DISABLE_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -2275,9 +2278,9 @@ enum SYSTEM_WOV_UNDERV_DISABLE
  */
 enum WOF_THROTTLE_CONTROL_LOOP_DISABLE
 {
-    WOF_THROTTLE_CONTROL_LOOP_DISABLE_OFF = 0x00000000,
-    WOF_THROTTLE_CONTROL_LOOP_DISABLE_ON = 0x00000001,
-    WOF_THROTTLE_CONTROL_LOOP_DISABLE_INVALID = 0xFFFFFFFF,
+    WOF_THROTTLE_CONTROL_LOOP_DISABLE_OFF                       = 0x00000000,
+    WOF_THROTTLE_CONTROL_LOOP_DISABLE_ON                        = 0x00000001,
+    WOF_THROTTLE_CONTROL_LOOP_DISABLE_INVALID                   = 0xFFFFFFFF,
 };
 
 /**
@@ -2289,9 +2292,9 @@ enum WOF_THROTTLE_CONTROL_LOOP_DISABLE
  */
 enum WOF_PITCH_ENABLE
 {
-    WOF_PITCH_ENABLE_OFF = 0x00000000,
-    WOF_PITCH_ENABLE_ON = 0x00000001,
-    WOF_PITCH_ENABLE_INVALID = 0xFFFFFFFF,
+    WOF_PITCH_ENABLE_OFF                                        = 0x00000000,
+    WOF_PITCH_ENABLE_ON                                         = 0x00000001,
+    WOF_PITCH_ENABLE_INVALID                                    = 0xFFFFFFFF,
 };
 
 /**
@@ -2304,9 +2307,9 @@ enum WOF_PITCH_ENABLE
  */
 enum WOF_THROTTLE_CONTROL_LOOP_MODE
 {
-    WOF_THROTTLE_CONTROL_LOOP_MODE_BINARY = 0x00000000,
-    WOF_THROTTLE_CONTROL_LOOP_MODE_DECINC = 0x00000001,
-    WOF_THROTTLE_CONTROL_LOOP_MODE_INVALID = 0xFFFFFFFF,
+    WOF_THROTTLE_CONTROL_LOOP_MODE_BINARY                       = 0x00000000,
+    WOF_THROTTLE_CONTROL_LOOP_MODE_DECINC                       = 0x00000001,
+    WOF_THROTTLE_CONTROL_LOOP_MODE_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -2319,9 +2322,9 @@ enum WOF_THROTTLE_CONTROL_LOOP_MODE
  */
 enum SYSTEM_OCS_DISABLE
 {
-    SYSTEM_OCS_DISABLE_OFF = 0x00000000,
-    SYSTEM_OCS_DISABLE_ON = 0x00000001,
-    SYSTEM_OCS_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_OCS_DISABLE_OFF                                      = 0x00000000,
+    SYSTEM_OCS_DISABLE_ON                                       = 0x00000001,
+    SYSTEM_OCS_DISABLE_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -2333,9 +2336,9 @@ enum SYSTEM_OCS_DISABLE
  */
 enum SYSTEM_PGPE_CURRENT_READ_DISABLE
 {
-    SYSTEM_PGPE_CURRENT_READ_DISABLE_OFF = 0x00000000,
-    SYSTEM_PGPE_CURRENT_READ_DISABLE_ON = 0x00000001,
-    SYSTEM_PGPE_CURRENT_READ_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_PGPE_CURRENT_READ_DISABLE_OFF                        = 0x00000000,
+    SYSTEM_PGPE_CURRENT_READ_DISABLE_ON                         = 0x00000001,
+    SYSTEM_PGPE_CURRENT_READ_DISABLE_INVALID                    = 0xFFFFFFFF,
 };
 
 /**
@@ -2347,9 +2350,9 @@ enum SYSTEM_PGPE_CURRENT_READ_DISABLE
  */
 enum WOF_DCM_TRACKING_ENABLE
 {
-    WOF_DCM_TRACKING_ENABLE_FALSE = 0x00000000,
-    WOF_DCM_TRACKING_ENABLE_TRUE = 0x00000001,
-    WOF_DCM_TRACKING_ENABLE_INVALID = 0xFFFFFFFF,
+    WOF_DCM_TRACKING_ENABLE_FALSE                               = 0x00000000,
+    WOF_DCM_TRACKING_ENABLE_TRUE                                = 0x00000001,
+    WOF_DCM_TRACKING_ENABLE_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -2364,11 +2367,11 @@ enum WOF_DCM_TRACKING_ENABLE
  */
 enum SYSTEM_WOF_VALIDATION_MODE
 {
-    SYSTEM_WOF_VALIDATION_MODE_FAIL = 0x00000000,
-    SYSTEM_WOF_VALIDATION_MODE_INFO = 0x00000001,
-    SYSTEM_WOF_VALIDATION_MODE_WARN = 0x00000002,
-    SYSTEM_WOF_VALIDATION_MODE_OFF = 0x00000003,
-    SYSTEM_WOF_VALIDATION_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_WOF_VALIDATION_MODE_FAIL                             = 0x00000000,
+    SYSTEM_WOF_VALIDATION_MODE_INFO                             = 0x00000001,
+    SYSTEM_WOF_VALIDATION_MODE_WARN                             = 0x00000002,
+    SYSTEM_WOF_VALIDATION_MODE_OFF                              = 0x00000003,
+    SYSTEM_WOF_VALIDATION_MODE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2382,11 +2385,11 @@ enum SYSTEM_WOF_VALIDATION_MODE
  */
 enum SYSTEM_WOF_LAB_VALIDATION_MODE
 {
-    SYSTEM_WOF_LAB_VALIDATION_MODE_FAIL = 0x00000000,
-    SYSTEM_WOF_LAB_VALIDATION_MODE_INFO = 0x00000001,
-    SYSTEM_WOF_LAB_VALIDATION_MODE_WARN = 0x00000002,
-    SYSTEM_WOF_LAB_VALIDATION_MODE_OFF = 0x00000003,
-    SYSTEM_WOF_LAB_VALIDATION_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_WOF_LAB_VALIDATION_MODE_FAIL                         = 0x00000000,
+    SYSTEM_WOF_LAB_VALIDATION_MODE_INFO                         = 0x00000001,
+    SYSTEM_WOF_LAB_VALIDATION_MODE_WARN                         = 0x00000002,
+    SYSTEM_WOF_LAB_VALIDATION_MODE_OFF                          = 0x00000003,
+    SYSTEM_WOF_LAB_VALIDATION_MODE_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -2400,11 +2403,11 @@ enum SYSTEM_WOF_LAB_VALIDATION_MODE
  */
 enum SYSTEM_PDV_VALIDATION_MODE
 {
-    SYSTEM_PDV_VALIDATION_MODE_FAIL = 0x00000000,
-    SYSTEM_PDV_VALIDATION_MODE_INFO = 0x00000001,
-    SYSTEM_PDV_VALIDATION_MODE_WARN = 0x00000002,
-    SYSTEM_PDV_VALIDATION_MODE_OFF = 0x00000003,
-    SYSTEM_PDV_VALIDATION_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_PDV_VALIDATION_MODE_FAIL                             = 0x00000000,
+    SYSTEM_PDV_VALIDATION_MODE_INFO                             = 0x00000001,
+    SYSTEM_PDV_VALIDATION_MODE_WARN                             = 0x00000002,
+    SYSTEM_PDV_VALIDATION_MODE_OFF                              = 0x00000003,
+    SYSTEM_PDV_VALIDATION_MODE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2418,11 +2421,11 @@ enum SYSTEM_PDV_VALIDATION_MODE
  */
 enum SYSTEM_PDV_LAB_VALIDATION_MODE
 {
-    SYSTEM_PDV_LAB_VALIDATION_MODE_FAIL = 0x00000000,
-    SYSTEM_PDV_LAB_VALIDATION_MODE_INFO = 0x00000001,
-    SYSTEM_PDV_LAB_VALIDATION_MODE_WARN = 0x00000002,
-    SYSTEM_PDV_LAB_VALIDATION_MODE_OFF = 0x00000003,
-    SYSTEM_PDV_LAB_VALIDATION_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_PDV_LAB_VALIDATION_MODE_FAIL                         = 0x00000000,
+    SYSTEM_PDV_LAB_VALIDATION_MODE_INFO                         = 0x00000001,
+    SYSTEM_PDV_LAB_VALIDATION_MODE_WARN                         = 0x00000002,
+    SYSTEM_PDV_LAB_VALIDATION_MODE_OFF                          = 0x00000003,
+    SYSTEM_PDV_LAB_VALIDATION_MODE_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -2436,11 +2439,11 @@ enum SYSTEM_PDV_LAB_VALIDATION_MODE
  */
 enum SYSTEM_PDW_VALIDATION_MODE
 {
-    SYSTEM_PDW_VALIDATION_MODE_FAIL = 0x00000000,
-    SYSTEM_PDW_VALIDATION_MODE_INFO = 0x00000001,
-    SYSTEM_PDW_VALIDATION_MODE_WARN = 0x00000002,
-    SYSTEM_PDW_VALIDATION_MODE_OFF = 0x00000003,
-    SYSTEM_PDW_VALIDATION_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_PDW_VALIDATION_MODE_FAIL                             = 0x00000000,
+    SYSTEM_PDW_VALIDATION_MODE_INFO                             = 0x00000001,
+    SYSTEM_PDW_VALIDATION_MODE_WARN                             = 0x00000002,
+    SYSTEM_PDW_VALIDATION_MODE_OFF                              = 0x00000003,
+    SYSTEM_PDW_VALIDATION_MODE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2454,11 +2457,11 @@ enum SYSTEM_PDW_VALIDATION_MODE
  */
 enum SYSTEM_IQ_VALIDATION_MODE
 {
-    SYSTEM_IQ_VALIDATION_MODE_FAIL = 0x00000000,
-    SYSTEM_IQ_VALIDATION_MODE_INFO = 0x00000001,
-    SYSTEM_IQ_VALIDATION_MODE_WARN = 0x00000002,
-    SYSTEM_IQ_VALIDATION_MODE_OFF = 0x00000003,
-    SYSTEM_IQ_VALIDATION_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_IQ_VALIDATION_MODE_FAIL                              = 0x00000000,
+    SYSTEM_IQ_VALIDATION_MODE_INFO                              = 0x00000001,
+    SYSTEM_IQ_VALIDATION_MODE_WARN                              = 0x00000002,
+    SYSTEM_IQ_VALIDATION_MODE_OFF                               = 0x00000003,
+    SYSTEM_IQ_VALIDATION_MODE_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -2472,11 +2475,11 @@ enum SYSTEM_IQ_VALIDATION_MODE
  */
 enum SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE
 {
-    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_FAIL = 0x00000000,
-    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_INFO = 0x00000001,
-    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_WARN = 0x00000002,
-    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_OFF = 0x00000003,
-    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_FAIL                 = 0x00000000,
+    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_INFO                 = 0x00000001,
+    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_WARN                 = 0x00000002,
+    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_OFF                  = 0x00000003,
+    SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE_INVALID              = 0xFFFFFFFF,
 };
 
 /**
@@ -2491,11 +2494,11 @@ enum SYSTEM_PDV_TDP_CURRENT_VALIDATION_MODE
  */
 enum SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE
 {
-    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_FAIL = 0x00000000,
-    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_INFO = 0x00000001,
-    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_WARN = 0x00000002,
-    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_OFF = 0x00000003,
-    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_INVALID = 0xFFFFFFFF,
+    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_FAIL             = 0x00000000,
+    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_INFO             = 0x00000001,
+    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_WARN             = 0x00000002,
+    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_OFF              = 0x00000003,
+    SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE_INVALID          = 0xFFFFFFFF,
 };
 
 /**
@@ -2505,10 +2508,10 @@ enum SYSTEM_PDV_TDP_CURRENT_LAB_VALIDATION_MODE
  */
 enum SPIPSS_SELECT
 {
-    SPIPSS_SELECT_NONE = 0x000000FF,
-    SPIPSS_SELECT_CS0 = 0x00000000,
-    SPIPSS_SELECT_CS1 = 0x00000001,
-    SPIPSS_SELECT_INVALID = 0xFFFFFFFF,
+    SPIPSS_SELECT_NONE                                          = 0x000000FF,
+    SPIPSS_SELECT_CS0                                           = 0x00000000,
+    SPIPSS_SELECT_CS1                                           = 0x00000001,
+    SPIPSS_SELECT_INVALID                                       = 0xFFFFFFFF,
 };
 
 /**
@@ -2522,15 +2525,15 @@ enum SPIPSS_SELECT
  */
 enum WOF_VRATIO_VDD_10THPCT
 {
-    WOF_VRATIO_VDD_10THPCT_CORE = 0x00000000,
-    WOF_VRATIO_VDD_10THPCT_CACHE_BASE = 0x00000001,
-    WOF_VRATIO_VDD_10THPCT_RACETRACK_PER_CORE = 0x00000002,
-    WOF_VRATIO_VDD_10THPCT_MMA = 0x00000003,
-    WOF_VRATIO_VDD_10THPCT_RESERVED4 = 0x00000004,
-    WOF_VRATIO_VDD_10THPCT_RESERVED5 = 0x00000005,
-    WOF_VRATIO_VDD_10THPCT_RESERVED6 = 0x00000006,
-    WOF_VRATIO_VDD_10THPCT_RESERVED7 = 0x00000007,
-    WOF_VRATIO_VDD_10THPCT_INVALID = 0xFFFFFFFF,
+    WOF_VRATIO_VDD_10THPCT_CORE                                 = 0x00000000,
+    WOF_VRATIO_VDD_10THPCT_CACHE_BASE                           = 0x00000001,
+    WOF_VRATIO_VDD_10THPCT_RACETRACK_PER_CORE                   = 0x00000002,
+    WOF_VRATIO_VDD_10THPCT_MMA                                  = 0x00000003,
+    WOF_VRATIO_VDD_10THPCT_RESERVED4                            = 0x00000004,
+    WOF_VRATIO_VDD_10THPCT_RESERVED5                            = 0x00000005,
+    WOF_VRATIO_VDD_10THPCT_RESERVED6                            = 0x00000006,
+    WOF_VRATIO_VDD_10THPCT_RESERVED7                            = 0x00000007,
+    WOF_VRATIO_VDD_10THPCT_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -2543,15 +2546,15 @@ enum WOF_VRATIO_VDD_10THPCT
  */
 enum WOF_VRATIO_VCS_10THPCT
 {
-    WOF_VRATIO_VCS_10THPCT_CORE = 0x00000000,
-    WOF_VRATIO_VCS_10THPCT_CACHE_BASE = 0x00000001,
-    WOF_VRATIO_VCS_10THPCT_RESERVED2 = 0x00000002,
-    WOF_VRATIO_VCS_10THPCT_RESERVED3 = 0x00000003,
-    WOF_VRATIO_VCS_10THPCT_RESERVED4 = 0x00000004,
-    WOF_VRATIO_VCS_10THPCT_RESERVED5 = 0x00000005,
-    WOF_VRATIO_VCS_10THPCT_RESERVED6 = 0x00000006,
-    WOF_VRATIO_VCS_10THPCT_RESERVED7 = 0x00000007,
-    WOF_VRATIO_VCS_10THPCT_INVALID = 0xFFFFFFFF,
+    WOF_VRATIO_VCS_10THPCT_CORE                                 = 0x00000000,
+    WOF_VRATIO_VCS_10THPCT_CACHE_BASE                           = 0x00000001,
+    WOF_VRATIO_VCS_10THPCT_RESERVED2                            = 0x00000002,
+    WOF_VRATIO_VCS_10THPCT_RESERVED3                            = 0x00000003,
+    WOF_VRATIO_VCS_10THPCT_RESERVED4                            = 0x00000004,
+    WOF_VRATIO_VCS_10THPCT_RESERVED5                            = 0x00000005,
+    WOF_VRATIO_VCS_10THPCT_RESERVED6                            = 0x00000006,
+    WOF_VRATIO_VCS_10THPCT_RESERVED7                            = 0x00000007,
+    WOF_VRATIO_VCS_10THPCT_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -2560,9 +2563,9 @@ enum WOF_VRATIO_VCS_10THPCT
  */
 enum OCS_WITH_DDS_DISABLE
 {
-    OCS_WITH_DDS_DISABLE_OFF = 0x00000000,
-    OCS_WITH_DDS_DISABLE_ON = 0x00000001,
-    OCS_WITH_DDS_DISABLE_INVALID = 0xFFFFFFFF,
+    OCS_WITH_DDS_DISABLE_OFF                                    = 0x00000000,
+    OCS_WITH_DDS_DISABLE_ON                                     = 0x00000001,
+    OCS_WITH_DDS_DISABLE_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -2571,9 +2574,9 @@ enum OCS_WITH_DDS_DISABLE
  */
 enum WOV_OVERV_WITH_DDS_DISABLE
 {
-    WOV_OVERV_WITH_DDS_DISABLE_OFF = 0x00000000,
-    WOV_OVERV_WITH_DDS_DISABLE_ON = 0x00000001,
-    WOV_OVERV_WITH_DDS_DISABLE_INVALID = 0xFFFFFFFF,
+    WOV_OVERV_WITH_DDS_DISABLE_OFF                              = 0x00000000,
+    WOV_OVERV_WITH_DDS_DISABLE_ON                               = 0x00000001,
+    WOV_OVERV_WITH_DDS_DISABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2582,9 +2585,9 @@ enum WOV_OVERV_WITH_DDS_DISABLE
  */
 enum DDS_DPLL_FMAX_FAST_DISABLE
 {
-    DDS_DPLL_FMAX_FAST_DISABLE_OFF = 0x00000000,
-    DDS_DPLL_FMAX_FAST_DISABLE_ON = 0x00000001,
-    DDS_DPLL_FMAX_FAST_DISABLE_INVALID = 0xFFFFFFFF,
+    DDS_DPLL_FMAX_FAST_DISABLE_OFF                              = 0x00000000,
+    DDS_DPLL_FMAX_FAST_DISABLE_ON                               = 0x00000001,
+    DDS_DPLL_FMAX_FAST_DISABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2593,9 +2596,9 @@ enum DDS_DPLL_FMAX_FAST_DISABLE
  */
 enum DDS_DPLL_FMIN_FAST_DISABLE
 {
-    DDS_DPLL_FMIN_FAST_DISABLE_OFF = 0x00000000,
-    DDS_DPLL_FMIN_FAST_DISABLE_ON = 0x00000001,
-    DDS_DPLL_FMIN_FAST_DISABLE_INVALID = 0xFFFFFFFF,
+    DDS_DPLL_FMIN_FAST_DISABLE_OFF                              = 0x00000000,
+    DDS_DPLL_FMIN_FAST_DISABLE_ON                               = 0x00000001,
+    DDS_DPLL_FMIN_FAST_DISABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2605,13 +2608,13 @@ enum DDS_DPLL_FMIN_FAST_DISABLE
  */
 enum FREQ_PB_MHZ_POUNDV_FALLBACK
 {
-    FREQ_PB_MHZ_POUNDV_FALLBACK_NO_FALLBACK = 0x00000000,
-    FREQ_PB_MHZ_POUNDV_FALLBACK_1600 = 0x00000640,
-    FREQ_PB_MHZ_POUNDV_FALLBACK_1866 = 0x0000074A,
-    FREQ_PB_MHZ_POUNDV_FALLBACK_2000 = 0x000007D0,
-    FREQ_PB_MHZ_POUNDV_FALLBACK_2133 = 0x00000855,
-    FREQ_PB_MHZ_POUNDV_FALLBACK_2400 = 0x00000960,
-    FREQ_PB_MHZ_POUNDV_FALLBACK_INVALID = 0xFFFFFFFF,
+    FREQ_PB_MHZ_POUNDV_FALLBACK_NO_FALLBACK                     = 0x00000000,
+    FREQ_PB_MHZ_POUNDV_FALLBACK_1600                            = 0x00000640,
+    FREQ_PB_MHZ_POUNDV_FALLBACK_1866                            = 0x0000074A,
+    FREQ_PB_MHZ_POUNDV_FALLBACK_2000                            = 0x000007D0,
+    FREQ_PB_MHZ_POUNDV_FALLBACK_2133                            = 0x00000855,
+    FREQ_PB_MHZ_POUNDV_FALLBACK_2400                            = 0x00000960,
+    FREQ_PB_MHZ_POUNDV_FALLBACK_INVALID                         = 0xFFFFFFFF,
 };
 
 /**
@@ -2623,9 +2626,9 @@ enum FREQ_PB_MHZ_POUNDV_FALLBACK
  */
 enum PMCR_MOST_RECENT_MODE
 {
-    PMCR_MOST_RECENT_MODE_FALSE = 0x00000000,
-    PMCR_MOST_RECENT_MODE_TRUE = 0x00000001,
-    PMCR_MOST_RECENT_MODE_INVALID = 0xFFFFFFFF,
+    PMCR_MOST_RECENT_MODE_FALSE                                 = 0x00000000,
+    PMCR_MOST_RECENT_MODE_TRUE                                  = 0x00000001,
+    PMCR_MOST_RECENT_MODE_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -2633,9 +2636,9 @@ enum PMCR_MOST_RECENT_MODE
  */
 enum FUSED_CORE_PAIRED_MODE_ENABLED
 {
-    FUSED_CORE_PAIRED_MODE_ENABLED_FALSE = 0x00000000,
-    FUSED_CORE_PAIRED_MODE_ENABLED_TRUE = 0x00000001,
-    FUSED_CORE_PAIRED_MODE_ENABLED_INVALID = 0xFFFFFFFF,
+    FUSED_CORE_PAIRED_MODE_ENABLED_FALSE                        = 0x00000000,
+    FUSED_CORE_PAIRED_MODE_ENABLED_TRUE                         = 0x00000001,
+    FUSED_CORE_PAIRED_MODE_ENABLED_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -2647,9 +2650,9 @@ enum FUSED_CORE_PAIRED_MODE_ENABLED
  */
 enum SYSTEM_MMA_POWEROFF_DISABLE
 {
-    SYSTEM_MMA_POWEROFF_DISABLE_OFF = 0x00000000,
-    SYSTEM_MMA_POWEROFF_DISABLE_ON = 0x00000001,
-    SYSTEM_MMA_POWEROFF_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_MMA_POWEROFF_DISABLE_OFF                             = 0x00000000,
+    SYSTEM_MMA_POWEROFF_DISABLE_ON                              = 0x00000001,
+    SYSTEM_MMA_POWEROFF_DISABLE_INVALID                         = 0xFFFFFFFF,
 };
 
 /**
@@ -2664,9 +2667,9 @@ enum SYSTEM_MMA_POWEROFF_DISABLE
  */
 enum SYSTEM_MMA_POWERON_DISABLE
 {
-    SYSTEM_MMA_POWERON_DISABLE_OFF = 0x00000000,
-    SYSTEM_MMA_POWERON_DISABLE_ON = 0x00000001,
-    SYSTEM_MMA_POWERON_DISABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_MMA_POWERON_DISABLE_OFF                              = 0x00000000,
+    SYSTEM_MMA_POWERON_DISABLE_ON                               = 0x00000001,
+    SYSTEM_MMA_POWERON_DISABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2676,9 +2679,9 @@ enum SYSTEM_MMA_POWERON_DISABLE
  */
 enum DDS_THRESHOLD_PSTATE_ENABLE
 {
-    DDS_THRESHOLD_PSTATE_ENABLE_OFF = 0x00000000,
-    DDS_THRESHOLD_PSTATE_ENABLE_ON = 0x00000001,
-    DDS_THRESHOLD_PSTATE_ENABLE_INVALID = 0xFFFFFFFF,
+    DDS_THRESHOLD_PSTATE_ENABLE_OFF                             = 0x00000000,
+    DDS_THRESHOLD_PSTATE_ENABLE_ON                              = 0x00000001,
+    DDS_THRESHOLD_PSTATE_ENABLE_INVALID                         = 0xFFFFFFFF,
 };
 
 /**
@@ -2687,9 +2690,9 @@ enum DDS_THRESHOLD_PSTATE_ENABLE
  */
 enum DDS_COARSE_THROTTLE_ENABLE
 {
-    DDS_COARSE_THROTTLE_ENABLE_OFF = 0x00000000,
-    DDS_COARSE_THROTTLE_ENABLE_ON = 0x00000001,
-    DDS_COARSE_THROTTLE_ENABLE_INVALID = 0xFFFFFFFF,
+    DDS_COARSE_THROTTLE_ENABLE_OFF                              = 0x00000000,
+    DDS_COARSE_THROTTLE_ENABLE_ON                               = 0x00000001,
+    DDS_COARSE_THROTTLE_ENABLE_INVALID                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2698,9 +2701,9 @@ enum DDS_COARSE_THROTTLE_ENABLE
  */
 enum DDS_FREQ_JUMP_ENABLE
 {
-    DDS_FREQ_JUMP_ENABLE_OFF = 0x00000000,
-    DDS_FREQ_JUMP_ENABLE_ON = 0x00000001,
-    DDS_FREQ_JUMP_ENABLE_INVALID = 0xFFFFFFFF,
+    DDS_FREQ_JUMP_ENABLE_OFF                                    = 0x00000000,
+    DDS_FREQ_JUMP_ENABLE_ON                                     = 0x00000001,
+    DDS_FREQ_JUMP_ENABLE_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -2710,9 +2713,9 @@ enum DDS_FREQ_JUMP_ENABLE
  */
 enum DDS_BIAS_ENABLE
 {
-    DDS_BIAS_ENABLE_OFF = 0x00000000,
-    DDS_BIAS_ENABLE_ON = 0x00000001,
-    DDS_BIAS_ENABLE_INVALID = 0xFFFFFFFF,
+    DDS_BIAS_ENABLE_OFF                                         = 0x00000000,
+    DDS_BIAS_ENABLE_ON                                          = 0x00000001,
+    DDS_BIAS_ENABLE_INVALID                                     = 0xFFFFFFFF,
 };
 
 /**
@@ -2723,11 +2726,11 @@ enum DDS_BIAS_ENABLE
  */
 enum THROTTLE_MODE
 {
-    THROTTLE_MODE_NONE = 0x00000000,
-    THROTTLE_MODE_ICTMN = 0x00000001,
-    THROTTLE_MODE_PP_PCT_RED = 0x00000002,
-    THROTTLE_MODE_PP_TARGET = 0x00000003,
-    THROTTLE_MODE_INVALID = 0xFFFFFFFF,
+    THROTTLE_MODE_NONE                                          = 0x00000000,
+    THROTTLE_MODE_ICTMN                                         = 0x00000001,
+    THROTTLE_MODE_PP_PCT_RED                                    = 0x00000002,
+    THROTTLE_MODE_PP_TARGET                                     = 0x00000003,
+    THROTTLE_MODE_INVALID                                       = 0xFFFFFFFF,
 };
 
 /**
@@ -2736,9 +2739,9 @@ enum THROTTLE_MODE
  */
 enum SAFE_MODE_XSTOP
 {
-    SAFE_MODE_XSTOP_OFF = 0x00000000,
-    SAFE_MODE_XSTOP_ON = 0x00000001,
-    SAFE_MODE_XSTOP_INVALID = 0xFFFFFFFF,
+    SAFE_MODE_XSTOP_OFF                                         = 0x00000000,
+    SAFE_MODE_XSTOP_ON                                          = 0x00000001,
+    SAFE_MODE_XSTOP_INVALID                                     = 0xFFFFFFFF,
 };
 
 /**
@@ -2753,9 +2756,9 @@ enum SAFE_MODE_XSTOP
  */
 enum SYSTEM_FMAX_ENABLE
 {
-    SYSTEM_FMAX_ENABLE_OFF = 0x00000000,
-    SYSTEM_FMAX_ENABLE_ON = 0x00000001,
-    SYSTEM_FMAX_ENABLE_INVALID = 0xFFFFFFFF,
+    SYSTEM_FMAX_ENABLE_OFF                                      = 0x00000000,
+    SYSTEM_FMAX_ENABLE_ON                                       = 0x00000001,
+    SYSTEM_FMAX_ENABLE_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -2764,9 +2767,9 @@ enum SYSTEM_FMAX_ENABLE
  */
 enum WOF_IO_POWER_MODE
 {
-    WOF_IO_POWER_MODE_STATIC = 0x00000000,
-    WOF_IO_POWER_MODE_DYNAMIC = 0x00000001,
-    WOF_IO_POWER_MODE_INVALID = 0xFFFFFFFF,
+    WOF_IO_POWER_MODE_STATIC                                    = 0x00000000,
+    WOF_IO_POWER_MODE_DYNAMIC                                   = 0x00000001,
+    WOF_IO_POWER_MODE_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -2775,10 +2778,10 @@ enum WOF_IO_POWER_MODE
  */
 enum EXTENDED_FREQ_MODE
 {
-    EXTENDED_FREQ_MODE_NEW_FREQ = 0x00000001,
-    EXTENDED_FREQ_MODE_OLD_FREQ = 0x00000002,
-    EXTENDED_FREQ_MODE_USE_RDP = 0x00000003,
-    EXTENDED_FREQ_MODE_INVALID = 0xFFFFFFFF,
+    EXTENDED_FREQ_MODE_NEW_FREQ                                 = 0x00000001,
+    EXTENDED_FREQ_MODE_OLD_FREQ                                 = 0x00000002,
+    EXTENDED_FREQ_MODE_USE_RDP                                  = 0x00000003,
+    EXTENDED_FREQ_MODE_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -2787,9 +2790,9 @@ enum EXTENDED_FREQ_MODE
  */
 enum OCC_START_DISABLE
 {
-    OCC_START_DISABLE_OFF = 0x00000000,
-    OCC_START_DISABLE_ON = 0x00000001,
-    OCC_START_DISABLE_INVALID = 0xFFFFFFFF,
+    OCC_START_DISABLE_OFF                                       = 0x00000000,
+    OCC_START_DISABLE_ON                                        = 0x00000001,
+    OCC_START_DISABLE_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -2797,62 +2800,9 @@ enum OCC_START_DISABLE
  */
 enum FUNCTIONAL
 {
-    FUNCTIONAL_NON_FUNCTIONAL = 0x00000000,
-    FUNCTIONAL_FUNCTIONAL = 0x00000001,
-    FUNCTIONAL_INVALID = 0xFFFFFFFF,
-};
-
-/**
- *  @brief Product name of a chip target. Provided by the MRW.
- */
-enum NAME
-{
-    NAME_NONE = 0x00000000,
-    NAME_EXPLORER = 0x00000008,
-    NAME_ODYSSEY = 0x0000000B,
-    NAME_GEMINI = 0x00000009,
-    NAME_P10 = 0x0000000A,
-    NAME_INVALID = 0xFFFFFFFF,
-};
-
-/**
- *  @brief Specifies target chiplet ID for scan operations via
- *	fapi2::putRing. If set, this attribute will override the chiplet ID
- *	present in the RS4 encoded scan ring image.
- */
-enum SCAN_CHIPLET_OVERRIDE
-{
-    SCAN_CHIPLET_OVERRIDE_NONE = 0x00000000,
-    SCAN_CHIPLET_OVERRIDE_TP = 0x00000001,
-    SCAN_CHIPLET_OVERRIDE_N0 = 0x00000002,
-    SCAN_CHIPLET_OVERRIDE_N1 = 0x00000003,
-    SCAN_CHIPLET_OVERRIDE_PCI0 = 0x00000008,
-    SCAN_CHIPLET_OVERRIDE_PCI1 = 0x00000009,
-    SCAN_CHIPLET_OVERRIDE_MC0 = 0x0000000C,
-    SCAN_CHIPLET_OVERRIDE_MC1 = 0x0000000D,
-    SCAN_CHIPLET_OVERRIDE_MC2 = 0x0000000E,
-    SCAN_CHIPLET_OVERRIDE_MC3 = 0x0000000F,
-    SCAN_CHIPLET_OVERRIDE_PAU0 = 0x00000010,
-    SCAN_CHIPLET_OVERRIDE_PAU1 = 0x00000011,
-    SCAN_CHIPLET_OVERRIDE_PAU2 = 0x00000012,
-    SCAN_CHIPLET_OVERRIDE_PAU3 = 0x00000013,
-    SCAN_CHIPLET_OVERRIDE_IOHS0 = 0x00000018,
-    SCAN_CHIPLET_OVERRIDE_IOHS1 = 0x00000019,
-    SCAN_CHIPLET_OVERRIDE_IOHS2 = 0x0000001A,
-    SCAN_CHIPLET_OVERRIDE_IOHS3 = 0x0000001B,
-    SCAN_CHIPLET_OVERRIDE_IOHS4 = 0x0000001C,
-    SCAN_CHIPLET_OVERRIDE_IOHS5 = 0x0000001D,
-    SCAN_CHIPLET_OVERRIDE_IOHS6 = 0x0000001E,
-    SCAN_CHIPLET_OVERRIDE_IOHS7 = 0x0000001F,
-    SCAN_CHIPLET_OVERRIDE_EQ0 = 0x00000020,
-    SCAN_CHIPLET_OVERRIDE_EQ1 = 0x00000021,
-    SCAN_CHIPLET_OVERRIDE_EQ2 = 0x00000022,
-    SCAN_CHIPLET_OVERRIDE_EQ3 = 0x00000023,
-    SCAN_CHIPLET_OVERRIDE_EQ4 = 0x00000024,
-    SCAN_CHIPLET_OVERRIDE_EQ5 = 0x00000025,
-    SCAN_CHIPLET_OVERRIDE_EQ6 = 0x00000026,
-    SCAN_CHIPLET_OVERRIDE_EQ7 = 0x00000027,
-    SCAN_CHIPLET_OVERRIDE_INVALID = 0xFFFFFFFF,
+    FUNCTIONAL_NON_FUNCTIONAL                                   = 0x00000000,
+    FUNCTIONAL_FUNCTIONAL                                       = 0x00000001,
+    FUNCTIONAL_INVALID                                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2860,19 +2810,19 @@ enum SCAN_CHIPLET_OVERRIDE
  */
 enum CDM_DOMAIN
 {
-    CDM_DOMAIN_NONE = 0x00000000,
-    CDM_DOMAIN_CPU = 0x00000001,
-    CDM_DOMAIN_DIMM = 0x00000002,
-    CDM_DOMAIN_FABRIC = 0x00000003,
-    CDM_DOMAIN_MEM = 0x00000004,
-    CDM_DOMAIN_IO = 0x00000005,
-    CDM_DOMAIN_NODE = 0x00000006,
-    CDM_DOMAIN_CLOCK = 0x00000007,
-    CDM_DOMAIN_PSI = 0x00000008,
-    CDM_DOMAIN_FSP = 0x00000009,
-    CDM_DOMAIN_SECURITY = 0x0000000A,
-    CDM_DOMAIN_ALL = 0x0000000B,
-    CDM_DOMAIN_INVALID = 0xFFFFFFFF,
+    CDM_DOMAIN_NONE                                             = 0x00000000,
+    CDM_DOMAIN_CPU                                              = 0x00000001,
+    CDM_DOMAIN_DIMM                                             = 0x00000002,
+    CDM_DOMAIN_FABRIC                                           = 0x00000003,
+    CDM_DOMAIN_MEM                                              = 0x00000004,
+    CDM_DOMAIN_IO                                               = 0x00000005,
+    CDM_DOMAIN_NODE                                             = 0x00000006,
+    CDM_DOMAIN_CLOCK                                            = 0x00000007,
+    CDM_DOMAIN_PSI                                              = 0x00000008,
+    CDM_DOMAIN_FSP                                              = 0x00000009,
+    CDM_DOMAIN_SECURITY                                         = 0x0000000A,
+    CDM_DOMAIN_ALL                                              = 0x0000000B,
+    CDM_DOMAIN_INVALID                                          = 0xFFFFFFFF,
 };
 
 /**
@@ -2880,9 +2830,9 @@ enum CDM_DOMAIN
  */
 enum CDM_POLICIES
 {
-    CDM_POLICIES_MANUFACTURING_DISABLED = 0x00000001,
-    CDM_POLICIES_PREDICTIVE_DISABLED = 0x00000002,
-    CDM_POLICIES_INVALID = 0xFFFFFFFF,
+    CDM_POLICIES_MANUFACTURING_DISABLED                         = 0x00000001,
+    CDM_POLICIES_PREDICTIVE_DISABLED                            = 0x00000002,
+    CDM_POLICIES_INVALID                                        = 0xFFFFFFFF,
 };
 
 /**
@@ -2890,20 +2840,20 @@ enum CDM_POLICIES
  */
 enum CLASS
 {
-    CLASS_NA = 0x00000000,
-    CLASS_CARD = 0x00000001,
-    CLASS_ENC = 0x00000002,
-    CLASS_CHIP = 0x00000003,
-    CLASS_UNIT = 0x00000004,
-    CLASS_DEV = 0x00000005,
-    CLASS_SYS = 0x00000006,
-    CLASS_LOGICAL_CARD = 0x00000007,
-    CLASS_BATTERY = 0x00000008,
-    CLASS_LED = 0x00000009,
-    CLASS_SP = 0x0000000A,
-    CLASS_ASIC = 0x0000000B,
-    CLASS_MAX = 0x0000000C,
-    CLASS_INVALID = 0xFFFFFFFF,
+    CLASS_NA                                                    = 0x00000000,
+    CLASS_CARD                                                  = 0x00000001,
+    CLASS_ENC                                                   = 0x00000002,
+    CLASS_CHIP                                                  = 0x00000003,
+    CLASS_UNIT                                                  = 0x00000004,
+    CLASS_DEV                                                   = 0x00000005,
+    CLASS_SYS                                                   = 0x00000006,
+    CLASS_LOGICAL_CARD                                          = 0x00000007,
+    CLASS_BATTERY                                               = 0x00000008,
+    CLASS_LED                                                   = 0x00000009,
+    CLASS_SP                                                    = 0x0000000A,
+    CLASS_ASIC                                                  = 0x0000000B,
+    CLASS_MAX                                                   = 0x0000000C,
+    CLASS_INVALID                                               = 0xFFFFFFFF,
 };
 
 /**
@@ -2911,9 +2861,9 @@ enum CLASS
  */
 enum EECACHE_VPD_STATE
 {
-    EECACHE_VPD_STATE_VPD_GOOD = 0x00000000,
-    EECACHE_VPD_STATE_VPD_NEEDS_REFRESH = 0x00000001,
-    EECACHE_VPD_STATE_INVALID = 0xFFFFFFFF,
+    EECACHE_VPD_STATE_VPD_GOOD                                  = 0x00000000,
+    EECACHE_VPD_STATE_VPD_NEEDS_REFRESH                         = 0x00000001,
+    EECACHE_VPD_STATE_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -2929,17 +2879,17 @@ enum EECACHE_VPD_STATE
  */
 enum EEPROM_CONTENT_TYPE
 {
-    EEPROM_CONTENT_TYPE_RAW = 0x00000000,
-    EEPROM_CONTENT_TYPE_ISDIMM = 0x00000001,
-    EEPROM_CONTENT_TYPE_IBM_FRUVPD = 0x00000002,
-    EEPROM_CONTENT_TYPE_IBM_MVPD = 0x00000003,
-    EEPROM_CONTENT_TYPE_DDIMM = 0x00000004,
-    EEPROM_CONTENT_TYPE_SBE_BOOT_CODE = 0x00000005,
-    EEPROM_CONTENT_TYPE_SBE_MEASUREMENT_CODE = 0x00000006,
-    EEPROM_CONTENT_TYPE_WOF_DATA = 0x00000007,
-    EEPROM_CONTENT_TYPE_KEYSTORE = 0x00000008,
-    EEPROM_CONTENT_TYPE_PLANAR_OCMB_SPD = 0x00000009,
-    EEPROM_CONTENT_TYPE_INVALID = 0xFFFFFFFF,
+    EEPROM_CONTENT_TYPE_RAW                                     = 0x00000000,
+    EEPROM_CONTENT_TYPE_ISDIMM                                  = 0x00000001,
+    EEPROM_CONTENT_TYPE_IBM_FRUVPD                              = 0x00000002,
+    EEPROM_CONTENT_TYPE_IBM_MVPD                                = 0x00000003,
+    EEPROM_CONTENT_TYPE_DDIMM                                   = 0x00000004,
+    EEPROM_CONTENT_TYPE_SBE_BOOT_CODE                           = 0x00000005,
+    EEPROM_CONTENT_TYPE_SBE_MEASUREMENT_CODE                    = 0x00000006,
+    EEPROM_CONTENT_TYPE_WOF_DATA                                = 0x00000007,
+    EEPROM_CONTENT_TYPE_KEYSTORE                                = 0x00000008,
+    EEPROM_CONTENT_TYPE_PLANAR_OCMB_SPD                         = 0x00000009,
+    EEPROM_CONTENT_TYPE_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -2948,12 +2898,12 @@ enum EEPROM_CONTENT_TYPE
  */
 enum EEPROM_VPD_ACCESSIBILITY
 {
-    EEPROM_VPD_ACCESSIBILITY_NONE_DISABLED = 0x00000000,
-    EEPROM_VPD_ACCESSIBILITY_CACHE_DISABLED = 0x00000001,
-    EEPROM_VPD_ACCESSIBILITY_PRIMARY_DISABLED = 0x00000002,
-    EEPROM_VPD_ACCESSIBILITY_SECONDARY_DISABLED = 0x00000004,
-    EEPROM_VPD_ACCESSIBILITY_LAST_DISABLED = 0x00000008,
-    EEPROM_VPD_ACCESSIBILITY_INVALID = 0xFFFFFFFF,
+    EEPROM_VPD_ACCESSIBILITY_NONE_DISABLED                      = 0x00000000,
+    EEPROM_VPD_ACCESSIBILITY_CACHE_DISABLED                     = 0x00000001,
+    EEPROM_VPD_ACCESSIBILITY_PRIMARY_DISABLED                   = 0x00000002,
+    EEPROM_VPD_ACCESSIBILITY_SECONDARY_DISABLED                 = 0x00000004,
+    EEPROM_VPD_ACCESSIBILITY_LAST_DISABLED                      = 0x00000008,
+    EEPROM_VPD_ACCESSIBILITY_INVALID                            = 0xFFFFFFFF,
 };
 
 /**
@@ -2961,10 +2911,10 @@ enum EEPROM_VPD_ACCESSIBILITY
  */
 enum EEPROM_VPD_REDUNDANCY
 {
-    EEPROM_VPD_REDUNDANCY_POSSIBLE = 0x00000000,
-    EEPROM_VPD_REDUNDANCY_PRESENT = 0x00000001,
-    EEPROM_VPD_REDUNDANCY_NOT_PRESENT = 0x00000002,
-    EEPROM_VPD_REDUNDANCY_INVALID = 0xFFFFFFFF,
+    EEPROM_VPD_REDUNDANCY_POSSIBLE                              = 0x00000000,
+    EEPROM_VPD_REDUNDANCY_PRESENT                               = 0x00000001,
+    EEPROM_VPD_REDUNDANCY_NOT_PRESENT                           = 0x00000002,
+    EEPROM_VPD_REDUNDANCY_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -2972,10 +2922,10 @@ enum EEPROM_VPD_REDUNDANCY
  */
 enum ENGINE_TYPE
 {
-    ENGINE_TYPE_NA = 0x00000000,
-    ENGINE_TYPE_ENGINE_IIC = 0x00000001,
-    ENGINE_TYPE_ENGINE_SCOM = 0x00000002,
-    ENGINE_TYPE_INVALID = 0xFFFFFFFF,
+    ENGINE_TYPE_NA                                              = 0x00000000,
+    ENGINE_TYPE_ENGINE_IIC                                      = 0x00000001,
+    ENGINE_TYPE_ENGINE_SCOM                                     = 0x00000002,
+    ENGINE_TYPE_INVALID                                         = 0xFFFFFFFF,
 };
 
 /**
@@ -2985,7 +2935,7 @@ enum ENGINE_TYPE
  */
 enum FAPI_POS
 {
-    FAPI_POS_NA = 0xFFFFFFFF,
+    FAPI_POS_NA                                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -2993,11 +2943,11 @@ enum FAPI_POS
  */
 enum FOUND_PRESENT_BY_SP
 {
-    FOUND_PRESENT_BY_SP_NO_ATTEMPT = 0x00000000,
-    FOUND_PRESENT_BY_SP_FOUND = 0x00000001,
-    FOUND_PRESENT_BY_SP_MISSING = 0x00000002,
-    FOUND_PRESENT_BY_SP_SKIP = 0x00000003,
-    FOUND_PRESENT_BY_SP_INVALID = 0xFFFFFFFF,
+    FOUND_PRESENT_BY_SP_NO_ATTEMPT                              = 0x00000000,
+    FOUND_PRESENT_BY_SP_FOUND                                   = 0x00000001,
+    FOUND_PRESENT_BY_SP_MISSING                                 = 0x00000002,
+    FOUND_PRESENT_BY_SP_SKIP                                    = 0x00000003,
+    FOUND_PRESENT_BY_SP_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -3005,10 +2955,10 @@ enum FOUND_PRESENT_BY_SP
  */
 enum FSI_MASTER_TYPE
 {
-    FSI_MASTER_TYPE_MFSI = 0x00000000,
-    FSI_MASTER_TYPE_CMFSI = 0x00000001,
-    FSI_MASTER_TYPE_NO_MASTER = 0x00000002,
-    FSI_MASTER_TYPE_INVALID = 0xFFFFFFFF,
+    FSI_MASTER_TYPE_MFSI                                        = 0x00000000,
+    FSI_MASTER_TYPE_CMFSI                                       = 0x00000001,
+    FSI_MASTER_TYPE_NO_MASTER                                   = 0x00000002,
+    FSI_MASTER_TYPE_INVALID                                     = 0xFFFFFFFF,
 };
 
 /**
@@ -3016,10 +2966,10 @@ enum FSI_MASTER_TYPE
  */
 enum FUSED_CORE_MODE_HB
 {
-    FUSED_CORE_MODE_HB_SMT4_DEFAULT = 0x00000000,
-    FUSED_CORE_MODE_HB_SMT4_ONLY = 0x00000004,
-    FUSED_CORE_MODE_HB_SMT8_ONLY = 0x00000008,
-    FUSED_CORE_MODE_HB_INVALID = 0xFFFFFFFF,
+    FUSED_CORE_MODE_HB_SMT4_DEFAULT                             = 0x00000000,
+    FUSED_CORE_MODE_HB_SMT4_ONLY                                = 0x00000004,
+    FUSED_CORE_MODE_HB_SMT8_ONLY                                = 0x00000008,
+    FUSED_CORE_MODE_HB_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -3027,10 +2977,10 @@ enum FUSED_CORE_MODE_HB
  */
 enum FUSED_CORE_OPTION
 {
-    FUSED_CORE_OPTION_USING_DEFAULT_CORES = 0x00000000,
-    FUSED_CORE_OPTION_USING_NORMAL_CORES = 0x00000001,
-    FUSED_CORE_OPTION_USING_FUSED_CORES = 0x00000002,
-    FUSED_CORE_OPTION_INVALID = 0x000000FF,
+    FUSED_CORE_OPTION_USING_DEFAULT_CORES                       = 0x00000000,
+    FUSED_CORE_OPTION_USING_NORMAL_CORES                        = 0x00000001,
+    FUSED_CORE_OPTION_USING_FUSED_CORES                         = 0x00000002,
+    FUSED_CORE_OPTION_INVALID                                   = 0x000000FF,
 };
 
 /**
@@ -3039,24 +2989,24 @@ enum FUSED_CORE_OPTION
  */
 enum HDAT_I2C_DEVICE_PURPOSE
 {
-    HDAT_I2C_DEVICE_PURPOSE_CABLE_CARD_PRES = 0x00000001,
-    HDAT_I2C_DEVICE_PURPOSE_PCI_HOTPLUG_PGOOD = 0x00000002,
-    HDAT_I2C_DEVICE_PURPOSE_PCI_HOTPLUG_CONTROL = 0x00000003,
-    HDAT_I2C_DEVICE_PURPOSE_TPM = 0x00000004,
-    HDAT_I2C_DEVICE_PURPOSE_MODULE_VPD = 0x00000005,
-    HDAT_I2C_DEVICE_PURPOSE_DIMM_SPD = 0x00000006,
-    HDAT_I2C_DEVICE_PURPOSE_PROC_MODULE_VPD = 0x00000007,
-    HDAT_I2C_DEVICE_PURPOSE_SBE_SEEPROM = 0x00000008,
-    HDAT_I2C_DEVICE_PURPOSE_PLANAR_VPD = 0x00000009,
-    HDAT_I2C_DEVICE_PURPOSE_NVLINK_CABLE_TOPOLOGY_VERIFICATION = 0x0000000A,
-    HDAT_I2C_DEVICE_PURPOSE_NVLINK = 0x0000000B,
-    HDAT_I2C_DEVICE_PURPOSE_NVLINK_CABLE_MICRO_RESET = 0x0000000B,
-    HDAT_I2C_DEVICE_PURPOSE_I2C_ASSOC_WITH_NVLINK_CABLE = 0x0000000C,
-    HDAT_I2C_DEVICE_PURPOSE_WINDOW_OPEN = 0x0000000D,
-    HDAT_I2C_DEVICE_PURPOSE_PHYSICAL_PRESENCE = 0x0000000E,
-    HDAT_I2C_DEVICE_PURPOSE_MEX_FPGA = 0x0000000F,
-    HDAT_I2C_DEVICE_PURPOSE_UNKNOWN = 0x000000FF,
-    HDAT_I2C_DEVICE_PURPOSE_INVALID = 0xFFFFFFFF,
+    HDAT_I2C_DEVICE_PURPOSE_CABLE_CARD_PRES                     = 0x00000001,
+    HDAT_I2C_DEVICE_PURPOSE_PCI_HOTPLUG_PGOOD                   = 0x00000002,
+    HDAT_I2C_DEVICE_PURPOSE_PCI_HOTPLUG_CONTROL                 = 0x00000003,
+    HDAT_I2C_DEVICE_PURPOSE_TPM                                 = 0x00000004,
+    HDAT_I2C_DEVICE_PURPOSE_MODULE_VPD                          = 0x00000005,
+    HDAT_I2C_DEVICE_PURPOSE_DIMM_SPD                            = 0x00000006,
+    HDAT_I2C_DEVICE_PURPOSE_PROC_MODULE_VPD                     = 0x00000007,
+    HDAT_I2C_DEVICE_PURPOSE_SBE_SEEPROM                         = 0x00000008,
+    HDAT_I2C_DEVICE_PURPOSE_PLANAR_VPD                          = 0x00000009,
+    HDAT_I2C_DEVICE_PURPOSE_NVLINK_CABLE_TOPOLOGY_VERIFICATION  = 0x0000000A,
+    HDAT_I2C_DEVICE_PURPOSE_NVLINK                              = 0x0000000B,
+    HDAT_I2C_DEVICE_PURPOSE_NVLINK_CABLE_MICRO_RESET            = 0x0000000B,
+    HDAT_I2C_DEVICE_PURPOSE_I2C_ASSOC_WITH_NVLINK_CABLE         = 0x0000000C,
+    HDAT_I2C_DEVICE_PURPOSE_WINDOW_OPEN                         = 0x0000000D,
+    HDAT_I2C_DEVICE_PURPOSE_PHYSICAL_PRESENCE                   = 0x0000000E,
+    HDAT_I2C_DEVICE_PURPOSE_MEX_FPGA                            = 0x0000000F,
+    HDAT_I2C_DEVICE_PURPOSE_UNKNOWN                             = 0x000000FF,
+    HDAT_I2C_DEVICE_PURPOSE_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -3065,32 +3015,32 @@ enum HDAT_I2C_DEVICE_PURPOSE
  */
 enum HDAT_I2C_DEVICE_TYPE
 {
-    HDAT_I2C_DEVICE_TYPE_9551 = 0x00000001,
-    HDAT_I2C_DEVICE_TYPE_955X = 0x00000001,
-    HDAT_I2C_DEVICE_TYPE_SEEPROM = 0x00000002,
-    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel28c128 = 0x00000002,
-    HDAT_I2C_DEVICE_TYPE_NUVOTON_TPM = 0x00000003,
-    HDAT_I2C_DEVICE_TYPE_MEX_FPGA = 0x00000004,
-    HDAT_I2C_DEVICE_TYPE_UCX90XX = 0x00000005,
-    HDAT_I2C_DEVICE_TYPE_NVLINK = 0x00000006,
-    HDAT_I2C_DEVICE_TYPE_9552 = 0x00000006,
-    HDAT_I2C_DEVICE_TYPE_9553 = 0x00000007,
-    HDAT_I2C_DEVICE_TYPE_9554 = 0x00000008,
-    HDAT_I2C_DEVICE_TYPE_9555 = 0x00000009,
-    HDAT_I2C_DEVICE_TYPE_SMP_or_OpenCAPI_Cable = 0x0000000A,
-    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel28c256 = 0x0000000B,
-    HDAT_I2C_DEVICE_TYPE_THERMAL_SENSOR = 0x0000000C,
-    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c04 = 0x0000000D,
-    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c412 = 0x0000000E,
-    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c32 = 0x0000000F,
-    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c64 = 0x00000010,
-    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c16 = 0x00000011,
-    HDAT_I2C_DEVICE_TYPE_NVDIA_GPU = 0x00000012,
-    HDAT_I2C_DEVICE_TYPE_NXP_LPC_Microcontroller_LPC11U35 = 0x00000013,
-    HDAT_I2C_DEVICE_TYPE_9550 = 0x00000014,
-    HDAT_I2C_DEVICE_TYPE_TCG_I2C_TPM = 0x00000015,
-    HDAT_I2C_DEVICE_TYPE_UNKNOWN = 0x000000FF,
-    HDAT_I2C_DEVICE_TYPE_INVALID = 0xFFFFFFFF,
+    HDAT_I2C_DEVICE_TYPE_9551                                   = 0x00000001,
+    HDAT_I2C_DEVICE_TYPE_955X                                   = 0x00000001,
+    HDAT_I2C_DEVICE_TYPE_SEEPROM                                = 0x00000002,
+    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel28c128                    = 0x00000002,
+    HDAT_I2C_DEVICE_TYPE_NUVOTON_TPM                            = 0x00000003,
+    HDAT_I2C_DEVICE_TYPE_MEX_FPGA                               = 0x00000004,
+    HDAT_I2C_DEVICE_TYPE_UCX90XX                                = 0x00000005,
+    HDAT_I2C_DEVICE_TYPE_NVLINK                                 = 0x00000006,
+    HDAT_I2C_DEVICE_TYPE_9552                                   = 0x00000006,
+    HDAT_I2C_DEVICE_TYPE_9553                                   = 0x00000007,
+    HDAT_I2C_DEVICE_TYPE_9554                                   = 0x00000008,
+    HDAT_I2C_DEVICE_TYPE_9555                                   = 0x00000009,
+    HDAT_I2C_DEVICE_TYPE_SMP_or_OpenCAPI_Cable                  = 0x0000000A,
+    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel28c256                    = 0x0000000B,
+    HDAT_I2C_DEVICE_TYPE_THERMAL_SENSOR                         = 0x0000000C,
+    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c04                     = 0x0000000D,
+    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c412                    = 0x0000000E,
+    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c32                     = 0x0000000F,
+    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c64                     = 0x00000010,
+    HDAT_I2C_DEVICE_TYPE_SEEPROM_Atmel24c16                     = 0x00000011,
+    HDAT_I2C_DEVICE_TYPE_NVDIA_GPU                              = 0x00000012,
+    HDAT_I2C_DEVICE_TYPE_NXP_LPC_Microcontroller_LPC11U35       = 0x00000013,
+    HDAT_I2C_DEVICE_TYPE_9550                                   = 0x00000014,
+    HDAT_I2C_DEVICE_TYPE_TCG_I2C_TPM                            = 0x00000015,
+    HDAT_I2C_DEVICE_TYPE_UNKNOWN                                = 0x000000FF,
+    HDAT_I2C_DEVICE_TYPE_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -3100,15 +3050,15 @@ enum HDAT_I2C_DEVICE_TYPE
  */
 enum HWAS_CHANGED_BIT
 {
-    HWAS_CHANGED_BIT_GARD = 0x00000001,
-    HWAS_CHANGED_BIT_MEMDIAG = 0x00000002,
-    HWAS_CHANGED_BIT_PSIDIAG = 0x00000004,
-    HWAS_CHANGED_BIT_DIAG_MASK = 0x00000006,
-    HWAS_CHANGED_BIT_HOSTSVC_HBEL = 0x00000008,
-    HWAS_CHANGED_BIT_RESRC_RECOV = 0x00000010,
-    HWAS_CHANGED_BIT_GARD_APPLIED = 0x00000020,
-    HWAS_CHANGED_BIT_DEVTREE_SYNC = 0x00000040,
-    HWAS_CHANGED_BIT_INVALID = 0xFFFFFFFF,
+    HWAS_CHANGED_BIT_GARD                                       = 0x00000001,
+    HWAS_CHANGED_BIT_MEMDIAG                                    = 0x00000002,
+    HWAS_CHANGED_BIT_PSIDIAG                                    = 0x00000004,
+    HWAS_CHANGED_BIT_DIAG_MASK                                  = 0x00000006,
+    HWAS_CHANGED_BIT_HOSTSVC_HBEL                               = 0x00000008,
+    HWAS_CHANGED_BIT_RESRC_RECOV                                = 0x00000010,
+    HWAS_CHANGED_BIT_GARD_APPLIED                               = 0x00000020,
+    HWAS_CHANGED_BIT_DEVTREE_SYNC                               = 0x00000040,
+    HWAS_CHANGED_BIT_INVALID                                    = 0xFFFFFFFF,
 };
 
 /**
@@ -3117,15 +3067,15 @@ enum HWAS_CHANGED_BIT
  */
 enum KEY_CLEAR_REQUEST
 {
-    KEY_CLEAR_REQUEST_NONE = 0x00000000,
-    KEY_CLEAR_REQUEST_ALL = 0x00008000,
-    KEY_CLEAR_REQUEST_OS_KEYS = 0x00004000,
-    KEY_CLEAR_REQUEST_POWERVM_SYSKEY = 0x00001000,
-    KEY_CLEAR_REQUEST_RESERVED_1 = 0x00002C00,
-    KEY_CLEAR_REQUEST_MFG_ALL = 0x00000200,
-    KEY_CLEAR_REQUEST_MFG = 0x00000100,
-    KEY_CLEAR_REQUEST_RESERVED_2 = 0x000000FF,
-    KEY_CLEAR_REQUEST_INVALID = 0xFFFFFFFF,
+    KEY_CLEAR_REQUEST_NONE                                      = 0x00000000,
+    KEY_CLEAR_REQUEST_ALL                                       = 0x00008000,
+    KEY_CLEAR_REQUEST_OS_KEYS                                   = 0x00004000,
+    KEY_CLEAR_REQUEST_POWERVM_SYSKEY                            = 0x00001000,
+    KEY_CLEAR_REQUEST_RESERVED_1                                = 0x00002C00,
+    KEY_CLEAR_REQUEST_MFG_ALL                                   = 0x00000200,
+    KEY_CLEAR_REQUEST_MFG                                       = 0x00000100,
+    KEY_CLEAR_REQUEST_RESERVED_2                                = 0x000000FF,
+    KEY_CLEAR_REQUEST_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -3134,11 +3084,11 @@ enum KEY_CLEAR_REQUEST
  */
 enum KEY_TRANSITION_STATE
 {
-    KEY_TRANSITION_STATE_KEY_TRANSITION_NOT_REQUESTED = 0x00000000,
-    KEY_TRANSITION_STATE_KEY_TRANSITION_STARTED = 0x00000001,
-    KEY_TRANSITION_STATE_KEY_TRANSITION_FAILED = 0x00000002,
-    KEY_TRANSITION_STATE_KEY_TRANSITION_SUCCEEDED = 0x00000003,
-    KEY_TRANSITION_STATE_INVALID = 0xFFFFFFFF,
+    KEY_TRANSITION_STATE_KEY_TRANSITION_NOT_REQUESTED           = 0x00000000,
+    KEY_TRANSITION_STATE_KEY_TRANSITION_STARTED                 = 0x00000001,
+    KEY_TRANSITION_STATE_KEY_TRANSITION_FAILED                  = 0x00000002,
+    KEY_TRANSITION_STATE_KEY_TRANSITION_SUCCEEDED               = 0x00000003,
+    KEY_TRANSITION_STATE_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -3146,30 +3096,30 @@ enum KEY_TRANSITION_STATE
  */
 enum MODEL
 {
-    MODEL_NA = 0x00000000,
-    MODEL_RESERVED = 0x00000010,
-    MODEL_VENICE = 0x00000011,
-    MODEL_MURANO = 0x00000012,
-    MODEL_NAPLES = 0x00000013,
-    MODEL_NIMBUS = 0x00000014,
-    MODEL_CUMULUS = 0x00000015,
-    MODEL_AXONE = 0x00000016,
-    MODEL_CENTAUR = 0x00000030,
-    MODEL_OCMB = 0x00000031,
-    MODEL_JEDEC = 0x00000050,
-    MODEL_CDIMM = 0x00000051,
-    MODEL_POWER8 = 0x00000070,
-    MODEL_POWER9 = 0x00000090,
-    MODEL_POWER10 = 0x00000091,
-    MODEL_CECTPM = 0x00000092,
-    MODEL_BMC = 0x00000093,
-    MODEL_AST2500 = 0x00000094,
-    MODEL_AST2600 = 0x00000095,
-    MODEL_PCA9847 = 0x00000096,
-    MODEL_UCD9090 = 0x00000097,
-    MODEL_UCD90120A = 0x00000098,
-    MODEL_UCD90320 = 0x00000099,
-    MODEL_INVALID = 0xFFFFFFFF,
+    MODEL_NA                                                    = 0x00000000,
+    MODEL_RESERVED                                              = 0x00000010,
+    MODEL_VENICE                                                = 0x00000011,
+    MODEL_MURANO                                                = 0x00000012,
+    MODEL_NAPLES                                                = 0x00000013,
+    MODEL_NIMBUS                                                = 0x00000014,
+    MODEL_CUMULUS                                               = 0x00000015,
+    MODEL_AXONE                                                 = 0x00000016,
+    MODEL_CENTAUR                                               = 0x00000030,
+    MODEL_OCMB                                                  = 0x00000031,
+    MODEL_JEDEC                                                 = 0x00000050,
+    MODEL_CDIMM                                                 = 0x00000051,
+    MODEL_POWER8                                                = 0x00000070,
+    MODEL_POWER9                                                = 0x00000090,
+    MODEL_POWER10                                               = 0x00000091,
+    MODEL_CECTPM                                                = 0x00000092,
+    MODEL_BMC                                                   = 0x00000093,
+    MODEL_AST2500                                               = 0x00000094,
+    MODEL_AST2600                                               = 0x00000095,
+    MODEL_PCA9847                                               = 0x00000096,
+    MODEL_UCD9090                                               = 0x00000097,
+    MODEL_UCD90120A                                             = 0x00000098,
+    MODEL_UCD90320                                              = 0x00000099,
+    MODEL_INVALID                                               = 0xFFFFFFFF,
 };
 
 /**
@@ -3177,11 +3127,11 @@ enum MODEL
  */
 enum MSS_MRW_IDLE_POWER_CONTROL_REQUESTED
 {
-    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_OFF = 0x00000000,
-    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_POWER_DOWN = 0x00000001,
-    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_STR = 0x00000002,
-    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_PD_AND_STR = 0x00000003,
-    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_INVALID = 0xFFFFFFFF,
+    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_OFF                    = 0x00000000,
+    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_POWER_DOWN             = 0x00000001,
+    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_STR                    = 0x00000002,
+    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_PD_AND_STR             = 0x00000003,
+    MSS_MRW_IDLE_POWER_CONTROL_REQUESTED_INVALID                = 0xFFFFFFFF,
 };
 
 /**
@@ -3189,11 +3139,11 @@ enum MSS_MRW_IDLE_POWER_CONTROL_REQUESTED
  */
 enum MSS_MRW_POWER_CONTROL_REQUESTED
 {
-    MSS_MRW_POWER_CONTROL_REQUESTED_OFF = 0x00000000,
-    MSS_MRW_POWER_CONTROL_REQUESTED_POWER_DOWN = 0x00000001,
-    MSS_MRW_POWER_CONTROL_REQUESTED_STR = 0x00000002,
-    MSS_MRW_POWER_CONTROL_REQUESTED_PD_AND_STR = 0x00000003,
-    MSS_MRW_POWER_CONTROL_REQUESTED_INVALID = 0xFFFFFFFF,
+    MSS_MRW_POWER_CONTROL_REQUESTED_OFF                         = 0x00000000,
+    MSS_MRW_POWER_CONTROL_REQUESTED_POWER_DOWN                  = 0x00000001,
+    MSS_MRW_POWER_CONTROL_REQUESTED_STR                         = 0x00000002,
+    MSS_MRW_POWER_CONTROL_REQUESTED_PD_AND_STR                  = 0x00000003,
+    MSS_MRW_POWER_CONTROL_REQUESTED_INVALID                     = 0xFFFFFFFF,
 };
 
 /**
@@ -3201,9 +3151,9 @@ enum MSS_MRW_POWER_CONTROL_REQUESTED
  */
 enum MSS_MRW_TEMP_REFRESH_MODE
 {
-    MSS_MRW_TEMP_REFRESH_MODE_DISABLE = 0x00000000,
-    MSS_MRW_TEMP_REFRESH_MODE_ENABLE = 0x00000001,
-    MSS_MRW_TEMP_REFRESH_MODE_INVALID = 0xFFFFFFFF,
+    MSS_MRW_TEMP_REFRESH_MODE_DISABLE                           = 0x00000000,
+    MSS_MRW_TEMP_REFRESH_MODE_ENABLE                            = 0x00000001,
+    MSS_MRW_TEMP_REFRESH_MODE_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -3215,18 +3165,18 @@ enum MSS_MRW_TEMP_REFRESH_MODE
  */
 enum MULTI_SCOM_BUFFER_MAX_SIZE_BIT
 {
-    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_1KB = 0x00000400,
-    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_2KB = 0x00000800,
-    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_4KB = 0x00001000,
-    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_8KB = 0x00002000,
-    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_16KB = 0x00004000,
-    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_32KB = 0x00008000,
-    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_64KB = 0x00010000,
+    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_1KB   = 0x00000400,
+    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_2KB   = 0x00000800,
+    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_4KB   = 0x00001000,
+    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_8KB   = 0x00002000,
+    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_16KB  = 0x00004000,
+    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_32KB  = 0x00008000,
+    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_64KB  = 0x00010000,
     MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_128KB = 0x00020000,
     MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_256KB = 0x00040000,
     MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_512KB = 0x00080000,
-    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_1MB = 0x00100000,
-    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_INVALID = 0xFFFFFFFF,
+    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_MULTI_SCOM_BUFFER_SIZE_1MB   = 0x00100000,
+    MULTI_SCOM_BUFFER_MAX_SIZE_BIT_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -3235,13 +3185,13 @@ enum MULTI_SCOM_BUFFER_MAX_SIZE_BIT
  */
 enum NPU_MMIO_BAR_SIZE
 {
-    NPU_MMIO_BAR_SIZE_2_MB = 0x00200000,
-    NPU_MMIO_BAR_SIZE_1_MB = 0x00100000,
-    NPU_MMIO_BAR_SIZE_512_KB = 0x00080000,
-    NPU_MMIO_BAR_SIZE_256_KB = 0x00040000,
-    NPU_MMIO_BAR_SIZE_128_KB = 0x00020000,
-    NPU_MMIO_BAR_SIZE_64_KB = 0x00010000,
-    NPU_MMIO_BAR_SIZE_INVALID = 0xFFFFFFFF,
+    NPU_MMIO_BAR_SIZE_2_MB                                      = 0x00200000,
+    NPU_MMIO_BAR_SIZE_1_MB                                      = 0x00100000,
+    NPU_MMIO_BAR_SIZE_512_KB                                    = 0x00080000,
+    NPU_MMIO_BAR_SIZE_256_KB                                    = 0x00040000,
+    NPU_MMIO_BAR_SIZE_128_KB                                    = 0x00020000,
+    NPU_MMIO_BAR_SIZE_64_KB                                     = 0x00010000,
+    NPU_MMIO_BAR_SIZE_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -3251,10 +3201,10 @@ enum NPU_MMIO_BAR_SIZE
  */
 enum OCMB_FW_STATE
 {
-    OCMB_FW_STATE_UNKNOWN = 0x00000000,
-    OCMB_FW_STATE_UP_TO_DATE = 0x00000001,
-    OCMB_FW_STATE_OUT_OF_DATE = 0x00000002,
-    OCMB_FW_STATE_INVALID = 0xFFFFFFFF,
+    OCMB_FW_STATE_UNKNOWN                                       = 0x00000000,
+    OCMB_FW_STATE_UP_TO_DATE                                    = 0x00000001,
+    OCMB_FW_STATE_OUT_OF_DATE                                   = 0x00000002,
+    OCMB_FW_STATE_INVALID                                       = 0xFFFFFFFF,
 };
 
 /**
@@ -3262,13 +3212,13 @@ enum OCMB_FW_STATE
  */
 enum OCMB_FW_UPDATE_BEHAVIOR
 {
-    OCMB_FW_UPDATE_BEHAVIOR_CHECK_VERSIONS = 0x00000000,
-    OCMB_FW_UPDATE_BEHAVIOR_FORCE_UPDATE = 0x00000001,
-    OCMB_FW_UPDATE_BEHAVIOR_PREVENT_UPDATE = 0x00000002,
-    OCMB_FW_UPDATE_BEHAVIOR_CHECK_BUT_NO_UPDATE = 0x00000003,
-    OCMB_FW_UPDATE_BEHAVIOR_MDS_FORCE_UPDATE = 0x00000004,
-    OCMB_FW_UPDATE_BEHAVIOR_FORCE_UPDATE_ONCE = 0x00000005,
-    OCMB_FW_UPDATE_BEHAVIOR_INVALID = 0xFFFFFFFF,
+    OCMB_FW_UPDATE_BEHAVIOR_CHECK_VERSIONS                      = 0x00000000,
+    OCMB_FW_UPDATE_BEHAVIOR_FORCE_UPDATE                        = 0x00000001,
+    OCMB_FW_UPDATE_BEHAVIOR_PREVENT_UPDATE                      = 0x00000002,
+    OCMB_FW_UPDATE_BEHAVIOR_CHECK_BUT_NO_UPDATE                 = 0x00000003,
+    OCMB_FW_UPDATE_BEHAVIOR_MDS_FORCE_UPDATE                    = 0x00000004,
+    OCMB_FW_UPDATE_BEHAVIOR_FORCE_UPDATE_ONCE                   = 0x00000005,
+    OCMB_FW_UPDATE_BEHAVIOR_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -3276,11 +3226,11 @@ enum OCMB_FW_UPDATE_BEHAVIOR
  */
 enum PAYLOAD_KIND
 {
-    PAYLOAD_KIND_UNKNOWN = 0x00000000,
-    PAYLOAD_KIND_PHYP = 0x00000001,
-    PAYLOAD_KIND_SAPPHIRE = 0x00000002,
-    PAYLOAD_KIND_NONE = 0x00000003,
-    PAYLOAD_KIND_INVALID = 0xFFFFFFFF,
+    PAYLOAD_KIND_UNKNOWN                                        = 0x00000000,
+    PAYLOAD_KIND_PHYP                                           = 0x00000001,
+    PAYLOAD_KIND_SAPPHIRE                                       = 0x00000002,
+    PAYLOAD_KIND_NONE                                           = 0x00000003,
+    PAYLOAD_KIND_INVALID                                        = 0xFFFFFFFF,
 };
 
 /**
@@ -3289,16 +3239,16 @@ enum PAYLOAD_KIND
  */
 enum PFET_VCS_VOFF_SEL
 {
-    PFET_VCS_VOFF_SEL_NOOFF = 0x00000000,
-    PFET_VCS_VOFF_SEL_ALLBUT1TO7OFF = 0x00000001,
-    PFET_VCS_VOFF_SEL_ALLBUT2TO7OFF = 0x00000002,
-    PFET_VCS_VOFF_SEL_ALLBUT3TO7OFF = 0x00000003,
-    PFET_VCS_VOFF_SEL_ALLBUT4TO7OFF = 0x00000004,
-    PFET_VCS_VOFF_SEL_ALLBUT5TO7OFF = 0x00000005,
-    PFET_VCS_VOFF_SEL_ALLBUT6TO7OFF = 0x00000006,
-    PFET_VCS_VOFF_SEL_ALLBUT7TO7OFF = 0x00000007,
-    PFET_VCS_VOFF_SEL_ALLOFF = 0x00000008,
-    PFET_VCS_VOFF_SEL_INVALID = 0xFFFFFFFF,
+    PFET_VCS_VOFF_SEL_NOOFF                                     = 0x00000000,
+    PFET_VCS_VOFF_SEL_ALLBUT1TO7OFF                             = 0x00000001,
+    PFET_VCS_VOFF_SEL_ALLBUT2TO7OFF                             = 0x00000002,
+    PFET_VCS_VOFF_SEL_ALLBUT3TO7OFF                             = 0x00000003,
+    PFET_VCS_VOFF_SEL_ALLBUT4TO7OFF                             = 0x00000004,
+    PFET_VCS_VOFF_SEL_ALLBUT5TO7OFF                             = 0x00000005,
+    PFET_VCS_VOFF_SEL_ALLBUT6TO7OFF                             = 0x00000006,
+    PFET_VCS_VOFF_SEL_ALLBUT7TO7OFF                             = 0x00000007,
+    PFET_VCS_VOFF_SEL_ALLOFF                                    = 0x00000008,
+    PFET_VCS_VOFF_SEL_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -3307,16 +3257,16 @@ enum PFET_VCS_VOFF_SEL
  */
 enum PFET_VDD_VOFF_SEL
 {
-    PFET_VDD_VOFF_SEL_NOOFF = 0x00000000,
-    PFET_VDD_VOFF_SEL_ALLBUT1TO7OFF = 0x00000001,
-    PFET_VDD_VOFF_SEL_ALLBUT2TO7OFF = 0x00000002,
-    PFET_VDD_VOFF_SEL_ALLBUT3TO7OFF = 0x00000003,
-    PFET_VDD_VOFF_SEL_ALLBUT4TO7OFF = 0x00000004,
-    PFET_VDD_VOFF_SEL_ALLBUT5TO7OFF = 0x00000005,
-    PFET_VDD_VOFF_SEL_ALLBUT6TO7OFF = 0x00000006,
-    PFET_VDD_VOFF_SEL_ALLBUT7TO7OFF = 0x00000007,
-    PFET_VDD_VOFF_SEL_ALLOFF = 0x00000008,
-    PFET_VDD_VOFF_SEL_INVALID = 0xFFFFFFFF,
+    PFET_VDD_VOFF_SEL_NOOFF                                     = 0x00000000,
+    PFET_VDD_VOFF_SEL_ALLBUT1TO7OFF                             = 0x00000001,
+    PFET_VDD_VOFF_SEL_ALLBUT2TO7OFF                             = 0x00000002,
+    PFET_VDD_VOFF_SEL_ALLBUT3TO7OFF                             = 0x00000003,
+    PFET_VDD_VOFF_SEL_ALLBUT4TO7OFF                             = 0x00000004,
+    PFET_VDD_VOFF_SEL_ALLBUT5TO7OFF                             = 0x00000005,
+    PFET_VDD_VOFF_SEL_ALLBUT6TO7OFF                             = 0x00000006,
+    PFET_VDD_VOFF_SEL_ALLBUT7TO7OFF                             = 0x00000007,
+    PFET_VDD_VOFF_SEL_ALLOFF                                    = 0x00000008,
+    PFET_VDD_VOFF_SEL_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -3327,10 +3277,10 @@ enum PFET_VDD_VOFF_SEL
  */
 enum PROC_COMPATIBILITY_REQ
 {
-    PROC_COMPATIBILITY_REQ_ALLOW_COMPATIBILITY = 0x00000000,
-    PROC_COMPATIBILITY_REQ_FORCED_COMPATIBILITY = 0x00000001,
-    PROC_COMPATIBILITY_REQ_FORCED_NATIVE = 0x00000002,
-    PROC_COMPATIBILITY_REQ_INVALID = 0xFFFFFFFF,
+    PROC_COMPATIBILITY_REQ_ALLOW_COMPATIBILITY                  = 0x00000000,
+    PROC_COMPATIBILITY_REQ_FORCED_COMPATIBILITY                 = 0x00000001,
+    PROC_COMPATIBILITY_REQ_FORCED_NATIVE                        = 0x00000002,
+    PROC_COMPATIBILITY_REQ_INVALID                              = 0xFFFFFFFF,
 };
 
 /**
@@ -3339,10 +3289,10 @@ enum PROC_COMPATIBILITY_REQ
  */
 enum PROC_EPS_TABLE_TYPE
 {
-    PROC_EPS_TABLE_TYPE_EPS_TYPE_LE = 0x00000001,
-    PROC_EPS_TABLE_TYPE_EPS_TYPE_MR = 0x00000002,
-    PROC_EPS_TABLE_TYPE_EPS_TYPE_HE = 0x00000003,
-    PROC_EPS_TABLE_TYPE_INVALID = 0xFFFFFFFF,
+    PROC_EPS_TABLE_TYPE_EPS_TYPE_LE                             = 0x00000001,
+    PROC_EPS_TABLE_TYPE_EPS_TYPE_MR                             = 0x00000002,
+    PROC_EPS_TABLE_TYPE_EPS_TYPE_HE                             = 0x00000003,
+    PROC_EPS_TABLE_TYPE_INVALID                                 = 0xFFFFFFFF,
 };
 
 /**
@@ -3350,9 +3300,9 @@ enum PROC_EPS_TABLE_TYPE
  */
 enum PROC_FABRIC_A_BUS_WIDTH
 {
-    PROC_FABRIC_A_BUS_WIDTH_2_BYTE = 0x00000001,
-    PROC_FABRIC_A_BUS_WIDTH_4_BYTE = 0x00000002,
-    PROC_FABRIC_A_BUS_WIDTH_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_A_BUS_WIDTH_2_BYTE                              = 0x00000001,
+    PROC_FABRIC_A_BUS_WIDTH_4_BYTE                              = 0x00000002,
+    PROC_FABRIC_A_BUS_WIDTH_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -3360,9 +3310,9 @@ enum PROC_FABRIC_A_BUS_WIDTH
  */
 enum PROC_FABRIC_CAPI_MODE
 {
-    PROC_FABRIC_CAPI_MODE_OFF = 0x00000000,
-    PROC_FABRIC_CAPI_MODE_ON = 0x00000001,
-    PROC_FABRIC_CAPI_MODE_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_CAPI_MODE_OFF                                   = 0x00000000,
+    PROC_FABRIC_CAPI_MODE_ON                                    = 0x00000001,
+    PROC_FABRIC_CAPI_MODE_INVALID                               = 0xFFFFFFFF,
 };
 
 /**
@@ -3370,9 +3320,9 @@ enum PROC_FABRIC_CAPI_MODE
  */
 enum PROC_FABRIC_SMP_OPTICS_MODE
 {
-    PROC_FABRIC_SMP_OPTICS_MODE_OPTICS_IS_X_BUS = 0x00000000,
-    PROC_FABRIC_SMP_OPTICS_MODE_OPTICS_IS_A_BUS = 0x00000001,
-    PROC_FABRIC_SMP_OPTICS_MODE_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_SMP_OPTICS_MODE_OPTICS_IS_X_BUS                 = 0x00000000,
+    PROC_FABRIC_SMP_OPTICS_MODE_OPTICS_IS_A_BUS                 = 0x00000001,
+    PROC_FABRIC_SMP_OPTICS_MODE_INVALID                         = 0xFFFFFFFF,
 };
 
 /**
@@ -3380,9 +3330,9 @@ enum PROC_FABRIC_SMP_OPTICS_MODE
  */
 enum PROC_FABRIC_X_BUS_WIDTH
 {
-    PROC_FABRIC_X_BUS_WIDTH_2_BYTE = 0x00000001,
-    PROC_FABRIC_X_BUS_WIDTH_4_BYTE = 0x00000002,
-    PROC_FABRIC_X_BUS_WIDTH_INVALID = 0xFFFFFFFF,
+    PROC_FABRIC_X_BUS_WIDTH_2_BYTE                              = 0x00000001,
+    PROC_FABRIC_X_BUS_WIDTH_4_BYTE                              = 0x00000002,
+    PROC_FABRIC_X_BUS_WIDTH_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -3391,10 +3341,10 @@ enum PROC_FABRIC_X_BUS_WIDTH
  */
 enum PROC_MASTER_TYPE
 {
-    PROC_MASTER_TYPE_ACTING_MASTER = 0x00000000,
-    PROC_MASTER_TYPE_MASTER_CANDIDATE = 0x00000001,
-    PROC_MASTER_TYPE_NOT_MASTER = 0x00000002,
-    PROC_MASTER_TYPE_INVALID = 0x000000FF,
+    PROC_MASTER_TYPE_ACTING_MASTER                              = 0x00000000,
+    PROC_MASTER_TYPE_MASTER_CANDIDATE                           = 0x00000001,
+    PROC_MASTER_TYPE_NOT_MASTER                                 = 0x00000002,
+    PROC_MASTER_TYPE_INVALID                                    = 0x000000FF,
 };
 
 /**
@@ -3403,9 +3353,9 @@ enum PROC_MASTER_TYPE
  */
 enum PROC_MODULE_TYPE
 {
-    PROC_MODULE_TYPE_GODEL = 0x00000050,
-    PROC_MODULE_TYPE_BLAISE = 0x00000051,
-    PROC_MODULE_TYPE_INVALID = 0xFFFFFFFF,
+    PROC_MODULE_TYPE_GODEL                                      = 0x00000050,
+    PROC_MODULE_TYPE_BLAISE                                     = 0x00000051,
+    PROC_MODULE_TYPE_INVALID                                    = 0xFFFFFFFF,
 };
 
 /**
@@ -3413,10 +3363,10 @@ enum PROC_MODULE_TYPE
  */
 enum PROC_PBIEX_ASYNC_SEL
 {
-    PROC_PBIEX_ASYNC_SEL_SEL0 = 0x00000000,
-    PROC_PBIEX_ASYNC_SEL_SEL1 = 0x00000001,
-    PROC_PBIEX_ASYNC_SEL_SEL2 = 0x00000002,
-    PROC_PBIEX_ASYNC_SEL_INVALID = 0xFFFFFFFF,
+    PROC_PBIEX_ASYNC_SEL_SEL0                                   = 0x00000000,
+    PROC_PBIEX_ASYNC_SEL_SEL1                                   = 0x00000001,
+    PROC_PBIEX_ASYNC_SEL_SEL2                                   = 0x00000002,
+    PROC_PBIEX_ASYNC_SEL_INVALID                                = 0xFFFFFFFF,
 };
 
 /**
@@ -3425,9 +3375,9 @@ enum PROC_PBIEX_ASYNC_SEL
  */
 enum PROC_SELECT_BOOT_MASTER
 {
-    PROC_SELECT_BOOT_MASTER_PRIMARY = 0x00000001,
-    PROC_SELECT_BOOT_MASTER_SECONDARY = 0x00000002,
-    PROC_SELECT_BOOT_MASTER_INVALID = 0xFFFFFFFF,
+    PROC_SELECT_BOOT_MASTER_PRIMARY                             = 0x00000001,
+    PROC_SELECT_BOOT_MASTER_SECONDARY                           = 0x00000002,
+    PROC_SELECT_BOOT_MASTER_INVALID                             = 0xFFFFFFFF,
 };
 
 /**
@@ -3436,9 +3386,9 @@ enum PROC_SELECT_BOOT_MASTER
  */
 enum PROC_SELECT_BOOT_SEEPROM_IMAGE
 {
-    PROC_SELECT_BOOT_SEEPROM_IMAGE_FIRST = 0x00000001,
-    PROC_SELECT_BOOT_SEEPROM_IMAGE_SECOND = 0x00000002,
-    PROC_SELECT_BOOT_SEEPROM_IMAGE_INVALID = 0xFFFFFFFF,
+    PROC_SELECT_BOOT_SEEPROM_IMAGE_FIRST                        = 0x00000001,
+    PROC_SELECT_BOOT_SEEPROM_IMAGE_SECOND                       = 0x00000002,
+    PROC_SELECT_BOOT_SEEPROM_IMAGE_INVALID                      = 0xFFFFFFFF,
 };
 
 /**
@@ -3447,9 +3397,9 @@ enum PROC_SELECT_BOOT_SEEPROM_IMAGE
  */
 enum PROC_SELECT_SEEPROM_IMAGE
 {
-    PROC_SELECT_SEEPROM_IMAGE_FIRST = 0x00000001,
-    PROC_SELECT_SEEPROM_IMAGE_SECOND = 0x00000002,
-    PROC_SELECT_SEEPROM_IMAGE_INVALID = 0xFFFFFFFF,
+    PROC_SELECT_SEEPROM_IMAGE_FIRST                             = 0x00000001,
+    PROC_SELECT_SEEPROM_IMAGE_SECOND                            = 0x00000002,
+    PROC_SELECT_SEEPROM_IMAGE_INVALID                           = 0xFFFFFFFF,
 };
 
 /**
@@ -3457,9 +3407,9 @@ enum PROC_SELECT_SEEPROM_IMAGE
  */
 enum RISK_LEVEL_ORIGIN
 {
-    RISK_LEVEL_ORIGIN_USER = 0x00000000,
-    RISK_LEVEL_ORIGIN_MRW = 0x00000001,
-    RISK_LEVEL_ORIGIN_INVALID = 0xFFFFFFFF,
+    RISK_LEVEL_ORIGIN_USER                                      = 0x00000000,
+    RISK_LEVEL_ORIGIN_MRW                                       = 0x00000001,
+    RISK_LEVEL_ORIGIN_INVALID                                   = 0xFFFFFFFF,
 };
 
 /**
@@ -3468,10 +3418,10 @@ enum RISK_LEVEL_ORIGIN
  */
 enum SUPPORTED_HOT_PLUG
 {
-    SUPPORTED_HOT_PLUG_NA = 0x00000000,
-    SUPPORTED_HOT_PLUG_MAX5961 = 0x00000001,
-    SUPPORTED_HOT_PLUG_PCA9551 = 0x00000002,
-    SUPPORTED_HOT_PLUG_INVALID = 0xFFFFFFFF,
+    SUPPORTED_HOT_PLUG_NA                                       = 0x00000000,
+    SUPPORTED_HOT_PLUG_MAX5961                                  = 0x00000001,
+    SUPPORTED_HOT_PLUG_PCA9551                                  = 0x00000002,
+    SUPPORTED_HOT_PLUG_INVALID                                  = 0xFFFFFFFF,
 };
 
 /**
@@ -3479,10 +3429,10 @@ enum SUPPORTED_HOT_PLUG
  */
 enum TOD_ROLE
 {
-    TOD_ROLE_NON_MASTER = 0x00000000,
-    TOD_ROLE_PRIMARY = 0x00000001,
-    TOD_ROLE_SECONDARY = 0x00000002,
-    TOD_ROLE_INVALID = 0xFFFFFFFF,
+    TOD_ROLE_NON_MASTER                                         = 0x00000000,
+    TOD_ROLE_PRIMARY                                            = 0x00000001,
+    TOD_ROLE_SECONDARY                                          = 0x00000002,
+    TOD_ROLE_INVALID                                            = 0xFFFFFFFF,
 };
 
 /**
@@ -3490,96 +3440,96 @@ enum TOD_ROLE
  */
 enum TYPE
 {
-    TYPE_NA = 0x00000000,
-    TYPE_SYS = 0x00000001,
-    TYPE_NODE = 0x00000002,
-    TYPE_DIMM = 0x00000003,
-    TYPE_MEMBUF = 0x00000004,
-    TYPE_PROC = 0x00000005,
-    TYPE_EX = 0x00000006,
-    TYPE_CORE = 0x00000007,
-    TYPE_L2 = 0x00000008,
-    TYPE_L3 = 0x00000009,
-    TYPE_L4 = 0x0000000A,
-    TYPE_MCS = 0x0000000B,
-    TYPE_MBA = 0x0000000D,
-    TYPE_XBUS = 0x0000000E,
-    TYPE_ABUS = 0x0000000F,
-    TYPE_PCI = 0x00000010,
-    TYPE_DPSS = 0x00000011,
-    TYPE_APSS = 0x00000012,
-    TYPE_OCC = 0x00000013,
-    TYPE_PSI = 0x00000014,
-    TYPE_FSP = 0x00000015,
-    TYPE_PNOR = 0x00000016,
-    TYPE_OSC = 0x00000017,
-    TYPE_TODCLK = 0x00000018,
-    TYPE_CONTROL_NODE = 0x00000019,
-    TYPE_OSCREFCLK = 0x0000001A,
-    TYPE_OSCPCICLK = 0x0000001B,
-    TYPE_REFCLKENDPT = 0x0000001C,
-    TYPE_PCICLKENDPT = 0x0000001D,
-    TYPE_NX = 0x0000001E,
-    TYPE_PORE = 0x0000001F,
-    TYPE_PCIESWITCH = 0x00000020,
-    TYPE_CAPP = 0x00000021,
-    TYPE_FSI = 0x00000022,
-    TYPE_EQ = 0x00000023,
-    TYPE_MCA = 0x00000024,
-    TYPE_MCBIST = 0x00000025,
-    TYPE_MI = 0x00000026,
-    TYPE_DMI = 0x00000027,
-    TYPE_OBUS = 0x00000028,
-    TYPE_SBE = 0x0000002A,
-    TYPE_PPE = 0x0000002B,
-    TYPE_PERV = 0x0000002C,
-    TYPE_PEC = 0x0000002D,
-    TYPE_PHB = 0x0000002E,
-    TYPE_SYSREFCLKENDPT = 0x0000002F,
-    TYPE_MFREFCLKENDPT = 0x00000030,
-    TYPE_TPM = 0x00000031,
-    TYPE_SP = 0x00000032,
-    TYPE_UART = 0x00000033,
-    TYPE_PS = 0x00000034,
-    TYPE_FAN = 0x00000035,
-    TYPE_VRM = 0x00000036,
-    TYPE_USB = 0x00000037,
-    TYPE_ETH = 0x00000038,
-    TYPE_PANEL = 0x00000039,
-    TYPE_BMC = 0x0000003A,
-    TYPE_FLASH = 0x0000003B,
-    TYPE_SEEPROM = 0x0000003C,
-    TYPE_TMP = 0x0000003D,
-    TYPE_GPIO_EXPANDER = 0x0000003E,
-    TYPE_POWER_SEQUENCER = 0x0000003F,
-    TYPE_RTC = 0x00000040,
-    TYPE_FANCTLR = 0x00000041,
-    TYPE_OBUS_BRICK = 0x00000042,
-    TYPE_NPU = 0x00000043,
-    TYPE_MC = 0x00000044,
-    TYPE_TEST_FAIL = 0x00000045,
-    TYPE_MFREFCLK = 0x00000046,
-    TYPE_SMPGROUP = 0x00000047,
-    TYPE_OMI = 0x00000048,
-    TYPE_MCC = 0x00000049,
-    TYPE_OMIC = 0x0000004A,
-    TYPE_OCMB_CHIP = 0x0000004B,
-    TYPE_MEM_PORT = 0x0000004C,
-    TYPE_I2C_MUX = 0x0000004D,
-    TYPE_PMIC = 0x0000004E,
-    TYPE_NMMU = 0x0000004F,
-    TYPE_PAU = 0x00000050,
-    TYPE_IOHS = 0x00000051,
-    TYPE_PAUC = 0x00000052,
-    TYPE_FC = 0x00000053,
-    TYPE_LPCREFCLKENDPT = 0x00000054,
-    TYPE_GENERIC_I2C_DEVICE = 0x00000055,
-    TYPE_MDS_CTLR = 0x00000056,
-    TYPE_DCM = 0x00000057,
-    TYPE_POWER_IC = 0x00000066,
-    TYPE_TEMP_SENSOR = 0x00000067,
-    TYPE_LAST_IN_RANGE = 0x00000068,
-    TYPE_INVALID = 0x0000007F,
+    TYPE_NA                                                     = 0x00000000,
+    TYPE_SYS                                                    = 0x00000001,
+    TYPE_NODE                                                   = 0x00000002,
+    TYPE_DIMM                                                   = 0x00000003,
+    TYPE_MEMBUF                                                 = 0x00000004,
+    TYPE_PROC                                                   = 0x00000005,
+    TYPE_EX                                                     = 0x00000006,
+    TYPE_CORE                                                   = 0x00000007,
+    TYPE_L2                                                     = 0x00000008,
+    TYPE_L3                                                     = 0x00000009,
+    TYPE_L4                                                     = 0x0000000A,
+    TYPE_MCS                                                    = 0x0000000B,
+    TYPE_MBA                                                    = 0x0000000D,
+    TYPE_XBUS                                                   = 0x0000000E,
+    TYPE_ABUS                                                   = 0x0000000F,
+    TYPE_PCI                                                    = 0x00000010,
+    TYPE_DPSS                                                   = 0x00000011,
+    TYPE_APSS                                                   = 0x00000012,
+    TYPE_OCC                                                    = 0x00000013,
+    TYPE_PSI                                                    = 0x00000014,
+    TYPE_FSP                                                    = 0x00000015,
+    TYPE_PNOR                                                   = 0x00000016,
+    TYPE_OSC                                                    = 0x00000017,
+    TYPE_TODCLK                                                 = 0x00000018,
+    TYPE_CONTROL_NODE                                           = 0x00000019,
+    TYPE_OSCREFCLK                                              = 0x0000001A,
+    TYPE_OSCPCICLK                                              = 0x0000001B,
+    TYPE_REFCLKENDPT                                            = 0x0000001C,
+    TYPE_PCICLKENDPT                                            = 0x0000001D,
+    TYPE_NX                                                     = 0x0000001E,
+    TYPE_PORE                                                   = 0x0000001F,
+    TYPE_PCIESWITCH                                             = 0x00000020,
+    TYPE_CAPP                                                   = 0x00000021,
+    TYPE_FSI                                                    = 0x00000022,
+    TYPE_EQ                                                     = 0x00000023,
+    TYPE_MCA                                                    = 0x00000024,
+    TYPE_MCBIST                                                 = 0x00000025,
+    TYPE_MI                                                     = 0x00000026,
+    TYPE_DMI                                                    = 0x00000027,
+    TYPE_OBUS                                                   = 0x00000028,
+    TYPE_SBE                                                    = 0x0000002A,
+    TYPE_PPE                                                    = 0x0000002B,
+    TYPE_PERV                                                   = 0x0000002C,
+    TYPE_PEC                                                    = 0x0000002D,
+    TYPE_PHB                                                    = 0x0000002E,
+    TYPE_SYSREFCLKENDPT                                         = 0x0000002F,
+    TYPE_MFREFCLKENDPT                                          = 0x00000030,
+    TYPE_TPM                                                    = 0x00000031,
+    TYPE_SP                                                     = 0x00000032,
+    TYPE_UART                                                   = 0x00000033,
+    TYPE_PS                                                     = 0x00000034,
+    TYPE_FAN                                                    = 0x00000035,
+    TYPE_VRM                                                    = 0x00000036,
+    TYPE_USB                                                    = 0x00000037,
+    TYPE_ETH                                                    = 0x00000038,
+    TYPE_PANEL                                                  = 0x00000039,
+    TYPE_BMC                                                    = 0x0000003A,
+    TYPE_FLASH                                                  = 0x0000003B,
+    TYPE_SEEPROM                                                = 0x0000003C,
+    TYPE_TMP                                                    = 0x0000003D,
+    TYPE_GPIO_EXPANDER                                          = 0x0000003E,
+    TYPE_POWER_SEQUENCER                                        = 0x0000003F,
+    TYPE_RTC                                                    = 0x00000040,
+    TYPE_FANCTLR                                                = 0x00000041,
+    TYPE_OBUS_BRICK                                             = 0x00000042,
+    TYPE_NPU                                                    = 0x00000043,
+    TYPE_MC                                                     = 0x00000044,
+    TYPE_TEST_FAIL                                              = 0x00000045,
+    TYPE_MFREFCLK                                               = 0x00000046,
+    TYPE_SMPGROUP                                               = 0x00000047,
+    TYPE_OMI                                                    = 0x00000048,
+    TYPE_MCC                                                    = 0x00000049,
+    TYPE_OMIC                                                   = 0x0000004A,
+    TYPE_OCMB_CHIP                                              = 0x0000004B,
+    TYPE_MEM_PORT                                               = 0x0000004C,
+    TYPE_I2C_MUX                                                = 0x0000004D,
+    TYPE_PMIC                                                   = 0x0000004E,
+    TYPE_NMMU                                                   = 0x0000004F,
+    TYPE_PAU                                                    = 0x00000050,
+    TYPE_IOHS                                                   = 0x00000051,
+    TYPE_PAUC                                                   = 0x00000052,
+    TYPE_FC                                                     = 0x00000053,
+    TYPE_LPCREFCLKENDPT                                         = 0x00000054,
+    TYPE_GENERIC_I2C_DEVICE                                     = 0x00000055,
+    TYPE_MDS_CTLR                                               = 0x00000056,
+    TYPE_DCM                                                    = 0x00000057,
+    TYPE_POWER_IC                                               = 0x00000066,
+    TYPE_TEMP_SENSOR                                            = 0x00000067,
+    TYPE_LAST_IN_RANGE                                          = 0x00000068,
+    TYPE_INVALID                                                = 0x0000007F,
 };
 
 /**
@@ -3587,9 +3537,9 @@ enum TYPE
  */
 enum VDM_ENABLE
 {
-    VDM_ENABLE_OFF = 0x00000000,
-    VDM_ENABLE_ON = 0x00000001,
-    VDM_ENABLE_INVALID = 0xFFFFFFFF,
+    VDM_ENABLE_OFF                                              = 0x00000000,
+    VDM_ENABLE_ON                                               = 0x00000001,
+    VDM_ENABLE_INVALID                                          = 0xFFFFFFFF,
 };
 
 /**
@@ -3597,9 +3547,9 @@ enum VDM_ENABLE
  */
 enum WOF_POWER_LIMIT
 {
-    WOF_POWER_LIMIT_NOMINAL = 0x00000000,
-    WOF_POWER_LIMIT_TURBO = 0x00000001,
-    WOF_POWER_LIMIT_INVALID = 0xFFFFFFFF,
+    WOF_POWER_LIMIT_NOMINAL                                     = 0x00000000,
+    WOF_POWER_LIMIT_TURBO                                       = 0x00000001,
+    WOF_POWER_LIMIT_INVALID                                     = 0xFFFFFFFF,
 };
 
 /**
@@ -3607,11 +3557,11 @@ enum WOF_POWER_LIMIT
  */
 enum SYS_CLOCK_DECONFIG_STATE
 {
-    SYS_CLOCK_DECONFIG_STATE_NO_DECONFIG = 0x00000000,
-    SYS_CLOCK_DECONFIG_STATE_A_DECONFIG = 0x00000001,
-    SYS_CLOCK_DECONFIG_STATE_B_DECONFIG = 0x00000002,
-    SYS_CLOCK_DECONFIG_STATE_ALL_DECONFIG = 0x00000003,
-    SYS_CLOCK_DECONFIG_STATE_INVALID = 0xFFFFFFFF,
+    SYS_CLOCK_DECONFIG_STATE_NO_DECONFIG                        = 0x00000000,
+    SYS_CLOCK_DECONFIG_STATE_A_DECONFIG                         = 0x00000001,
+    SYS_CLOCK_DECONFIG_STATE_B_DECONFIG                         = 0x00000002,
+    SYS_CLOCK_DECONFIG_STATE_ALL_DECONFIG                       = 0x00000003,
+    SYS_CLOCK_DECONFIG_STATE_INVALID                            = 0xFFFFFFFF,
 };
 
 /**
@@ -3619,11 +3569,12 @@ enum SYS_CLOCK_DECONFIG_STATE
  */
 enum HW_ACCESS_METHOD
 {
-    HW_ACCESS_METHOD_SBEFIFO = 0x00000000,
-    HW_ACCESS_METHOD_DIRECT_ACCESS = 0x00000001,
-    HW_ACCESS_METHOD_INVALID = 0x000000FF,
+    HW_ACCESS_METHOD_SBEFIFO                                    = 0x00000000,
+    HW_ACCESS_METHOD_DIRECT_ACCESS                              = 0x00000001,
+    HW_ACCESS_METHOD_INVALID                                    = 0x000000FF,
 };
 
 } // End namespace TARGETING
 
 #endif // TARG_ATTRIBUTEENUMS_H
+

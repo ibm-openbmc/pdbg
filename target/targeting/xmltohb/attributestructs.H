@@ -19,7 +19,7 @@
 
 // Targeting component
 #include <builtins.h>
-#include <targeting/common/attributes.H>
+
 #include <targeting/common/entitypath.H>
 
 //******************************************************************************
@@ -38,38 +38,39 @@ struct HwasState
     // If this target was deconfigured, this will be a special
     // DECONFIGURED_BY_ enum, OR it will be the errlog EID that caused it,
     // either directly or by association,
-    uint32_t deconfiguredByEid;
+    uint32_t deconfiguredByEid; 
 
     // 0b0: Target is not powered on (is off); 0b1: Target is powered on;
-    uint8_t poweredOn:1;
+    uint8_t poweredOn : 1; 
 
     // 0b0: Target is not present in the system; 0b1: Target is present in
     // the system
-    uint8_t present:1;
+    uint8_t present : 1; 
 
     // 0b0: Target is not functional; 0b1: Target is functional
-    uint8_t functional:1;
+    uint8_t functional : 1; 
 
     // FSP Only, used by DUMP applet; 0b0: target is dump capabile; 0b1:
     // target is not dump capabile;
-    uint8_t dumpfunctional:1;
+    uint8_t dumpfunctional : 1; 
 
     // Set for speculative deconfig; 0b0: target is not speculatively
     // deconfigured; 0b1: target is speculatively deconfigured;
-    uint8_t specdeconfig:1;
+    uint8_t specdeconfig : 1; 
 
     // If a core was deconfigured due to Field Core Override (FCO) set this
     // bit. This is used by HB and BMC during reconfig loops to treat cores
     // deconfigured by FCO as functional. 0b0: leave target functional bit
     // unchanged during reconfig loops 0b1: set target functional bit to 1
     // during reconfig loops
-    uint8_t functionalOverride:1;
+    uint8_t functionalOverride : 1; 
 
     // Reserved for future use
-    uint8_t reserved:2;
+    uint8_t reserved : 2; 
 
 } PACKED;
 
 } // End namespace TARGETING
 
 #endif // TARG_ATTRIBUTESTRUCTS_H
+
