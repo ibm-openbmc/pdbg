@@ -301,6 +301,50 @@ TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_HW_ACCESS_METHOD)
     EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_METHOD>(original));
 }
 
+TEST_F(TargetServiceTest, CanReadReadableAttr)
+{
+    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    ASSERT_NE(proc, nullptr);
+    typename AttributeTraits<ATTR_TYPE>::Type val{};
+    EXPECT_TRUE(proc->tryGetAttr<ATTR_TYPE>(val)); // should compile & run
+}
+
+TEST_F(TargetServiceTest, CanWriteWritableAttr)
+{
+    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    ASSERT_NE(proc, nullptr);
+    AttributeTraits<ATTR_HW_ACCESS_METHOD>::Type method =
+        HW_ACCESS_METHOD_SBEFIFO;
+    EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_METHOD>(method));
+}
+
+// Verify get throws when attribute not set
+TEST_F(TargetServiceTest, GetVolatileBeforeSetThrows)
+{
+    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    EXPECT_THROW(
+        {
+            auto val = proc->getAttr<ATTR_HW_ACCESS_PTR>();
+            (void)val;
+        },
+        std::runtime_error);
+}
+
+// Verify set followed by get returns the same value
+TEST_F(TargetServiceTest, SetAndGetVolatileWorks)
+{
+    constexpr uint32_t testValue = 0xDEADBEEF;
+
+    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    ASSERT_NE(proc, nullptr);
+
+    EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_PTR>(testValue));
+
+    // Now get should succeed
+    auto val = proc->getAttr<ATTR_HW_ACCESS_PTR>();
+    EXPECT_EQ(val, testValue);
+}
+
 class MockTarget : public TARGETING::Target
 {
   public:
@@ -318,37 +362,20 @@ class MockTarget : public TARGETING::Target
     }
 };
 
-TEST_F(TargetServiceTest, getAttrPrefersOptionalOverFdt)
-{
-    PredicateAttrVal<ATTR_TYPE> pred(TYPE_PROC);
-    auto top = TargetService::instance().getTopLevelTarget();
-    for (auto&& tgt : TargetService::instance().getAssociated(
-             top, AssociationType::childByPhysical, RecursionLevel::all, &pred))
-    {
-        // Use same offset and fdt from real target
-        MockTarget t(TargetService::instance().getFDT(), tgt->getOffset());
-
-        [[maybe_unused]] auto result =
-            tgt->getAttr<TARGETING::ATTR_HW_ACCESS_PTR>();
-
-        // Confirm FDT path wasn't touched
-        EXPECT_FALSE(t.fdtCalled);
-    }
-}
-
-TEST_F(TargetServiceTest, CanReadReadableAttr)
+TEST_F(TargetServiceTest, getAttrPrefersVolatileOverFdt)
 {
     auto proc = getFirstTargetMatchingType(TYPE_PROC);
     ASSERT_NE(proc, nullptr);
-    typename AttributeTraits<ATTR_TYPE>::Type val{};
-    EXPECT_TRUE(proc->tryGetAttr<ATTR_TYPE>(val)); // should compile & run
-}
+    constexpr uint32_t testValue = 0xDEADBEEF;
 
-TEST_F(TargetServiceTest, CanWriteWritableAttr)
-{
-    auto proc = getFirstTargetMatchingType(TYPE_PROC);
-    ASSERT_NE(proc, nullptr);
-    AttributeTraits<ATTR_HW_ACCESS_METHOD>::Type method =
-        HW_ACCESS_METHOD_SBEFIFO;
-    EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_METHOD>(method));
+    // Use same offset and fdt from real target
+    MockTarget t(TargetService::instance().getFDT(), proc->getOffset());
+
+    EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_PTR>(testValue));
+
+    [[maybe_unused]] auto result =
+        proc->getAttr<TARGETING::ATTR_HW_ACCESS_PTR>();
+
+    // Confirm FDT path wasn't touched
+    EXPECT_FALSE(t.fdtCalled);
 }

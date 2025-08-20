@@ -147,63 +147,32 @@ class Target
     int getOffset() const noexcept;
 
   private:
-    void* _fdt = nullptr; ///< Pointer to device tree blob.
-    int _offset = -1; ///< Node offset in device tree.
-    std::optional<std::map<ATTRIBUTE_ID, AttributeValue>> _optAttributes; ///< Optional in-memory attributes.
+    void* _fdt = nullptr;    ///< Pointer to device tree blob.
+    int _offset = -1;        ///< Node offset in device tree.
+    std::optional<std::map<ATTRIBUTE_ID, AttributeValue>>
+        _volatileAttributes; ///< volatile in-memory attributes.
 
     /**
-     * @brief Add an optional attribute to the in-memory attribute map.
+     * @brief Check if an volatile attribute exists.
+     */
+    bool isVolatileAttr(ATTRIBUTE_ID attrId) const
+    {
+        return _volatileAttributes && _volatileAttributes->contains(attrId);
+    }
+
+    /**
+     * @brief Get an volatile attribute of a specific type.
+     * @throw std::runtime_error if the attribute is not present or type
+     * mismatched.
      */
     template <ATTRIBUTE_ID A>
-    void addOptionalAttr(const typename AttributeTraits<A>::Type& value)
-    {
-        if (!_optAttributes)
-        {
-            _optAttributes.emplace();
-        }
-        (*_optAttributes)[A] = value;
-    }
-
-    /**
-     * @brief Check if an optional attribute exists.
-     */
-    bool hasOptionalAttr(ATTRIBUTE_ID attrId) const
-    {
-        return _optAttributes && _optAttributes->contains(attrId);
-    }
-
-    /**
-     * @brief Get an optional attribute of a specific type.
-     * @throw std::runtime_error if the attribute is not present or type mismatched.
-     */
-    template <typename T> T getOptionalAttr(ATTRIBUTE_ID attrId) const
-    {
-        if (!hasOptionalAttr(attrId))
-        {
-            throw std::runtime_error("Optional attribute not present");
-        }
-
-        const auto& val = _optAttributes->at(attrId);
-        if (const T* ptr = std::get_if<T>(&val))
-        {
-            return *ptr;
-        }
-
-        throw std::runtime_error("Optional attribute has unexpected type");
-    }
+    typename AttributeTraits<A>::Type getVolatileAttr() const;
 
     /**
      * @brief Set or update an optional attribute.
      */
-    template <typename T>
-    void setOptionalAttr(ATTRIBUTE_ID attrId, const T& attrValue)
-    {
-        if (!_optAttributes)
-        {
-            _optAttributes.emplace();
-        }
-        (*_optAttributes)[attrId] = attrValue;
-    }
+    template <const ATTRIBUTE_ID A>
+    void setVolatileAttr(const typename AttributeTraits<A>::Type& attrValue);
 
   protected:
     /**
@@ -264,4 +233,3 @@ class Target
 } // namespace TARGETING
 
 #include "target_tmpl.H" // Template implementations
-

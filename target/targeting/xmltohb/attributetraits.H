@@ -46,6 +46,7 @@ namespace TARGETING
  *          readable = Attribute is readable
  *          writable = Attribute is writable
  *          hasStringConversion = Attribute has debug string conversion
+ *          isvolatile = Attribute is application specific
  *      }
  *
  *      typedef <type> TYPE // <type> is the Attribute's valid type
@@ -1254,7 +1255,7 @@ template<>
 class AttributeTraits<ATTR_HW_ACCESS_PTR>
 {
     public:
-        enum { writeable, readable, hasStringConversion, notHbMutex, notFspMutex, fspAccessible };
+        enum { writeable, readable, hasStringConversion, notHbMutex, notFspMutex, fspAccessible, isvolatile };
         typedef uint32_t Type;
 #if __cplusplus >= 201103L 
         static constexpr uint32_t HW_ACCESS_PTR_INVALID = 0xFFFFFFFF;

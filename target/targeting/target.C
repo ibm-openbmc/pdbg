@@ -5,29 +5,7 @@
 
 namespace TARGETING
 {
-Target::Target(void* fdt, int offset) : _fdt(fdt), _offset(offset)
-{
-    // populate all the Optional attributes here
-    // TODO: create actual ATTR_HWACCESS_METHOD pointer
-    if (AttributeTraits<ATTR_HW_ACCESS_METHOD>::Type accessVal;
-        tryGetAttr<ATTR_HW_ACCESS_METHOD>(accessVal))
-    {
-        if (AttributeTraits<ATTR_HW_ACCESS_PTR>::Type value;
-            tryGetAttr<ATTR_HW_ACCESS_PTR>(value))
-        {
-            if (reinterpret_cast<void*>(static_cast<uintptr_t>(value)) ==
-                nullptr)
-            {
-                addOptionalAttr<ATTR_HW_ACCESS_PTR>(0); // 0 represents nullptr
-            }
-        }
-        else
-        {
-            throw std::logic_error(
-                "Target has ATTR_HW_ACCESS_METHOD but missing ATTR_HW_ACCESS_PTR");
-        }
-    }
-}
+Target::Target(void* fdt, int offset) : _fdt(fdt), _offset(offset) {}
 
 int Target::getOffset() const noexcept
 {

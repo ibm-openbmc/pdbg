@@ -51,9 +51,9 @@ template <const ATTRIBUTE_ID A>
 typename AttributeTraits<A>::Type Target::getAttr() const
 {
     (void)AttributeTraits<A>::readable;
-    if (hasOptionalAttr(A))
+    if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        return getOptionalAttr<typename AttributeTraits<A>::Type>(A);
+        return getVolatileAttr<A>();
     }
 
     typename AttributeTraits<A>::Type value{};
@@ -68,9 +68,9 @@ template <const ATTRIBUTE_ID A>
 typename AttributeTraits<A>::TypeStdArr Target::getAttrAsArray() const
 {
     (void)AttributeTraits<A>::readable;
-    if (hasOptionalAttr(A))
+    if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        return getOptionalAttr<typename AttributeTraits<A>::TypeStdArr>(A);
+        return getVolatileAttr<A>();
     }
 
     typename AttributeTraits<A>::TypeStdArr value{};
@@ -85,9 +85,9 @@ template <const ATTRIBUTE_ID A>
 bool Target::tryGetAttr(typename AttributeTraits<A>::Type& o_attrValue) const
 {
     (void)AttributeTraits<A>::readable;
-    if (hasOptionalAttr(A))
+    if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        o_attrValue = getOptionalAttr<typename AttributeTraits<A>::Type>(A);
+        o_attrValue = getVolatileAttr<A>();
         return true;
     }
     return tryGetAttrImpl<A>(o_attrValue);
@@ -98,10 +98,9 @@ bool Target::tryGetAttr(
     typename AttributeTraits<A>::TypeStdArr& o_attrValue) const
 {
     (void)AttributeTraits<A>::readable;
-    if (hasOptionalAttr(A))
+    if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        o_attrValue =
-            getOptionalAttr<typename AttributeTraits<A>::TypeStdArr>(A);
+        o_attrValue = getVolatileAttr<A>();
         return true;
     }
     return tryGetAttrImpl<A>(o_attrValue);
@@ -111,9 +110,9 @@ template <const ATTRIBUTE_ID A>
 void Target::setAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if (hasOptionalAttr(A))
+    if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        setOptionalAttr(A, attrValue);
+        setVolatileAttr(A, attrValue);
         return;
     }
     setAttrImpl<A>(attrValue);
@@ -123,9 +122,9 @@ template <const ATTRIBUTE_ID A>
 void Target::setAttr(const typename AttributeTraits<A>::TypeStdArr& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if (hasOptionalAttr(A))
+    if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        setOptionalAttr(A, attrValue);
+        setVolatileAttr(A, attrValue);
         return;
     }
     setAttrImpl<A>(attrValue);
@@ -135,9 +134,9 @@ template <const ATTRIBUTE_ID A>
 bool Target::trySetAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if (hasOptionalAttr(A))
+    if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        setOptionalAttr(A, attrValue);
+        setVolatileAttr<A>(attrValue);
         return true;
     }
     return trySetAttrImpl<A>(attrValue);
@@ -148,12 +147,54 @@ bool Target::trySetAttr(
     const typename AttributeTraits<A>::TypeStdArr& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if (hasOptionalAttr(A))
+    if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        setOptionalAttr(A, attrValue);
+        setVolatileAttr(A, attrValue);
         return true;
     }
     return trySetAttrImpl<A>(attrValue);
+}
+
+template <ATTRIBUTE_ID A>
+typename AttributeTraits<A>::Type Target::getVolatileAttr() const
+{
+    // compile-time validation
+    (void)AttributeTraits<A>::readable;
+    (void)AttributeTraits<A>::isvolatile;
+
+    using AttrType = typename AttributeTraits<A>::Type;
+
+    if (!_volatileAttributes)
+    {
+        throw std::runtime_error("Volatile attribute is not set");
+    }
+
+    auto& attrMap = *_volatileAttributes;
+
+    if (!isVolatileAttr(A))
+    {
+        throw std::runtime_error("Volatile attribute is not set");
+    }
+
+    const auto& val = attrMap.at(A);
+    if (const AttrType* ptr = std::get_if<AttrType>(&val))
+    {
+        return *ptr;
+    }
+
+    throw std::runtime_error("Volatile attribute type mismatch");
+}
+
+template <const ATTRIBUTE_ID A>
+void Target::setVolatileAttr(const typename AttributeTraits<A>::Type& attrValue)
+{
+    (void)AttributeTraits<A>::writeable;
+    (void)AttributeTraits<A>::isvolatile;
+    if (!_volatileAttributes)
+    {
+        _volatileAttributes.emplace();
+    }
+    (*_volatileAttributes)[A] = attrValue;
 }
 
 // ----------------------------------------
