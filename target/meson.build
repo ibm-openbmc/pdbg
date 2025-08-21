@@ -1,7 +1,7 @@
 # Include libfdt
 subdir('libfdt')
 subdir('targeting')
-subdir('service')
+subdir('targetsvc')
 subdir('test')
 
 # Build main executable linking with both libraries
