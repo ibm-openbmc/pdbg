@@ -3,6 +3,7 @@ extern "C"
 {
 #include <libfdt.h>
 }
+#include <hwAccessIntf.H>
 
 #include <fstream>
 #include <vector>
@@ -66,5 +67,15 @@ TargetPtr TargetService::getTopLevelTarget() const
         return nullptr;
     }
     return _targetMap->getTopLevelTarget();
+}
+
+void TargetService::setHwAccessMethod(TargetPtr target, HwAccessMethod accessMethod)
+{
+    target->setAttr<ATTR_HW_ACCESS_METHOD>(accessMethod);
+
+    uintptr_t accessPtr =
+            reinterpret_cast<uintptr_t>(hwaccess::HwAccessIntf::getHwAccessPtr(accessMethod));
+
+    target->setAttr<ATTR_HW_ACCESS_PTR>(static_cast<HwAccessPtrType>(accessPtr));
 }
 } // namespace TARGETING
