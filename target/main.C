@@ -28,38 +28,50 @@ int main()
 {
     try
     {
+        /*
+        auto& ts = TargetService::instance();
+        ts.init("target/test/targeting_test.dtb");
+        print_all_node_paths(ts.getFDT());
+        */
         auto& ts = TargetService::instance();
         ts.init("target/test/targeting_test.dtb");
         auto top = TargetService::instance().getTopLevelTarget();
         std::cout
-            << "Test1: All targets with ATTR_PHYS_DEV_PATH childByPhysical all\n";
+            << "Test1: All targets with ATTR_PHYS_PATH childByPhysical all\n";
         {
-            PredicateAttr<ATTR_PHYS_DEV_PATH> pred;
+            PredicateAttr<ATTR_PHYS_PATH> pred;
             for (auto&& tgt :
                  ts.getAssociated(top, AssociationType::childByPhysical,
                                   RecursionLevel::all, &pred))
             {
-                std::string path;
-                if (tgt->tryGetAttr<ATTR_PHYS_DEV_PATH>(path))
-                    std::cout << "  " << path << "\n";
+                EntityPath path;
+                if (tgt->tryGetAttr<ATTR_PHYS_PATH>(path))
+                {
+                    std::cout << "  " << path.toString() << "\n";
+                }
                 else
-                    std::cout << "ATTR_PHYS_DEV_PATH not found " << std::endl;
+                {
+                    std::cout << "ATTR_PHYS_PATH not found " << std::endl;
+                }
             }
         }
-
         std::cout
-            << "Test2: All targets with ATTR_PHYS_DEV_PATH childByAffinity all \n";
+            << "Test2: All targets with ATTR_PHYS_PATH childByAffinity all \n";
         {
-            PredicateAttr<ATTR_PHYS_DEV_PATH> pred;
+            PredicateAttr<ATTR_PHYS_PATH> pred;
             for (auto&& tgt :
                  ts.getAssociated(top, AssociationType::childByAffinity,
                                   RecursionLevel::all, &pred))
             {
-                std::string path;
-                if (tgt->tryGetAttr<ATTR_PHYS_DEV_PATH>(path))
-                    std::cout << "  " << path << "\n";
+                EntityPath path;
+                if (tgt->tryGetAttr<ATTR_PHYS_PATH>(path))
+                {
+                    std::cout << "  " << path.toString() << "\n";
+                }
                 else
-                    std::cout << "ATTR_PHYS_DEV_PATH not found " << std::endl;
+                {
+                    std::cout << "ATTR_PHYS_PATH not found " << std::endl;
+                }
             }
         }
         std::cout << "Test3: PredicatePostFoxExpr AttrVal and Attr \n";
@@ -67,24 +79,24 @@ int main()
             PredicatePostfixExpr procAndDevPath;
             procAndDevPath
                 .push(std::make_shared<PredicateAttrVal<ATTR_TYPE>>(TYPE_PROC))
-                .push(std::make_shared<PredicateAttr<ATTR_PHYS_DEV_PATH>>())
+                .push(std::make_shared<PredicateAttr<ATTR_PHYS_PATH>>())
                 .And();
             auto top = ts.getTopLevelTarget();
             for (auto&& parent :
                  ts.getAssociated(top, AssociationType::childByPhysical,
                                   RecursionLevel::all, &procAndDevPath))
             {
-                std::string parentPath;
-                parent->tryGetAttr<ATTR_PHYS_DEV_PATH>(parentPath);
-                std::cout << "PROC: " << parentPath << "\n";
+                EntityPath path;
+                parent->tryGetAttr<ATTR_PHYS_PATH>(path);
+                std::cout << "PROC: " << path.toString() << "\n";
 
                 for (auto&& child :
                      ts.getAssociated(parent, AssociationType::childByPhysical,
                                       RecursionLevel::immediate))
                 {
-                    std::string childPath;
-                    child->tryGetAttr<ATTR_PHYS_DEV_PATH>(childPath);
-                    std::cout << "  └── " << childPath << "\n";
+                    EntityPath childPath;
+                    child->tryGetAttr<ATTR_PHYS_PATH>(childPath);
+                    std::cout << "  └── " << childPath.toString() << "\n";
                 }
             }
         }
@@ -97,19 +109,24 @@ int main()
             EntityPath path =
                 EntityPath::fromBinary(std::span<const uint8_t>{bin});
             ConstTargetPtr ocmbTarget = ts.toTarget(path);
-            std::string ocmb;
-            ocmbTarget->tryGetAttr<ATTR_PHYS_DEV_PATH>(ocmb);
-            std::cout << " entitypath to ocmb physical path " << ocmb << "\n";
+            EntityPath ocmbEntityPath;
+            ocmbTarget->tryGetAttr<ATTR_PHYS_PATH>(ocmbEntityPath);
+            std::cout << " ocmb target physical path "
+                      << ocmbEntityPath.toString() << "\n";
+
             TargetPtr parentp =
                 ts.getParentOf(ocmbTarget, AssociationType::parentByPhysical);
-            parentp->tryGetAttr<ATTR_PHYS_DEV_PATH>(ocmb);
-            std::cout << " parent of ocmb parent affinity path " << ocmb
-                      << "\n";
+            EntityPath ocmbParentPhyPath;
+            parentp->tryGetAttr<ATTR_PHYS_PATH>(ocmbParentPhyPath);
+            std::cout << " parent of ocmb parent affinity path "
+                      << ocmbParentPhyPath.toString() << "\n";
+
             TargetPtr parenta =
                 ts.getParentOf(ocmbTarget, AssociationType::parentByAffinity);
-            parenta->tryGetAttr<ATTR_PHYS_DEV_PATH>(ocmb);
-            std::cout << " parent of ocmb parent physical path " << ocmb
-                      << "\n";
+            EntityPath ocmbParentAffPath;
+            parenta->tryGetAttr<ATTR_AFFINITY_PATH>(ocmbParentAffPath);
+            std::cout << " parent of ocmb parent affinity path "
+                      << ocmbParentAffPath.toString() << "\n";
         }
     }
     catch (std::exception& ex)
@@ -192,6 +209,7 @@ void print_all_node_paths(const void* fdt)
         if (get_full_path(fdt, offset, path, sizeof(path)) == 0)
         {
             printf("Node offset %d: %s\n", offset, path);
+            printPropertiesOfNode(fdt, path);
         }
         else
         {

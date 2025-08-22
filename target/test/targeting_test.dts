@@ -5,7 +5,6 @@
     ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
     ATTR_AFFINITY_PATH = [ 11 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
     ATTR_PHYS_PATH = [ 21 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
-    ATTR_PHYS_DEV_PATH = "physical:sys-0";
     ATTR_TYPE = [ 01 ];
     ATTR_CLASS = [ 01 ];
     node0 {
@@ -15,7 +14,6 @@
         ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
         ATTR_AFFINITY_PATH = [ 12 01 00 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
         ATTR_PHYS_PATH = [ 22 01 00 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
-        ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0";
         ATTR_TYPE = [ 02 ];
         ATTR_CLASS = [ 02 ];
         proc0 {
@@ -26,11 +24,11 @@
             ATTR_LOCATION_CODE = "Ufcs-P0-C15";
             ATTR_AFFINITY_PATH = [ 13 01 00 02 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
             ATTR_PHYS_PATH = [ 23 01 00 02 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
-            ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-0";
             ATTR_TYPE = [ 05 ];
             ATTR_CLASS = [ 03 ];
             ATTR_ACCESS_TYPE = [ 01 ];
-            ATTR_HWACCESS_METHOD = [ 00 00 00 00 ];
+            ATTR_HW_ACCESS_METHOD = [ 00 00 00 00 ];
+            ATTR_HW_ACCESS_PTR = [ 00 00 00 00 ];
 
             mc0 {
                 compatible = "ibm,power10-mc";
@@ -39,7 +37,6 @@
                 ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                 ATTR_AFFINITY_PATH = [ 14 01 00 02 00 05 00 44 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
                 ATTR_PHYS_PATH = [ 24 01 00 02 00 05 00 44 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
-                ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-0/mc-0";
                 ATTR_TYPE = [ 44 ];
                 ATTR_CLASS = [ 44 ];
 
@@ -50,7 +47,6 @@
                     ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                     ATTR_AFFINITY_PATH = [ 15 01 00 02 00 05 00 44 00 26 00 00 00 00 00 00 00 00 00 00 00 ];
                     ATTR_PHYS_PATH = [ 25 01 00 02 00 05 00 44 00 26 00 00 00 00 00 00 00 00 00 00 00 ];
-                    ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-0/mc-0/mi-0";
                     ATTR_TYPE = [ 26 ];
                     ATTR_CLASS = [ 26 ];
 
@@ -61,7 +57,6 @@
                         ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                         ATTR_AFFINITY_PATH = [ 16 01 00 02 00 05 00 44 00 26 00 49 00 00 00 00 00 00 00 00 00 ];
                         ATTR_PHYS_PATH = [ 26 01 00 02 00 05 00 44 00 26 00 49 00 00 00 00 00 00 00 00 00 ];
-                        ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-0/mc-0/mi-0/mcc-0";
                         ATTR_TYPE = [ 49 ];
                         ATTR_CLASS = [ 49 ];
 
@@ -72,18 +67,16 @@
                             ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                             ATTR_AFFINITY_PATH = [ 17 01 00 02 00 05 00 44 00 26 00 49 00 48 00 00 00 00 00 00 00 ];
                             ATTR_PHYS_PATH = [ 27 01 00 02 00 05 00 44 00 26 00 49 00 48 00 00 00 00 00 00 00 ];
-                            ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-0/mc-0/mi-0/mcc-0/omi-0";
                             ATTR_TYPE = [ 48 ];
                             ATTR_CLASS = [ 48 ];
 
                             ocmb0 {
                                 compatible = "ibm,ocmb0";
                                 index = <0x00>;
-                                ATTR_FAPI_NAME = "ocmb:k0:n0:s0:p00";
+                                ATTR_FAPI_NAME = "ocmb:k0:n0:s0:p12";
                                 ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                                 ATTR_AFFINITY_PATH = [ 18 01 00 02 00 05 00 44 00 26 00 49 00 48 00 4B 00 00 00 00 00 ];
                                 ATTR_PHYS_PATH = [ 23 01 00 02 00 4B 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ];
-                                ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/ocmb-0";
                                 ATTR_TYPE = [ 4B ];
                                 ATTR_CLASS = [ 4B ];
                             }; //ocmb0
@@ -101,11 +94,11 @@
             ATTR_LOCATION_CODE = "Ufcs-P0-C15";
             ATTR_AFFINITY_PATH = [ 13 01 00 02 00 05 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
             ATTR_PHYS_PATH = [ 23 01 00 02 00 05 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
-            ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-1";
             ATTR_TYPE = [ 05 ];
             ATTR_CLASS = [ 03 ];
             ATTR_ACCESS_TYPE = [ 01 ];
-            ATTR_HWACCESS_METHOD = [ 00 00 00 00 ];
+            ATTR_HW_ACCESS_METHOD = [ 00 00 00 00 ];
+            ATTR_HW_ACCESS_PTR = [ 00 00 00 00 ];
 
             mc0 {
                 compatible = "ibm,power10-mc";
@@ -114,7 +107,6 @@
                 ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                 ATTR_AFFINITY_PATH = [ 14 01 00 02 00 05 01 44 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
                 ATTR_PHYS_PATH = [ 24 01 00 02 00 05 01 44 00 00 00 00 00 00 00 00 00 00 00 00 00 ];
-                ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-1/mc-0";
                 ATTR_TYPE = [ 44 ];
                 ATTR_CLASS = [ 44 ];
 
@@ -125,7 +117,6 @@
                     ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                     ATTR_AFFINITY_PATH = [ 15 01 00 02 00 05 01 44 00 26 00 00 00 00 00 00 00 00 00 00 00 ];
                     ATTR_PHYS_PATH = [ 25 01 00 02 00 05 01 44 00 26 00 00 00 00 00 00 00 00 00 00 00 ];
-                    ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-1/mc-0/mi-0";
                     ATTR_TYPE = [ 26 ];
                     ATTR_CLASS = [ 26 ];
 
@@ -136,7 +127,6 @@
                         ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                         ATTR_AFFINITY_PATH = [ 16 01 00 02 00 05 01 44 00 26 00 49 00 00 00 00 00 00 00 00 00 ];
                         ATTR_PHYS_PATH = [ 26 01 00 02 00 05 01 44 00 26 00 49 00 00 00 00 00 00 00 00 00 ];
-                        ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-1/mc-0/mi-0/mcc-0";
                         ATTR_TYPE = [ 49 ];
                         ATTR_CLASS = [ 49 ];
 
@@ -147,18 +137,16 @@
                             ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                             ATTR_AFFINITY_PATH = [ 17 01 00 02 00 05 01 44 00 26 00 49 00 48 00 00 00 00 00 00 00 ];
                             ATTR_PHYS_PATH = [ 27 01 00 02 00 05 01 44 00 26 00 49 00 48 00 00 00 00 00 00 00 ];
-                            ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/proc-1/mc-0/mi-0/mcc-0/omi-0";
                             ATTR_TYPE = [ 48 ];
                             ATTR_CLASS = [ 48 ];
 
                             ocmb0 {
                                 compatible = "ibm,ocmb0";
                                 index = <0x00>;
-                                ATTR_FAPI_NAME = "ocmb:k0:n0:s0:p00";
+                                ATTR_FAPI_NAME = "ocmb:k0:n0:s0:p13";
                                 ATTR_HWAS_STATE = [ 00 00 00 00 00 ];
                                 ATTR_AFFINITY_PATH = [ 18 01 00 02 00 05 01 44 00 26 00 49 00 48 00 4B 00 00 00 00 00 ];
                                 ATTR_PHYS_PATH = [ 23 01 00 02 00 4B 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ];
-                                ATTR_PHYS_DEV_PATH = "physical:sys-0/node-0/ocmb-1";
                                 ATTR_TYPE = [ 4B ];
                                 ATTR_CLASS = [ 4B ];
                             }; //ocmb0
