@@ -12,11 +12,18 @@ hwaccess_inc = include_directories(
 hwaccess_lib = shared_library(
   'hwaccess',
   hwaccess_sources,
-  include_directories: [libfdt_inc, targeting_inc, hwaccess_inc],
-  link_with: targeting_lib,
+  include_directories: [hwaccess_inc],
+  dependencies: [libfdt_dep, targeting_dep],
+  version: '1.0.0',
+  soversion: '1',
   install: true
 )
 
 # Export public headers into /usr/include/hwaccess
 install_headers('hwAccessIntf.H', subdir: 'hwaccess')
+
+hwaccess_dep = declare_dependency(
+    link_with: hwaccess_lib,
+    include_directories: hwaccess_inc
+)
 
