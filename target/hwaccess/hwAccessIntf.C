@@ -5,13 +5,15 @@
 
 namespace hwaccess
 {
+using HwAccessPtr = TARGETING::AttributeTraits<TARGETING::ATTR_HW_ACCESS_PTR>::Type;
+
 int HwAccessIntf::getCfamRegisters(TargetPtr_t target, uint32_t addr, uint32_t& val)
 {
     if(target == nullptr)
         return -1;
 
     auto accessPtr = target->getAttr<TARGETING::ATTR_HW_ACCESS_PTR>();
-    HwBaseAccess* hwAccessPtr = reinterpret_cast<HwBaseAccess*>(static_cast<uintptr_t>(accessPtr));
+    HwBaseAccess* hwAccessPtr = reinterpret_cast<HwBaseAccess*>(static_cast<HwAccessPtr>(accessPtr));
 
     if (hwAccessPtr != nullptr)
     {
@@ -27,7 +29,7 @@ int HwAccessIntf::putCfamRegisters(TargetPtr_t target, uint32_t addr, uint32_t v
         return -1;
 
     auto accessPtr = target->getAttr<TARGETING::ATTR_HW_ACCESS_PTR>();
-    HwBaseAccess* hwAccessPtr = reinterpret_cast<HwBaseAccess*>(static_cast<uintptr_t>(accessPtr));
+    HwBaseAccess* hwAccessPtr = reinterpret_cast<HwBaseAccess*>(static_cast<HwAccessPtr>(accessPtr));
 
     if (hwAccessPtr != nullptr)
     {
@@ -43,7 +45,7 @@ int HwAccessIntf::getScomRegisters(TargetPtr_t target, uint64_t addr, uint64_t& 
         return -1;
 
     auto accessPtr = target->getAttr<TARGETING::ATTR_HW_ACCESS_PTR>();
-    HwBaseAccess* hwAccessPtr = reinterpret_cast<HwBaseAccess*>(static_cast<uintptr_t>(accessPtr));
+    HwBaseAccess* hwAccessPtr = reinterpret_cast<HwBaseAccess*>(static_cast<HwAccessPtr>(accessPtr));
 
     if (hwAccessPtr != nullptr)
     {
@@ -59,7 +61,7 @@ int HwAccessIntf::putScomRegisters(TargetPtr_t target, uint64_t addr, uint64_t v
         return -1;
 
     auto accessPtr = target->getAttr<TARGETING::ATTR_HW_ACCESS_PTR>();
-    HwBaseAccess* hwAccessPtr = reinterpret_cast<HwBaseAccess*>(static_cast<uintptr_t>(accessPtr));
+    HwBaseAccess* hwAccessPtr = reinterpret_cast<HwBaseAccess*>(static_cast<HwAccessPtr>(accessPtr));
 
     if (hwAccessPtr != nullptr)
     {
