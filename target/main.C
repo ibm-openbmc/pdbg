@@ -3,6 +3,7 @@
 #include <attributestructs.H>
 #include <attributetraits.H>
 #include <entitypath.H>
+#include <hwAccessIntf.H>
 #include <predicateattr.H>
 #include <predicateattrval.H>
 #include <predicatepostfixexpr.H>
@@ -26,13 +27,40 @@ void print_all_node_paths(const void* fdt);
 
 int main()
 {
-    try
+    PredicatePostfixExpr procAndDevPath;
+    procAndDevPath
+        .push(std::make_shared<PredicateAttrVal<ATTR_TYPE>>(TYPE_PROC))
+        .push(std::make_shared<PredicateAttr<ATTR_PHYS_DEV_PATH>>())
+        .And();
+
+    auto& ts = TargetService::instance();
+    ts.init("target/test/targeting_test.dtb");
+    auto top = ts.getTopLevelTarget();
+
+    for (auto&& proctarget :
+             ts.getAssociated(top, AssociationType::childByPhysical,
+                              RecursionLevel::immediate, &procAndDevPath))
     {
-        /*
+            char procPath[64]={0};
+
+            if (proctarget->tryGetAttr<ATTR_PHYS_DEV_PATH>(procPath))
+                std::cout << " PROC:  " << procPath << "\n";
+            else
+                std::cout << "ATTR_PHYS_DEV_PATH not found " << std::endl;
+
+            uint32_t val;
+
+            ts.setHwAccessMethod(proctarget, HW_ACCESS_METHOD_DIRECT_ACCESS);
+            HWACCESS::HwAccessIntf::getCfamRegisters(proctarget, 0x2810, val);
+            break;
+    }
+/*    try
+    {
+        //
         auto& ts = TargetService::instance();
         ts.init("target/test/targeting_test.dtb");
         print_all_node_paths(ts.getFDT());
-        */
+        //
         auto& ts = TargetService::instance();
         ts.init("target/test/targeting_test.dtb");
         auto top = TargetService::instance().getTopLevelTarget();
@@ -133,7 +161,7 @@ int main()
     {
         std::cerr << "Exception: " << ex.what() << "\n";
     }
-
+*/
     return 0;
 }
 

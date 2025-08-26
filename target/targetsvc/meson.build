@@ -12,6 +12,8 @@ targetsvc_lib = shared_library(
     include_directories: [libfdt_inc, service_inc, targeting_inc, hwaccess_inc],
     dependencies: libfdt_dep,
     link_with: [targeting_lib, hwaccess_lib],
+    version: '1.0.0',
+    soversion: '1',
     install: true,
 )
 
