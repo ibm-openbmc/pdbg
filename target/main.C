@@ -1,13 +1,13 @@
-#include <association.H>
-#include <attributeenums.H>
-#include <attributestructs.H>
-#include <attributetraits.H>
-#include <entitypath.H>
-#include <predicateattr.H>
-#include <predicateattrval.H>
-#include <predicatepostfixexpr.H>
-#include <target.H>
-#include <target_service.H>
+#include <targeting/association.H>
+#include <targeting/common/entitypath.H>
+#include <targeting/predicates/predicateattr.H>
+#include <targeting/predicates/predicateattrval.H>
+#include <targeting/predicates/predicatepostfixexpr.H>
+#include <targeting/target.H>
+#include <targeting/xmltohb/attributeenums.H>
+#include <targeting/xmltohb/attributestructs.H>
+#include <targeting/xmltohb/attributetraits.H>
+#include <targetsvc/target_service.H>
 
 #include <iomanip>
 #include <iostream>

@@ -2,13 +2,26 @@
 subdir('libfdt')
 subdir('targeting')
 subdir('targetsvc')
+subdir('transport')
 subdir('test')
 
-# Build main executable linking with both libraries
+# Main executable
 executable(
     'targeting-app',
     'main.C',
-    include_directories: [libfdt_inc, targeting_inc, service_inc],
+    include_directories: [libfdt_inc, targeting_inc, targetsvc_inc, transport_inc],
     dependencies: libfdt_dep,
-    link_with: [targeting_lib, targetsvc_lib],
+    link_with: [targeting_lib, targetsvc_lib, libtransport],
+    install: true,
 )
+
+# transportexecutable
+executable(
+    'transport-app',
+    'transport_app.C',
+    include_directories: [libfdt_inc, targeting_inc, targetsvc_inc, transport_inc],
+    dependencies: libfdt_dep,
+    link_with: [targeting_lib, targetsvc_lib, libtransport],
+    install: true,
+)
+

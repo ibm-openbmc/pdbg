@@ -4,17 +4,21 @@ service_lib_sources = files(
     'target_service.C',
 )
 
-service_inc = include_directories('.')
+targetsvc_inc = include_directories('.')
 
 targetsvc_lib = shared_library(
     'targetsvc',
     service_lib_sources,
-    include_directories: [libfdt_inc, service_inc, targeting_inc],
+    include_directories: [libfdt_inc, targetsvc_inc, targeting_inc],
     dependencies: libfdt_dep,
-    link_with: targeting_lib,
-    install: true,
+    link_with: targeting_lib,  # okay here because it’s a shared library
+    install: true
 )
 
-# Export public headers into /usr/include/target
-install_headers('target_service.H', subdir: 'targeting')
+install_headers('target_service.H', subdir: 'targetsvc')
 
+targetsvc_dep = declare_dependency(
+  link_with: targetsvc_lib,
+  include_directories: targetsvc_inc,
+  dependencies: [targeting_dep]
+)

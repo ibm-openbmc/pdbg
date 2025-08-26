@@ -15,7 +15,7 @@ targeting_lib = shared_library(
     install: true,
 )
 
-# Export public headers into /usr/include/target
+# Export public headers into /usr/include/targeting
 install_headers(
     'target.H',
     'association.H',
@@ -29,5 +29,11 @@ install_headers(
     'predicates/predicateisfunctional.H',
     'predicates/predicatepostfixexpr.H',
     subdir: 'targeting',
+)
+
+# Declare dependency for consumers
+targeting_dep = declare_dependency(
+    link_with: targeting_lib,
+    include_directories: targeting_inc
 )
 

@@ -1,24 +1,23 @@
-gtest_dep = dependency('gtest', required: true)
-gtest_main_dep = dependency('gtest_main', required: true)
+if not meson.is_cross_build()
+  gtest_dep = dependency('gtest', required: true)
+  gtest_main_dep = dependency('gtest_main', required: true)
 
-test_sources = files(
-  'test_target_service.C',
-)
+  # Test sources
+  test_sources = files(
+    'test_target_service.C',
+  )
 
-test_inc = include_directories(
-  '..',
-  '../targeting',
-  '../targeting/common',
-  '../targeting/predicates',
-  '../targeting/xmltohb',
-)
+  # Include directories for test-specific headers
+  test_inc = include_directories('..')
 
-targeting_tests_exe = executable('targeting-tests',
-  test_sources,
-  include_directories: [libfdt_inc, targeting_inc, test_inc, service_inc, targeting_inc],
-  dependencies: [libfdt_dep, gtest_dep, gtest_main_dep],
-  link_with: [targeting_lib, targetsvc_lib],
-)
+  # Build test executable
+  targeting_tests_exe = executable(
+    'targeting-tests',
+    test_sources,
+    include_directories: [test_inc],
+    dependencies: [gtest_dep, gtest_main_dep, libfdt_dep, targeting_dep, targetsvc_dep],
+  )
 
-test('targeting-tests', targeting_tests_exe)
-
+  # Register the test
+  test('targeting-tests', targeting_tests_exe)
+endif  
