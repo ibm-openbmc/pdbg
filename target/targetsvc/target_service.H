@@ -1,9 +1,9 @@
 #pragma once
 
-#include <association.H>
+#include <targeting/association.H>
 #include <dtree_loader.H>
-#include <predicatebase.H>
-#include <target.H>
+#include <targeting/predicates/predicatebase.H>
+#include <targeting/target.H>
 #include <target_devtree_map.H>
 
 #include <cstdint>
