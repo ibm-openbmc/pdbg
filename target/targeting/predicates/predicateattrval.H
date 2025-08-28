@@ -1,9 +1,10 @@
 #pragma once
 
-#include <attributeenums.H>
-#include <attributetraits.H>
-#include <predicatebase.H>
-#include <target.H>
+#include "predicatebase.H"
+
+#include <targeting/target.H>
+#include <targeting/xmltohb/attributeenums.H>
+#include <targeting/xmltohb/attributetraits.H>
 
 namespace TARGETING
 {
@@ -11,13 +12,12 @@ namespace TARGETING
 /**
  * @brief Predicate to check if a specific attribute has a given value.
  *
- * This template class derives from PredicateBase and evaluates whether a target's
- * attribute (identified by ATTRIBUTE_ID) matches a specified value.
+ * This template class derives from PredicateBase and evaluates whether a
+ * target's attribute (identified by ATTRIBUTE_ID) matches a specified value.
  *
  * @tparam A The attribute ID (of type ATTRIBUTE_ID) to be checked.
  */
-template <const ATTRIBUTE_ID A>
-class PredicateAttrVal : public PredicateBase
+template <const ATTRIBUTE_ID A> class PredicateAttrVal : public PredicateBase
 {
   public:
     /**
@@ -59,4 +59,3 @@ class PredicateAttrVal : public PredicateBase
 };
 
 } // namespace TARGETING
-

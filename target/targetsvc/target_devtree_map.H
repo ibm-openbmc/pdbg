@@ -1,14 +1,14 @@
 #pragma once
 
-#include "attributeenums.H"
-#include "entitypath.H"
-#include "target.H"
+#include <targeting/xmltohb/attributeenums.H>
+#include <targeting/target.H>
+#include <targeting/common/entitypath.H>
 extern "C"
 {
 #include <libfdt.h>
 }
-#include <association.H>
-#include <predicatebase.H>
+#include <targeting/association.H>
+#include <targeting/predicates/predicatebase.H>
 
 #include <map>
 

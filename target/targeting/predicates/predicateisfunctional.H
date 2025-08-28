@@ -1,8 +1,8 @@
 #pragma once
+#include "predicatebase.H"
 
-#include <attributeenums.H>
-#include <predicatebase.H>
-#include <target.H>
+#include <targeting/target.H>
+#include <targeting/xmltohb/attributeenums.H>
 
 namespace targeting
 {
