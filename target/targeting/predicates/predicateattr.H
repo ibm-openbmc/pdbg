@@ -1,9 +1,9 @@
 #pragma once
+#include "predicatebase.H"
 
-#include <attributeenums.H>
-#include <attributetraits.H>
-#include <predicatebase.H>
-#include <target.H>
+#include <targeting/target.H>
+#include <targeting/xmltohb/attributeenums.H>
+#include <targeting/xmltohb/attributetraits.H>
 
 namespace TARGETING
 {
@@ -12,17 +12,17 @@ class Target;
 
 /**
  * @class PredicateAttr
- * @brief A predicate that evaluates whether a target contains a given attribute.
+ * @brief A predicate that evaluates whether a target contains a given
+ * attribute.
  *
  * This template predicate checks if a specific attribute (identified by
- * the ATTRIBUTE_ID template parameter) is present in a given target.  
+ * the ATTRIBUTE_ID template parameter) is present in a given target.
  * It leverages the `tryGetAttr` method of the Target to test for the
  * attribute's existence without throwing exceptions.
  *
  * @tparam A The ATTRIBUTE_ID constant representing the attribute to check.
  */
-template <const ATTRIBUTE_ID A>
-class PredicateAttr : public PredicateBase
+template <const ATTRIBUTE_ID A> class PredicateAttr : public PredicateBase
 {
   public:
     /**
@@ -44,7 +44,8 @@ class PredicateAttr : public PredicateBase
      * identified by the template parameter `A`. It does this by attempting
      * to retrieve the attribute value using `Target::tryGetAttr`.
      *
-     * @param[in] target A constant smart pointer reference to the target object.
+     * @param[in] target A constant smart pointer reference to the target
+     * object.
      * @return `true` if the attribute exists in the target, otherwise `false`.
      */
     bool operator()(ConstTargetPtr& target) const override
@@ -67,4 +68,3 @@ class PredicateAttr : public PredicateBase
 };
 
 } // namespace TARGETING
-
