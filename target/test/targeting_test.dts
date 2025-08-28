@@ -29,6 +29,7 @@
             ATTR_ACCESS_TYPE = [ 01 ];
             ATTR_HW_ACCESS_METHOD = [ 00 00 00 00 ];
             ATTR_HW_ACCESS_PTR = [ 00 00 00 00 ];
+            ATTR_SBEFIFO_DEVICE_PATH = "/dev/sbefifo1";
             ATTR_DIRECT_ACCESS_DEVICE_PATH = "/dev/scom1";
             ATTR_FSI_DEVICE_PATH = "/fsi0/slave@00:00/raw";
 
@@ -101,6 +102,7 @@
             ATTR_ACCESS_TYPE = [ 01 ];
             ATTR_HW_ACCESS_METHOD = [ 00 00 00 00 ];
             ATTR_HW_ACCESS_PTR = [ 00 00 00 00 ];
+            ATTR_SBEFIFO_DEVICE_PATH = "/dev/sbefifo2";
             ATTR_DIRECT_ACCESS_DEVICE_PATH = "/dev/scom2";
             mc0 {
                 compatible = "ibm,power10-mc";
