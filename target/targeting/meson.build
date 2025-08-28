@@ -15,7 +15,7 @@ targeting_lib = shared_library(
     install: true,
 )
 
-# Export public headers into /usr/include/target
+# Export public headers into /usr/include/targeting
 install_headers(
     'target.H',
     'association.H',
