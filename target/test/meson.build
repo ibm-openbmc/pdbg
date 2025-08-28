@@ -15,7 +15,7 @@ test_inc = include_directories(
 
 targeting_tests_exe = executable('targeting-tests',
   test_sources,
-  include_directories: [libfdt_inc, targeting_inc, test_inc, service_inc, targeting_inc],
+  include_directories: [libfdt_inc, targeting_inc, test_inc, targetsvc_inc, targeting_inc],
   dependencies: [libfdt_dep, gtest_dep, gtest_main_dep],
   link_with: [targeting_lib, targetsvc_lib],
 )

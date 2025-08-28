@@ -4,12 +4,12 @@ service_lib_sources = files(
     'target_service.C',
 )
 
-service_inc = include_directories('.')
+targetsvc_inc = include_directories('.')
 
 targetsvc_lib = shared_library(
     'targetsvc',
     service_lib_sources,
-    include_directories: [libfdt_inc, service_inc, targeting_inc],
+    include_directories: [libfdt_inc, targetsvc_inc, targeting_inc],
     dependencies: libfdt_dep,
     link_with: targeting_lib,
     install: true,
