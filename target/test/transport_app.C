@@ -22,6 +22,23 @@ void printBytes(std::string_view name, std::span<const std::byte> data)
     std::cout << std::dec << "\n";
 }
 
+transport::ByteVector buildGetScomCommand(uint64_t address)
+{
+    constexpr uint32_t wordCount = 0x00000004;
+    constexpr uint32_t cmdWord = 0x0000A201;
+
+    uint32_t words[4] = {
+        htobe32(wordCount), htobe32(cmdWord),
+        htobe32(static_cast<uint32_t>(address >> 32)),        // high 32 bits
+        htobe32(static_cast<uint32_t>(address & 0xFFFFFFFF)), // low 32 bits
+    };
+
+    transport::ByteVector data(sizeof(words));
+    std::memcpy(data.data(), words, sizeof(words));
+
+    return data;
+}
+
 int main()
 {
     try
@@ -35,6 +52,7 @@ int main()
              ts.getAssociated(top, AssociationType::childByPhysical,
                               RecursionLevel::all, &pred))
         {
+            /// direct acccess
             uint32_t cfamvalue = 0;
             int rc = transport::getCfam(tgt, 0x2810, cfamvalue);
             if (rc != 0)
@@ -96,6 +114,38 @@ int main()
             {
                 std::cout << "successfully read addr:0x50001 scom value 0x"
                           << std::hex << scomvalue << std::endl;
+            }
+            /// sbeifo access
+            {
+                std::cout << "sbefifo getscom command " << std::endl;
+                transport::ByteVector cmd = buildGetScomCommand(0x50001);
+                transport::ByteVector out;
+                int timeout = 120;
+                rc = transport::sendAndRecv(tgt, cmd, timeout, out);
+                if (rc != 0)
+                {
+                    std::cerr << "Failed in sbefifo getscom " << std::endl;
+                }
+                else
+                {
+                    printBytes("cmd", cmd);
+                    printBytes("value", out);
+                }
+            }
+            {
+                transport::ByteVector cmd = buildGetScomCommand(0x00020011);
+                transport::ByteVector out;
+                int timeout = 120;
+                rc = transport::sendAndRecv(tgt, cmd, timeout, out);
+                if (rc != 0)
+                {
+                    std::cerr << "Failed in sbefifo getscom " << std::endl;
+                }
+                else
+                {
+                    printBytes("cmd", cmd);
+                    printBytes("value", out);
+                }
             }
             break;
         }
