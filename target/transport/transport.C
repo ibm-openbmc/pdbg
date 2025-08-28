@@ -2,7 +2,6 @@
 #include "transport.H"
 
 #include <fcntl.h>
-#include <sys/ioctl.h>
 #include <unistd.h>
 
 #include <cerrno>
@@ -135,6 +134,7 @@ std::optional<FdHandle> fsiProbe(TARGETING::ConstTargetPtr target)
               << ")\n";
     return std::nullopt;
 }
+
 std::optional<FdHandle*> prepareCfamAccess(TARGETING::ConstTargetPtr target,
                                            std::uint32_t addr)
 {
@@ -157,6 +157,7 @@ std::optional<FdHandle*> prepareCfamAccess(TARGETING::ConstTargetPtr target,
 
     return &fd;
 }
+
 std::optional<FdHandle> prepareScomAccess(TARGETING::ConstTargetPtr target,
                                           int flags)
 {
@@ -177,6 +178,41 @@ std::optional<FdHandle> prepareScomAccess(TARGETING::ConstTargetPtr target,
     }
 
     return fd;
+}
+
+int recv_all(int fd, ByteVector& out)
+{
+    out.resize(MAX_SBE_RESP_SIZE);
+    ssize_t n = ::read(fd, out.data(), out.size());
+    if (n < 0)
+    {
+        std::cerr << "recv_all read(sbefifo) failed: " << std::strerror(errno)
+                  << " (errno=" << errno << ")\n";
+        return -1;
+    }
+
+    out.resize(static_cast<std::size_t>(n));
+    return 0;
+}
+
+int send_all(int fd, std::span<const std::byte> cmd)
+{
+    std::size_t total = 0;
+    while (total < cmd.size())
+    {
+        ssize_t n = ::write(fd, cmd.data() + total, cmd.size() - total);
+        if (n < 0)
+        {
+            std::cerr << "send_all write(sbefifo) failed: "
+                      << std::strerror(errno) << " (errno=" << errno
+                      << ", written=" << total
+                      << ", remaining=" << (cmd.size() - total) << ")\n";
+            return -1;
+        }
+        total += static_cast<std::size_t>(n);
+    }
+
+    return 0;
 }
 
 } // unnamed namespace
@@ -273,5 +309,52 @@ int putScom(TARGETING::ConstTargetPtr target, std::uint64_t addr,
     std::cout << "putScom for addr=0x" << std::hex << addr << " value=0x"
               << value << "\n";
     return 0;
+}
+
+int sendAndRecv(TARGETING::ConstTargetPtr target,
+                std::span<const std::byte> cmd, int timeout_ms, ByteVector& out)
+{
+    int rc = 0;
+
+    TARGETING::ATTR_SBEFIFO_DEVICE_PATH_typeStdArr fifoPath{};
+    if (!target->tryGetAttr<TARGETING::ATTR_SBEFIFO_DEVICE_PATH>(fifoPath))
+    {
+        std::cerr
+            << "sendAndRecv missing ATTR_SBEFIFO_DEVICE_PATH for target\n";
+        return -1;
+    }
+
+    FdHandle fd{::open(fifoPath.data(), O_RDWR | O_SYNC)};
+    if (!fd)
+    {
+        std::cerr << "sendAndRecv open failed " << fifoPath.data()
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return -1;
+    }
+
+    rc = ::ioctl(fd.get(),
+                 static_cast<unsigned long>(SBEIoctl::SbefifoReadTimeout),
+                 &timeout_ms);
+    if (rc != 0)
+    {
+        std::cerr << "sendAndRecv ioctl(SbefifoReadTimeout) failed rc=" << rc
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return rc;
+    }
+
+    rc = send_all(fd.get(), cmd);
+    if (rc != 0)
+    {
+        std::cerr << "sendAndRecv send_all failed rc=" << rc << '\n';
+        return rc;
+    }
+
+    rc = recv_all(fd.get(), out);
+    if (rc != 0)
+    {
+        std::cerr << "sendAndRecv recv_all failed rc=" << rc << "\n";
+        return rc;
+    }
+    return rc;
 }
 } // namespace transport
