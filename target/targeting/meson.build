@@ -12,6 +12,8 @@ targeting_lib = shared_library(
     targeting_lib_sources,
     include_directories: [targeting_inc],
     dependencies: libfdt_dep,
+    version: '1.0.0',
+    soversion: '1',    
     install: true,
 )
 

@@ -10,6 +10,8 @@ libtransport = shared_library(
   transport_sources,
   include_directories: [transport_inc],
   dependencies: [targeting_dep, libfdt_dep],
+  version: '1.0.0',
+  soversion: '1',  
   install: true
 )
 

@@ -11,6 +11,8 @@ targetsvc_lib = shared_library(
   service_lib_sources,
   include_directories: targetsvc_inc,
   dependencies: [libfdt_dep, targeting_dep],
+  version: '1.0.0',
+  soversion: '1',
   install: true,
 )
 
