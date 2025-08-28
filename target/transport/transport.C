@@ -1,0 +1,175 @@
+#include "fd_handle.H"
+#include "transport.H"
+
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+
+#include <cerrno>
+#include <cstring>
+#include <filesystem>
+#include <format>
+#include <iostream>
+#include <optional>
+#include <string>
+#include <string_view>
+
+namespace transport
+{
+
+namespace // unnamed namespace
+{
+constexpr std::string_view OPENFSI_PATH = "/sys/class/fsi-master/";
+constexpr std::string_view OPENFSI_LEGACY_PATH =
+    "/sys/bus/platform/devices/gpio-fsi/";
+
+std::uint32_t encodeFsiAddr(std::uint32_t addr)
+{
+    return (addr & 0x7ffc00u) | ((addr & 0x3ffu) << 2);
+}
+
+std::optional<std::string> getFSIBasePath()
+{
+    if (::access(OPENFSI_PATH.data(), F_OK) == 0)
+    {
+        std::cerr << "getFSIBasePath Found FSI base path: " << OPENFSI_PATH
+                  << "\n";
+        return std::string(OPENFSI_PATH);
+    }
+    if (::access(OPENFSI_LEGACY_PATH.data(), F_OK) == 0)
+    {
+        std::cerr << "getFSIBasePath Found legacy FSI base path: "
+                  << OPENFSI_LEGACY_PATH << "\n";
+        return std::string(OPENFSI_LEGACY_PATH);
+    }
+
+    std::cerr << "getFSIBasePath No valid FSI base path found\n";
+    return std::nullopt;
+}
+
+int fsiScanDevices()
+{
+    const auto base = getFSIBasePath();
+    if (!base)
+    {
+        std::cerr << "fsiScanDevices: No FSI path available\n";
+        return -1;
+    }
+
+    const auto path = std::filesystem::path(*base) / "fsi0" / "rescan";
+    std::cerr << "fsiScanDevices Attempting to open: " << path << "\n";
+
+    FdHandle fd{::open(path.c_str(), O_WRONLY | O_SYNC)};
+    if (!fd)
+    {
+        std::cerr << "fsiScanDevices Failed to open " << path << ": "
+                  << std::strerror(errno) << "\n";
+        return -1;
+    }
+
+    const char one = '1';
+    if (::write(fd.get(), &one, 1) < 0)
+    {
+        std::cerr << "fsiScanDevices Failed to write to " << path << ": "
+                  << std::strerror(errno) << "\n";
+        return -1;
+    }
+
+    std::cerr << "fsiScanDevices Successfully triggered FSI rescan\n";
+    return 0;
+}
+
+std::optional<FdHandle> fsiProbe(TARGETING::ConstTargetPtr target)
+{
+    TARGETING::ATTR_FSI_DEVICE_PATH_typeStdArr fsiAttr{};
+    if (!target->tryGetAttr<TARGETING::ATTR_FSI_DEVICE_PATH>(fsiAttr))
+    {
+        std::cerr << "fsiProbe missing ATTR_FSI_DEVICE_PATH for target\n";
+        return std::nullopt;
+    }
+
+    const auto base = getFSIBasePath();
+    if (!base)
+    {
+        std::cerr << "fsiProbe FSI base path not found for target\n";
+        return std::nullopt;
+    }
+
+    std::string fsiPath(fsiAttr.data());
+
+    // ensure it’s relative
+    if (!fsiPath.empty() && fsiPath.front() == '/')
+    {
+        fsiPath.erase(0, 1);
+    }
+
+    const auto full = std::filesystem::path(*base) / fsiPath;
+
+    static bool first_probe = true;
+    constexpr int tries_max = 5;
+
+    for (int tries = tries_max; tries > 0; --tries)
+    {
+        if (FdHandle fd{::open(full.c_str(), O_RDWR | O_SYNC)}; fd)
+        {
+            first_probe = false;
+            return fd;
+        }
+
+        std::cerr << "fsiProbe open failed on " << full.string()
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+
+        if (first_probe)
+        {
+            fsiScanDevices();
+            ::sleep(1);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    std::cerr << "fsiProbe unable to open FSI node " << full.string()
+              << " after retries errno=" << errno << " (" << strerror(errno)
+              << ")\n";
+    return std::nullopt;
+}
+} // unnamed namespace
+
+namespace direct
+{
+int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
+            std::uint32_t& value)
+{
+    const auto off = encodeFsiAddr(addr);
+    auto fdOpt = fsiProbe(target);
+    if (!fdOpt)
+    {
+        std::cerr << "getCfam failed for addr=0x" << std::hex << addr << "\n";
+        return -1;
+    }
+
+    FdHandle& fd = *fdOpt;
+    if (::lseek(fd.get(), off, SEEK_SET) < 0)
+    {
+        std::cerr << "getCfam lseek failed addr=0x" << std::hex << addr
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return -1;
+    }
+
+    if (::read(fd.get(), &value, sizeof(value)) < 0)
+    {
+        std::cerr << "getCfam read failed addr=0x" << std::hex << addr
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return -1;
+    }
+
+    value = be32toh(value);
+    std::cout << "getcfam for addr=0x" << std::hex << addr << " value=0x"
+              << value << "\n";
+    return 0;
+}
+
+} // namespace direct
+} // namespace transport
