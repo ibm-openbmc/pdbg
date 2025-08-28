@@ -57,33 +57,74 @@ int main()
                               RecursionLevel::all, &pred))
         {
             uint32_t cfamvalue = 0;
-            int rc = transport::getCfam(tgt, 0x2810, cfamvalue);
+            int rc = transport::direct::getCfam(tgt, 0x2810, cfamvalue);
             if (rc != 0)
             {
                 std::cerr << "failed in getCfam 0x2810 " << std::endl;
             }
             else
             {
-                std::cout << "successfully read cfam value 0x" << std::hex
-                          << cfamvalue << std::endl;
+                std::cout << "successfully read addr:0x2810 cfam value 0x"
+                          << std::hex << cfamvalue << std::endl;
             }
+            rc = transport::direct::putCfam(tgt, 0x2810, cfamvalue);
+            if (rc != 0)
+            {
+                std::cerr << "failed in putCfam 0x2810 " << std::endl;
+            }
+            else
+            {
+                std::cout << "successfully write addr:0x2810 cfam value 0x"
+                          << std::hex << cfamvalue << std::endl;
+            }
+            rc = transport::direct::getCfam(tgt, 0x2810, cfamvalue);
+            if (rc != 0)
+            {
+                std::cerr << "failed in getCfam 0x2810 " << std::endl;
+            }
+            else
+            {
+                std::cout << "successfully read addr:0x2810 cfam value 0x"
+                          << std::hex << cfamvalue << std::endl;
+            }
+
             uint64_t scomvalue = 0;
-            rc = transport::getScom(tgt, 0x50001, scomvalue);
+            rc = transport::direct::getScom(tgt, 0x50001, scomvalue);
             if (rc != 0)
             {
                 std::cerr << "failed in getScom 0x50001 " << std::endl;
             }
             else
             {
-                std::cout << "successfully read scom value 0x" << std::hex
-                          << scomvalue << std::endl;
+                std::cout << "successfully read addr:0x50001 scom value 0x"
+                          << std::hex << scomvalue << std::endl;
+            }
+            rc = transport::direct::putScom(tgt, 0x50001, scomvalue);
+            if (rc != 0)
+            {
+                std::cerr << "failed in getScom 0x50001 " << std::endl;
+            }
+            else
+            {
+                std::cout << "successfully write addr:0x50001 scom value 0x"
+                          << std::hex << scomvalue << std::endl;
+            }
+            rc = transport::direct::getScom(tgt, 0x50001, scomvalue);
+            if (rc != 0)
+            {
+                std::cerr << "failed in getScom 0x50001 " << std::endl;
+            }
+            else
+            {
+                std::cout << "successfully read addr:0x50001 scom value 0x"
+                          << std::hex << scomvalue << std::endl;
             }
             {
                 std::cout << "sbefifo getscom command " << std::endl;
                 transport::ByteVector cmd = buildGetScomCommand(0x50001);
                 transport::ByteVector out;
                 int timeout = 120;
-                rc = transport::sendAndRecv(tgt, cmd, timeout, out);
+                rc = transport::sbefifo::sendAndRecv(tgt, cmd, timeout, out);
                 if (rc != 0)
                 {
                     std::cerr << "Failed in sbefifo getscom " << std::endl;
@@ -98,7 +139,7 @@ int main()
                 transport::ByteVector cmd = buildGetScomCommand(0x00020011);
                 transport::ByteVector out;
                 int timeout = 120;
-                rc = transport::sendAndRecv(tgt, cmd, timeout, out);
+                rc = transport::sbefifo::sendAndRecv(tgt, cmd, timeout, out);
                 if (rc != 0)
                 {
                     std::cerr << "Failed in sbefifo getscom " << std::endl;

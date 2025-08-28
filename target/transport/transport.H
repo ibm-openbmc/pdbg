@@ -14,17 +14,22 @@ namespace transport
 {
 using ByteVector = std::vector<std::byte>;
 constexpr std::uint32_t MAX_SBE_RESP_SIZE = 0x9999;
-
+namespace direct
+{
 int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr64,
             std::uint32_t& value);
+
 int putCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr64,
             std::uint32_t data);
 
 int getScom(TARGETING::ConstTargetPtr target, std::uint64_t addr,
             std::uint64_t& value);
+
 int putScom(TARGETING::ConstTargetPtr target, std::uint64_t addr,
             std::uint64_t value);
-
+} // namespace direct
+namespace sbefifo
+{
 /**
  * @brief Enum for SBEFIFO ioctl commands
  */
@@ -37,4 +42,5 @@ enum class SBEIoctl : std::uint32_t
 int sendAndRecv(TARGETING::ConstTargetPtr target,
                 std::span<const std::byte> cmd, int timeout_ms,
                 ByteVector& out);
+} // namespace sbefifo
 } // namespace transport

@@ -173,6 +173,9 @@ int send_all(int fd, std::span<const std::byte> cmd)
 }
 
 } // unnamed namespace
+
+namespace direct
+{
 int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
             std::uint32_t& value)
 {
@@ -192,16 +195,46 @@ int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
         return -1;
     }
 
-    std::uint32_t tmp{};
-    if (::read(fd.get(), &tmp, sizeof(tmp)) < 0)
+    if (::read(fd.get(), &value, sizeof(value)) < 0)
     {
         std::cerr << "getCfam read failed addr=0x" << std::hex << addr
                   << " errno=" << errno << " (" << strerror(errno) << ")\n";
         return -1;
     }
 
-    value = be32toh(tmp);
+    value = be32toh(value);
     std::cout << "getcfam for addr=0x" << std::hex << addr << " value=0x"
+              << value << "\n";
+    return 0;
+}
+
+int putCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
+            std::uint32_t value)
+{
+    const auto off = encodeFsiAddr(addr);
+    auto fdOpt = fsiProbe(target);
+    if (!fdOpt)
+    {
+        std::cerr << "putCfam failed for addr=0x" << std::hex << addr << "\n";
+        return -1;
+    }
+
+    FdHandle& fd = *fdOpt;
+    if (::lseek(fd.get(), off, SEEK_SET) < 0)
+    {
+        std::cerr << "putCfam lseek failed addr=0x" << std::hex << addr
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return -1;
+    }
+
+    value = htobe32(value);
+    if (::write(fd.get(), &value, sizeof(value)) < 0)
+    {
+        std::cerr << "putCfam read failed addr=0x" << std::hex << addr
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return -1;
+    }
+    std::cout << "putcfam for addr=0x" << std::hex << addr << " value=0x"
               << value << "\n";
     return 0;
 }
@@ -225,20 +258,53 @@ int getScom(TARGETING::ConstTargetPtr target, std::uint64_t addr,
         return -1;
     }
 
-    std::uint64_t tmp{};
-    if (::pread(fd.get(), &tmp, sizeof(tmp), addr) < 0)
+    if (::pread(fd.get(), &value, sizeof(value), addr) < 0)
     {
         std::cerr << "getScom pread failed addr=0x" << std::hex << addr
                   << " errno=" << errno << " (" << strerror(errno) << ")\n";
         return -1;
     }
 
-    value = be64toh(tmp);
+    value = be64toh(value);
     std::cout << "getScom for addr=0x" << std::hex << addr << " value=0x"
               << value << "\n";
     return 0;
 }
 
+int putScom(TARGETING::ConstTargetPtr target, std::uint64_t addr,
+            std::uint64_t value)
+{
+    TARGETING::ATTR_DIRECT_ACCESS_DEVICE_PATH_typeStdArr dev{};
+    if (!target->tryGetAttr<TARGETING::ATTR_DIRECT_ACCESS_DEVICE_PATH>(dev))
+    {
+        std::cerr
+            << "putScom missing ATTR_DIRECT_ACCESS_DEVICE_PATH for target\n";
+        return -1;
+    }
+
+    FdHandle fd{::open(dev.data(), O_RDONLY | O_SYNC)};
+    if (!fd)
+    {
+        std::cerr << "putScom open failed path=" << dev.data()
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return -1;
+    }
+
+    value = htobe64(value);
+    if (::pwrite(fd.get(), &value, sizeof(value), addr) < 0)
+    {
+        std::cerr << "putScom pread failed addr=0x" << std::hex << addr
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return -1;
+    }
+    std::cout << "putScom for addr=0x" << std::hex << addr << " value=0x"
+              << value << "\n";
+    return 0;
+}
+} // namespace direct
+
+namespace sbefifo
+{
 int sendAndRecv(TARGETING::ConstTargetPtr target,
                 std::span<const std::byte> cmd, int timeout_ms, ByteVector& out)
 {
@@ -285,4 +351,5 @@ int sendAndRecv(TARGETING::ConstTargetPtr target,
     }
     return rc;
 }
+} // namespace sbefifo
 } // namespace transport
