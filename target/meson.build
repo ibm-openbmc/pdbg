@@ -8,7 +8,5 @@ subdir('test')
 executable(
     'targeting-app',
     'main.C',
-    include_directories: [libfdt_inc, targeting_inc, targetsvc_inc],
-    dependencies: libfdt_dep,
-    link_with: [targeting_lib, targetsvc_lib],
+    dependencies: [libfdt_dep,  targeting_dep, targetsvc_dep],
 )
