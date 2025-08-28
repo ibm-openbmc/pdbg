@@ -46,6 +46,17 @@ int main()
                 std::cout << "successfully read addr:0x2810 cfam value 0x"
                           << std::hex << cfamvalue << std::endl;
             }
+            uint64_t scomvalue = 0;
+            rc = transport::direct::getScom(tgt, 0x50001, scomvalue);
+            if (rc != 0)
+            {
+                std::cerr << "failed in getScom 0x50001 " << std::endl;
+            }
+            else
+            {
+                std::cout << "successfully read addr:0x50001 scom value 0x"
+                          << std::hex << scomvalue << std::endl;
+            }
             break;
         }
     }

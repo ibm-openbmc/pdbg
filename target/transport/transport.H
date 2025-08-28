@@ -16,5 +16,9 @@ namespace direct
 {
 int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr64,
             std::uint32_t& value);
+
+int getScom(TARGETING::ConstTargetPtr target, std::uint64_t addr,
+            std::uint64_t& value);
+
 } // namespace direct
 } // namespace transport

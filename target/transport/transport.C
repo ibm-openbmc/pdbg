@@ -171,5 +171,37 @@ int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
     return 0;
 }
 
+int getScom(TARGETING::ConstTargetPtr target, std::uint64_t addr,
+            std::uint64_t& value)
+{
+    TARGETING::ATTR_DIRECT_ACCESS_DEVICE_PATH_typeStdArr dev{};
+    if (!target->tryGetAttr<TARGETING::ATTR_DIRECT_ACCESS_DEVICE_PATH>(dev))
+    {
+        std::cerr
+            << "getScom missing ATTR_DIRECT_ACCESS_DEVICE_PATH for target\n";
+        return -1;
+    }
+
+    FdHandle fd{::open(dev.data(), O_RDONLY | O_SYNC)};
+    if (!fd)
+    {
+        std::cerr << "getScom open failed path=" << dev.data()
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return -1;
+    }
+
+    if (::pread(fd.get(), &value, sizeof(value), addr) < 0)
+    {
+        std::cerr << "getScom pread failed addr=0x" << std::hex << addr
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
+        return -1;
+    }
+
+    value = be64toh(value);
+    std::cout << "getScom for addr=0x" << std::hex << addr << " value=0x"
+              << value << "\n";
+    return 0;
+}
+
 } // namespace direct
 } // namespace transport
