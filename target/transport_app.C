@@ -1,7 +1,6 @@
 #include <targeting/predicates/predicateattrval.H>
 #include <targeting/target.H>
 #include <targeting/xmltohb/attributeenums.H>
-#include <targeting/xmltohb/attributestructs.H>
 #include <targeting/xmltohb/attributetraits.H>
 #include <targetsvc/target_service.H>
 #include <transport/transport.H>
@@ -52,7 +51,6 @@ int main()
              ts.getAssociated(top, AssociationType::childByPhysical,
                               RecursionLevel::all, &pred))
         {
-            /// direct acccess
             uint32_t cfamvalue = 0;
             int rc = transport::direct::getCfam(tgt, 0x2810, cfamvalue);
             if (rc != 0)
@@ -64,6 +62,27 @@ int main()
                 std::cout << "successfully read addr:0x2810 cfam value 0x"
                           << std::hex << cfamvalue << std::endl;
             }
+            rc = transport::direct::putCfam(tgt, 0x2810, cfamvalue);
+            if (rc != 0)
+            {
+                std::cerr << "failed in putCfam 0x2810 " << std::endl;
+            }
+            else
+            {
+                std::cout << "successfully write addr:0x2810 cfam value 0x"
+                          << std::hex << cfamvalue << std::endl;
+            }
+            rc = transport::direct::getCfam(tgt, 0x2810, cfamvalue);
+            if (rc != 0)
+            {
+                std::cerr << "failed in getCfam 0x2810 " << std::endl;
+            }
+            else
+            {
+                std::cout << "successfully read addr:0x2810 cfam value 0x"
+                          << std::hex << cfamvalue << std::endl;
+            }
+
             uint64_t scomvalue = 0;
             rc = transport::direct::getScom(tgt, 0x50001, scomvalue);
             if (rc != 0)
@@ -75,8 +94,26 @@ int main()
                 std::cout << "successfully read addr:0x50001 scom value 0x"
                           << std::hex << scomvalue << std::endl;
             }
-
-            /// sbeifo access
+            rc = transport::direct::putScom(tgt, 0x50001, scomvalue);
+            if (rc != 0)
+            {
+                std::cerr << "failed in getScom 0x50001 " << std::endl;
+            }
+            else
+            {
+                std::cout << "successfully write addr:0x50001 scom value 0x"
+                          << std::hex << scomvalue << std::endl;
+            }
+            rc = transport::direct::getScom(tgt, 0x50001, scomvalue);
+            if (rc != 0)
+            {
+                std::cerr << "failed in getScom 0x50001 " << std::endl;
+            }
+            else
+            {
+                std::cout << "successfully read addr:0x50001 scom value 0x"
+                          << std::hex << scomvalue << std::endl;
+            }
             {
                 std::cout << "sbefifo getscom command " << std::endl;
                 transport::ByteVector cmd = buildGetScomCommand(0x50001);
