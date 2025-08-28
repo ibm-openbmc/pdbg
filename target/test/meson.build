@@ -16,3 +16,10 @@ targeting_tests_exe = executable(
 )
 
 test('targeting-tests', targeting_tests_exe)
+
+executable(
+    'transport-app',
+    'transport_app.C',
+    dependencies: [libfdt_dep, targeting_dep, targetsvc_dep, transport_dep],
+    install: true,
+)
