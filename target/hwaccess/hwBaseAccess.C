@@ -1,5 +1,7 @@
 #include "hwBaseAccess.H"
 
+#include <transport.H>
+
 namespace hwaccess
 {
 int HwBaseAccess::getCfam(TargetPtr_t target, uint32_t addr, uint32_t& val)
@@ -10,7 +12,7 @@ int HwBaseAccess::getCfam(TargetPtr_t target, uint32_t addr, uint32_t& val)
     }
 
     std::cout << "HwBaseAccess::getCfam executed" << std::endl;
-    return 0; // TBD: Call to hwtransport::getcfam
+    return transport::direct::getCfam(target, addr, val);
 }
 
 int HwBaseAccess::putCfam(TargetPtr_t target, uint32_t addr, uint32_t val)
@@ -21,6 +23,6 @@ int HwBaseAccess::putCfam(TargetPtr_t target, uint32_t addr, uint32_t val)
     }
     
     std::cout << "HwBaseAccess::putCfam executed" << std::endl;
-    return 0; // TBD: Call to hwtransport::putcfam
+    return transport::direct::putCfam(target, addr, val);
 }
 } //namespace hwaccess

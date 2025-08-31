@@ -1,9 +1,9 @@
 # Include libfdt
 subdir('libfdt')
 subdir('targeting')
+subdir('transport')
 subdir('hwaccess')
 subdir('targetsvc')
-subdir('transport')
 subdir('test')
 
 # Build main executable linking with both libraries
