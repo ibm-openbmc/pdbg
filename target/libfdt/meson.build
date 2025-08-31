@@ -49,7 +49,8 @@ install_headers(
     'fdt.h',
     'libfdt.h',
     'libfdt_env.h',
-  )
+  ),
+  subdir: 'fdt'
 )
 
 pkgconfig = import('pkgconfig')
