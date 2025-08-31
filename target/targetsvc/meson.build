@@ -10,7 +10,7 @@ targetsvc_lib = shared_library(
   'targetsvc',
   service_lib_sources,
   include_directories: targetsvc_inc,
-  dependencies: [libfdt_dep, targeting_dep],
+  dependencies: [libfdt_dep, targeting_dep, hwaccess_dep],
   version: '1.0.0',
   soversion: '1',
   install: true,
@@ -22,5 +22,5 @@ install_headers('target_service.H', subdir: 'targeting')
 targetsvc_dep = declare_dependency(
   link_with: targetsvc_lib,
   include_directories: targetsvc_inc,
-  dependencies: [targeting_dep, libfdt_dep],
+  dependencies: [targeting_dep, libfdt_dep, hwaccess_dep],
 )
