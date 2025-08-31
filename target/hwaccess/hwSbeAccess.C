@@ -8,7 +8,7 @@ HwSbeAccess& HwSbeAccess::getInstance()
     return sbeAccessInstance;
 }
 
-int HwSbeAccess::getScom(TargetPtr_t target, uint64_t addr, uint64_t& val)
+int HwSbeAccess::getScom(ConstTargetPtr_t target, uint64_t addr, uint64_t& val)
 {
     if(target == nullptr)
     {
@@ -21,7 +21,7 @@ int HwSbeAccess::getScom(TargetPtr_t target, uint64_t addr, uint64_t& val)
     return 0; // TBD: Call to SBEI::getScom
 }
 
-int HwSbeAccess::putScom(TargetPtr_t target, uint64_t addr, uint64_t val)
+int HwSbeAccess::putScom(ConstTargetPtr_t target, uint64_t addr, uint64_t val)
 {
     if(target == nullptr)
     {
