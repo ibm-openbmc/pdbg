@@ -1,5 +1,7 @@
 #include "hwDirectAccess.H"
 
+#include <transport.H>
+
 namespace hwaccess
 {
 HwDirectAccess& HwDirectAccess::getInstance()
@@ -17,7 +19,7 @@ int HwDirectAccess::getScom(ConstTargetPtr_t target, uint64_t addr, uint64_t& va
     }
 
     std::cout << "HwDirectAccess::getScom executed" << std::endl;
-    return 0; // TBD: Call to hwtransport::getScom
+    return transport::direct::getScom(target, addr, val);
 }
 
 int HwDirectAccess::putScom(ConstTargetPtr_t target, uint64_t addr, uint64_t val)
@@ -29,6 +31,6 @@ int HwDirectAccess::putScom(ConstTargetPtr_t target, uint64_t addr, uint64_t val
     }
 
     std::cout << "HwDirectAccess::putScom executed" << std::endl;
-    return 0; // TBD: Call to hwtransport::putScom
+    return transport::direct::putScom(target, addr, val);
 }
 } // namespace hwaccess
