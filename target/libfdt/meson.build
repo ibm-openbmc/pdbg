@@ -32,6 +32,8 @@ libfdt = library(
   version: meson.project_version(),
   link_args: link_args,
   link_depends: 'version.lds',
+  version: '1.0.0',
+  soversion: '1',
   install: get_option('default_library') != 'static' or not wheel_only,
 )
 
@@ -47,7 +49,8 @@ install_headers(
     'fdt.h',
     'libfdt.h',
     'libfdt_env.h',
-  )
+  ),
+  subdir: 'fdt'
 )
 
 pkgconfig = import('pkgconfig')
