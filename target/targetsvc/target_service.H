@@ -10,6 +10,9 @@
 
 namespace TARGETING
 {
+using HwAccessMethod = AttributeTraits<ATTR_HW_ACCESS_METHOD>::Type;
+using HwAccessPtrType = AttributeTraits<ATTR_HW_ACCESS_PTR>::Type;
+
 /**
  * @class TargetService
  * @brief Provides a singleton interface to access and query target objects from a device tree.
@@ -92,6 +95,15 @@ class TargetService
      * @return Pointer to the top-level target, or nullptr if not found.
      */
     TargetPtr getTopLevelTarget() const;
+
+    /**
+     * @brief Set the hardware access method for a specified target
+     *
+     * @param[in] target HwTarget to set the access method
+     * @param[in] accessMethod HwAccessMethod to use
+     *
+     */
+    void setHwAccessMethod(TargetPtr target, HwAccessMethod accessMethod);
 
   private:
     /**
