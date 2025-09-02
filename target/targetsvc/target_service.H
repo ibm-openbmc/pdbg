@@ -1,10 +1,10 @@
 #pragma once
 
+#include "target_devtree_map.H"
+#include "dtree_loader.H"
 #include <targeting/association.H>
-#include <dtree_loader.H>
 #include <targeting/predicates/predicatebase.H>
 #include <targeting/target.H>
-#include <target_devtree_map.H>
 
 #include <cstdint>
 

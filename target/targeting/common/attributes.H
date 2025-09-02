@@ -15,5 +15,5 @@
 #include <stdlib.h>
 
 // This component
-#include <attributeenums.H>
-#include <entitypath.H>
+#include <targeting/xmltohb/attributeenums.H>
+#include "entitypath.H"

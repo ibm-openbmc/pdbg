@@ -5,9 +5,7 @@ hwaccess_sources = files(
   'hw_sbe_access.C',
 )
 
-hwaccess_inc = include_directories(
-  '.',
-)
+hwaccess_inc = include_directories('..')
 
 hwaccess_lib = shared_library(
   'hwaccess',

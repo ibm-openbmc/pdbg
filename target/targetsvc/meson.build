@@ -4,7 +4,7 @@ service_lib_sources = files(
     'target_service.C',
 )
 
-targetsvc_inc = include_directories('.')
+targetsvc_inc = include_directories('..')
 
 targetsvc_lib = shared_library(
   'targetsvc',

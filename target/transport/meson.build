@@ -3,7 +3,7 @@ transport_sources = files(
   'transport.C',
 )
 
-transport_inc = include_directories('.')
+transport_inc = include_directories('..')
 
 libtransport = shared_library(
   'transport',
