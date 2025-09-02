@@ -1,7 +1,7 @@
-#include <hwAccessIntf.H>
-#include "hwBaseAccess.H"
-#include "hwDirectAccess.H"
-#include "hwSbeAccess.H"
+#include <hw_access_intf.H>
+#include "hw_base_access.H"
+#include "hw_direct_access.H"
+#include "hw_sbe_access.H"
 
 namespace hwaccess
 {

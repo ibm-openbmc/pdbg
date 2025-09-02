@@ -3,7 +3,7 @@ extern "C"
 {
 #include <libfdt.h>
 }
-#include <hwAccessIntf.H>
+#include <hw_access_intf.H>
 
 #include <fstream>
 #include <vector>

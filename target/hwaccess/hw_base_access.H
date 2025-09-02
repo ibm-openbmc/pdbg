@@ -3,7 +3,7 @@
 #include <target.H>
 #include <attributeenums.H>
 #include <attributetraits.H>
-#include <hwAccessIntf.H>
+#include <hw_access_intf.H>
 
 namespace hwaccess
 {

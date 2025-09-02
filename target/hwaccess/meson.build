@@ -1,8 +1,8 @@
 hwaccess_sources = files(
-  'hwAccessIntf.C',
-  'hwBaseAccess.C',
-  'hwDirectAccess.C',
-  'hwSbeAccess.C',
+  'hw_access_intf.C',
+  'hw_base_access.C',
+  'hw_direct_access.C',
+  'hw_sbe_access.C',
 )
 
 hwaccess_inc = include_directories(
@@ -20,7 +20,7 @@ hwaccess_lib = shared_library(
 )
 
 # Export public headers into /usr/include/hwaccess
-install_headers('hwAccessIntf.H', subdir: 'hwaccess')
+install_headers('hw_access_intf.H', subdir: 'hwaccess')
 
 hwaccess_dep = declare_dependency(
     link_with: hwaccess_lib,

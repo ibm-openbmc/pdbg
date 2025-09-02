@@ -1,4 +1,4 @@
-#include "hwSbeAccess.H"
+#include "hw_sbe_access.H"
 
 namespace hwaccess
 {
