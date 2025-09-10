@@ -232,4 +232,4 @@ class Target
 
 } // namespace TARGETING
 
-#include "target_tmpl.H" // Template implementations
+#include "targeting/target_tmpl.H" // Template implementations

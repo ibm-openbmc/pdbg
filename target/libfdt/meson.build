@@ -28,10 +28,12 @@ endif
 
 link_args += version_script
 libfdt = library(
-  'fdt', sources,
+  'fdt-custom', sources,
   version: meson.project_version(),
   link_args: link_args,
   link_depends: 'version.lds',
+  version: '1.0.0',
+  soversion: '1',
   install: get_option('default_library') != 'static' or not wheel_only,
 )
 
@@ -47,7 +49,8 @@ install_headers(
     'fdt.h',
     'libfdt.h',
     'libfdt_env.h',
-  )
+  ),
+  subdir: 'fdt-custom'
 )
 
 pkgconfig = import('pkgconfig')
@@ -55,7 +58,7 @@ pkgconfig = import('pkgconfig')
 pkgconfig.generate(
   libraries: libfdt,
   version: meson.project_version(),
-  filebase: 'libfdt',
-  name: 'libfdt',
+  filebase: 'libfdt-custom',
+  name: 'libfdt-custom',
   description: 'Flat Device Tree manipulation',
 )

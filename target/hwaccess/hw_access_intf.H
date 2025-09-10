@@ -1,8 +1,8 @@
 #pragma once
 
-#include <target.H>
-#include <attributeenums.H>
-#include <attributetraits.H>
+#include <targeting/target.H>
+#include <targeting/xmltohb/attributeenums.H>
+#include <targeting/xmltohb/attributetraits.H>
 
 namespace hwaccess
 {
