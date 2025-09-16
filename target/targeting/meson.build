@@ -10,12 +10,14 @@ targeting_inc = include_directories('..', '.', 'xmltohb', 'common', 'predicates'
 targeting_lib = shared_library(
     'targeting',
     targeting_lib_sources,
-    include_directories: [libfdt_inc, targeting_inc],
+    include_directories: [targeting_inc],
     dependencies: libfdt_dep,
+    version: '1.0.0',
+    soversion: '1',    
     install: true,
 )
 
-# Export public headers into /usr/include/target
+# Export public headers into /usr/include/targeting
 install_headers(
     'target.H',
     'association.H',
@@ -31,3 +33,8 @@ install_headers(
     subdir: 'targeting',
 )
 
+# Declare dependency for consumers
+targeting_dep = declare_dependency(
+    link_with: targeting_lib,
+    include_directories: targeting_inc
+)

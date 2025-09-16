@@ -1,10 +1,10 @@
 #pragma once
 
-#include <attributeenums.H>
-#include <attributetraits.H>
-#include <entitypath.H>
 #include <libfdt.h>
-#include <targAttrIdToName.H>
+#include <targeting/common/entitypath.H>
+#include <targeting/xmltohb/attributeenums.H>
+#include <targeting/xmltohb/attributetraits.H>
+#include <targeting/xmltohb/targAttrIdToName.H>
 
 #include <cstring>
 #include <iomanip>

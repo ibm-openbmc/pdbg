@@ -12,7 +12,7 @@ class Target;
  *
  * This class serves as the base interface for all predicate types used
  * to filter or match TARGETING::Target instances based on custom criteria.
- * 
+ *
  * A predicate is a callable object that returns a boolean indicating
  * whether the given target satisfies the predicate condition.
  *
@@ -52,9 +52,9 @@ class PredicateBase
     PredicateBase() = default;
 
     // Disable copy
-    PredicateBase(const PredicateBase&) = delete;             ///< Copy constructor deleted.
-    PredicateBase& operator=(const PredicateBase&) = delete;  ///< Copy assignment deleted.
+    PredicateBase(const PredicateBase&) = delete; ///< Copy constructor deleted.
+    PredicateBase&
+        operator=(const PredicateBase&) = delete; ///< Copy assignment deleted.
 };
 
 } // namespace TARGETING
-

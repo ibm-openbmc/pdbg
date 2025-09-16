@@ -1,7 +1,8 @@
 #pragma once
 
-#include <predicatebase.H>
-#include <target.H>
+#include "predicatebase.H"
+
+#include <targeting/target.H>
 
 #include <memory>
 #include <vector>
@@ -98,8 +99,9 @@ class PredicatePostfixExpr : public PredicateBase
      */
     struct Operation
     {
-        LogicalOp logicalOp;                 ///< Logical operator to apply
-        std::shared_ptr<PredicateBase> pred; ///< Predicate to evaluate if logicalOp == Eval
+        LogicalOp logicalOp; ///< Logical operator to apply
+        std::shared_ptr<PredicateBase>
+            pred;            ///< Predicate to evaluate if logicalOp == Eval
     };
 
     /** @brief List of postfix operations making up the expression. */
@@ -116,4 +118,3 @@ class PredicatePostfixExpr : public PredicateBase
 };
 
 } // namespace TARGETING
-

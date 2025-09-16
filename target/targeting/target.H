@@ -1,8 +1,8 @@
 #pragma once
 
-#include <attributeenums.H>
-#include <attributetraits.H>
-#include <entitypath.H>
+#include <targeting/common/entitypath.H>
+#include <targeting/xmltohb/attributeenums.H>
+#include <targeting/xmltohb/attributetraits.H>
 extern "C"
 {
 #include <libfdt.h>
