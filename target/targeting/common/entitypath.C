@@ -1,4 +1,4 @@
-#include <entitypath.H>
+#include "entitypath.H"
 
 #include <algorithm>
 #include <cassert>

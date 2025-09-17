@@ -112,7 +112,7 @@ void Target::setAttr(const typename AttributeTraits<A>::Type& attrValue)
     (void)AttributeTraits<A>::writeable;
     if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        setVolatileAttr(A, attrValue);
+        setVolatileAttr<A>(attrValue);
         return;
     }
     setAttrImpl<A>(attrValue);
@@ -124,7 +124,7 @@ void Target::setAttr(const typename AttributeTraits<A>::TypeStdArr& attrValue)
     (void)AttributeTraits<A>::writeable;
     if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        setVolatileAttr(A, attrValue);
+        setVolatileAttr<A>(attrValue);
         return;
     }
     setAttrImpl<A>(attrValue);
@@ -149,7 +149,7 @@ bool Target::trySetAttr(
     (void)AttributeTraits<A>::writeable;
     if constexpr (requires { AttributeTraits<A>::isvolatile; })
     {
-        setVolatileAttr(A, attrValue);
+        setVolatileAttr<A>(attrValue);
         return true;
     }
     return trySetAttrImpl<A>(attrValue);
