@@ -1,23 +1,40 @@
-if not meson.is_cross_build()
-    gtest_dep = dependency('gtest', required: true)
-    gtest_main_dep = dependency('gtest_main', required: true)
+gtest_dep = dependency('gtest', main: true, disabler: true, required: false)
+gmock_dep = dependency('gmock', disabler: true, required: false)
 
-    test_sources = files('test_target_service.C')
+if not gtest_dep.found() or not gmock_dep.found()
+    gtest_proj = import('cmake').subproject('googletest', required: false)
+    if gtest_proj.found()
+        gtest_dep = declare_dependency(
+            dependencies: [
+                dependency('threads'),
+                gtest_proj.dependency('gtest'),
+                gtest_proj.dependency('gtest_main'),
+            ],
+        )
+        gmock_dep = gtest_proj.dependency('gmock')
+    else
+        assert(
+            not get_option('tests').enabled(),
+            'Googletest is required if tests are enabled',
+        )
+    endif
+endif
 
-    targeting_tests_exe = executable(
-        'targeting-tests',
-        test_sources,
-        dependencies: [
-            libfdt_dep,
-            gtest_dep,
-            gtest_main_dep,
-            targeting_dep,
-            targetsvc_dep,
-        ],
-    )
+test_sources = files('test_target_service.C')
+
+targeting_tests_exe = executable(
+    'targeting-tests',
+    test_sources,
+    dependencies: [
+        libfdt_dep,
+        targeting_dep,
+        targetsvc_dep,
+        gtest_dep,
+        gmock_dep,
+    ],
+)
 
 test('targeting-tests', targeting_tests_exe)
-endif
 
 executable(
     'transport-app',
