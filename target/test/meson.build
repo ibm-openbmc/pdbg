@@ -42,3 +42,11 @@ executable(
     dependencies: [libfdt_dep, targeting_dep, targetsvc_dep, transport_dep],
     install: true,
 )
+
+# Build main executable linking with both libraries
+executable(
+    'targeting-app',
+    'targeting_app.C',
+    dependencies: [libfdt_dep,  targeting_dep, targetsvc_dep],
+)
+
