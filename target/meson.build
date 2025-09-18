@@ -1,5 +1,4 @@
 # Include libfdt
-subdir('libfdt')
 subdir('targeting')
 subdir('transport')
 subdir('hwaccess')

@@ -11,4 +11,9 @@ project(
 
 cpp = meson.get_compiler('cpp')
 
+libfdt_dep = dependency('fdt', required: false)
+if not libfdt_dep.found()
+  libfdt_dep = dependency('fdt', fallback: ['libfdt', 'libfdt_dep'])
+endif
+
 subdir('target')  # Delegates to target/meson.build
