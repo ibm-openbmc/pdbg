@@ -22,18 +22,26 @@ class TargetServiceTest : public ::testing::Test
 
     TargetPtr getFirstTargetMatchingType(TYPE type)
     {
+        PredicateAttrVal<ATTR_TYPE> pred(type);
         auto top = TargetService::instance().getTopLevelTarget();
-        for (auto&& tgt : TargetService::instance().getAssociated(
-                 top, AssociationType::childByPhysical, all))
-        {
-            AttributeTraits<ATTR_TYPE>::Type rawVal = TYPE_INVALID;
-            if (tgt->tryGetAttr<ATTR_TYPE>(rawVal) &&
-                static_cast<TYPE>(rawVal) == type)
-            {
-                return tgt;
-            }
-        }
-        return nullptr;
+        auto assoc = TargetService::instance().getAssociated(
+            top, AssociationType::childByPhysical, RecursionLevel::all, &pred);
+
+        return assoc.empty() ? nullptr : *assoc.begin();
+    }
+
+    TargetPtr getTargetMatchingTypeAndPos(TYPE type, ATTR_FAPI_POS_type pos)
+    {
+        PredicatePostfixExpr pred;
+        pred.push(std::make_shared<PredicateAttrVal<ATTR_TYPE>>(type))
+            .push(std::make_shared<PredicateAttrVal<ATTR_FAPI_POS>>(pos))
+            .And();
+
+        auto top = TargetService::instance().getTopLevelTarget();
+        auto assoc = TargetService::instance().getAssociated(
+            top, AssociationType::childByPhysical, RecursionLevel::all, &pred);
+
+        return assoc.empty() ? nullptr : *assoc.begin();
     }
 };
 
@@ -299,6 +307,20 @@ TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_HW_ACCESS_METHOD)
 
     // Restore
     EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_METHOD>(original));
+}
+
+TEST_F(TargetServiceTest, TestEndianForUint32)
+{
+    // see that ATTR_FAPI_POS value of type uint32_t is
+    // converted properly
+    ATTR_FAPI_POS_type pos1 = 0x1;
+    auto proc = getTargetMatchingTypeAndPos(TYPE_PROC, pos1);
+    ASSERT_NE(proc, nullptr);
+
+    // Save original
+    ATTR_FAPI_POS_type pos2 = proc->getAttr<ATTR_FAPI_POS>();
+
+    EXPECT_EQ(pos1, pos2);
 }
 
 TEST_F(TargetServiceTest, CanReadReadableAttr)

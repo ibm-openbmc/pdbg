@@ -100,6 +100,22 @@ int main()
                 }
             }
         }
+        std::cout
+            << "Test3: Endian conversion when read uint32_t value from dtb file \n";
+        {
+            PredicatePostfixExpr pred;
+            pred.push(std::make_shared<PredicateAttrVal<ATTR_TYPE>>(TYPE_PROC))
+                .push(std::make_shared<PredicateAttrVal<ATTR_FAPI_POS>>(0x1))
+                .And();
+            auto top = ts.getTopLevelTarget();
+            for (auto&& tgt :
+                 ts.getAssociated(top, AssociationType::childByPhysical,
+                                  RecursionLevel::all, &pred))
+            {
+                ATTR_FAPI_POS_type pos = tgt->getAttr<ATTR_FAPI_POS>();
+                std::cout << std::hex << "0x" << pos << std::endl;
+            }
+        }
         std::cout << "Convert ocmb1 binary data to EntityPath and to Target\n";
         {
             std::array<uint8_t, 21> bin = {
