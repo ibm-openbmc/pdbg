@@ -68,6 +68,7 @@ enum ATTRIBUTE_ID
     ATTR_FREQ_PCIE_MHZ                                             = 0x82f58e6,
     ATTR_SPI_BUS_DIV_REF                                           = 0x3df05de,
     ATTR_TPM_SPI_BUS_DIV                                           = 0x9d0a4a8,
+    ATTR_FREQ_PAU_VPD_MHZ                                          = 0x968f7cc,
     ATTR_SYSTEM_IPL_PHASE                                          = 0x6a47337,
     ATTR_CONTAINED_IPL_TYPE                                        = 0x46189b8,
     ATTR_CONTAINED_LOAD_PATH                                       = 0x32f9c30,
@@ -113,6 +114,7 @@ enum ATTRIBUTE_ID
     ATTR_AVSBUS_RAIL                                               = 0xcc8bf2b,
     ATTR_POS                                                       = 0x1903f54,
     ATTR_FAPI_POS                                                  = 0x80817dc,
+    ATTR_NAME                                                      = 0xad32e60,
     ATTR_AFFINITY_PATH                                             = 0xb5afcd7,
     ATTR_CHIPLET_ID                                                = 0x2e5f49c,
     ATTR_CHIP_ID                                                   = 0x6d3696b,
@@ -133,8 +135,6 @@ enum ATTRIBUTE_ID
     ATTR_TYPE                                                      = 0x9484951,
     ATTR_DISABLE_SECURITY                                          = 0x945a086,
     ATTR_EQ_GARD                                                   = 0xb6c105c,
-    ATTR_PHYS_DEV_PATH                                             = 0x3399013,
-    ATTR_PHYS_BIN_PATH                                             = 0x9db6a76,
     ATTR_FSI_DEVICE_PATH                                           = 0xa356132,
     ATTR_FSI_PORT                                                  = 0xf10849b,
     ATTR_DIRECT_ACCESS_DEVICE_PATH                                 = 0x33dfc41,
@@ -2806,6 +2806,59 @@ enum FUNCTIONAL
 };
 
 /**
+ *  @brief Product name of a chip target. Provided by the MRW.
+ */
+enum NAME
+{
+    NAME_NONE                                                   = 0x00000000,
+    NAME_EXPLORER                                               = 0x00000008,
+    NAME_ODYSSEY                                                = 0x0000000B,
+    NAME_GEMINI                                                 = 0x00000009,
+    NAME_P10                                                    = 0x0000000A,
+    NAME_INVALID                                                = 0x000000FF,
+};
+
+/**
+ *  @brief Specifies target chiplet ID for scan operations via
+ *	fapi2::putRing. If set, this attribute will override the chiplet ID
+ *	present in the RS4 encoded scan ring image.
+ */
+enum SCAN_CHIPLET_OVERRIDE
+{
+    SCAN_CHIPLET_OVERRIDE_NONE                                  = 0x00000000,
+    SCAN_CHIPLET_OVERRIDE_TP                                    = 0x00000001,
+    SCAN_CHIPLET_OVERRIDE_N0                                    = 0x00000002,
+    SCAN_CHIPLET_OVERRIDE_N1                                    = 0x00000003,
+    SCAN_CHIPLET_OVERRIDE_PCI0                                  = 0x00000008,
+    SCAN_CHIPLET_OVERRIDE_PCI1                                  = 0x00000009,
+    SCAN_CHIPLET_OVERRIDE_MC0                                   = 0x0000000C,
+    SCAN_CHIPLET_OVERRIDE_MC1                                   = 0x0000000D,
+    SCAN_CHIPLET_OVERRIDE_MC2                                   = 0x0000000E,
+    SCAN_CHIPLET_OVERRIDE_MC3                                   = 0x0000000F,
+    SCAN_CHIPLET_OVERRIDE_PAU0                                  = 0x00000010,
+    SCAN_CHIPLET_OVERRIDE_PAU1                                  = 0x00000011,
+    SCAN_CHIPLET_OVERRIDE_PAU2                                  = 0x00000012,
+    SCAN_CHIPLET_OVERRIDE_PAU3                                  = 0x00000013,
+    SCAN_CHIPLET_OVERRIDE_IOHS0                                 = 0x00000018,
+    SCAN_CHIPLET_OVERRIDE_IOHS1                                 = 0x00000019,
+    SCAN_CHIPLET_OVERRIDE_IOHS2                                 = 0x0000001A,
+    SCAN_CHIPLET_OVERRIDE_IOHS3                                 = 0x0000001B,
+    SCAN_CHIPLET_OVERRIDE_IOHS4                                 = 0x0000001C,
+    SCAN_CHIPLET_OVERRIDE_IOHS5                                 = 0x0000001D,
+    SCAN_CHIPLET_OVERRIDE_IOHS6                                 = 0x0000001E,
+    SCAN_CHIPLET_OVERRIDE_IOHS7                                 = 0x0000001F,
+    SCAN_CHIPLET_OVERRIDE_EQ0                                   = 0x00000020,
+    SCAN_CHIPLET_OVERRIDE_EQ1                                   = 0x00000021,
+    SCAN_CHIPLET_OVERRIDE_EQ2                                   = 0x00000022,
+    SCAN_CHIPLET_OVERRIDE_EQ3                                   = 0x00000023,
+    SCAN_CHIPLET_OVERRIDE_EQ4                                   = 0x00000024,
+    SCAN_CHIPLET_OVERRIDE_EQ5                                   = 0x00000025,
+    SCAN_CHIPLET_OVERRIDE_EQ6                                   = 0x00000026,
+    SCAN_CHIPLET_OVERRIDE_EQ7                                   = 0x00000027,
+    SCAN_CHIPLET_OVERRIDE_INVALID                               = 0xFFFFFFFF,
+};
+
+/**
  *  @brief Enumeration specifying a target's CEC degraded mode domain
  */
 enum CDM_DOMAIN
@@ -3571,7 +3624,7 @@ enum HW_ACCESS_METHOD
 {
     HW_ACCESS_METHOD_SBEFIFO                                    = 0x00000000,
     HW_ACCESS_METHOD_DIRECT_ACCESS                              = 0x00000001,
-    HW_ACCESS_METHOD_INVALID                                    = 0x000000FF,
+    HW_ACCESS_METHOD_INVALID                                    = 0xFFFFFFFF,
 };
 
 } // End namespace TARGETING

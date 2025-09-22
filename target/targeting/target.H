@@ -41,8 +41,8 @@ class TargetDevtreeMap;
  * strings, fixed-size char arrays, entity paths, enums, etc.
  */
 using AttributeValue =
-    std::variant<uint8_t, uint32_t, uint16_t, std::string, std::array<char, 64>,
-                 EntityPath, HW_ACCESS_METHOD, TYPE, CLASS
+    std::variant<uint8_t, uint32_t, uint16_t, uint64_t, std::string,
+                 std::array<char, 64>, EntityPath, HW_ACCESS_METHOD, TYPE, CLASS
                  // Add more types as you specialize more traits
                  >;
 

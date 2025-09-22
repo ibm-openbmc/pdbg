@@ -53,7 +53,7 @@ template <const ATTRIBUTE_ID A>
 typename AttributeTraits<A>::Type Target::getAttr() const
 {
     (void)AttributeTraits<A>::readable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         return getVolatileAttr<A>();
     }
@@ -70,7 +70,7 @@ template <const ATTRIBUTE_ID A>
 typename AttributeTraits<A>::TypeStdArr Target::getAttrAsArray() const
 {
     (void)AttributeTraits<A>::readable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         return getVolatileAttr<A>();
     }
@@ -87,7 +87,7 @@ template <const ATTRIBUTE_ID A>
 bool Target::tryGetAttr(typename AttributeTraits<A>::Type& o_attrValue) const
 {
     (void)AttributeTraits<A>::readable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         o_attrValue = getVolatileAttr<A>();
         return true;
@@ -100,7 +100,7 @@ bool Target::tryGetAttr(
     typename AttributeTraits<A>::TypeStdArr& o_attrValue) const
 {
     (void)AttributeTraits<A>::readable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         o_attrValue = getVolatileAttr<A>();
         return true;
@@ -112,7 +112,7 @@ template <const ATTRIBUTE_ID A>
 void Target::setAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         setVolatileAttr<A>(attrValue);
         return;
@@ -124,7 +124,7 @@ template <const ATTRIBUTE_ID A>
 void Target::setAttr(const typename AttributeTraits<A>::TypeStdArr& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         setVolatileAttr<A>(attrValue);
         return;
@@ -136,7 +136,7 @@ template <const ATTRIBUTE_ID A>
 bool Target::trySetAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         setVolatileAttr<A>(attrValue);
         return true;
@@ -149,7 +149,7 @@ bool Target::trySetAttr(
     const typename AttributeTraits<A>::TypeStdArr& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         setVolatileAttr<A>(attrValue);
         return true;
@@ -162,7 +162,7 @@ typename AttributeTraits<A>::Type Target::getVolatileAttr() const
 {
     // compile-time validation
     (void)AttributeTraits<A>::readable;
-    (void)AttributeTraits<A>::isvolatile;
+    (void)AttributeTraits<A>::isVolatile;
 
     using AttrType = typename AttributeTraits<A>::Type;
 
@@ -191,7 +191,7 @@ template <const ATTRIBUTE_ID A>
 void Target::setVolatileAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    (void)AttributeTraits<A>::isvolatile;
+    (void)AttributeTraits<A>::isVolatile;
     if (!_volatileAttributes)
     {
         _volatileAttributes.emplace();
