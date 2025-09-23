@@ -38,5 +38,5 @@ pkgconfig.generate(
   name: 'libhwaccess',
   description: 'Hardware access library',
   subdirs: 'hwaccess',
-  requires: ['libfdt', 'libtargeting', 'libtransport']
+  requires: ['libfdt-custom', 'libtargeting', 'libtransport']
 )

@@ -52,5 +52,5 @@ pkgconfig.generate(
   name: 'libtargeting',
   description: 'Targeting library',
   subdirs: 'targeting',
-  requires: ['libfdt']
+  requires: ['libfdt-custom']
 )

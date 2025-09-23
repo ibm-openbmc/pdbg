@@ -40,5 +40,5 @@ pkgconfig.generate(
   name: 'libtargetsvc',
   description: 'Targeting service library',
   subdirs: 'targeting',
-  requires: ['libtargeting', 'libfdt', 'libhwaccess']
+  requires: ['libtargeting', 'libfdt-custom', 'libhwaccess']
 )

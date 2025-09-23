@@ -37,5 +37,5 @@ pkgconfig.generate(
   name: 'libtransport',
   description: 'transport library',
   subdirs: 'transport',
-  requires: ['libtargeting', 'libfdt']
+  requires: ['libtargeting', 'libfdt-custom']
 )
