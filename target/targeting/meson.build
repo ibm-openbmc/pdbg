@@ -26,6 +26,7 @@ install_headers(
     'xmltohb/attributeenums.H',
     'xmltohb/attributetraits.H',
     'xmltohb/attributestructs.H',
+    'xmltohb/fapi2platattrmacros.H',
     'xmltohb/builtins.h',
     'xmltohb/targAttrIdToName.H',
     'common/entitypath.H',
