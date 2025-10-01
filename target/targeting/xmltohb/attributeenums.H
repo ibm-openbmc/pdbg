@@ -145,6 +145,7 @@ enum ATTRIBUTE_ID
     ATTR_I2C_PARENT_PHYS_PATH                                      = 0xbad9735,
     ATTR_HW_ACCESS_METHOD                                          = 0xe4c8394,
     ATTR_HW_ACCESS_PTR                                             = 0xb34dd4a,
+    ATTR_HW543384_WAR_MODE                                         = 0xa450ad9,
 };
 
 /**

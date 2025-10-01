@@ -1260,6 +1260,18 @@ class AttributeTraits<ATTR_HW_ACCESS_PTR>
 #endif
 };
 
+template<>
+class AttributeTraits<ATTR_HW543384_WAR_MODE>
+{
+    public:
+        enum { readable, notHbMutex, notFspMutex, fspAccessible };
+        typedef uint8_t Type;
+#if __cplusplus >= 201103L
+        static constexpr uint8_t HW543384_WAR_MODE_INVALID = 0xFF;
+#endif
+};
+
+
 /**
  *  @brief Mapping of alias type name to underlying type
  */
