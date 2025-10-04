@@ -214,11 +214,6 @@ class Target
     bool tryGetAttrImpl(T& o_attrValue) const;
 
     /**
-     * @brief Implementation for setAttr.
-     */
-    template <ATTRIBUTE_ID A, typename T> void setAttrImpl(const T& attrValue);
-
-    /**
      * @brief Implementation for trySetAttr.
      */
     template <ATTRIBUTE_ID A, typename T>

@@ -117,7 +117,7 @@ void Target::setAttr(const typename AttributeTraits<A>::Type& attrValue)
         setVolatileAttr<A>(attrValue);
         return;
     }
-    setAttrImpl<A>(attrValue);
+    trySetAttrImpl<A>(attrValue);
 }
 
 template <const ATTRIBUTE_ID A>
@@ -129,7 +129,7 @@ void Target::setAttr(const typename AttributeTraits<A>::TypeStdArr& attrValue)
         setVolatileAttr<A>(attrValue);
         return;
     }
-    setAttrImpl<A>(attrValue);
+    trySetAttrImpl<A>(attrValue);
 }
 
 template <const ATTRIBUTE_ID A>
@@ -199,9 +199,6 @@ void Target::setVolatileAttr(const typename AttributeTraits<A>::Type& attrValue)
     (*_volatileAttributes)[A] = attrValue;
 }
 
-// ----------------------------------------
-// Internal Template Logic
-// ----------------------------------------
 template <ATTRIBUTE_ID A, typename T>
 bool Target::tryGetAttrImpl(T& o_attrValue) const
 {
@@ -214,6 +211,8 @@ bool Target::tryGetAttrImpl(T& o_attrValue) const
 
         auto span = propData.value();
         using TraitType = typename AttributeTraits<A>::Type;
+        using DecayedType =
+            std::remove_cv_t<std::remove_reference_t<TraitType>>;
 
         // Handle string attributes
         if constexpr (isStringAttr<A>())
@@ -250,17 +249,24 @@ bool Target::tryGetAttrImpl(T& o_attrValue) const
             return true;
         }
 
+        // Handle C-style arrays (e.g., uint8_t[4])
+        else if constexpr (std::is_array_v<DecayedType>)
+        {
+            if (span.size() > sizeof(TraitType))
+                return false;
+            std::memset(&o_attrValue, 0, sizeof(TraitType));
+            std::memcpy(&o_attrValue, span.data(), span.size());
+            return true;
+        }
+
         // Handle scalar / POD attributes
         else
         {
             if (span.size() > sizeof(TraitType))
-            {
                 return false;
-            }
             TraitType temp{};
             std::memcpy(&temp, span.data(), span.size());
 
-            // If integral and multi-byte, swap from BE to host.
             if constexpr (std::is_integral_v<TraitType> &&
                           sizeof(TraitType) > 1)
             {
@@ -281,7 +287,7 @@ bool Target::tryGetAttrImpl(T& o_attrValue) const
 }
 
 template <ATTRIBUTE_ID A, typename T>
-void Target::setAttrImpl(const T& attrValue)
+bool Target::trySetAttrImpl(const T& attrValue)
 {
     if (auto nameOpt = tryGetAttrName<A>())
     {
@@ -307,6 +313,11 @@ void Target::setAttrImpl(const T& attrValue)
             size_t len = strnlen(cstr, sizeof(T));
             fdtSetRawProperty(_fdt, _offset, propName, cstr, len + 1);
         }
+        else if constexpr (std::is_array_v<typename AttributeTraits<A>::Type>)
+        {
+            using ArrT = typename AttributeTraits<A>::Type;
+            fdtSetRawProperty(_fdt, _offset, propName, attrValue, sizeof(ArrT));
+        }
         else
         {
             // scalar/POD: convert to BE if integral multi-byte
@@ -326,20 +337,7 @@ void Target::setAttrImpl(const T& attrValue)
             fdtSetRawProperty(_fdt, _offset, propName, &tmp, sizeof(TraitType));
         }
     }
-}
-
-template <ATTRIBUTE_ID A, typename T>
-bool Target::trySetAttrImpl(const T& attrValue)
-{
-    try
-    {
-        setAttrImpl<A>(attrValue);
-        return true;
-    }
-    catch (...)
-    {
-        return false;
-    }
+    return false;
 }
 
 template <ATTRIBUTE_ID A>
