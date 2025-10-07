@@ -4,7 +4,7 @@
 #include <targeting/target.H>
 #include <targeting/xmltohb/attributeenums.H>
 
-namespace targeting
+namespace TARGETING
 {
 
 class PredicateIsFunctional : public PredicateBase
@@ -23,4 +23,4 @@ class PredicateIsFunctional : public PredicateBase
     PredicateIsFunctional& operator=(const PredicateIsFunctional&) = delete;
 };
 
-} // namespace targeting
+} // namespace TARGETING 
