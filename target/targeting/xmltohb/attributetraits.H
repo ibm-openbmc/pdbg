@@ -471,7 +471,7 @@ template<>
 class AttributeTraits<ATTR_BACKUP_SEEPROM_SELECT>
 {
     public:
-        enum { readable, notHbMutex, notFspMutex, fspAccessible };
+        enum { writeable, readable, notHbMutex, notFspMutex, fspAccessible };
         typedef uint8_t Type;
 #if __cplusplus >= 201103L 
         static constexpr uint8_t BACKUP_SEEPROM_SELECT_INVALID = 0xFF;
@@ -482,7 +482,7 @@ template<>
 class AttributeTraits<ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT>
 {
     public:
-        enum { readable, notHbMutex, notFspMutex, fspAccessible };
+        enum { writeable, readable, notHbMutex, notFspMutex, fspAccessible };
         typedef uint8_t Type;
 #if __cplusplus >= 201103L 
         static constexpr uint8_t BACKUP_MEASUREMENT_SEEPROM_SELECT_INVALID = 0xFF;
