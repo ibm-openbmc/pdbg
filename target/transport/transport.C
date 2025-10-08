@@ -27,18 +27,29 @@ std::uint32_t encodeFsiAddr(std::uint32_t addr)
     return (addr & 0x7ffc00u) | ((addr & 0x3ffu) << 2);
 }
 
+std::string getPhyPath(TARGETING::ConstTargetPtr tgt)
+{
+    if (!tgt)
+    {
+        return "";
+    }
+
+    TARGETING::EntityPath path;
+    if (tgt->tryGetAttr<TARGETING::ATTR_PHYS_PATH>(path))
+    {
+        return path.toString();
+    }
+    return "";
+}
+
 std::optional<std::string> getFSIBasePath()
 {
     if (::access(OPENFSI_PATH.data(), F_OK) == 0)
     {
-        std::cerr << "getFSIBasePath Found FSI base path: " << OPENFSI_PATH
-                  << "\n";
         return std::string(OPENFSI_PATH);
     }
     if (::access(OPENFSI_LEGACY_PATH.data(), F_OK) == 0)
     {
-        std::cerr << "getFSIBasePath Found legacy FSI base path: "
-                  << OPENFSI_LEGACY_PATH << "\n";
         return std::string(OPENFSI_LEGACY_PATH);
     }
 
@@ -56,8 +67,6 @@ int fsiScanDevices()
     }
 
     const auto path = std::filesystem::path(*base) / "fsi0" / "rescan";
-    std::cerr << "fsiScanDevices Attempting to open: " << path << "\n";
-
     FdHandle fd{::open(path.c_str(), O_WRONLY | O_SYNC)};
     if (!fd)
     {
@@ -73,8 +82,6 @@ int fsiScanDevices()
                   << std::strerror(errno) << "\n";
         return -1;
     }
-
-    std::cerr << "fsiScanDevices Successfully triggered FSI rescan\n";
     return 0;
 }
 
@@ -103,7 +110,8 @@ std::optional<FdHandle> fsiProbe(TARGETING::ConstTargetPtr target)
     }
 
     const auto fullPath = std::filesystem::path(*base) / fsiPath;
-
+    std::cout << "transport fsiProbe fsifullpath " << fullPath
+              << " target path " << getPhyPath(target) << "\n";
     static bool first_probe = true;
     constexpr int tries_max = 5;
 
@@ -220,6 +228,7 @@ int send_all(int fd, std::span<const std::byte> cmd)
 int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
             std::uint32_t& value)
 {
+
     auto fdPtrOpt = prepareCfamAccess(target, addr);
     if (!fdPtrOpt)
     {
@@ -235,7 +244,7 @@ int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
     }
 
     value = be32toh(value);
-    std::cout << "getcfam for addr=0x" << std::hex << addr << " value=0x"
+    std::cout << "transport: getcfam for addr=0x" << std::hex << addr << " value=0x"
               << value << "\n";
     return 0;
 }
@@ -257,7 +266,7 @@ int putCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
         return -1;
     }
 
-    std::cout << "putcfam for addr=0x" << std::hex << addr << " value=0x"
+    std::cout << "transport putcfam addr=0x" << std::hex << addr << " value=0x"
               << value << "\n";
     return 0;
 }
