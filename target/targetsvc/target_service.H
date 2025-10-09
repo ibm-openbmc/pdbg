@@ -58,14 +58,14 @@ class TargetService
      * @brief Get the targets associated with a given source target.
      *
      * @param[in] source         Source target to find associations from.
-     * @param[in] type           Association type (default: childByAffinity).
+     * @param[in] type           Association type (default: childByPhysical).
      * @param[in] recursionLevel Recursion level for search (default: immediate).
      * @param[in] predicate      Optional predicate to filter associated targets.
      *
      * @return List of associated targets matching the given criteria.
      */
     TargetPtrList getAssociated(ConstTargetPtr source,
-                                const AssociationType type = childByAffinity,
+                                const AssociationType type = childByPhysical,
                                 const RecursionLevel recursionLevel = immediate,
                                 const PredicateBase* predicate = nullptr) const;
 
@@ -73,12 +73,12 @@ class TargetService
      * @brief Get the parent target of a given child target.
      *
      * @param[in] child Child target pointer.
-     * @param[in] type  Association type for parent lookup (default: parentByAffinity).
+     * @param[in] type  Association type for parent lookup (default:* parentByPhysical).
      *
      * @return Parent target pointer, or nullptr if not found.
      */
     TargetPtr getParentOf(ConstTargetPtr child,
-                          const AssociationType type = parentByAffinity) const;
+                          const AssociationType type = parentByPhysical) const;
 
     /**
      * @brief Convert an EntityPath to a Target object.
