@@ -74,7 +74,15 @@ int main()
                 }
             }
         }
-        std::cout << "Test3: PredicatePostFoxExpr AttrVal and Attr \n";
+        std::cout << "Test3: TYPE_PROC size  \n";
+        {
+            PredicateAttrVal<ATTR_TYPE> pred(TYPE_PROC);
+            auto top = ts.getTopLevelTarget();
+            auto&& tgt = ts.getAssociated(top, AssociationType::childByPhysical,
+                                          RecursionLevel::all, &pred);
+            std::cout << "TYPE_PROC size " << tgt.size() << std::endl;
+        }
+        std::cout << "Test4: PredicatePostFoxExpr AttrVal and Attr \n";
         {
             PredicatePostfixExpr procAndDevPath;
             procAndDevPath
@@ -101,7 +109,7 @@ int main()
             }
         }
         std::cout
-            << "Test4: Endian conversion when read uint32_t value from dtb file \n";
+            << "Test5: Endian conversion when read uint32_t value from dtb file \n";
         {
             PredicatePostfixExpr pred;
             pred.push(std::make_shared<PredicateAttrVal<ATTR_TYPE>>(TYPE_PROC))
@@ -116,13 +124,13 @@ int main()
                 std::cout << std::hex << "0x" << pos << std::endl;
             }
         }
-        std::cout << "Test5: Convert ocmb1 binary data to EntityPath and to Target\n";
+        std::cout
+            << "Test6: Convert ocmb1 binary data to EntityPath and to Target\n";
         {
-
             std::array<uint8_t, 21> bin = {
                 0x23, 0x01, 0x00, 0x02, 0x00, 0x4B, 0x01,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00  };
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
             EntityPath path =
                 EntityPath::fromBinary(std::span<const uint8_t>{bin});
             ConstTargetPtr ocmbTarget = ts.toTarget(path);

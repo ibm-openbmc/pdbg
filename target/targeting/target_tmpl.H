@@ -240,7 +240,8 @@ bool Target::tryGetAttrImpl(T& o_attrValue) const
         { // scalar/POD
             if (!copyBytes(o_attrValue))
                 return false;
-            if constexpr (std::is_integral_v<TraitType> &&
+            if constexpr ((std::is_integral_v<TraitType> ||
+                           std::is_enum_v<TraitType>) &&
                           sizeof(TraitType) > 1)
             {
                 o_attrValue = util::betoh_integral<TraitType>(o_attrValue);
@@ -290,7 +291,8 @@ bool Target::trySetAttrImpl(const T& attrValue)
         { // scalar/POD
             using TraitType = typename AttributeTraits<A>::Type;
             TraitType tmp = attrValue;
-            if constexpr (std::is_integral_v<TraitType> &&
+            if constexpr ((std::is_integral_v<TraitType> ||
+                           std::is_enum_v<TraitType>) &&
                           sizeof(TraitType) > 1)
             {
                 tmp = util::htobe_integral<TraitType>(tmp);
