@@ -143,8 +143,8 @@ std::optional<FdHandle> fsiProbe(TARGETING::ConstTargetPtr target)
     return std::nullopt;
 }
 
-std::optional<FdHandle*> prepareCfamAccess(TARGETING::ConstTargetPtr target,
-                                           std::uint32_t addr)
+std::optional<FdHandle> prepareCfamAccess(TARGETING::ConstTargetPtr target,
+                                          std::uint32_t addr)
 {
     const auto off = encodeFsiAddr(addr);
     auto fdOpt = fsiProbe(target);
@@ -163,7 +163,7 @@ std::optional<FdHandle*> prepareCfamAccess(TARGETING::ConstTargetPtr target,
         return std::nullopt;
     }
 
-    return &fd;
+    return std::move(fd);
 }
 
 std::optional<FdHandle> prepareScomAccess(TARGETING::ConstTargetPtr target,
@@ -228,15 +228,15 @@ int send_all(int fd, std::span<const std::byte> cmd)
 int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
             std::uint32_t& value)
 {
-
-    auto fdPtrOpt = prepareCfamAccess(target, addr);
-    if (!fdPtrOpt)
+    auto fdOpt = prepareCfamAccess(target, addr);
+    if (!fdOpt)
     {
+        std::cerr << "getCfam failed to open fd "
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
         return -1;
     }
-
-    FdHandle* fd = *fdPtrOpt;
-    if (::read(fd->get(), &value, sizeof(value)) < 0)
+    FdHandle& fd = *fdOpt;
+    if (::read(fd.get(), &value, sizeof(value)) < 0)
     {
         std::cerr << "getCfam read failed addr=0x" << std::hex << addr
                   << " errno=" << errno << " (" << strerror(errno) << ")\n";
@@ -244,30 +244,32 @@ int getCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
     }
 
     value = be32toh(value);
-    std::cout << "transport: getcfam for addr=0x" << std::hex << addr << " value=0x"
-              << value << "\n";
+    std::cout << "transport: getcfam for addr=0x" << std::hex << addr
+              << " value=0x" << value << "\n";
     return 0;
 }
 
 int putCfam(TARGETING::ConstTargetPtr target, std::uint32_t addr,
             std::uint32_t value)
 {
-    auto fdPtrOpt = prepareCfamAccess(target, addr);
-    if (!fdPtrOpt)
+    std::cout << "transport putcfam addr=0x" << std::hex << addr << " value=0x"
+              << value << "\n";
+    auto fdOpt = prepareCfamAccess(target, addr);
+    if (!fdOpt)
     {
+        std::cerr << "putCfam failed to open fd "
+                  << " errno=" << errno << " (" << strerror(errno) << ")\n";
         return -1;
     }
 
-    FdHandle* fd = *fdPtrOpt;
+    FdHandle& fd = *fdOpt;
     value = htobe32(value);
-    if (::write(fd->get(), &value, sizeof(value)) < 0)
+    if (::write(fd.get(), &value, sizeof(value)) < 0)
     {
         std::cerr << "putCfam write failed addr=0x" << std::hex << addr << "\n";
         return -1;
     }
 
-    std::cout << "transport putcfam addr=0x" << std::hex << addr << " value=0x"
-              << value << "\n";
     return 0;
 }
 
