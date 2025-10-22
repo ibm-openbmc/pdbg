@@ -78,10 +78,52 @@ int main()
         {
             PredicateAttrVal<ATTR_TYPE> pred(TYPE_PROC);
             auto top = ts.getTopLevelTarget();
-            auto&& tgt = ts.getAssociated(top, AssociationType::childByPhysical,
-                                          RecursionLevel::all, &pred);
-            std::cout << "TYPE_PROC size " << tgt.size() << std::endl;
+            auto&& tgts =
+                ts.getAssociated(top, AssociationType::childByPhysical,
+                                 RecursionLevel::all, &pred);
+            std::cout << "TYPE_PROC size " << tgts.size() << std::endl;
         }
+        std::cout << "Test3: test hwas state size  \n";
+        {
+            PredicateAttrVal<ATTR_TYPE> pred(TYPE_PROC);
+            auto top = ts.getTopLevelTarget();
+            for (auto&& proc :
+                 ts.getAssociated(top, AssociationType::childByPhysical,
+                                  RecursionLevel::all, &pred))
+            {
+                // Create a new HwasState value
+                HwasState newState{};
+                newState.deconfiguredByEid = 0x12345678;
+                newState.poweredOn = 1;
+                newState.present = 1;
+                newState.functional = 1;
+
+                // Write it
+                proc->trySetAttr<ATTR_HWAS_STATE>(newState);
+                std::cout << "Setting HWAS deconfiguredByEid 0x" << std::hex
+                          << newState.deconfiguredByEid << std::endl;
+                std::cout << std::boolalpha << "Setting poweredOn: "
+                          << static_cast<bool>(newState.poweredOn)
+                          << ", present: "
+                          << static_cast<bool>(newState.present)
+                          << ", functional: "
+                          << static_cast<bool>(newState.functional)
+                          << std::endl;
+                // Read it back
+                auto readBack = proc->getAttr<ATTR_HWAS_STATE>();
+                std::cout << "Getting HWAS deconfiguredByEid 0x" << std::hex
+                          << readBack.deconfiguredByEid << std::endl;
+                std::cout << std::boolalpha << "Getting poweredOn: "
+                          << static_cast<bool>(readBack.poweredOn)
+                          << ", present: "
+                          << static_cast<bool>(readBack.present)
+                          << ", functional: "
+                          << static_cast<bool>(readBack.functional)
+                          << std::endl;
+                break;
+            }
+        }
+
         std::cout << "Test4: PredicatePostFoxExpr AttrVal and Attr \n";
         {
             PredicatePostfixExpr procAndDevPath;

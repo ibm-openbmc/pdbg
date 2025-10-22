@@ -45,6 +45,11 @@ template <ATTRIBUTE_ID A> consteval bool isCharArrayAttr()
     return std::is_array_v<T> && std::is_same_v<std::remove_extent_t<T>, char>;
 }
 
+template <ATTRIBUTE_ID A> consteval bool isHwasStateAttr()
+{
+    return std::is_same_v<typename AttributeTraits<A>::Type, HwasState>;
+}
+
 // ----------------------------------------
 // Template Wrappers
 // ----------------------------------------
@@ -236,6 +241,18 @@ bool Target::tryGetAttrImpl(T& o_attrValue) const
         {
             return copyBytes(o_attrValue);
         }
+        else if constexpr (isHwasStateAttr<A>())
+        {
+            if (span.size() != sizeof(HwasState))
+                return false;
+
+            HwasState tmp{};
+            std::memcpy(&tmp, span.data(), sizeof(HwasState));
+            tmp.deconfiguredByEid =
+                util::betoh_integral<uint32_t>(tmp.deconfiguredByEid);
+            o_attrValue = tmp;
+            return true;
+        }
         else
         { // scalar/POD
             if (!copyBytes(o_attrValue))
@@ -286,6 +303,16 @@ bool Target::trySetAttrImpl(const T& attrValue)
                            std::is_array_v<T>)
         {
             writeSpan(attrValue);
+        }
+        else if constexpr (isHwasStateAttr<A>())
+        {
+            HwasState tmp = attrValue;
+            tmp.deconfiguredByEid =
+                util::htobe_integral<uint32_t>(tmp.deconfiguredByEid);
+
+            fdtSetRawProperty(_fdt, _offset, propName,
+                              reinterpret_cast<const uint8_t*>(&tmp),
+                              sizeof(tmp));
         }
         else
         { // scalar/POD
