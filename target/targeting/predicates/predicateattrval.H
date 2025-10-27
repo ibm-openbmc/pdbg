@@ -29,6 +29,15 @@ template <const ATTRIBUTE_ID A> class PredicateAttrVal : public PredicateBase
         _value(value)
     {}
 
+    template <size_t N>
+    explicit PredicateAttrVal(const std::array<char, N>& arr)
+    {
+        static_assert(N <= sizeof(_value),
+                      "Array too large for attribute value");
+        std::memset(_value, 0, sizeof(_value)); // ensure null-termination
+        std::memcpy(_value, arr.data(), N);
+    }
+
     /**
      * @brief Virtual destructor.
      */
@@ -43,8 +52,31 @@ template <const ATTRIBUTE_ID A> class PredicateAttrVal : public PredicateBase
      */
     bool operator()(ConstTargetPtr& target) const override
     {
-        typename AttributeTraits<A>::Type actual;
-        return target->tryGetAttr<A>(actual) && (actual == _value);
+        using AttrType = typename AttributeTraits<A>::Type;
+        AttrType actual{};
+
+        if (!target->tryGetAttr<A>(actual))
+            return false;
+
+        if constexpr (std::is_array_v<AttrType>)
+        {
+            // Compare full array contents (safe for char[N])
+            return std::memcmp(actual, _value, sizeof(_value)) == 0;
+        }
+        else if constexpr (requires(AttrType a, AttrType b) { a == b; })
+        {
+            // Use natural equality when available
+            return actual == _value;
+        }
+        else
+        {
+            // Optional: log or assert unsupported types
+            static_assert(
+                std::is_array_v<AttrType> ||
+                    requires(AttrType a, AttrType b) { a == b; },
+                "Unsupported attribute type for PredicateAttrVal comparison");
+            return false;
+        }
     }
 
     /// @brief Copy constructor is deleted (class is non-copyable).

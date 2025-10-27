@@ -166,6 +166,22 @@ TEST_F(TargetServiceTest, TestPredicateAttrValProcType)
     EXPECT_EQ(count, 4); // Your DTB has proc0, proc1
 }
 
+TEST_F(TargetServiceTest, TestPredicateAttrValProcFapiName)
+{
+    ATTR_FAPI_NAME_typeStdArr fapiName{};
+    std::copy_n("pu:k0:n0:s0:p00", 16, fapiName.data());
+    auto typePred = std::make_shared<PredicateAttrVal<ATTR_TYPE>>(TYPE_PROC);
+    auto fapiNamePred =
+        std::make_shared<PredicateAttrVal<ATTR_FAPI_NAME>>(fapiName);
+    PredicatePostfixExpr expr;
+    expr.push(typePred).push(fapiNamePred).And();
+
+    auto top = TargetService::instance().getTopLevelTarget();
+    auto tgt = TargetService::instance().getAssociated(
+        top, AssociationType::childByPhysical, RecursionLevel::all, &expr);
+    EXPECT_EQ(tgt.size(), 1); // we should find atleast 1 proc
+}
+
 TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrVal_AND)
 {
     auto isProc = std::make_shared<PredicateAttrVal<ATTR_TYPE>>(TYPE_PROC);
