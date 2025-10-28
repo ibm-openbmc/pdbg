@@ -40,7 +40,6 @@ executable(
     'transport-app',
     'transport_app.C',
     dependencies: [libfdt_dep, targeting_dep, targetsvc_dep, transport_dep],
-    install: true,
 )
 
 # Build main executable linking with both libraries
@@ -50,3 +49,8 @@ executable(
     dependencies: [libfdt_dep,  targeting_dep, targetsvc_dep],
 )
 
+executable(
+    'performance-app',
+    'performance.C',
+    dependencies: [libfdt_dep,  targeting_dep, targetsvc_dep],
+)
