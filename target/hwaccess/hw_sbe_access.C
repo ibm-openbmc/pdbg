@@ -1,4 +1,5 @@
 #include "hw_sbe_access.H"
+#include <sbei/sbe_cmd_impl.H>
 
 namespace hwaccess
 {
@@ -18,7 +19,7 @@ int HwSbeAccess::getScom(ConstTargetPtr_t target, uint64_t addr, uint64_t& val)
 
     std::cout << "HwSbeAccess::getScom executed" << std::endl;
     
-    return 0; // TBD: Call to SBEI::getScom
+    return sbei::getScom(target, addr, val);
 }
 
 int HwSbeAccess::putScom(ConstTargetPtr_t target, uint64_t addr, uint64_t val)
@@ -31,6 +32,6 @@ int HwSbeAccess::putScom(ConstTargetPtr_t target, uint64_t addr, uint64_t val)
 
     std::cout << "HwSbeAccess::putScom executed" << std::endl;
 
-    return 0; // TBD: Call to SBEI::putScom
+    return sbei::putScom(target, addr, val);
 }
 } //namespace hwaccess
