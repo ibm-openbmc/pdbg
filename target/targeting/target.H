@@ -41,8 +41,8 @@ class TargetDevtreeMap;
  * strings, fixed-size char arrays, entity paths, enums, etc.
  */
 using AttributeValue =
-    std::variant<uint8_t, uint32_t, uint16_t, std::string, std::array<char, 64>,
-                 EntityPath, HW_ACCESS_METHOD, TYPE, CLASS
+    std::variant<uint8_t, uint32_t, uint16_t, uint64_t, std::string,
+                 std::array<char, 64>, EntityPath, HW_ACCESS_METHOD, TYPE, CLASS
                  // Add more types as you specialize more traits
                  >;
 
@@ -212,11 +212,6 @@ class Target
      */
     template <ATTRIBUTE_ID A, typename T>
     bool tryGetAttrImpl(T& o_attrValue) const;
-
-    /**
-     * @brief Implementation for setAttr.
-     */
-    template <ATTRIBUTE_ID A, typename T> void setAttrImpl(const T& attrValue);
 
     /**
      * @brief Implementation for trySetAttr.

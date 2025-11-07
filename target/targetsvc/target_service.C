@@ -4,6 +4,7 @@ extern "C"
 #include <libfdt.h>
 }
 #include <hwaccess/hw_access_intf.H>
+#include <targeting/predicates/predicateattrval.H>
 
 #include <fstream>
 #include <vector>
@@ -34,6 +35,14 @@ void TargetService::init(const std::string& dtbPath)
 
     _targetMap =
         std::unique_ptr<TargetDevtreeMap>(new TargetDevtreeMap(_loader->fdt()));
+
+    PredicateAttrVal<ATTR_TYPE> pred(TYPE_PROC);
+    auto top = getTopLevelTarget();
+    for (auto&& tgt : getAssociated(top, AssociationType::childByPhysical,
+                                    RecursionLevel::all, &pred))
+    {
+        setHwAccessMethod(tgt, HW_ACCESS_METHOD_SBEFIFO);
+    }
 }
 
 TargetPtrList TargetService::getAssociated(
@@ -69,13 +78,15 @@ TargetPtr TargetService::getTopLevelTarget() const
     return _targetMap->getTopLevelTarget();
 }
 
-void TargetService::setHwAccessMethod(TargetPtr target, HwAccessMethod accessMethod)
+void TargetService::setHwAccessMethod(TargetPtr target,
+                                      HwAccessMethod accessMethod)
 {
     target->setAttr<ATTR_HW_ACCESS_METHOD>(accessMethod);
 
-    uintptr_t accessPtr =
-            reinterpret_cast<uintptr_t>(hwaccess::HwAccessIntf::getHwAccessPtr(accessMethod));
+    uintptr_t accessPtr = reinterpret_cast<uintptr_t>(
+        hwaccess::HwAccessIntf::getHwAccessPtr(accessMethod));
 
-    target->setAttr<ATTR_HW_ACCESS_PTR>(static_cast<HwAccessPtrType>(accessPtr));
+    target->setAttr<ATTR_HW_ACCESS_PTR>(
+        static_cast<HwAccessPtrType>(accessPtr));
 }
 } // namespace TARGETING

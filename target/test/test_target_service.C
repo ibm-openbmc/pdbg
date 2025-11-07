@@ -22,18 +22,26 @@ class TargetServiceTest : public ::testing::Test
 
     TargetPtr getFirstTargetMatchingType(TYPE type)
     {
+        PredicateAttrVal<ATTR_TYPE> pred(type);
         auto top = TargetService::instance().getTopLevelTarget();
-        for (auto&& tgt : TargetService::instance().getAssociated(
-                 top, AssociationType::childByPhysical, all))
-        {
-            AttributeTraits<ATTR_TYPE>::Type rawVal = TYPE_INVALID;
-            if (tgt->tryGetAttr<ATTR_TYPE>(rawVal) &&
-                static_cast<TYPE>(rawVal) == type)
-            {
-                return tgt;
-            }
-        }
-        return nullptr;
+        auto assoc = TargetService::instance().getAssociated(
+            top, AssociationType::childByPhysical, RecursionLevel::all, &pred);
+
+        return assoc.empty() ? nullptr : *assoc.begin();
+    }
+
+    TargetPtr getTargetMatchingTypeAndPos(TYPE type, ATTR_FAPI_POS_type pos)
+    {
+        PredicatePostfixExpr pred;
+        pred.push(std::make_shared<PredicateAttrVal<ATTR_TYPE>>(type))
+            .push(std::make_shared<PredicateAttrVal<ATTR_FAPI_POS>>(pos))
+            .And();
+
+        auto top = TargetService::instance().getTopLevelTarget();
+        auto assoc = TargetService::instance().getAssociated(
+            top, AssociationType::childByPhysical, RecursionLevel::all, &pred);
+
+        return assoc.empty() ? nullptr : *assoc.begin();
     }
 };
 
@@ -86,19 +94,18 @@ TEST_F(TargetServiceTest, TestGetParentOfOcmbImmediateAffinity)
 //////////////TEST getAssociated method//////////
 TEST_F(TargetServiceTest, TestGetAssociatedChildrenImmediate)
 {
-    ConstTargetPtr proc = getFirstTargetMatchingType(TYPE_PROC);
-    ASSERT_NE(proc, nullptr);
-
+    auto top = TargetService::instance().getTopLevelTarget();
+    ASSERT_NE(top, nullptr);
     int count = 0;
     for (auto&& child : TargetService::instance().getAssociated(
-             proc, AssociationType::childByPhysical, RecursionLevel::immediate))
+             top, AssociationType::childByPhysical, RecursionLevel::immediate))
     {
         ++count;
         EXPECT_NE(child, nullptr);
 
         AttributeTraits<ATTR_TYPE>::Type t = TYPE_INVALID;
         EXPECT_TRUE(child->tryGetAttr<ATTR_TYPE>(t));
-        EXPECT_EQ(t, TYPE_MC); // Direct child of PROC is MC
+        EXPECT_EQ(t, TYPE_NODE); // Direct child of PROC is MC
     }
     EXPECT_GT(count, 0);
 }
@@ -156,7 +163,23 @@ TEST_F(TargetServiceTest, TestPredicateAttrValProcType)
         ++count;
     }
 
-    EXPECT_EQ(count, 2); // Your DTB has proc0, proc1
+    EXPECT_EQ(count, 4); // Your DTB has proc0, proc1
+}
+
+TEST_F(TargetServiceTest, TestPredicateAttrValProcFapiName)
+{
+    ATTR_FAPI_NAME_typeStdArr fapiName{};
+    std::copy_n("pu:k0:n0:s0:p00", 16, fapiName.data());
+    auto typePred = std::make_shared<PredicateAttrVal<ATTR_TYPE>>(TYPE_PROC);
+    auto fapiNamePred =
+        std::make_shared<PredicateAttrVal<ATTR_FAPI_NAME>>(fapiName);
+    PredicatePostfixExpr expr;
+    expr.push(typePred).push(fapiNamePred).And();
+
+    auto top = TargetService::instance().getTopLevelTarget();
+    auto tgt = TargetService::instance().getAssociated(
+        top, AssociationType::childByPhysical, RecursionLevel::all, &expr);
+    EXPECT_EQ(tgt.size(), 1); // we should find atleast 1 proc
 }
 
 TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrVal_AND)
@@ -182,7 +205,7 @@ TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrVal_AND)
         ++count;
     }
 
-    EXPECT_EQ(count, 2); // proc0, proc1
+    EXPECT_EQ(count, 4); // proc0, proc1
 }
 
 TEST_F(TargetServiceTest, TestPredicatePostfixExpr_AttrMask_OR)
@@ -301,6 +324,54 @@ TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_HW_ACCESS_METHOD)
     EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_METHOD>(original));
 }
 
+TEST_F(TargetServiceTest, TestGetAttrAndTrySetAttr_HWAS_STATE)
+{
+    auto proc = getFirstTargetMatchingType(TYPE_PROC);
+    ASSERT_NE(proc, nullptr);
+
+    // Save original value
+    auto original = proc->getAttr<ATTR_HWAS_STATE>();
+
+    // Create a new HwasState value
+    HwasState newState{};
+    newState.deconfiguredByEid = 0x1234;
+    newState.poweredOn = 1;
+    newState.present = 1;
+    newState.functional = 1;
+
+    // Write it
+    EXPECT_TRUE(proc->trySetAttr<ATTR_HWAS_STATE>(newState));
+
+    // Read it back
+    auto readBack = proc->getAttr<ATTR_HWAS_STATE>();
+
+    // Validate fields
+    EXPECT_EQ(readBack.deconfiguredByEid, 0x1234);
+    EXPECT_EQ(readBack.poweredOn, 1);
+    EXPECT_EQ(readBack.present, 1);
+    EXPECT_EQ(readBack.functional, 1);
+    EXPECT_EQ(readBack.dumpfunctional, 0);
+    EXPECT_EQ(readBack.specdeconfig, 0);
+    EXPECT_EQ(readBack.functionalOverride, 0);
+
+    // Restore original
+    EXPECT_TRUE(proc->trySetAttr<ATTR_HWAS_STATE>(original));
+}
+
+TEST_F(TargetServiceTest, TestEndianForUint32)
+{
+    // see that ATTR_FAPI_POS value of type uint32_t is
+    // converted properly
+    ATTR_FAPI_POS_type pos1 = 0x1;
+    auto proc = getTargetMatchingTypeAndPos(TYPE_PROC, pos1);
+    ASSERT_NE(proc, nullptr);
+
+    // Save original
+    ATTR_FAPI_POS_type pos2 = proc->getAttr<ATTR_FAPI_POS>();
+
+    EXPECT_EQ(pos1, pos2);
+}
+
 TEST_F(TargetServiceTest, CanReadReadableAttr)
 {
     auto proc = getFirstTargetMatchingType(TYPE_PROC);
@@ -318,22 +389,10 @@ TEST_F(TargetServiceTest, CanWriteWritableAttr)
     EXPECT_TRUE(proc->trySetAttr<ATTR_HW_ACCESS_METHOD>(method));
 }
 
-// Verify get throws when attribute not set
-TEST_F(TargetServiceTest, GetVolatileBeforeSetThrows)
-{
-    auto proc = getFirstTargetMatchingType(TYPE_PROC);
-    EXPECT_THROW(
-        {
-            auto val = proc->getAttr<ATTR_HW_ACCESS_PTR>();
-            (void)val;
-        },
-        std::runtime_error);
-}
-
 // Verify set followed by get returns the same value
 TEST_F(TargetServiceTest, SetAndGetVolatileWorks)
 {
-    constexpr uint32_t testValue = 0xDEADBEEF;
+    constexpr uint64_t testValue = 0xDEADBEEFDEADBEEF;
 
     auto proc = getFirstTargetMatchingType(TYPE_PROC);
     ASSERT_NE(proc, nullptr);

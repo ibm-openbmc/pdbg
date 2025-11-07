@@ -21,10 +21,12 @@ targeting_lib = shared_library(
 install_headers(
     'target.H',
     'association.H',
+    'endian_utils.H',
     'target_tmpl.H',
     'xmltohb/attributeenums.H',
     'xmltohb/attributetraits.H',
     'xmltohb/attributestructs.H',
+    'xmltohb/fapi2platattrmacros.H',
     'xmltohb/builtins.h',
     'xmltohb/targAttrIdToName.H',
     'common/entitypath.H',

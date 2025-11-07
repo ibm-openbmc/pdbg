@@ -108,6 +108,10 @@ const std::map<uint32_t,const char*>g_rwAttrIdToNameMap = {
 		"ATTR_FREQ_PAU_MHZ"
 	},
 	{
+		0x968f7cc,
+		"ATTR_FREQ_PAU_VPD_MHZ"
+	},
+	{
 		0x9f670db,
 		"ATTR_FUSED_CORE_OPTION"
 	},
@@ -385,20 +389,16 @@ const std::map<uint32_t,const char*>g_nonRwAttrIdToNameMap = {
 		"ATTR_MRU_ID"
 	},
 	{
+		0xad32e60,
+		"ATTR_NAME"
+	},
+	{
 		0x4da870d,
 		"ATTR_PCI0_REFCLOCK_RCVR_TERM"
 	},
 	{
 		0x0602310,
 		"ATTR_PCI1_REFCLOCK_RCVR_TERM"
-	},
-	{
-		0x9db6a76,
-		"ATTR_PHYS_BIN_PATH"
-	},
-	{
-		0x3399013,
-		"ATTR_PHYS_DEV_PATH"
 	},
 	{
 		0xf7abb7c,

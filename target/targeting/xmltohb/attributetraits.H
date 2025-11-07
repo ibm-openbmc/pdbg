@@ -46,7 +46,6 @@ namespace TARGETING
  *          readable = Attribute is readable
  *          writable = Attribute is writable
  *          hasStringConversion = Attribute has debug string conversion
- *          isvolatile = Attribute is application specific
  *      }
  *
  *      typedef <type> TYPE // <type> is the Attribute's valid type
@@ -414,6 +413,17 @@ class AttributeTraits<ATTR_TPM_SPI_BUS_DIV>
 };
 
 template<>
+class AttributeTraits<ATTR_FREQ_PAU_VPD_MHZ>
+{
+    public:
+        enum { writeable, readable, notHbMutex, notFspMutex, fspAccessible };
+        typedef uint32_t Type;
+#if __cplusplus >= 201103L 
+        static constexpr uint32_t FREQ_PAU_VPD_MHZ_INVALID = 0xFFFFFFFF;
+#endif
+};
+
+template<>
 class AttributeTraits<ATTR_SYSTEM_IPL_PHASE>
 {
     public:
@@ -461,7 +471,7 @@ template<>
 class AttributeTraits<ATTR_BACKUP_SEEPROM_SELECT>
 {
     public:
-        enum { readable, notHbMutex, notFspMutex, fspAccessible };
+        enum { writeable, readable, notHbMutex, notFspMutex, fspAccessible };
         typedef uint8_t Type;
 #if __cplusplus >= 201103L 
         static constexpr uint8_t BACKUP_SEEPROM_SELECT_INVALID = 0xFF;
@@ -472,7 +482,7 @@ template<>
 class AttributeTraits<ATTR_BACKUP_MEASUREMENT_SEEPROM_SELECT>
 {
     public:
-        enum { readable, notHbMutex, notFspMutex, fspAccessible };
+        enum { writeable, readable, notHbMutex, notFspMutex, fspAccessible };
         typedef uint8_t Type;
 #if __cplusplus >= 201103L 
         static constexpr uint8_t BACKUP_MEASUREMENT_SEEPROM_SELECT_INVALID = 0xFF;
@@ -913,6 +923,17 @@ class AttributeTraits<ATTR_FAPI_POS>
 };
 
 template<>
+class AttributeTraits<ATTR_NAME>
+{
+    public:
+        enum { readable, notHbMutex, notFspMutex, fspAccessible };
+        typedef uint8_t Type;
+#if __cplusplus >= 201103L 
+        static constexpr uint8_t NAME_INVALID = 0xFF;
+#endif
+};
+
+template<>
 class AttributeTraits<ATTR_AFFINITY_PATH>
 {
     public:
@@ -1130,29 +1151,6 @@ class AttributeTraits<ATTR_EQ_GARD>
 };
 
 template<>
-class AttributeTraits<ATTR_PHYS_DEV_PATH>
-{
-    public:
-        enum { readable, notHbMutex, notFspMutex, fspAccessible };
-        typedef char Type[64];
-#if __cplusplus >= 201103L 
-        typedef std::array<char, 64> TypeStdArr;
-#endif
-};
-
-template<>
-class AttributeTraits<ATTR_PHYS_BIN_PATH>
-{
-    public:
-        enum { readable, notHbMutex, notFspMutex, fspAccessible };
-        typedef uint8_t Type[21];
-#if __cplusplus >= 201103L 
-        static constexpr uint8_t PHYS_BIN_PATH_INVALID = 0xFF;
-        typedef std::array<uint8_t, 21> TypeStdArr;
-#endif
-};
-
-template<>
 class AttributeTraits<ATTR_FSI_DEVICE_PATH>
 {
     public:
@@ -1244,7 +1242,7 @@ template<>
 class AttributeTraits<ATTR_HW_ACCESS_METHOD>
 {
     public:
-        enum { writeable, readable, notHbMutex, notFspMutex, fspAccessible };
+        enum { writeable, readable, hasStringConversion, notHbMutex, notFspMutex, fspAccessible };
         typedef HW_ACCESS_METHOD Type;
 #if __cplusplus >= 201103L 
         static constexpr uint32_t HW_ACCESS_METHOD_INVALID = 0xFFFFFFFF;
@@ -1255,12 +1253,24 @@ template<>
 class AttributeTraits<ATTR_HW_ACCESS_PTR>
 {
     public:
-        enum { writeable, readable, hasStringConversion, notHbMutex, notFspMutex, fspAccessible, isvolatile };
-        typedef uint32_t Type;
+        enum { writeable, readable, isVolatile, notHbMutex, notFspMutex, fspAccessible };
+        typedef uint64_t Type;
 #if __cplusplus >= 201103L 
-        static constexpr uint32_t HW_ACCESS_PTR_INVALID = 0xFFFFFFFF;
+        static constexpr uint64_t HW_ACCESS_PTR_INVALID = 0xFFFFFFFFFFFFFFFFULL;
 #endif
 };
+
+template<>
+class AttributeTraits<ATTR_HW543384_WAR_MODE>
+{
+    public:
+        enum { readable, notHbMutex, notFspMutex, fspAccessible };
+        typedef uint8_t Type;
+#if __cplusplus >= 201103L
+        static constexpr uint8_t HW543384_WAR_MODE_INVALID = 0xFF;
+#endif
+};
+
 
 /**
  *  @brief Mapping of alias type name to underlying type
@@ -1398,6 +1408,10 @@ typedef uint16_t ATTR_SPI_BUS_DIV_REF_type;
 // Type aliases and/or sizes for ATTR_TPM_SPI_BUS_DIV attribute
 typedef uint16_t TPM_SPI_BUS_DIV_ATTR;
 typedef uint16_t ATTR_TPM_SPI_BUS_DIV_type;
+
+// Type aliases and/or sizes for ATTR_FREQ_PAU_VPD_MHZ attribute
+typedef uint32_t FREQ_PAU_VPD_MHZ_ATTR;
+typedef uint32_t ATTR_FREQ_PAU_VPD_MHZ_type;
 
 // Type aliases and/or sizes for ATTR_SYSTEM_IPL_PHASE attribute
 typedef uint8_t SYSTEM_IPL_PHASE_ATTR;
@@ -1591,6 +1605,10 @@ typedef uint32_t ATTR_POS_type;
 typedef uint32_t FAPI_POS_ATTR;
 typedef uint32_t ATTR_FAPI_POS_type;
 
+// Type aliases and/or sizes for ATTR_NAME attribute
+typedef uint8_t NAME_ATTR;
+typedef uint8_t ATTR_NAME_type;
+
 // Type aliases and/or sizes for ATTR_AFFINITY_PATH attribute
 typedef EntityPath AFFINITY_PATH_ATTR;
 typedef EntityPath ATTR_AFFINITY_PATH_type;
@@ -1679,21 +1697,6 @@ typedef uint8_t ATTR_DISABLE_SECURITY_type;
 typedef uint8_t EQ_GARD_ATTR;
 typedef uint8_t ATTR_EQ_GARD_type;
 
-// Type aliases and/or sizes for ATTR_PHYS_DEV_PATH attribute
-typedef char PHYS_DEV_PATH_ATTR[64];
-typedef char ATTR_PHYS_DEV_PATH_type[64];
-#if __cplusplus >= 201103L 
-typedef std::array<char, 64> ATTR_PHYS_DEV_PATH_typeStdArr;
-#endif
-const size_t ATTR_PHYS_DEV_PATH_max_chars = 63;
-
-// Type aliases and/or sizes for ATTR_PHYS_BIN_PATH attribute
-typedef uint8_t PHYS_BIN_PATH_ATTR[21];
-typedef uint8_t ATTR_PHYS_BIN_PATH_type[21];
-#if __cplusplus >= 201103L 
-typedef std::array<uint8_t, 21> ATTR_PHYS_BIN_PATH_typeStdArr;
-#endif
-
 // Type aliases and/or sizes for ATTR_FSI_DEVICE_PATH attribute
 typedef char FSI_DEVICE_PATH_ATTR[64];
 typedef char ATTR_FSI_DEVICE_PATH_type[64];
@@ -1747,8 +1750,8 @@ typedef HW_ACCESS_METHOD HW_ACCESS_METHOD_ATTR;
 typedef HW_ACCESS_METHOD ATTR_HW_ACCESS_METHOD_type;
 
 // Type aliases and/or sizes for ATTR_HW_ACCESS_PTR attribute
-typedef uint32_t HW_ACCESS_PTR_ATTR;
-typedef uint32_t ATTR_HW_ACCESS_PTR_type;
+typedef uint64_t HW_ACCESS_PTR_ATTR;
+typedef uint64_t ATTR_HW_ACCESS_PTR_type;
 
 
 /**
@@ -1924,6 +1927,11 @@ inline uint32_t attrSizeLookup(ATTRIBUTE_ID i_attrId)
     // Get size for ATTR_TPM_SPI_BUS_DIV attribute
     case ATTR_TPM_SPI_BUS_DIV:
         l_attrSize = sizeof(ATTR_TPM_SPI_BUS_DIV_type);
+        break;
+
+    // Get size for ATTR_FREQ_PAU_VPD_MHZ attribute
+    case ATTR_FREQ_PAU_VPD_MHZ:
+        l_attrSize = sizeof(ATTR_FREQ_PAU_VPD_MHZ_type);
         break;
 
     // Get size for ATTR_SYSTEM_IPL_PHASE attribute
@@ -2151,6 +2159,11 @@ inline uint32_t attrSizeLookup(ATTRIBUTE_ID i_attrId)
         l_attrSize = sizeof(ATTR_FAPI_POS_type);
         break;
 
+    // Get size for ATTR_NAME attribute
+    case ATTR_NAME:
+        l_attrSize = sizeof(ATTR_NAME_type);
+        break;
+
     // Get size for ATTR_AFFINITY_PATH attribute
     case ATTR_AFFINITY_PATH:
         l_attrSize = sizeof(ATTR_AFFINITY_PATH_type);
@@ -2249,16 +2262,6 @@ inline uint32_t attrSizeLookup(ATTRIBUTE_ID i_attrId)
     // Get size for ATTR_EQ_GARD attribute
     case ATTR_EQ_GARD:
         l_attrSize = sizeof(ATTR_EQ_GARD_type);
-        break;
-
-    // Get size for ATTR_PHYS_DEV_PATH attribute
-    case ATTR_PHYS_DEV_PATH:
-        l_attrSize = sizeof(ATTR_PHYS_DEV_PATH_type);
-        break;
-
-    // Get size for ATTR_PHYS_BIN_PATH attribute
-    case ATTR_PHYS_BIN_PATH:
-        l_attrSize = sizeof(ATTR_PHYS_BIN_PATH_type);
         break;
 
     // Get size for ATTR_FSI_DEVICE_PATH attribute

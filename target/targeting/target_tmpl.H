@@ -2,6 +2,7 @@
 
 #include <libfdt.h>
 #include <targeting/common/entitypath.H>
+#include <targeting/endian_utils.H>
 #include <targeting/xmltohb/attributeenums.H>
 #include <targeting/xmltohb/attributetraits.H>
 #include <targeting/xmltohb/targAttrIdToName.H>
@@ -12,6 +13,7 @@
 #include <stdexcept>
 #include <string>
 #include <type_traits>
+
 namespace TARGETING
 {
 
@@ -43,6 +45,11 @@ template <ATTRIBUTE_ID A> consteval bool isCharArrayAttr()
     return std::is_array_v<T> && std::is_same_v<std::remove_extent_t<T>, char>;
 }
 
+template <ATTRIBUTE_ID A> consteval bool isHwasStateAttr()
+{
+    return std::is_same_v<typename AttributeTraits<A>::Type, HwasState>;
+}
+
 // ----------------------------------------
 // Template Wrappers
 // ----------------------------------------
@@ -51,7 +58,7 @@ template <const ATTRIBUTE_ID A>
 typename AttributeTraits<A>::Type Target::getAttr() const
 {
     (void)AttributeTraits<A>::readable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         return getVolatileAttr<A>();
     }
@@ -68,7 +75,7 @@ template <const ATTRIBUTE_ID A>
 typename AttributeTraits<A>::TypeStdArr Target::getAttrAsArray() const
 {
     (void)AttributeTraits<A>::readable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         return getVolatileAttr<A>();
     }
@@ -85,7 +92,7 @@ template <const ATTRIBUTE_ID A>
 bool Target::tryGetAttr(typename AttributeTraits<A>::Type& o_attrValue) const
 {
     (void)AttributeTraits<A>::readable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         o_attrValue = getVolatileAttr<A>();
         return true;
@@ -98,7 +105,7 @@ bool Target::tryGetAttr(
     typename AttributeTraits<A>::TypeStdArr& o_attrValue) const
 {
     (void)AttributeTraits<A>::readable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         o_attrValue = getVolatileAttr<A>();
         return true;
@@ -110,31 +117,31 @@ template <const ATTRIBUTE_ID A>
 void Target::setAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         setVolatileAttr<A>(attrValue);
         return;
     }
-    setAttrImpl<A>(attrValue);
+    trySetAttrImpl<A>(attrValue);
 }
 
 template <const ATTRIBUTE_ID A>
 void Target::setAttr(const typename AttributeTraits<A>::TypeStdArr& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         setVolatileAttr<A>(attrValue);
         return;
     }
-    setAttrImpl<A>(attrValue);
+    trySetAttrImpl<A>(attrValue);
 }
 
 template <const ATTRIBUTE_ID A>
 bool Target::trySetAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         setVolatileAttr<A>(attrValue);
         return true;
@@ -147,7 +154,7 @@ bool Target::trySetAttr(
     const typename AttributeTraits<A>::TypeStdArr& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    if constexpr (requires { AttributeTraits<A>::isvolatile; })
+    if constexpr (requires { AttributeTraits<A>::isVolatile; })
     {
         setVolatileAttr<A>(attrValue);
         return true;
@@ -160,7 +167,7 @@ typename AttributeTraits<A>::Type Target::getVolatileAttr() const
 {
     // compile-time validation
     (void)AttributeTraits<A>::readable;
-    (void)AttributeTraits<A>::isvolatile;
+    (void)AttributeTraits<A>::isVolatile;
 
     using AttrType = typename AttributeTraits<A>::Type;
 
@@ -189,7 +196,7 @@ template <const ATTRIBUTE_ID A>
 void Target::setVolatileAttr(const typename AttributeTraits<A>::Type& attrValue)
 {
     (void)AttributeTraits<A>::writeable;
-    (void)AttributeTraits<A>::isvolatile;
+    (void)AttributeTraits<A>::isVolatile;
     if (!_volatileAttributes)
     {
         _volatileAttributes.emplace();
@@ -197,15 +204,12 @@ void Target::setVolatileAttr(const typename AttributeTraits<A>::Type& attrValue)
     (*_volatileAttributes)[A] = attrValue;
 }
 
-// ----------------------------------------
-// Internal Template Logic
-// ----------------------------------------
 template <ATTRIBUTE_ID A, typename T>
 bool Target::tryGetAttrImpl(T& o_attrValue) const
 {
-    if (auto nameOpt = tryGetAttrName<A>())
+    if (auto nameOpt = tryGetAttrName<A>(); nameOpt)
     {
-        const std::string& propName = *nameOpt;
+        const auto& propName = *nameOpt;
         auto propData = fdtGetProperty(_fdt, _offset, propName);
         if (!propData.has_value())
             return false;
@@ -213,63 +217,79 @@ bool Target::tryGetAttrImpl(T& o_attrValue) const
         auto span = propData.value();
         using TraitType = typename AttributeTraits<A>::Type;
 
-        // Handle string attributes
+        // Helper lambda to copy into contiguous storage safely
+        auto copyBytes = [&](auto& dest) {
+            if (span.size() > sizeof(dest))
+                return false;
+            std::memset(&dest, 0, sizeof(dest));
+            std::memcpy(&dest, span.data(), span.size());
+            return true;
+        };
+
         if constexpr (isStringAttr<A>())
         {
             o_attrValue.assign(reinterpret_cast<const char*>(span.data()),
                                span.size());
-            return true;
         }
-
-        // Handle entity path attributes
         else if constexpr (isEntityPathAttr<A>())
         {
             o_attrValue = EntityPath::fromBinary(span);
             return o_attrValue.getSize() > 0;
         }
-
-        // Handle fixed-size std::array attributes
-        else if constexpr (isStdArrayAttr<A>())
+        else if constexpr (isStdArrayAttr<A>() || isCharArrayAttr<A>() ||
+                           std::is_array_v<TraitType>)
         {
-            if (span.size() > sizeof(TraitType))
+            return copyBytes(o_attrValue);
+        }
+        else if constexpr (isHwasStateAttr<A>())
+        {
+            if (span.size() != sizeof(HwasState))
                 return false;
-            std::memset(o_attrValue.data(), 0, sizeof(TraitType));
-            std::memcpy(o_attrValue.data(), span.data(), span.size());
+
+            HwasState tmp{};
+            std::memcpy(&tmp, span.data(), sizeof(HwasState));
+            tmp.deconfiguredByEid =
+                util::betoh_integral<uint32_t>(tmp.deconfiguredByEid);
+            o_attrValue = tmp;
             return true;
         }
-
-        // Handle fixed-size char array attributes
-        else if constexpr (isCharArrayAttr<A>())
-        {
-            if (span.size() > sizeof(TraitType))
-                return false;
-            std::memset(&o_attrValue, 0, sizeof(TraitType));
-            std::memcpy(&o_attrValue, span.data(), span.size());
-            return true;
-        }
-
-        // Handle scalar / POD attributes
         else
-        {
-            if (span.size() > sizeof(TraitType))
-            {
+        { // scalar/POD
+            if (!copyBytes(o_attrValue))
                 return false;
+            if constexpr ((std::is_integral_v<TraitType> ||
+                           std::is_enum_v<TraitType>) &&
+                          sizeof(TraitType) > 1)
+            {
+                o_attrValue = util::betoh_integral<TraitType>(o_attrValue);
             }
-            TraitType temp{};
-            std::memcpy(&temp, span.data(), span.size());
-            o_attrValue = static_cast<T>(temp);
+            else
+            {
+                static_assert(std::is_trivially_copyable_v<TraitType>,
+
+                              "Unsupported attribute type for tryGetAttrImpl: "
+                              "must be integral, enum, or trivially copyable.");
+            }
             return true;
         }
+
+        return true;
     }
     return false;
 }
 
 template <ATTRIBUTE_ID A, typename T>
-void Target::setAttrImpl(const T& attrValue)
+bool Target::trySetAttrImpl(const T& attrValue)
 {
-    if (auto nameOpt = tryGetAttrName<A>())
+    if (auto nameOpt = tryGetAttrName<A>(); nameOpt)
     {
-        const std::string& propName = *nameOpt;
+        const auto& propName = *nameOpt;
+
+        auto writeSpan = [&](auto& value) {
+            fdtSetRawProperty(_fdt, _offset, propName,
+                              reinterpret_cast<const uint8_t*>(&value),
+                              sizeof(value));
+        };
 
         if constexpr (isStringAttr<A>())
         {
@@ -279,37 +299,42 @@ void Target::setAttrImpl(const T& attrValue)
         {
             fdtSetProperty(_fdt, _offset, propName, attrValue.toBinary());
         }
-        else if constexpr (isStdArrayAttr<A>())
+        else if constexpr (isStdArrayAttr<A>() || isCharArrayAttr<A>() ||
+                           std::is_array_v<T>)
         {
-            const char* cstr = attrValue.data();
-            size_t len = strnlen(cstr, attrValue.size());
-            fdtSetRawProperty(_fdt, _offset, propName, cstr, len + 1);
+            writeSpan(attrValue);
         }
-        else if constexpr (isCharArrayAttr<A>())
+        else if constexpr (isHwasStateAttr<A>())
         {
-            const char* cstr = reinterpret_cast<const char*>(&attrValue);
-            size_t len = strnlen(cstr, sizeof(T));
-            fdtSetRawProperty(_fdt, _offset, propName, cstr, len + 1);
+            HwasState tmp = attrValue;
+            tmp.deconfiguredByEid =
+                util::htobe_integral<uint32_t>(tmp.deconfiguredByEid);
+
+            fdtSetRawProperty(_fdt, _offset, propName,
+                              reinterpret_cast<const uint8_t*>(&tmp),
+                              sizeof(tmp));
         }
         else
-        {
-            fdtSetRawProperty(_fdt, _offset, propName, &attrValue, sizeof(T));
+        { // scalar/POD
+            using TraitType = typename AttributeTraits<A>::Type;
+            TraitType tmp = attrValue;
+            if constexpr ((std::is_integral_v<TraitType> ||
+                           std::is_enum_v<TraitType>) &&
+                          sizeof(TraitType) > 1)
+            {
+                tmp = util::htobe_integral<TraitType>(tmp);
+            }
+            else
+            {
+                static_assert(std::is_trivially_copyable_v<TraitType>,
+                              "Unsupported attribute type for trySetAttrImpl: "
+                              "must be integral, enum, or trivially copyable.");
+            }
+            writeSpan(tmp);
         }
-    }
-}
-
-template <ATTRIBUTE_ID A, typename T>
-bool Target::trySetAttrImpl(const T& attrValue)
-{
-    try
-    {
-        setAttrImpl<A>(attrValue);
         return true;
     }
-    catch (...)
-    {
-        return false;
-    }
+    return false;
 }
 
 template <ATTRIBUTE_ID A>

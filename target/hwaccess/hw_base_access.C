@@ -11,8 +11,6 @@ int HwBaseAccess::getCfam(ConstTargetPtr_t target, uint32_t addr, uint32_t& val)
         std::cerr << "HwBaseAccess::getCfam target is nullptr" << std::endl;
         return -1;
     }
-
-    std::cout << "HwBaseAccess::getCfam executed" << std::endl;
     return transport::getCfam(target, addr, val);
 }
 
@@ -23,8 +21,6 @@ int HwBaseAccess::putCfam(ConstTargetPtr_t target, uint32_t addr, uint32_t val)
         std::cerr << "HwBaseAccess::putCfam target is nullptr" << std::endl;
         return -1;
     }
-    
-    std::cout << "HwBaseAccess::putCfam executed" << std::endl;
     return transport::putCfam(target, addr, val);
 }
 } //namespace hwaccess
