@@ -11,4 +11,5 @@ project(
 
 cpp = meson.get_compiler('cpp')
 
+subdir('sbei')
 subdir('target')  # Delegates to target/meson.build
