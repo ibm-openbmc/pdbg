@@ -104,8 +104,11 @@ static bool get_chipid(uint32_t *chip_id)
 	cfam_id_file = fopen(path, "r");
 	free(path);
 	if (!cfam_id_file) {
-		pdbg_log(PDBG_ERROR, "Unable to open CFAM ID file\n");
-		return false;
+		cfam_id_file = fopen("/sys/bus/fsi/devices/cfam0/chip_id", "r");
+		if (!cfam_id_file) {
+			pdbg_log(PDBG_ERROR, "Unable to open CFAM ID file\n");
+			return false;
+		}
 	}
 
 	rc = fscanf(cfam_id_file, "0x%" PRIx32, &cfam_id);
