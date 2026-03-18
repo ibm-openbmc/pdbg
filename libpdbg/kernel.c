@@ -32,8 +32,10 @@
 
 #define OPENFSI_LEGACY_PATH "/sys/bus/platform/devices/gpio-fsi/"
 #define OPENFSI_PATH "/sys/class/fsi-master/"
+#define OPENFSI_NEW_PATH "/sys/class/fsi-controller/"
 
-const char *fsi_base;
+const char *fsi_base = NULL;
+int new_fsi = 0;
 
 const char *kernel_get_fsi_path(void)
 {
@@ -41,6 +43,13 @@ const char *kernel_get_fsi_path(void)
 
 	if (fsi_base)
 		return fsi_base;
+
+	rc = access(OPENFSI_NEW_PATH, F_OK);
+	if (rc == 0) {
+		new_fsi = 1;
+		fsi_base = OPENFSI_NEW_PATH;
+		return fsi_base;
+	}
 
 	rc = access(OPENFSI_PATH, F_OK);
 	if (rc == 0) {
@@ -82,7 +91,10 @@ static int kernel_fsi_getcfam(struct fsi *fsi, uint32_t addr64, uint32_t *value)
 			PR_ERROR("Failed to read from 0x%08" PRIx32 " (%016" PRIx32 ")\n", (uint32_t) addr, addr64);
 		return rc;
 	}
-	*value = be32toh(tmp);
+	if (new_fsi)
+		*value = tmp;
+	else
+		*value = be32toh(tmp);
 
 	return 0;
 }
@@ -99,7 +111,10 @@ static int kernel_fsi_putcfam(struct fsi *fsi, uint32_t addr64, uint32_t data)
 		return rc;
 	}
 
-	tmp = htobe32(data);
+	if (new_fsi)
+		tmp = data;
+	else
+		tmp = htobe32(data);
 	rc = write(fsi->fd, &tmp, 4);
 	if (rc < 0) {
 		rc = errno;
@@ -157,7 +172,32 @@ int kernel_fsi_probe(struct pdbg_target *target)
 	fsi_path = pdbg_target_property(target, "device-path", NULL);
 	assert(fsi_path);
 
-	rc = asprintf(&path, "%s%s", kernel_get_fsi_path(), fsi_path);
+	if (new_fsi) {
+		const char *cfam_name = "cfam";
+		int ctrlr = 0;
+		int id = 0;
+		int link = 0;
+
+		kernel_path = "/dev/fsi/";
+
+		rc = sscanf(fsi_path, "/fsi%d/slave@%x:%x/raw", &ctrlr, &link, &id);
+		if (rc != 3) {
+			rc = sscanf(fsi_path, "i2cr%d/slave@%x:%x/raw", &ctrlr, &link, &id);
+			if (rc != 3) {
+				PR_ERROR("Unable to parse fsi path %s\n", fsi_path);
+				return rc;
+			}
+
+			cfam_name = "ody";
+		} else {
+			ctrlr *= 100;
+		}
+
+		rc = asprintf(&path, "/dev/fsi/%s%d", cfam_name, ctrlr + link);
+	} else {
+		rc = asprintf(&path, "%s%s", kernel_path, fsi_path);
+	}
+
 	if (rc < 0) {
 		PR_ERROR("Unable to create fsi path\n");
 		return rc;

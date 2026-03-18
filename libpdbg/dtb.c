@@ -43,6 +43,7 @@
 #include "bmc-kernel-rainier.dt.h"
 #include "bmc-kernel-balcones.dt.h"
 #include "bmc-kernel-everest.dt.h"
+#include "bmc-kernel-rbmc.dt.h"
 #include "p8-host.dt.h"
 #include "p9-host.dt.h"
 #include "p10-host.dt.h"
@@ -52,6 +53,7 @@
 #include "bmc-sbefifo-rainier.dt.h"
 #include "bmc-sbefifo-balcones.dt.h"
 #include "bmc-sbefifo-everest.dt.h"
+#include "bmc-sbefifo-rbmc.dt.h"
 #include "p8.dt.h"
 #include "p9.dt.h"
 #include "p10.dt.h"
@@ -70,6 +72,7 @@ static const char* EVEREST = "everest";
 static const char* FUJI = "fuji";
 static const char* BLUERIDGE = "blueridge";
 static const char* BALCONES = "balcones";
+static const char* RBMC = "rbmc";
 
 static struct pdbg_dtb pdbg_dtb = {
 	.backend = {
@@ -101,8 +104,11 @@ static bool get_chipid(uint32_t *chip_id)
 	cfam_id_file = fopen(path, "r");
 	free(path);
 	if (!cfam_id_file) {
-		pdbg_log(PDBG_ERROR, "Unable to open CFAM ID file\n");
-		return false;
+		cfam_id_file = fopen("/sys/bus/fsi/devices/cfam0/chip_id", "r");
+		if (!cfam_id_file) {
+			pdbg_log(PDBG_ERROR, "Unable to open CFAM ID file\n");
+			return false;
+		}
 	}
 
 	rc = fscanf(cfam_id_file, "0x%" PRIx32, &cfam_id);
@@ -342,7 +348,12 @@ static void bmc_target(struct pdbg_dtb *dtb)
 				} else if (contains_substring_ignoring_case(system_type, BALCONES)) {
 					pdbg_log(PDBG_INFO, "bmc_target - loading bmc kernel balcones target");
 					dtb->backend.fdt = &_binary_bmc_kernel_balcones_dtb_o_start;
-				} else {
+				}
+				else if (contains_substring_ignoring_case(system_type,RBMC)) {
+						pdbg_log(PDBG_INFO, "bmc_target - loading bmc kernel rbmc target");
+                                        dtb->backend.fdt = &_binary_bmc_kernel_rbmc_dtb_o_start;
+						}
+				else {
 					pdbg_log(PDBG_INFO, "bmc_target - loading bmc kernel target");
 					dtb->backend.fdt = &_binary_bmc_kernel_dtb_o_start;
 				}
@@ -378,7 +389,13 @@ static void bmc_target(struct pdbg_dtb *dtb)
 			} else if (contains_substring_ignoring_case(system_type, BALCONES)) {
 				pdbg_log(PDBG_INFO, "bmc_target - loading bmc kernel balcones target");
 				dtb->backend.fdt = &_binary_bmc_kernel_balcones_dtb_o_start;
-			} else {
+			}
+			else if (contains_substring_ignoring_case(system_type,RBMC)) {
+					pdbg_log(PDBG_INFO, "bmc_target - loading bmc kernel rbmc target");
+                                dtb->backend.fdt = &_binary_bmc_kernel_rbmc_dtb_o_start;
+
+					}
+		       	else {
 				pdbg_log(PDBG_INFO, "bmc_target - loading bmc kernel target");
 				dtb->backend.fdt = &_binary_bmc_kernel_dtb_o_start;
 			}
@@ -442,7 +459,13 @@ static void sbefifo_target(struct pdbg_dtb *dtb)
 					pdbg_log(PDBG_INFO,
 						"sbefifo_target - loading bmc sbefifo balcones target");
 					dtb->backend.fdt = &_binary_bmc_sbefifo_balcones_dtb_o_start;
-				} else {
+				}
+			       else if (contains_substring_ignoring_case(system_type,RBMC)) {
+					       pdbg_log(PDBG_INFO,
+                                                "sbefifo_target - loading bmc sbefifo rbmc target");
+                                        dtb->backend.fdt = &_binary_bmc_sbefifo_rbmc_dtb_o_start;
+					       }	       
+				else {
 					pdbg_log(PDBG_INFO, "sbefifo_target - loading bmc sbefifo target");
 					dtb->backend.fdt = &_binary_bmc_sbefifo_dtb_o_start;
 				}
@@ -481,7 +504,13 @@ static void sbefifo_target(struct pdbg_dtb *dtb)
 				pdbg_log(PDBG_INFO,
 					"sbefifo_target - loading bmc sbefifo balcones target");
 				dtb->backend.fdt = &_binary_bmc_sbefifo_balcones_dtb_o_start;
-			} else {
+			} 
+			else if (contains_substring_ignoring_case(system_type,RBMC) ){
+                                               pdbg_log(PDBG_INFO,
+                                                "sbefifo_target - loading bmc sbefifo rbmc target");
+                                        dtb->backend.fdt = &_binary_bmc_sbefifo_rbmc_dtb_o_start;
+                                               }  
+			else {
 				pdbg_log(PDBG_INFO, "sbefifo_target - loading bmc sbefifo target");
 				dtb->backend.fdt = &_binary_bmc_sbefifo_dtb_o_start;
 			}
