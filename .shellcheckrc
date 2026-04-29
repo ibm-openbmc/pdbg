@@ -1,0 +1,15 @@
+# Shellcheck configuration
+# Disable informational checks that are false positives or expected behavior
+
+# SC1091: Not following sourced files (expected - shellcheck can't follow dynamic sources)
+disable=SC1091
+
+# SC2102: False positive for pdbg command arguments (not shell glob ranges)
+disable=SC2102
+
+# SC2317: Functions defined for external/indirect use
+disable=SC2317
+
+# Note: Auto-generated libtool wrapper scripts (libpdbg_*_test, hexdump_test, etc.)
+# are excluded via .gitignore and should be removed with 'make clean' before
+# running formatting checks

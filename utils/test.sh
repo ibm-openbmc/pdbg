@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install --no-install-recommends -yy \
 	libtool \
 	git \
 	device-tree-compiler
-RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
+RUN groupadd -g \${GROUPS} \${USER} && useradd -d \${HOME} -m -u \${UID} -g \${GROUPS} \${USER}
 USER ${USER}
 ENV HOME ${HOME}
 RUN /bin/bash

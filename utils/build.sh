@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install --no-install-recommends -yy \
 	libtool \
 	git \
 	device-tree-compiler
-RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
+RUN groupadd -g \${GROUPS} \${USER} && useradd -d \${HOME} -m -u \${UID} -g \${GROUPS} \${USER}
 USER ${USER}
 ENV HOME ${HOME}
 RUN /bin/bash
@@ -34,11 +34,11 @@ ${RUN} ./bootstrap.sh
 # Out-of-tree build, arm
 # TODO: clean up when the build fails
 SRCDIR=$PWD
-TEMPDIR=`mktemp -d ${HOME}/pdbgobjXXXXXX`
+TEMPDIR=$(mktemp -d "${HOME}/pdbgobjXXXXXX")
 RUN_TMP="docker run --rm=true --user=${USER} -w ${TEMPDIR} -v ${HOME}:${HOME} -t ${CONTAINER}"
-${RUN_TMP} ${SRCDIR}/configure --host=arm-linux-gnueabi
+${RUN_TMP} "${SRCDIR}/configure" --host=arm-linux-gnueabi
 ${RUN_TMP} make
-rm -rf ${TEMPDIR}
+rm -rf "${TEMPDIR}"
 
 # In-tree build, arm
 ${RUN} ./configure --host=arm-linux-gnueabi
