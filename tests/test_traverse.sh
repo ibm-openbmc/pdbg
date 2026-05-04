@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. $(dirname "$0")/driver.sh
+. "$(dirname "$0")/driver.sh"
 
 test_group "traverse tests for fake.dts"
 

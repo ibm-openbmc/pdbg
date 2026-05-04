@@ -1,10 +1,10 @@
 #!/bin/sh
 
-TEST_COLOR=no
-TEST_LOG=/dev/null
-TEST_TRS=""
+export TEST_COLOR=no
+export TEST_LOG=/dev/null
+export TEST_TRS=""
 
-. $(dirname "$0")/driver.sh
+. "$(dirname "$0")/driver.sh"
 
 test_setup "echo test start"
 test_cleanup "echo test end"
@@ -47,9 +47,9 @@ test_run echo foo
 
 echo
 
-echo_stderr ()
+echo_stderr()
 {
-	echo "$*" >&2
+    echo "$*" >&2
 }
 
 test_wrapper echo_stderr
@@ -63,10 +63,10 @@ test_wrapper
 
 echo
 
-result_filter ()
+result_filter()
 {
-	sed -e 's#[0-9][0-9][0-9]#NUM3#g' \
-	    -e 's#[0-9][0-9]#NUM2#g'
+    sed -e 's#[0-9][0-9][0-9]#NUM3#g' \
+        -e 's#[0-9][0-9]#NUM2#g'
 }
 
 test_result 0 NUM2
@@ -77,9 +77,9 @@ test_run echo 666
 
 echo
 
-prefix_output ()
+prefix_output()
 {
-	echo "output: $*"
+    echo "output: $*"
 }
 
 test_wrapper prefix_output

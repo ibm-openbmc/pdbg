@@ -133,7 +133,10 @@ void hexdump(uint64_t addr, uint8_t *buf, uint64_t size, uint8_t group_size)
 				else
 					printf("  ");
 			}
-			printf(" ");
+			
+			/* Only print space if not at end of line and more data exists */
+			if (j + group_size < 16 && start_addr + i + j + group_size < addr + size)
+				printf(" ");
 		}
 		printf("\n");
 	}

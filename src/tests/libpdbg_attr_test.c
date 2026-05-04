@@ -49,26 +49,38 @@ static void read_array(struct pdbg_target *target,
 	if (size == 1) {
 		uint8_t *v = (uint8_t *)buf;
 
-		for (i=0; i<count; i++)
-			printf("0x%02x ", v[i]);
+		for (i=0; i<count; i++) {
+			if (i > 0)
+				printf(" ");
+			printf("0x%02x", v[i]);
+		}
 
 	} else if (size == 2) {
 		uint16_t *v = (uint16_t *)buf;
 
-		for (i=0; i<count; i++)
-			printf("0x%04x ", v[i]);
+		for (i=0; i<count; i++) {
+			if (i > 0)
+				printf(" ");
+			printf("0x%04x", v[i]);
+		}
 
 	} else if (size == 4) {
 		uint32_t *v = (uint32_t *)buf;
 
-		for (i=0; i<count; i++)
-			printf("0x%08x ", v[i]);
+		for (i=0; i<count; i++) {
+			if (i > 0)
+				printf(" ");
+			printf("0x%08x", v[i]);
+		}
 
 	} else if (size == 8) {
 		uint64_t *v = (uint64_t *)buf;
 
-		for (i=0; i<count; i++)
-			printf("0x%016" PRIx64 " ", v[i]);
+		for (i=0; i<count; i++) {
+			if (i > 0)
+				printf(" ");
+			printf("0x%016" PRIx64, v[i]);
+		}
 
 	}
 	printf("\n");
@@ -166,28 +178,31 @@ static void read_packed(struct pdbg_target *target,
 		for (i=0; i<strlen(spec); i++) {
 			char ch = spec[i];
 
+			if (j > 0 || i > 0)
+				printf(" ");
+
 			if (ch == '1') {
 				uint8_t u8 = *(uint8_t *)((uint8_t *)buf + pos);
 
-				printf("0x%02x ", u8);
+				printf("0x%02x", u8);
 				pos += 1;
 
 			} else if (ch == '2') {
 				uint16_t u16 = *(uint16_t *)((uint8_t *)buf + pos);
 
-				printf("0x%04x ", u16);
+				printf("0x%04x", u16);
 				pos += 2;
 
 			} else if (ch == '4') {
 				uint32_t u32 = *(uint32_t *)((uint8_t *)buf + pos);
 
-				printf("0x%08x ", u32);
+				printf("0x%08x", u32);
 				pos += 4;
 
 			} else if (ch == '8') {
 				uint64_t u64 = *(uint64_t *)((uint8_t *)buf + pos);
 
-				printf("0x%016" PRIx64 " ", u64);
+				printf("0x%016" PRIx64, u64);
 				pos += 8;
 			}
 		}

@@ -1,6 +1,6 @@
 services:
-    - docker
+  - docker
 
 script:
-    - ./utils/build.sh
-    - ./utils/test.sh
+  - ./utils/build.sh
+  - ./utils/test.sh

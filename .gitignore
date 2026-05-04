@@ -36,10 +36,22 @@ libtool
 *.dts
 *.dt.h
 *.dtb.S
+*.dtb
+pdbg.pc
+libpdbg/pdbg.pc
+openbmc-build-scripts/
 optcmd_test
 *.trs
 *.log
 test-driver
+# Libtool wrapper scripts (auto-generated)
+libpdbg_*_test
+hexdump_test
+cronus_proxy
+validate_dtb
+libpdbg_probe_test1
+libpdbg_probe_test2
+libpdbg_probe_test3
 src/gdb_parser.c
 libtool.m4
 ltoptions.m4
