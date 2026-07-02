@@ -7,7 +7,7 @@ define(`SBEFIFO',
 		reg = <0x0 0x2400 0x7>;
 		compatible = "ibm,kernel-sbefifo";
 		index = <0x$1>;
-		device-path = "/dev/fsi/sbefifo$2";
+		device-path = "/dev/fsi/sbefifo$1";
 
 		sbefifo-pib {
 			#address-cells = <0x2>;
@@ -71,7 +71,7 @@ define(`HMFSI',
 		#address-cells = <0x2>;
 		#size-cells = <0x1>;
 		compatible = "ibm,kernel-fsi";
-		device-path = "/fsi1/slave@0$2:00/raw";
+		device-path = "/fsi0/slave@$2:00/raw";
 		reg = <0x0 0x$1 0x8000>;
 		port = <0x$2>;
 		index = <0x$3>;
