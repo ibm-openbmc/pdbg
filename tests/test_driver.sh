@@ -1,10 +1,14 @@
 #!/bin/sh
 
+# TEST_* variables are consumed by driver.sh
+# shellcheck disable=SC2034
+
 TEST_COLOR=no
 TEST_LOG=/dev/null
 TEST_TRS=""
 
-. $(dirname "$0")/driver.sh
+# shellcheck source=/dev/null
+. "$(dirname "$0")/driver.sh"
 
 test_setup "echo test start"
 test_cleanup "echo test end"

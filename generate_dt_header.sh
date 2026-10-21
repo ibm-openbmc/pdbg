@@ -7,8 +7,6 @@ fi
 
 SYMBOL=$(basename "$1" | sed 's/dts/dtb/' | tr '.-' '_')
 SYM_START="_binary_${SYMBOL}_o_start"
-SYM_END="_binary_${SYMBOL}_o_end"
-SYM_SIZE="_binary_${SYMBOL}_o_size"
 
 cat - <<EOF
 /* This file is auto-generated from generate_dt_header.sh */

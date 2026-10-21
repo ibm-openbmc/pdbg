@@ -81,7 +81,7 @@ set -u
 
 TESTDIR=$(dirname "$0")
 if [ "$TESTDIR" = "." ] ; then
-	TESTDIR=$(cd "$TESTDIR"; pwd)
+	TESTDIR=$(cd "$TESTDIR" || exit; pwd)
 fi
 SRCDIR=$(dirname "$TESTDIR")
 PATH="$SRCDIR":.:$PATH
@@ -92,12 +92,13 @@ test_trsfile=${TEST_TRS:-}
 test_color=${TEST_COLOR:-yes}
 test_exit_failure=${TEST_EXIT_FAILURE:-yes}
 
-red= grn= lgn= blu= mgn= std=
-if [ $test_color = yes ] ; then
+red='' grn='' lgn='' blu='' mgn='' std=''
+if [ "$test_color" = yes ] ; then
 	red='[0;31m' # Red.
 	grn='[0;32m' # Green.
 	lgn='[1;32m' # Light green.
 	blu='[1;34m' # Blue.
+	# shellcheck disable=SC2034
 	mgn='[0;35m' # Magenta.
 	std='[m'     # No color.
 fi
@@ -131,7 +132,7 @@ test_end ()
 {
 	trap 0
 
-	eval $test_cleanup_hooks
+	eval "$test_cleanup_hooks"
 
 	if [ $count_total -eq 0 ] ; then
 		status=99
@@ -182,7 +183,7 @@ test_output ()
 	required_rc=${2:-0}
 	output_mismatch=${3:-0}
 
-	if [ $required_rc -eq 0 ] ; then
+	if [ "$required_rc" -eq 0 ] ; then
 		expect_failure=no
 	else
 		expect_failure=yes
@@ -212,13 +213,13 @@ test_output ()
 	echo "${indent}${col}${res}${std}: ${test_cmd}"
 
 	count_total=$(( count_total + 1 ))
-	if [ $res = "SKIP" ] ; then
+	if [ "$res" = "SKIP" ] ; then
 		count_skipped=$(( count_skipped + 1 ))
-	elif [ $res = "XPASS" -o $res = "FAIL" ] ; then
+	elif [ "$res" = "XPASS" ] || [ "$res" = "FAIL" ] ; then
 		count_failed=$(( count_failed + 1 ))
 	fi
 
-	if [ $count_failed -gt 0 -a "$test_exit_failure" = "yes" ] ; then
+	if [ "$count_failed" -gt 0 ] && [ "$test_exit_failure" = "yes" ] ; then
 		exit 99
 	fi
 }
@@ -260,7 +261,7 @@ test_group ()
 
 	echo "-- $test_name"
 
-	eval $test_setup_hooks
+	eval "$test_setup_hooks"
 	rc=$?
 	if [ $rc -ne 0 ] ; then
 		if [ $rc -eq 77 ] ; then
@@ -338,7 +339,7 @@ test_run ()
 		test_error "ERROR: missing call to test_result"
 	fi
 
-	test_cmd="$@"
+	test_cmd="$*"
 
 	if [ $test_skipped -eq 1 ] ; then
 		test_output 77
@@ -352,7 +353,7 @@ test_run ()
 	output_raw=$($test_wrapper_func "$@" 2>"$stderr_file")
 	rc=$?
 
-	if [ $rc -ne $required_rc ] ; then
+	if [ "$rc" -ne "$required_rc" ] ; then
 		test_log "expected rc: $required_rc"
 		test_log "output rc: $rc"
 	fi
@@ -371,7 +372,7 @@ test_run ()
 	fi
 
 	output_stderr_raw=$(cat "$stderr_file")
-	output_stderr=$(cat "$stderr_file" | result_filter)
+	output_stderr=$(result_filter < "$stderr_file")
 	if [ $test_stderr -eq 1 ] ; then
 		if [ "$output_stderr" != "$required_output_stderr" ] ; then
 			test_log "expected stderr:"
@@ -385,7 +386,7 @@ test_run ()
 			output_mismatch=1
 		fi
 	else
-		if [ $rc -ne $required_rc -o $output_mismatch -eq 1 ] ; then
+		if [ "$rc" -ne "$required_rc" ] || [ "$output_mismatch" -eq 1 ] ; then
 			if [ -n "$output_stderr_raw" ] ; then
 				test_log "output stderr:"
 				test_log "$output_stderr_raw"
@@ -395,7 +396,7 @@ test_run ()
 
 	rm -f "$stderr_file"
 
-	test_output $rc $required_rc $output_mismatch
+	test_output "$rc" "$required_rc" "$output_mismatch"
 	test_skipped=0
 	test_defined=0
 	test_stderr=0

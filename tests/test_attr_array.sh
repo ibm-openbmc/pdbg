@@ -1,6 +1,7 @@
 #!/bin/sh
 
-. $(dirname "$0")/driver.sh
+# shellcheck source=/dev/null
+. "$(dirname "$0")/driver.sh"
 
 FAKE_DTB=fake.dtb
 TEST_DTB=fake-attr-array.dtb

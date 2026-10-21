@@ -1,6 +1,7 @@
 #!/bin/bash
 
-. $(dirname "$0")/driver.sh
+# shellcheck source=/dev/null
+. "$(dirname "$0")/driver.sh"
 
 BMC_TEST=".test.bmc"
 
@@ -20,6 +21,7 @@ load_config ()
 	fi
 
 	fail=0
+	# shellcheck source=/dev/null
 	. "$BMC_TEST"
 
 	for var in "BMC_HOST" "BMC_USER" "BMC_PASS" "PDBG_ARM_BUILD"; do
@@ -37,13 +39,13 @@ copy_pdbg ()
 {
 	sshpass -p "$BMC_PASS" \
 		rsync -Pav "${PDBG_ARM_BUILD}/.libs/"* \
-			${BMC_USER}@${BMC_HOST}:${PDBG_PATH}
+			"${BMC_USER}@${BMC_HOST}:${PDBG_PATH}"
 }
 
 run_over_ssh ()
 {
 	sshpass -p "$BMC_PASS" \
-		ssh ${BMC_USER}@${BMC_HOST} \
+		ssh "${BMC_USER}@${BMC_HOST}" \
 		LD_LIBRARY_PATH="${PDBG_PATH}" \
 		"$@"
 }
@@ -77,6 +79,8 @@ fi
 
 test_wrapper run_over_ssh
 
+# Invoked indirectly by driver.sh
+# shellcheck disable=SC2317
 result_filter ()
 {
 	sed -E -e 's#0x[[:xdigit:]]{16}#HEX16#g' \

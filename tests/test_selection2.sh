@@ -1,6 +1,7 @@
 #!/bin/sh
 
-. $(dirname "$0")/driver.sh
+# shellcheck source=/dev/null
+. "$(dirname "$0")/driver.sh"
 
 test_group "path target selection tests"
 
@@ -366,7 +367,7 @@ proc6: Fake Processor
 EOF
 
 do_skip
-test_run pdbg -b fake -P pib[1-3,5,5-6]/core0/thread0 probe
+test_run pdbg -b fake -P "pib[1-3,5,5-6]/core0/thread0" probe
 
 
 test_result 0 <<EOF
@@ -633,7 +634,7 @@ proc7: Fake Processor
 EOF
 
 do_skip
-test_run pdbg -b fake -P pib[1,3,5,7,9]/core[1,3,5]/thread[0,2] probe
+test_run pdbg -b fake -P "pib[1,3,5,7,9]/core[1,3,5]/thread[0,2]" probe
 
 
 test_result 0 <<EOF
@@ -668,7 +669,7 @@ proc7: Fake Processor
 EOF
 
 do_skip
-test_run pdbg -b fake -P pib[1,3]/core[1,3,5]/thread1 -P pib[5,7-9]/core[1,3,5]/thread1 probe
+test_run pdbg -b fake -P "pib[1,3]/core[1,3,5]/thread1" -P "pib[5,7-9]/core[1,3,5]/thread1" probe
 
 test_result 1 <<EOF
 No valid targets found or specified. Try adding -p/-c/-t options to specify a target.
@@ -803,7 +804,7 @@ proc6: Fake Processor
 EOF
 
 do_skip
-test_run pdbg -b fake -P proc[1-3,5,5-6]/core0/thread0 probe
+test_run pdbg -b fake -P "proc[1-3,5,5-6]/core0/thread0" probe
 
 
 test_result 0 <<EOF

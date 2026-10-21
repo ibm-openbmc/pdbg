@@ -57,11 +57,12 @@ if [ $# -eq 0 ] ; then
 	usage_error "missing argument"
 fi
 
+# shellcheck disable=SC2016
 do_exit='rm -f $log_file $trs_file; (exit $st) ; exit $st'
-trap "st=129; $do_exit" 1
-trap "st=130; $do_exit" 2
-trap "st=141; $do_exit" 13
-trap "st=143; $do_exit" 15
+trap 'st=129; eval "$do_exit"' HUP
+trap 'st=130; eval "$do_exit"' INT
+trap 'st=141; eval "$do_exit"' PIPE
+trap 'st=143; eval "$do_exit"' TERM
 
 export TEST_NAME TEST_LOG TEST_TRS TEST_COLOR
 
@@ -69,7 +70,7 @@ export TEST_NAME TEST_LOG TEST_TRS TEST_COLOR
 "$@"
 estatus=$?
 
-if [ $enable_hard_errors = no -a $estatus -eq 99 ] ; then
+if [ "$enable_hard_errors" = no ] && [ "$estatus" -eq 99 ] ; then
 	tweaked_estatus=1
 else
 	tweaked_estatus=$estatus
@@ -86,6 +87,8 @@ esac
 
 echo "$res $TEST_NAME (exit_status: $estatus)" >> "$TEST_LOG"
 
-echo ":global-test-result: $res" >> "$TEST_TRS"
-echo ":recheck: $recheck" >> "$TEST_TRS"
-echo ":copy-in-global-log: $gcopy" >> "$TEST_TRS"
+{
+	echo ":global-test-result: $res"
+	echo ":recheck: $recheck"
+	echo ":copy-in-global-log: $gcopy"
+} >> "$TEST_TRS"
