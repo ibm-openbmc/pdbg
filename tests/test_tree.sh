@@ -1,6 +1,7 @@
 #!/bin/sh
 
-. $(dirname "$0")/driver.sh
+# shellcheck source=/dev/null
+. "$(dirname "$0")/driver.sh"
 
 test_group "tree tests for fake.dts"
 

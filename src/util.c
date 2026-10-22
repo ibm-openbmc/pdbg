@@ -124,6 +124,9 @@ void hexdump(uint64_t addr, uint8_t *buf, uint64_t size, uint8_t group_size)
 					return;
 				}
 
+				if (k == j && j > 0)
+					printf(" ");
+
 				if (do_prefix) {
 					printf("0x%016" PRIx64 ": ", start_addr + i);
 					do_prefix = false;
@@ -133,7 +136,6 @@ void hexdump(uint64_t addr, uint8_t *buf, uint64_t size, uint8_t group_size)
 				else
 					printf("  ");
 			}
-			printf(" ");
 		}
 		printf("\n");
 	}

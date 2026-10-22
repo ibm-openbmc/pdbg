@@ -300,7 +300,7 @@ static void ppc_target(struct pdbg_dtb *dtb)
 			dtb->system.fdt = &_binary_p9_dtb_o_start;
 	} else if (strncmp(pos, "POWER10", 7) == 0) {
 		pdbg_proc = PDBG_PROC_P10;
-		pdbg_log(PDBG_INFO, "Found a POWER10 PPC host system\n");
+		pdbg_log(PDBG_INFO, "Found a POWER11 PPC host system\n");
 		if (!dtb->backend.fdt)
 			dtb->backend.fdt = &_binary_p10_host_dtb_o_start;
 		if (!dtb->system.fdt)
@@ -363,7 +363,7 @@ static void bmc_target(struct pdbg_dtb *dtb)
 
 	switch(chip_id) {
 	case CHIP_ID_P10:
-		pdbg_log(PDBG_INFO, "Found a POWER10 OpenBMC based system\n");
+		pdbg_log(PDBG_INFO, "Found a POWER11 OpenBMC based system\n");
 		pdbg_proc = PDBG_PROC_P10;
 		if (!dtb->backend.fdt) {
 			char *system_type = get_p10_system_type();
@@ -463,7 +463,7 @@ static void sbefifo_target(struct pdbg_dtb *dtb)
 
 	switch(chip_id) {
 	case CHIP_ID_P10:
-		pdbg_log(PDBG_INFO, "Found a POWER10 OpenBMC based system\n");
+		pdbg_log(PDBG_INFO, "Found a POWER11 OpenBMC based system\n");
 		pdbg_proc = PDBG_PROC_P10;
 		if (!dtb->backend.fdt) {
 			char *system_type = get_p10_system_type();
